@@ -118,7 +118,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseElement.cpp" />
+    <ClCompile Include="BasicElementDraw.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonDraw.cpp" />
+    <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="WindowController.cpp" />
+    <ClCompile Include="WorkWithWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BaseElement.h" />
+    <ClInclude Include="BasicElementDraw.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonDraw.h" />
+    <ClInclude Include="Graphic.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="WindowController.h" />
+    <ClInclude Include="WorkWithWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
