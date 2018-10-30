@@ -121,13 +121,18 @@ RenderWindow *Graphic::getWindow()
 
 bool Graphic::isOpen()
 {
-	return window->isOpen();
+	if (window == nullptr)
+	{
+		return false;
+	}
+	return true;
 }
 
 void Graphic::close()
 {
 	window->close();
 	delete window;
+	window = nullptr;
 }
 
 bool Graphic::pollEvent()

@@ -2,5 +2,19 @@ Tank creation
 683 384
 1280 720
 16
-0
-0
+6
+6
+406 66 40
+standard
+Data/Fonts/DEATHNOTEFont.ttf
+640 230 Create a new tank
+640 296 Modify an existing tank
+640 362 Battle with the bot
+640 428 Battle with the player
+640 494 Settings
+640 560 Exit
+1
+1
+100
+Data/Fonts/DEATHNOTEFont.ttf
+640 70 Tank creation

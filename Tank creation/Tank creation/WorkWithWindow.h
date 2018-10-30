@@ -37,13 +37,15 @@ protected:
 
 	Graphic *graphic;
 
+	Vector2int mousePosition;
+
 	ifstream fileIn;		//for constructor
 
 public:
 	WorkWithWindow(string &fileName)
 	{
 		forConstructor(fileName);
-		cout << "0";
+
 		graphic = new Graphic(screanWidth, screanHeight);
 
 		if (numberOfButton != 0)
