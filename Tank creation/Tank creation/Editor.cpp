@@ -3,12 +3,19 @@
 
 Editor::Editor(string &fileName) : WorkWithWindow(fileName)
 {
-
+	fileIn.close();
 }
 
 Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileName, forCopyWindow)
 {
+	fileIn >> backgroundXCoordinate >> backgroundYCoordinate >> backgroundWidth >> backgroundHeight;
 
+	getline(fileIn, backgroundNameOfPicture);
+	getline(fileIn, backgroundNameOfPicture);
+
+	graphic->setInformation(backgroundXCoordinate, backgroundYCoordinate, backgroundWidth, backgroundHeight, backgroundNameOfPicture);
+
+	fileIn.close();
 }
 
 

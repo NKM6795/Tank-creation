@@ -6,7 +6,8 @@
 
 class Editor : public WorkWithWindow
 {
-
+	int backgroundXCoordinate, backgroundYCoordinate, backgroundWidth, backgroundHeight;
+	string backgroundNameOfPicture;
 
 public:
 	Editor(string &fileName);

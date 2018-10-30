@@ -1,5 +1,6 @@
 #include "Graphic.h"
 
+
 void Graphic::forConstructor()
 {
 	textureForWindow.create(screanWidth, screanHeight);
@@ -7,7 +8,9 @@ void Graphic::forConstructor()
 
 	numberOfButtonDraw = 0;
 	numberOfTextDraw = 0;
+	needBackground = false;
 }
+
 
 Graphic::Graphic(RenderWindow *windowForCopy)
 {
@@ -31,7 +34,15 @@ Graphic::~Graphic()
 
 		delete[] font;
 	}
+
+	if (needBackground)
+	{
+		delete backgroundSprite;
+
+		delete backgroundTexture;
+	}
 }
+
 
 void Graphic::setInformation(int countOfButton, Button *button)
 {
@@ -63,6 +74,20 @@ void Graphic::setInformation(int countOfText, string *text, string *fontName, in
 	}
 }
 
+void Graphic::setInformation(int xCoordinate, int yCoordinate, int width, int height, string fileName)
+{
+	needBackground = true;
+
+	backgroundTexture = new Texture;
+	backgroundTexture->loadFromFile(fileName);
+
+	backgroundSprite = new Sprite;
+	backgroundSprite->setTexture(*backgroundTexture);
+
+	backgroundSprite->setOrigin(width * 0.5f, height * 0.5f);
+	backgroundSprite->setPosition(float(xCoordinate), float(yCoordinate));
+}
+
 
 void Graphic::drawWindow()
 {
@@ -80,6 +105,11 @@ void Graphic::drawWindow()
 
 void Graphic::drawPrivate()
 {
+	if (needBackground)
+	{
+		textureForWindow.draw(*backgroundSprite);
+	}
+
 	for (int i = 0; i < numberOfTextDraw; ++i)
 	{
 		textureForWindow.draw(textDraw[i]);

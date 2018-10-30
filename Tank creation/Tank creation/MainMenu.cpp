@@ -3,7 +3,7 @@
 
 MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 {
-
+	fileIn.close();
 }
 
 void MainMenu::work()

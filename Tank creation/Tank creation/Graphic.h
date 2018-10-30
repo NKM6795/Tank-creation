@@ -21,6 +21,10 @@ class Graphic
 	Text *textDraw;
 	Font *font;
 
+	bool needBackground;
+	Texture *backgroundTexture;
+	Sprite *backgroundSprite;
+
 	
 	int sizeOfDateArrayDraw;
 	
@@ -50,6 +54,8 @@ public:
 	void setInformation(int numberOfButton, Button *button);
 
 	void setInformation(int numberOfText, string *text, string *fontName, int *characterSize, int *xCoordinate, int *yCoordinate);
+
+	void setInformation(int xCoordinate, int yCoordinate, int width, int height, string fileName);
 
 
 	void draw(Button *button);
