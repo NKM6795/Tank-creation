@@ -2,7 +2,7 @@
 
 int main()
 {
-	string fileName = "Data/Date for main menu.dat";
+	string fileName = "Data/Data for main menu.dat";
 
 	WorkWithWindow *window = new MainMenu(fileName);
 

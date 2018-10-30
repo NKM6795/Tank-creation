@@ -122,6 +122,7 @@
     <ClCompile Include="BasicElementDraw.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonDraw.cpp" />
+    <ClCompile Include="Editor.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="BasicElementDraw.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonDraw.h" />
+    <ClInclude Include="Editor.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="WindowController.h" />
