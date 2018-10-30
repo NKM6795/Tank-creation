@@ -27,7 +27,7 @@ void MainMenu::work()
 
 		for (int i = 0; i < numberOfButton; ++i)
 		{
-			button[i].work(mousePosition, Mouse::isButtonPressed(Mouse::Left));
+			button[i].work(mousePosition, Mouse::isButtonPressed(Mouse::Left), timer, timeForWork);
 		}
 
 		graphic->draw(button);

@@ -3,9 +3,9 @@
 
 void Button::setInformation(int xCoordinate, int yCoordinate, int width, int height, int characterSize, string &buttonName, string &buttonType, string &fontName)
 {
-	button.maxTimerForPointing = 50;
-	button.maxTimerForPressing = 20;
-	button.epsilonForScale = 0.00005f;
+	button.maxTimerForPointing = 200;
+	button.maxTimerForPressing = 50;
+	button.epsilonForScale = 0.1f;
 	button.checkTimerForPointing = true;
 	button.checkTimerForPressing = true;
 	button.checkButtonIsPressed = false;
@@ -30,13 +30,16 @@ void Button::setInformation(int xCoordinate, int yCoordinate, int width, int hei
 	button.fileName = button.fileName.insert(button.fileName.find("(") + 1, buttonType);
 }
 
-void Button::work(Vector2int mousePosition, bool isPressed)
+void Button::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 {
+	int deltaPointing = abs(int(button.timerPointing - timer)),
+		deltaPressing = abs(int(button.timerPressing - timer));
+
 	bool mouseInArea = inArea(button.width, button.height, button.xCoordinate, button.yCoordinate, mousePosition);
 
 	if (mouseInArea || button.checkButtonIsPressed)
 	{
-		button.timerPointing += button.timerPointing < 0 ? 1 : button.timerPointing > 0 ? -1 : 0;
+		button.timerPointing = deltaPointing <= 16 ? timer : button.timerPointing + 2 * fps;
 		button.checkTimerForPointing = false;
 	}
 	else
@@ -50,7 +53,7 @@ void Button::work(Vector2int mousePosition, bool isPressed)
 	}
 	else if (mouseInArea && isPressed && button.checkButtonIsPressed)
 	{
-		button.timerPressing += button.timerPressing < 0 ? 1 : button.timerPressing > 0 ? -1 : 0;
+		button.timerPressing = deltaPressing <= 16 ? timer : button.timerPressing + 2 * fps;
 		button.checkTimerForPressing = false;
 
 		if (button.buttonType == "scrollbar")
@@ -75,17 +78,17 @@ void Button::work(Vector2int mousePosition, bool isPressed)
 		button.checkTimerForPointing = true;
 	}
 
-	if (button.timerPointing > -button.maxTimerForPointing && button.timerPointing < button.maxTimerForPointing && button.checkTimerForPointing)
+	if (deltaPointing >= button.maxTimerForPointing && button.checkTimerForPointing)
 	{
-		button.timerPointing += button.timerPointing > 0 ? 1 : -1;
+		button.timerPointing = timer - button.maxTimerForPointing;
 	}
 
-	if (button.timerPressing > -button.maxTimerForPressing && button.timerPressing < button.maxTimerForPressing && button.checkTimerForPressing)
+	if (deltaPressing >= button.maxTimerForPressing && button.checkTimerForPressing)
 	{
-		button.timerPressing += button.timerPressing > 0 ? 1 : -1;
+		button.timerPressing = timer - button.maxTimerForPressing;
 	}
 
-	button.scale = 1 - button.epsilonForScale * ((button.timerPointing * button.timerPointing) + (button.maxTimerForPressing + button.timerPressing) * (button.maxTimerForPressing + button.timerPressing));
+	button.scale = 1 - button.epsilonForScale * ((1.f * deltaPointing * deltaPointing) / (1.f * button.maxTimerForPointing * button.maxTimerForPointing) + (1.f * (button.maxTimerForPressing - deltaPressing) * (button.maxTimerForPressing - deltaPressing)) / (2.f * (button.maxTimerForPressing /*+ button.maxTimerForPointing*/) * (button.maxTimerForPressing /*+ button.maxTimerForPointing*/)));
 }
 
 void Button::setXPosition(int xCoordinate)
