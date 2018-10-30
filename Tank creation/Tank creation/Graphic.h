@@ -2,6 +2,7 @@
 
 
 #include "ButtonDraw.h"
+#include "GraphicForNotificationWindow.h"
 
 
 class Graphic
@@ -12,7 +13,7 @@ class Graphic
 	int screanWidth;
 	int screanHeight;
 	RenderWindow *window;
-	RenderTexture textureForWindow;
+	RenderTexture *textureForWindow;
 
 	int numberOfButtonDraw;
 	ButtonDraw *buttonDraw;
@@ -24,6 +25,13 @@ class Graphic
 	bool needBackground;
 	Texture *backgroundTexture;
 	Sprite *backgroundSprite;
+
+
+	bool needNotificationWindow;
+	Texture *windowBackgroundTexture;
+	Sprite *windowBackgroundSprite;
+	Texture *formTexture;
+	Sprite *formSprite;
 
 	
 	int sizeOfDateArrayDraw;
@@ -57,6 +65,8 @@ public:
 
 	void setInformation(int xCoordinate, int yCoordinate, int width, int height, string fileName);
 
+	void setInformation(int width, int height, bool needInputField, RenderTexture *renderTextureForBackground);
+
 
 	void draw(Button *button);
 	
@@ -66,6 +76,8 @@ public:
 	long long getTimeAsMicroseconds();
 
 	RenderWindow *getWindow();
+
+	RenderTexture *getRenderTexture();
 
 	bool isOpen();
 

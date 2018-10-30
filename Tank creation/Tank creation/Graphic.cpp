@@ -3,12 +3,14 @@
 
 void Graphic::forConstructor()
 {
-	textureForWindow.create(screanWidth, screanHeight);
-	textureForWindow.clear(Color(50, 100, 50));
+	textureForWindow = new RenderTexture;
+	textureForWindow->create(screanWidth, screanHeight);
+	textureForWindow->clear(Color(50, 100, 50));
 
 	numberOfButtonDraw = 0;
 	numberOfTextDraw = 0;
 	needBackground = false;
+	needNotificationWindow = false;
 }
 
 
@@ -23,6 +25,8 @@ Graphic::Graphic(RenderWindow *windowForCopy)
 
 Graphic::~Graphic()
 {
+	delete textureForWindow;
+
 	if (numberOfButtonDraw != 0)
 	{
 		delete[] buttonDraw;
@@ -40,6 +44,17 @@ Graphic::~Graphic()
 		delete backgroundSprite;
 
 		delete backgroundTexture;
+	}
+
+	if (needNotificationWindow)
+	{
+		delete windowBackgroundTexture;
+
+		delete windowBackgroundSprite;
+		
+		delete formTexture;
+		
+		delete formSprite;
 	}
 }
 
@@ -88,31 +103,62 @@ void Graphic::setInformation(int xCoordinate, int yCoordinate, int width, int he
 	backgroundSprite->setPosition(float(xCoordinate), float(yCoordinate));
 }
 
+void Graphic::setInformation(int width, int height, bool needInputField, RenderTexture *renderTextureForBackground)
+{
+	needNotificationWindow = true;
+
+	renderTextureForBackground->display();
+
+	windowBackgroundTexture = new Texture(renderTextureForBackground->getTexture());
+
+	windowBackgroundSprite = new Sprite;
+	windowBackgroundSprite->setTexture(*windowBackgroundTexture);
+	windowBackgroundSprite->setColor(Color(100, 100, 100));
+
+	renderTextureForBackground->clear(Color(50, 100, 50));
+
+	Image *imageForForm = getForm(width, height);
+
+	formTexture = new Texture;
+	formTexture->loadFromImage(*imageForForm);
+
+	formSprite = new Sprite;
+	formSprite->setTexture(*formTexture);
+	formSprite->setOrigin(width * 0.5f, height * 0.5f);
+	formSprite->setPosition(screanWidth * 0.5f, screanHeight * 0.5f);
+}
+
 
 void Graphic::drawWindow()
 {
-	textureForWindow.display();
+	textureForWindow->display();
 	
 	Sprite spriteForWindow;
-	spriteForWindow.setTexture(textureForWindow.getTexture());
+	spriteForWindow.setTexture(textureForWindow->getTexture());
 	window->draw(spriteForWindow);
 	window->display();
 	window->clear(Color(50, 100, 50));
 
-	textureForWindow.clear(Color(50, 100, 50));
+	textureForWindow->clear(Color(50, 100, 50));
 }
 
 
 void Graphic::drawPrivate()
 {
+	if (needNotificationWindow)
+	{
+		textureForWindow->draw(*windowBackgroundSprite);
+		textureForWindow->draw(*formSprite);
+	}
+
 	if (needBackground)
 	{
-		textureForWindow.draw(*backgroundSprite);
+		textureForWindow->draw(*backgroundSprite);
 	}
 
 	for (int i = 0; i < numberOfTextDraw; ++i)
 	{
-		textureForWindow.draw(textDraw[i]);
+		textureForWindow->draw(textDraw[i]);
 	}
 }
 
@@ -120,7 +166,7 @@ void Graphic::drawPrivate(Button *button)
 {
 	for (int i = 0; i < numberOfButtonDraw; ++i)
 	{
-		buttonDraw[i].drawButton(textureForWindow, *button[i].getStruct());
+		buttonDraw[i].drawButton(*textureForWindow, *button[i].getStruct());
 	}
 }
 
@@ -147,6 +193,11 @@ long long Graphic::getTimeAsMicroseconds()
 RenderWindow *Graphic::getWindow()
 {
 	return window;
+}
+
+RenderTexture *Graphic::getRenderTexture()
+{
+	return textureForWindow;
 }
 
 bool Graphic::isOpen()

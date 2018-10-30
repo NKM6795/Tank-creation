@@ -14,8 +14,6 @@ protected:
 	string inputField;
 
 public:
-	NotificationWindow(string &fileName);
-
 	NotificationWindow(string &fileName, Graphic *forCopyWindow);
 
 
