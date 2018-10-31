@@ -22,10 +22,6 @@ void ExitFromEditor::work()
 				windowIsOpen = false;
 				return;
 			}
-			if (graphic->getEvent().type == Event::TextEntered)
-			{
-				inputText(graphic->getEvent().text.unicode);
-			}
 		}
 
 
@@ -59,6 +55,6 @@ void ExitFromEditor::work()
 
 		}
 
-		graphic->draw(button, inputField);
+		graphic->draw(button);
 	}
 }
