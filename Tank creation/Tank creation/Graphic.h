@@ -32,6 +32,9 @@ class Graphic
 	Sprite *windowBackgroundSprite;
 	Texture *formTexture;
 	Sprite *formSprite;
+	bool notificationNeedInputField;
+	Text *notificationText;
+	Font *notificationFont;
 
 	
 	int sizeOfDateArrayDraw;
@@ -45,6 +48,8 @@ class Graphic
 	void drawPrivate();
 
 	void drawPrivate(Button *button);
+
+	void drawPrivate(string &inputField);
 
 public:
 	Graphic(int screanWidth, int screanHeight) : screanWidth(screanWidth), screanHeight(screanHeight)
@@ -65,13 +70,17 @@ public:
 
 	void setInformation(int xCoordinate, int yCoordinate, int width, int height, string fileName);
 
-	void setInformation(int width, int height, bool needInputField, RenderTexture *renderTextureForBackground);
+	void setInformation(int width, int height, bool needInputField, int xCoordinate, int yCoordinate, int characterSize, string fontName, RenderTexture *renderTextureForBackground);
 
 
 	void draw(Button *button);
+
+	void draw(Button *button, string &inputField);
 	
 
 	void drawInRenderTexture(Button *button);
+
+	void drawInRenderTexture(Button *button, string &inputField);
 
 
 	long getTimeAsMilliseconds();

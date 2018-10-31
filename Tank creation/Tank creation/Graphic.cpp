@@ -11,6 +11,7 @@ void Graphic::forConstructor()
 	numberOfTextDraw = 0;
 	needBackground = false;
 	needNotificationWindow = false;
+	notificationNeedInputField = false;
 }
 
 
@@ -55,6 +56,13 @@ Graphic::~Graphic()
 		delete formTexture;
 		
 		delete formSprite;
+	}
+
+	if (notificationNeedInputField)
+	{
+		delete notificationText;
+
+		delete notificationFont;
 	}
 }
 
@@ -103,7 +111,7 @@ void Graphic::setInformation(int xCoordinate, int yCoordinate, int width, int he
 	backgroundSprite->setPosition(float(xCoordinate), float(yCoordinate));
 }
 
-void Graphic::setInformation(int width, int height, bool needInputField, RenderTexture *renderTextureForBackground)
+void Graphic::setInformation(int width, int height, bool needInputField, int xCoordinate, int yCoordinate, int characterSize, string fontName, RenderTexture *renderTextureForBackground)
 {
 	needNotificationWindow = true;
 
@@ -129,6 +137,21 @@ void Graphic::setInformation(int width, int height, bool needInputField, RenderT
 	formSprite->setPosition(screanWidth * 0.5f, screanHeight * 0.5f);
 
 	delete imageForForm;
+
+	notificationNeedInputField = needInputField;
+
+	if (notificationNeedInputField)
+	{
+		notificationFont = new Font;
+		notificationFont->loadFromFile(fontName);
+		
+		notificationText = new Text;
+		notificationText->setFont(*notificationFont);
+		notificationText->setFillColor(Color::White);
+		notificationText->setCharacterSize(characterSize);
+		notificationText->setPosition(float(xCoordinate), float(yCoordinate));
+		notificationText->setOrigin(0.f, characterSize * 0.5f);
+	}
 }
 
 
@@ -173,10 +196,24 @@ void Graphic::drawPrivate(Button *button)
 	}
 }
 
+void Graphic::drawPrivate(string &inputField)
+{
+	notificationText->setString(inputField);
+	notificationText->setOrigin(notificationText->getLocalBounds().width * 0.5f, notificationText->getOrigin().y);
+	textureForWindow->draw(*notificationText);
+}
+
 
 void Graphic::draw(Button *button)
 {
 	drawInRenderTexture(button);
+
+	drawWindow();
+}
+
+void Graphic::draw(Button *button, string &inputField)
+{
+	drawInRenderTexture(button, inputField);
 
 	drawWindow();
 }
@@ -186,6 +223,12 @@ void Graphic::drawInRenderTexture(Button *button)
 {
 	drawPrivate();
 	drawPrivate(button);
+}
+
+void Graphic::drawInRenderTexture(Button *button, string &inputField)
+{
+	drawInRenderTexture(button);
+	drawPrivate(inputField);
 }
 
 
