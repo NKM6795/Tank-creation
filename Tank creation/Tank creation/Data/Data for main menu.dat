@@ -4,9 +4,9 @@ Tank creation
 16
 6
 6
-406 66 40
+406 66 33
 standard
-Data/Fonts/DEATHNOTEFont.ttf
+Data/Fonts/Strangiato.otf
 640 230 Create a new tank
 640 296 Modify an existing tank
 640 362 Battle with the bot
@@ -16,5 +16,5 @@ Data/Fonts/DEATHNOTEFont.ttf
 1
 1
 100
-Data/Fonts/DEATHNOTEFont.ttf
+Data/Fonts/Strangiato.otf
 640 70 Tank creation

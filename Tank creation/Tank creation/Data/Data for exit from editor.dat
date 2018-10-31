@@ -4,16 +4,16 @@ Exit from editior
 16
 2
 2
-116 66 40
+116 66 33
 small
-Data/Fonts/DEATHNOTEFont.ttf
+Data/Fonts/Strangiato.otf
 540 440 Save
 740 440 Yes
 2
 2
-40
-Data/Fonts/DEATHNOTEFont.ttf
+33
+Data/Fonts/Strangiato.otf
 640 280 Attention
 640 330 To exit without saving, click "Yes"
-534 240 1 640 370 40 30
-Data/Fonts/DEATHNOTEFont.ttf
+554 240 1 640 370 33 30
+Data/Fonts/Strangiato.otf
