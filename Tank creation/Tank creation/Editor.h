@@ -2,6 +2,7 @@
 
 
 #include "WorkWithWindow.h"
+#include "ExitFromEditor.h"
 
 
 class Editor : public WorkWithWindow

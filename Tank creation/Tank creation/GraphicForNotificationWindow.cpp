@@ -36,14 +36,18 @@ Image *getForm(int width, int height)
 
 	RenderTexture renderTextureForResult;
 	renderTextureForResult.create(width, height);
-	
-	drawFramework(renderTextureForResult, 0, 0, width, height);
+	renderTextureForResult.clear(Color(84, 63, 37));
+
+
+	drawFramework(renderTextureForResult, 3, 3, width - 3, height - 3);
 	renderTextureForResult.display();
 
 	Texture textureForResult;
 	textureForResult = renderTextureForResult.getTexture();
 
-	result = new Image(textureForResult.copyToImage());
+	result = new Image;
+	result->create(width, height, Color(84, 63, 37));
+	result->copy(renderTextureForResult.getTexture().copyToImage(), 0, 0, IntRect(0, 0, width, height), true);
 
 	return result;
 }

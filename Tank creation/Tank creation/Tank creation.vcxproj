@@ -123,6 +123,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonDraw.cpp" />
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="ExitFromEditor.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="GraphicForNotificationWindow.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonDraw.h" />
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="ExitFromEditor.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="GraphicForNotificationWindow.h" />
     <ClInclude Include="MainMenu.h" />

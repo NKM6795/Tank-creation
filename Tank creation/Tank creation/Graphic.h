@@ -71,6 +71,9 @@ public:
 	void draw(Button *button);
 	
 
+	void drawInRenderTexture(Button *button);
+
+
 	long getTimeAsMilliseconds();
 
 	long long getTimeAsMicroseconds();

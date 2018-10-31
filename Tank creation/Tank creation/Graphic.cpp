@@ -117,7 +117,8 @@ void Graphic::setInformation(int width, int height, bool needInputField, RenderT
 
 	renderTextureForBackground->clear(Color(50, 100, 50));
 
-	Image *imageForForm = getForm(width, height);
+	Image *imageForForm;
+	imageForForm = getForm(width, height);
 
 	formTexture = new Texture;
 	formTexture->loadFromImage(*imageForForm);
@@ -126,6 +127,8 @@ void Graphic::setInformation(int width, int height, bool needInputField, RenderT
 	formSprite->setTexture(*formTexture);
 	formSprite->setOrigin(width * 0.5f, height * 0.5f);
 	formSprite->setPosition(screanWidth * 0.5f, screanHeight * 0.5f);
+
+	delete imageForForm;
 }
 
 
@@ -173,10 +176,16 @@ void Graphic::drawPrivate(Button *button)
 
 void Graphic::draw(Button *button)
 {
-	drawPrivate();
-	drawPrivate(button);
+	drawInRenderTexture(button);
 
 	drawWindow();
+}
+
+
+void Graphic::drawInRenderTexture(Button *button)
+{
+	drawPrivate();
+	drawPrivate(button);
 }
 
 

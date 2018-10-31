@@ -51,6 +51,18 @@ void Editor::work()
 					windowIsOpen = false;
 					return;
 				}
+				else if (button[i].getStruct()->buttonName == "Save")
+				{
+					needNewWindow = true;
+
+					string fileName = "Data/Data for exit from editor.dat";
+
+					graphic->drawInRenderTexture(button);
+
+					newWindow = new ExitFromEditor(fileName, graphic);
+
+					button[i].setActivateAnAction(false);
+				}
 			}
 
 		}
