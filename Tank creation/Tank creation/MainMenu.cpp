@@ -56,6 +56,8 @@ void MainMenu::work()
 
 					string fileName = "Data/Data for not available.dat";
 
+					graphic->drawInRenderTexture(button);
+
 					newWindow = new NotAvailable(fileName, graphic);
 
 					button[i].setActivateAnAction(false);

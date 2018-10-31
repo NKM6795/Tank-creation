@@ -3,6 +3,7 @@
 
 #include "WorkWithWindow.h"
 #include "ExitFromEditor.h"
+#include "NotAvailable.h"
 
 
 class Editor : public WorkWithWindow

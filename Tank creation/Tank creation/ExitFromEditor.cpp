@@ -38,10 +38,22 @@ void ExitFromEditor::work()
 		{
 			if (button[i].getActivateAnAction())
 			{
-				if (button[i].getStruct()->buttonName == "Yes")
+				if (button[i].getStruct()->buttonName == "Cancel")
 				{
 					windowIsOpen = false;
 					return;
+				}
+				else
+				{
+					needNewWindow = true;
+
+					string fileName = "Data/Data for not available.dat";
+
+					graphic->drawInRenderTexture(button);
+
+					newWindow = new NotAvailable(fileName, graphic);
+
+					button[i].setActivateAnAction(false);
 				}
 			}
 

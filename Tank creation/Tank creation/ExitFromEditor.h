@@ -2,6 +2,7 @@
 
 
 #include "NotificationWindow.h"
+#include "NotAvailable.h"
 
 
 class ExitFromEditor : public NotificationWindow

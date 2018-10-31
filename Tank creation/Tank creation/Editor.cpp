@@ -31,8 +31,13 @@ void Editor::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowIsOpen = false;
-				return;
+				needNewWindow = true;
+
+				string fileName = "Data/Data for exit from editor.dat";
+
+				graphic->drawInRenderTexture(button);
+
+				newWindow = new ExitFromEditor(fileName, graphic);
 			}
 		}
 
@@ -48,11 +53,6 @@ void Editor::work()
 			{
 				if (button[i].getStruct()->buttonName == "Back")
 				{
-					windowIsOpen = false;
-					return;
-				}
-				else if (button[i].getStruct()->buttonName == "Save")
-				{
 					needNewWindow = true;
 
 					string fileName = "Data/Data for exit from editor.dat";
@@ -60,6 +60,18 @@ void Editor::work()
 					graphic->drawInRenderTexture(button);
 
 					newWindow = new ExitFromEditor(fileName, graphic);
+
+					button[i].setActivateAnAction(false);
+				}
+				else
+				{
+					needNewWindow = true;
+
+					string fileName = "Data/Data for not available.dat";
+
+					graphic->drawInRenderTexture(button);
+
+					newWindow = new NotAvailable(fileName, graphic);
 
 					button[i].setActivateAnAction(false);
 				}
