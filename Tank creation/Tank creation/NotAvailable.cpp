@@ -1,12 +1,13 @@
-#include "MainMenu.h"
+#include "NotAvailable.h"
 
 
-MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
+NotAvailable::NotAvailable(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
 {
 	fileIn.close();
 }
 
-void MainMenu::work()
+
+void NotAvailable::work()
 {
 	if (graphic->getTimeAsMilliseconds() - timer >= timeForWork)
 	{
@@ -18,7 +19,6 @@ void MainMenu::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				graphic->close();
 				windowIsOpen = false;
 				return;
 			}
@@ -34,31 +34,10 @@ void MainMenu::work()
 		{
 			if (button[i].getActivateAnAction())
 			{
-				if (button[i].getStruct()->buttonName == "Exit")
+				if (button[i].getStruct()->buttonName == "Ok")
 				{
-					graphic->close();
 					windowIsOpen = false;
 					return;
-				}
-				else if (button[i].getStruct()->buttonName == "Create a new tank")
-				{
-					needNewWindow = true;
-
-					string fileName = "Data/Data for editor.dat";
-
-					newWindow = new Editor(fileName, graphic);
-
-					button[i].setActivateAnAction(false);
-				}
-				else
-				{
-					needNewWindow = true;
-
-					string fileName = "Data/Data for not available.dat";
-
-					newWindow = new NotAvailable(fileName, graphic);
-
-					button[i].setActivateAnAction(false);
 				}
 			}
 
