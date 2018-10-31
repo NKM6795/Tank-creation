@@ -1,99 +1,144 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Graphic">
+      <UniqueIdentifier>{125f71b2-34db-4f77-a8db-5d8ee550d044}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Graphic\Header Files">
+      <UniqueIdentifier>{755c14b3-d08b-4f02-87b2-b0ca1f7201c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Graphic\Source Files">
+      <UniqueIdentifier>{c8b748a9-72fd-48bc-abeb-d7780f9236fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base Element">
+      <UniqueIdentifier>{5059d96a-b142-4fbc-b5c2-7e767f9a7ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base Element\Header Files">
+      <UniqueIdentifier>{0f1787b7-aa76-4030-b99c-71ce5d26eee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base Element\Sourse Files">
+      <UniqueIdentifier>{6f83d243-da8f-4c63-82b5-c0f32882131e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Button">
+      <UniqueIdentifier>{7cf3fa6f-0c97-4b33-a314-12f8e1f89e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Button\Header Files">
+      <UniqueIdentifier>{141c7100-6873-491c-8e74-1d7f70d3976f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Button\Sourse Files">
+      <UniqueIdentifier>{1708346d-663b-4b32-b62b-c1c3bdb71213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{6e564aeb-93e4-488b-a4c7-6c2c272f2e09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Header Files">
+      <UniqueIdentifier>{ab3586c9-0072-4bcf-b239-2733dd6ae8e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Sourse Files">
+      <UniqueIdentifier>{8e340d61-0367-46d9-9675-26789b23d22c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Notification Windows">
+      <UniqueIdentifier>{b11e9fc8-a471-4184-b0b1-9937104a819a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Notification Windows\Header Files">
+      <UniqueIdentifier>{7d07fe29-3fb8-443a-bfe5-1728ff0b8f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Notification Windows\Source Files">
+      <UniqueIdentifier>{b4e03b10-ed1e-4832-a243-2f712f909f2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Window Controller">
+      <UniqueIdentifier>{b9505c25-b9f5-4692-a813-d28ae3fad6af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Window Controller\Header Files">
+      <UniqueIdentifier>{69373345-e6bd-4b0a-99cf-1887bc01c146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Window Controller\Source Files">
+      <UniqueIdentifier>{9bb6b4a9-f8d2-4fc3-999b-f7223ae8005c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{e3ed8c49-73a3-4989-aa16-86847c68c403}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseElement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BasicElementDraw.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Graphic\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ButtonDraw.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Graphic\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Graphic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WorkWithWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Editor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NotificationWindow.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Graphic\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GraphicForNotificationWindow.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Graphic\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseElement.cpp">
+      <Filter>Base Element\Sourse Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Button\Sourse Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NotificationWindow.cpp">
+      <Filter>Windows\Notification Windows\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExitFromEditor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Windows\Notification Windows\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>Windows\Sourse Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Windows\Sourse Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkWithWindow.cpp">
+      <Filter>Windows\Sourse Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowController.cpp">
+      <Filter>Windows\Window Controller\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseElement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BasicElementDraw.h">
-      <Filter>Header Files</Filter>
+      <Filter>Graphic\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ButtonDraw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WorkWithWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Editor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NotificationWindow.h">
-      <Filter>Header Files</Filter>
+      <Filter>Graphic\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicForNotificationWindow.h">
-      <Filter>Header Files</Filter>
+      <Filter>Graphic\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic.h">
+      <Filter>Graphic\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseElement.h">
+      <Filter>Base Element\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Button\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NotificationWindow.h">
+      <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExitFromEditor.h">
-      <Filter>Header Files</Filter>
+      <Filter>Windows\Notification Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkWithWindow.h">
+      <Filter>Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowController.h">
+      <Filter>Windows\Window Controller\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
