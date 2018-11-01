@@ -25,6 +25,17 @@ void Editor::work()
 	{
 		timer += timeForWork;
 
+		if (needWindowResult)
+		{
+			if (windowResult == "Exit.")
+			{
+				windowIsOpen = false;
+				return;
+			}
+			needWindowResult = false;
+		}
+
+
 		mousePosition = graphic->getPositionOfMouse();
 
 		while (graphic->pollEvent())
@@ -32,6 +43,7 @@ void Editor::work()
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
 				needNewWindow = true;
+				needWindowResult = true;
 
 				string fileName = "Data/Data for exit from editor.dat";
 
@@ -54,6 +66,7 @@ void Editor::work()
 				if (button[i].getStruct()->buttonName == "Back")
 				{
 					needNewWindow = true;
+					needWindowResult = true;
 
 					string fileName = "Data/Data for exit from editor.dat";
 

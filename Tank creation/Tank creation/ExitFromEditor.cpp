@@ -39,6 +39,13 @@ void ExitFromEditor::work()
 					windowIsOpen = false;
 					return;
 				}
+				if (button[i].getStruct()->buttonName == "Yes")
+				{
+					windowResult = "Exit.";
+
+					windowIsOpen = false;
+					return;
+				}
 				else
 				{
 					needNewWindow = true;

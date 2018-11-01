@@ -35,6 +35,9 @@ protected:
 	bool needNewWindow;
 	WorkWithWindow *newWindow;
 
+	bool needWindowResult;
+	string windowResult;
+
 	Graphic *graphic;
 
 	Vector2int mousePosition;
@@ -108,6 +111,12 @@ public:
 	void finishNewWindow();
 
 	WorkWithWindow *getNewWindow();
+
+	bool getNeedWindowResult();
+
+	string getWindowResult();
+
+	void setWindowResult(string result);
 
 	virtual void work() = 0;
 };

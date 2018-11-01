@@ -13,6 +13,11 @@ void windowController(WorkWithWindow *window)
 
 			windowController(newWindow);
 
+			if (window->getNeedWindowResult())
+			{
+				window->setWindowResult(newWindow->getWindowResult());
+			}
+
 			window->finishNewWindow();
 		}
 	}

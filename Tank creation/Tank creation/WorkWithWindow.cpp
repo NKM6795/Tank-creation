@@ -5,6 +5,7 @@ void WorkWithWindow::forConstructor(string &fileName)
 {
 	windowIsOpen = true;
 	needNewWindow = false;
+	needWindowResult = false;
 
 	fileIn.open(fileName);
 
@@ -117,6 +118,21 @@ void WorkWithWindow::finishNewWindow()
 {
 	needNewWindow = false;
 	delete newWindow;
+}
+
+bool WorkWithWindow::getNeedWindowResult()
+{
+	return needWindowResult;
+}
+
+string WorkWithWindow::getWindowResult()
+{
+	return windowResult;
+}
+
+void WorkWithWindow::setWindowResult(string result)
+{
+	windowResult = result;
 }
 
 WorkWithWindow *WorkWithWindow::getNewWindow()
