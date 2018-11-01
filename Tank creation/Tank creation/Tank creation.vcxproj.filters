@@ -4,12 +4,6 @@
     <Filter Include="Graphic">
       <UniqueIdentifier>{125f71b2-34db-4f77-a8db-5d8ee550d044}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphic\Header Files">
-      <UniqueIdentifier>{755c14b3-d08b-4f02-87b2-b0ca1f7201c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphic\Source Files">
-      <UniqueIdentifier>{c8b748a9-72fd-48bc-abeb-d7780f9236fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base Element">
       <UniqueIdentifier>{5059d96a-b142-4fbc-b5c2-7e767f9a7ca6}</UniqueIdentifier>
     </Filter>
@@ -58,22 +52,85 @@
     <Filter Include="Main">
       <UniqueIdentifier>{e3ed8c49-73a3-4989-aa16-86847c68c403}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tank And Components">
+      <UniqueIdentifier>{806f7ed9-be00-442c-9836-b1a23f38398e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank And Components\Tank">
+      <UniqueIdentifier>{0280c407-5c3d-416a-b8af-0cd486ed8299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank And Components\Tank\Header Files">
+      <UniqueIdentifier>{96620b49-864a-46f6-9c8a-d2097eeacdd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank And Components\Tank\Source Files">
+      <UniqueIdentifier>{6581ed1c-905d-4fea-aad9-9836513ffcf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank And Components\Components">
+      <UniqueIdentifier>{26f9d75b-4932-42f4-ada1-e58aaa5777d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank And Components\Components\Header Files">
+      <UniqueIdentifier>{ccccbb95-2c6a-4709-8a8a-c70e8fd219a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tank And Components\Components\Source Files">
+      <UniqueIdentifier>{92b219e6-c7c6-48f2-942f-18a9bd327555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Button">
+      <UniqueIdentifier>{cd08e003-d5a2-4372-81bb-60039256d001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Button\Header Files">
+      <UniqueIdentifier>{44466535-5359-4ac2-8ee8-94fd03e38cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Button\Source Files">
+      <UniqueIdentifier>{7a29c3a3-b7cc-400f-bf38-95d244ea177e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Base Element">
+      <UniqueIdentifier>{6295bb2d-efc4-4f49-b3a7-7e58f323f053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Base Element\Header Files">
+      <UniqueIdentifier>{d10b3fff-dc98-4ad8-b64a-c96893c78e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Base Element\Source Files">
+      <UniqueIdentifier>{479dfb5b-9bf9-4905-bf73-df975ba55a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Window">
+      <UniqueIdentifier>{556d25c3-1b53-40ab-b254-0c5e07b0a200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Window\Header Files">
+      <UniqueIdentifier>{755c14b3-d08b-4f02-87b2-b0ca1f7201c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Window\Source Files">
+      <UniqueIdentifier>{c8b748a9-72fd-48bc-abeb-d7780f9236fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Tank And Components">
+      <UniqueIdentifier>{c5862e5f-292b-4159-aee8-411217388efb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Tank And Components\Tank">
+      <UniqueIdentifier>{789b5391-75f8-44c2-9bbc-2b579d3b8489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Tank And Components\Components">
+      <UniqueIdentifier>{26290114-d248-4912-b528-5746b964a1ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Tank And Components\Tank\Header Files">
+      <UniqueIdentifier>{a3ee54bf-2199-45d3-b2b3-bcc13e113186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Tank And Components\Tank\Source Files">
+      <UniqueIdentifier>{3da02c8f-1672-4c52-96d4-ff70b6dc16af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Tank And Components\Components\Header Files">
+      <UniqueIdentifier>{d0e63c2b-43fa-4c09-9d64-6aef7574a2ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Tank And Components\Components\Source Files">
+      <UniqueIdentifier>{0c02294a-2a93-4032-82d4-896e36ed6390}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BasicElementDraw.cpp">
-      <Filter>Graphic\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ButtonDraw.cpp">
-      <Filter>Graphic\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Graphic.cpp">
-      <Filter>Graphic\Source Files</Filter>
+      <Filter>Graphic\Window\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GraphicForNotificationWindow.cpp">
-      <Filter>Graphic\Source Files</Filter>
+      <Filter>Graphic\Window\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseElement.cpp">
       <Filter>Base Element\Sourse Files</Filter>
@@ -105,19 +162,22 @@
     <ClCompile Include="NotAvailable.cpp">
       <Filter>Windows\Notification Windows\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonDraw.cpp">
+      <Filter>Graphic\Button\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicElementDraw.cpp">
+      <Filter>Graphic\Base Element\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasicElementDraw.h">
-      <Filter>Graphic\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonDraw.h">
-      <Filter>Graphic\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicForNotificationWindow.h">
-      <Filter>Graphic\Header Files</Filter>
+      <Filter>Graphic\Window\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphic.h">
-      <Filter>Graphic\Header Files</Filter>
+      <Filter>Graphic\Window\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseElement.h">
       <Filter>Base Element\Header Files</Filter>
@@ -145,6 +205,15 @@
     </ClInclude>
     <ClInclude Include="NotAvailable.h">
       <Filter>Windows\Notification Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonDraw.h">
+      <Filter>Graphic\Button\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicElementDraw.h">
+      <Filter>Graphic\Base Element\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
