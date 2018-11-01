@@ -171,6 +171,9 @@
     <ClCompile Include="BasicElementDraw.cpp">
       <Filter>Graphic\Base Element\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="BasicElementDraw.h">
       <Filter>Graphic\Base Element\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

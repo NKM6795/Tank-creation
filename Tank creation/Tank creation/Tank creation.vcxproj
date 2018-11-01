@@ -118,6 +118,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="BaseElement.cpp" />
     <ClCompile Include="BasicElementDraw.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="WorkWithWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="BaseElement.h" />
     <ClInclude Include="BasicElementDraw.h" />
     <ClInclude Include="Button.h" />

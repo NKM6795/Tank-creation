@@ -15,11 +15,12 @@ struct ComponentParameter
 
 class Component
 {
-	ComponentParameter component;
+	ComponentParameter *component;
 
 public:
 	Component(string objectName, string typeName, string identifierName, int numberOfVariant);
 
+	virtual ~Component();
 
 	ComponentParameter *getStruct();
 };
