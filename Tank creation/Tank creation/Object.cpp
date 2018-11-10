@@ -50,6 +50,16 @@ Object::Object(Component *component) : component(component)
 	needDraw = true;
 }
 
+Object::Object(Component *component, int index) : component(component), index(index)
+{
+	xCoordinate = 0;
+	yCoordinate = 0;
+
+	healthPoints = -1;
+
+	needDraw = true;
+}
+
 
 Object::~Object()
 {

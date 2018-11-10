@@ -5,3 +5,19 @@ BackgroundComponent::BackgroundComponent(string objectName, string typeName, str
 {
 
 }
+
+
+Background::Background() : Object()
+{
+
+}
+
+Background::Background(Component *component) : Object(component)
+{
+
+}
+
+Background::Background(Component *component, int index) : Object(component, index)
+{
+
+}

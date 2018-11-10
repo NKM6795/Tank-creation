@@ -19,5 +19,9 @@ class Background : public Object
 
 
 public:
+	Background();
+	Background(Component *component);
+	Background(Component *component, int index);
+
 
 };

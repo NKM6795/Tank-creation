@@ -3,7 +3,50 @@
 
 MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 {
+	string objectName, typeName, identifierName;
+	
+	int numberOfType, numberInType, numberOfVariant, numberInVariant;
+
+	getline(fileIn, objectName);
+
+	fileIn >> numberOfType;
+	for (int i = 0; i < numberOfType; ++i)
+	{
+		fileIn >> numberInType;
+		for (int j = 0; j < numberInType; ++j)
+		{
+			getline(fileIn, typeName);
+			getline(fileIn, typeName);
+
+			fileIn >> numberOfVariant;
+			for (int l = 0; l < numberOfVariant; ++l)
+			{
+				fileIn >> numberInVariant;
+
+				getline(fileIn, identifierName);
+				getline(fileIn, identifierName);
+
+				Component *newComponent;
+
+				if (typeName == "/background")
+				{
+					newComponent = new BackgroundComponent(objectName, typeName + to_string(j + 1), identifierName, numberInVariant);
+				}
+
+				components.push_back(newComponent);
+			}
+		}
+	}
+
+	graphic->setInformation(components);
+
 	fileIn.close();
+
+	Object *object = new Background(components[0], 0);
+
+	object->setPosition(500, 500);
+
+	objects.push_back(object);
 }
 
 void MainMenu::work()
@@ -66,6 +109,6 @@ void MainMenu::work()
 
 		}
 
-		graphic->draw(button);
+		graphic->draw(button, timer, objects);
 	}
 }

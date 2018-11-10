@@ -78,7 +78,7 @@ public:
 
 	void setInformation(int width, int height, bool needInputField, int xCoordinate, int yCoordinate, int characterSize, string fontName, RenderTexture *renderTextureForBackground);
 
-	void setInformation(vector<Object *> &objects);
+	void setInformation(vector<Component *> &componentsForData);
 
 
 	void draw(Button *button);

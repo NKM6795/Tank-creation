@@ -178,11 +178,11 @@
     <ClCompile Include="BackgroundDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Tank And Components\Components\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

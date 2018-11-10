@@ -44,6 +44,7 @@ public:
 
 	Object();
 	Object(Component *component);
+	Object(Component *component, int index);
 
 	~Object();
 

@@ -10,7 +10,7 @@ BackgroundDraw::BackgroundDraw(ComponentParameter *component)
 
 	for (int i = 0; i < numberOfVariant; ++i)
 	{
-		string fileName = component->objectName + component->typeName + component->identifierName + to_string(i + 1);
+		string fileName = component->objectName + component->typeName + component->identifierName + to_string(i + 1) + string(".png");
 
 		backgroundTexture[i].loadFromFile(fileName);
 		
@@ -28,5 +28,12 @@ BackgroundDraw::~BackgroundDraw()
 
 void BackgroundDraw::draw(RenderTexture &renderTexture, long timer, Object *object)
 {
+	if (object->needDraw)
+	{
+		int index = int((timer / 100) % 4);
 
+		backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
+
+		renderTexture.draw(backgroundSprite[index]);
+	}
 }

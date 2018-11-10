@@ -166,16 +166,17 @@ void Graphic::setInformation(int width, int height, bool needInputField, int xCo
 	}
 }
 
-void Graphic::setInformation(vector<Object *> &objects)
+void Graphic::setInformation(vector<Component *> &componentsForData)
 {
-	int number = int(objects.size());
+	int number = int(componentsForData.size());
 
 	for (int i = 0; i < number; ++i)
 	{
 		ComponentDraw *newComponent;
-		if (typeid(objects[i]) == typeid(Background))
+		cout << typeid(*componentsForData[i]).name() << '\n';
+		if (typeid(*componentsForData[i]) == typeid(BackgroundComponent))
 		{
-			newComponent = new BackgroundDraw(objects[i]->getComponentParameter());
+			newComponent = new BackgroundDraw(componentsForData[i]->getStruct());
 		}
 
 		components.push_back(newComponent);

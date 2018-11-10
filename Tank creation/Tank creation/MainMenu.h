@@ -8,7 +8,9 @@
 
 class MainMenu : public WorkWithWindow
 {
+	vector<Component *> components;
 
+	vector<Object *> objects;
 
 public:
 	MainMenu(string &fileName);
