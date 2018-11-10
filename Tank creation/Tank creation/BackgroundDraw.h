@@ -16,5 +16,5 @@ public:
 
 	~BackgroundDraw();
 
-	void draw(RenderTexture &renderTexture, long timer);
+	void draw(RenderTexture &renderTexture, long timer, Object *object);
 };

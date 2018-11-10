@@ -163,9 +163,6 @@
     <ClCompile Include="NotAvailable.cpp">
       <Filter>Windows\Notification Windows\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Tank And Components\Components\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ButtonDraw.cpp">
       <Filter>Graphic\Button\Source Files</Filter>
     </ClCompile>
@@ -183,6 +180,9 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,9 +219,6 @@
     <ClInclude Include="NotAvailable.h">
       <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Tank And Components\Components\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ButtonDraw.h">
       <Filter>Graphic\Button\Header Files</Filter>
     </ClInclude>
@@ -239,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

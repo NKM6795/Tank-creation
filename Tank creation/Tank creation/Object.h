@@ -1,12 +1,37 @@
 #pragma once
 
 
-#include "Component.h"
+#include "BaseElement.h"
+
+
+struct ComponentParameter
+{
+	string objectName;
+	string typeName;
+	string identifierName;
+	int numberOfVariant;
+};
+
+
+class Component
+{
+protected:
+	ComponentParameter *component;
+
+public:
+	Component(string objectName, string typeName, string identifierName, int numberOfVariant);
+
+	virtual ~Component();
+
+	ComponentParameter *getStruct();
+};
 
 
 class Object
 {
 protected:
+	int index;
+
 	Component *component;
 
 	int xCoordinate,
@@ -28,6 +53,9 @@ public:
 
 	float getHealth();
 	void setHeath(float health);
+
+	int getIndex();
+	void setIndex(int i);
 
 	ComponentParameter *getComponentParameter();
 };

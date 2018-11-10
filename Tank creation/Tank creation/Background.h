@@ -1,14 +1,23 @@
 #pragma once
 
 
-#include "Component.h"
+#include "Object.h"
 
 
-class Background : public Component
+class BackgroundComponent : public Component
 {
 
 public:
-	Background(string objectName, string typeName, string identifierName, int numberOfVariant);
+	BackgroundComponent(string objectName, string typeName, string identifierName, int numberOfVariant);
 
+
+};
+
+
+class Background : public Object
+{
+
+
+public:
 
 };
