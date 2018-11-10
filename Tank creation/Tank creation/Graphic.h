@@ -3,6 +3,7 @@
 
 #include "ButtonDraw.h"
 #include "GraphicForNotificationWindow.h"
+#include "ObjectDraw.h"
 
 
 class Graphic
@@ -39,6 +40,9 @@ class Graphic
 	
 	int sizeOfDateArrayDraw;
 	
+	bool needObject;
+	vector<ComponentDraw *> components;
+
 	void forConstructor();
 
 
@@ -50,6 +54,8 @@ class Graphic
 	void drawPrivate(Button *button);
 
 	void drawPrivate(string &inputField);
+	
+	void drawPrivate(long timer, vector<Object *> &objects);
 
 public:
 	Graphic(int screanWidth, int screanHeight) : screanWidth(screanWidth), screanHeight(screanHeight)
@@ -72,15 +78,25 @@ public:
 
 	void setInformation(int width, int height, bool needInputField, int xCoordinate, int yCoordinate, int characterSize, string fontName, RenderTexture *renderTextureForBackground);
 
+	void setInformation(vector<Object *> &objects);
+
 
 	void draw(Button *button);
 
 	void draw(Button *button, string &inputField);
 	
+	void draw(Button *button, string &inputField, long timer, vector<Object *> &objects);
+	
+	void draw(Button *button, long timer, vector<Object *> &objects);
+	
 
 	void drawInRenderTexture(Button *button);
 
 	void drawInRenderTexture(Button *button, string &inputField);
+	
+	void drawInRenderTexture(Button *button, string &inputField, long timer, vector<Object *> &objects);
+
+	void drawInRenderTexture(Button *button, long timer, vector<Object *> &objects);
 
 
 	long getTimeAsMilliseconds();

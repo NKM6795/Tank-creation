@@ -64,6 +64,18 @@ Graphic::~Graphic()
 
 		delete notificationFont;
 	}
+
+	if (needObject)
+	{
+		int number = int(components.size());
+
+		for (int i = 0; i < number; ++i)
+		{
+			delete components.back();
+
+			components.pop_back();
+		}
+	}
 }
 
 
@@ -154,6 +166,22 @@ void Graphic::setInformation(int width, int height, bool needInputField, int xCo
 	}
 }
 
+void Graphic::setInformation(vector<Object *> &objects)
+{
+	int number = int(objects.size());
+
+	for (int i = 0; i < number; ++i)
+	{
+		ComponentDraw *newComponent;
+		if (typeid(objects[i]) == typeid(Background))
+		{
+			newComponent = new BackgroundDraw(objects[i]->getComponentParameter());
+		}
+
+		components.push_back(newComponent);
+	}
+}
+
 
 void Graphic::drawWindow()
 {
@@ -203,6 +231,11 @@ void Graphic::drawPrivate(string &inputField)
 	textureForWindow->draw(*notificationText);
 }
 
+void Graphic::drawPrivate(long timer, vector<Object *> &objects)
+{
+	objectDraw(*textureForWindow, timer, objects, components);
+}
+
 
 void Graphic::draw(Button *button)
 {
@@ -218,6 +251,20 @@ void Graphic::draw(Button *button, string &inputField)
 	drawWindow();
 }
 
+void Graphic::draw(Button *button, string &inputField, long timer, vector<Object *> &objects)
+{
+	drawInRenderTexture(button, inputField, timer, objects);
+
+	drawWindow();
+}
+
+void Graphic::draw(Button *button, long timer, vector<Object *> &objects)
+{
+	drawInRenderTexture(button, timer, objects);
+
+	drawWindow();
+}
+
 
 void Graphic::drawInRenderTexture(Button *button)
 {
@@ -228,7 +275,22 @@ void Graphic::drawInRenderTexture(Button *button)
 void Graphic::drawInRenderTexture(Button *button, string &inputField)
 {
 	drawInRenderTexture(button);
+
 	drawPrivate(inputField);
+}
+
+void Graphic::drawInRenderTexture(Button *button, string &inputField, long timer, vector<Object *> &objects)
+{
+	drawInRenderTexture(button, inputField);
+
+	drawPrivate(timer, objects);
+}
+
+void Graphic::drawInRenderTexture(Button *button, long timer, vector<Object *> &objects)
+{
+	drawInRenderTexture(button);
+
+	drawPrivate(timer, objects);
 }
 
 

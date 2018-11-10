@@ -3,7 +3,7 @@
 
 void objectDraw(RenderTexture &renderTexture, long timer, vector<Object *> &objects, vector<ComponentDraw *> &components)
 {
-	int number = objects.size();
+	int number = int(objects.size());
 
 	for (int i = 0; i < number; ++i)
 	{
