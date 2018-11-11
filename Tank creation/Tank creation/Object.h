@@ -41,7 +41,7 @@ protected:
 	int xCoordinate,
 		yCoordinate;
 
-	float healthPoints;
+	int healthPoints;
 
 public:
 	bool needDraw;
@@ -56,8 +56,8 @@ public:
 	void setPosition(Vector2int position);
 	void setPosition(int x, int y);
 
-	float getHealth();
-	void setHeath(float health);
+	int getHealth();
+	void setHeath(int health);
 
 	int getIndex();
 	void setIndex(int i);

@@ -85,12 +85,12 @@ void Object::setPosition(int x, int y)
 }
 
 
-float Object::getHealth()
+int Object::getHealth()
 {
 	return healthPoints;
 }
 
-void Object::setHeath(float health)
+void Object::setHeath(int health)
 {
 	healthPoints = health;
 }
