@@ -35,9 +35,76 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 		}
 	}
 
-	graphic->setInformation(components);
+	getline(fileIn, objectName);
 
+	fileIn >> numberOfType;
+	for (int i = 0; i < numberOfType; ++i)
+	{
+		fileIn >> numberInType;
+
+		getline(fileIn, typeName);
+		getline(fileIn, typeName);
+
+		for (int j = 0; j < numberInType; ++j)
+		{
+			fileIn >> numberOfVariant;
+
+			getline(fileIn, identifierName);
+			getline(fileIn, identifierName);
+
+			int health;
+			bool canRebound;
+			fileIn >> canRebound >> health;
+
+			Component *newComponent;
+
+			if (typeName == "/block")
+			{
+				newComponent = new SmallBlockComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant, health, canRebound);
+			}
+
+			components.push_back(newComponent);
+		}
+	}
+	graphic->setInformation(components);
 	fileIn.close();
+
+
+	for (int i = 0; i < 5; ++i)
+	{
+		Object *newObject = new Background(components[i], i);
+		newObject->setPosition((1 + i) * 100, 100);
+		objects.push_back(newObject);
+	}
+
+	for (int i = 5; i < 18; ++i)
+	{
+		Object *newObject = new SmallBlock(components[i], i);
+		newObject->setPosition((1 + i) * 50, 200);
+		newObject->setHeath(1);
+		objects.push_back(newObject);
+	}
+	for (int i = 5; i < 18; ++i)
+	{
+		Object *newObject = new SmallBlock(components[i], i);
+		newObject->setPosition((1 + i) * 50, 300);
+		newObject->setHeath((components[i]->getStruct()->healthPoints) / 2);
+		objects.push_back(newObject);
+	}
+	for (int i = 5; i < 18; ++i)
+	{
+		Object *newObject = new SmallBlock(components[i], i);
+		newObject->setPosition((1 + i) * 50, 400);
+		newObject->setHeath((components[i]->getStruct()->healthPoints * 3) / 4);
+		objects.push_back(newObject);
+	}
+	for (int i = 5; i < 18; ++i)
+	{
+		Object *newObject = new SmallBlock(components[i], i);
+		newObject->setPosition((1 + i) * 50, 500);
+		newObject->setHeath(components[i]->getStruct()->healthPoints);
+		objects.push_back(newObject);
+	}
 }
 
 void MainMenu::work()

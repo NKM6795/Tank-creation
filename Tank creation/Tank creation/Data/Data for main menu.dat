@@ -32,3 +32,46 @@ Data/Objects/Backgrounds
 /position
 1
 /position
+Data/Objects/Blocks 1x1
+1
+13
+/block
+4
+/damage
+0 50
+4
+/damage
+0 50
+4
+/damage
+0 50
+4
+/damage
+0 100
+4
+/damage
+0 100
+4
+/damage
+0 100
+4
+/damage
+0 150
+4
+/damage
+0 150
+4
+/damage
+0 150
+4
+/damage
+1 150
+4
+/damage
+0 200
+4
+/damage
+0 200
+4
+/damage
+0 200

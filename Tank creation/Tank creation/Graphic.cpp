@@ -177,6 +177,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new BackgroundDraw(componentsForData[i]->getStruct());
 		}
+		else if (typeid(*componentsForData[i]) == typeid(SmallBlockComponent))
+		{
+			newComponent = new SmallBlockDraw(componentsForData[i]->getStruct());
+		}
 
 		components.push_back(newComponent);
 	}
