@@ -168,6 +168,8 @@ void Graphic::setInformation(int width, int height, bool needInputField, int xCo
 
 void Graphic::setInformation(vector<Component *> &componentsForData)
 {
+	needObject = true;
+
 	int number = int(componentsForData.size());
 
 	for (int i = 0; i < number; ++i)

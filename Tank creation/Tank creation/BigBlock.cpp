@@ -39,6 +39,16 @@ BigBlock::BigBlock(Component *component, int index) : Object(component, index)
 	}
 }
 
+BigBlock::~BigBlock()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		delete additions[i];
+	}
+
+	delete[] additions;
+}
+
 
 AdditionToBigBlock::AdditionToBigBlock(Object *main) : main(main)
 {

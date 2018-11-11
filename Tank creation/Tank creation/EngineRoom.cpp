@@ -53,6 +53,16 @@ EngineRoom::EngineRoom(Component *component, int index) : Object(component, inde
 	}
 }
 
+EngineRoom::~EngineRoom()
+{
+	for (int i = 0; i < 5; ++i)
+	{
+		delete additions[i];
+	}
+
+	delete[] additions;
+}
+
 
 AdditionToEngineRoom::AdditionToEngineRoom(Object *main) : main(main)
 {

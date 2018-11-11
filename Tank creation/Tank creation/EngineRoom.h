@@ -25,7 +25,7 @@ public:
 	EngineRoom(Component *component);
 	EngineRoom(Component *component, int index);
 
-
+	~EngineRoom();
 };
 
 

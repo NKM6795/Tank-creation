@@ -24,7 +24,7 @@ public:
 	BigBlock(Component *component);
 	BigBlock(Component *component, int index);
 
-
+	~BigBlock();
 };
 
 

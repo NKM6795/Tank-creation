@@ -15,6 +15,7 @@ class MainMenu : public WorkWithWindow
 public:
 	MainMenu(string &fileName);
 
+	~MainMenu();
 		
 	void work();
 };

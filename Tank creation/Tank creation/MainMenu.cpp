@@ -241,6 +241,27 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 	}
 }
 
+MainMenu::~MainMenu()
+{
+	int number = int(components.size());
+
+	for (int i = 0; i < number; ++i)
+	{
+		delete components.back();
+
+		components.pop_back();
+	}
+
+	number = int(objects.size());
+
+	for (int i = 0; i < number; ++i)
+	{
+		delete objects.back();
+
+		objects.pop_back();
+	}
+}
+
 void MainMenu::work()
 {
 	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
