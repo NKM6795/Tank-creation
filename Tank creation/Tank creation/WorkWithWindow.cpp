@@ -13,7 +13,7 @@ void WorkWithWindow::forConstructor(string &fileName)
 
 	fileIn >> xCoordinate >> yCoordinate >> screanWidth >> screanHeight;
 
-	fileIn >> timeForWork;
+	fileIn >> timeForWork >> coefficientForTime;
 
 	fileIn >> numberOfButton;
 	if (numberOfButton != 0)

@@ -21,7 +21,7 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 
 void Editor::work()
 {
-	if (graphic->getTimeAsMilliseconds() - timer >= timeForWork)
+	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
 		timer += timeForWork;
 

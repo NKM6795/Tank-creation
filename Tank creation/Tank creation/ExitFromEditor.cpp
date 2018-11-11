@@ -9,7 +9,7 @@ ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow) : Notif
 
 void ExitFromEditor::work()
 {
-	if (graphic->getTimeAsMilliseconds() - timer >= timeForWork)
+	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
 		timer += timeForWork;
 

@@ -9,7 +9,7 @@ NotAvailable::NotAvailable(string &fileName, Graphic *forCopyWindow) : Notificat
 
 void NotAvailable::work()
 {
-	if (graphic->getTimeAsMilliseconds() - timer >= timeForWork)
+	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
 		timer += timeForWork;
 

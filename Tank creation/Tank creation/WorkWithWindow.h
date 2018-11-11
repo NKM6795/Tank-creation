@@ -29,6 +29,7 @@ protected:
 
 	long timeForWork;
 	long timer;
+	long coefficientForTime;
 
 	bool windowIsOpen;
 

@@ -42,7 +42,7 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 
 void MainMenu::work()
 {
-	if (graphic->getTimeAsMilliseconds() - timer >= timeForWork)
+	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
 		timer += timeForWork;
 
