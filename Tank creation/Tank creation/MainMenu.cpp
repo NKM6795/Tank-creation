@@ -7,144 +7,182 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 
 	int numberOfType, numberInType, numberOfVariant;
 
-
-	getline(fileIn, objectName);
-
-	fileIn >> numberOfType;
-	for (int i = 0; i < numberOfType; ++i)
 	{
-		fileIn >> numberInType;
+		getline(fileIn, objectName);
 
-		getline(fileIn, typeName);
-		getline(fileIn, typeName);
-
-		for (int j = 0; j < numberInType; ++j)
+		fileIn >> numberOfType;
+		for (int i = 0; i < numberOfType; ++i)
 		{
-			fileIn >> numberOfVariant;
+			fileIn >> numberInType;
 
-			getline(fileIn, identifierName);
-			getline(fileIn, identifierName);
+			getline(fileIn, typeName);
+			getline(fileIn, typeName);
 
-			Component *newComponent;
-
-			if (typeName == "/background")
+			for (int j = 0; j < numberInType; ++j)
 			{
-				newComponent = new BackgroundComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant);
-			}
+				fileIn >> numberOfVariant;
 
-			components.push_back(newComponent);
+				getline(fileIn, identifierName);
+				getline(fileIn, identifierName);
+
+				Component *newComponent;
+
+				if (typeName == "/background")
+				{
+					newComponent = new BackgroundComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant);
+				}
+
+				components.push_back(newComponent);
+			}
 		}
 	}
 
-
-	getline(fileIn, objectName);
-
-	fileIn >> numberOfType;
-	for (int i = 0; i < numberOfType; ++i)
 	{
-		fileIn >> numberInType;
+		getline(fileIn, objectName);
 
-		getline(fileIn, typeName);
-		getline(fileIn, typeName);
-
-		for (int j = 0; j < numberInType; ++j)
+		fileIn >> numberOfType;
+		for (int i = 0; i < numberOfType; ++i)
 		{
-			fileIn >> numberOfVariant;
+			fileIn >> numberInType;
 
-			getline(fileIn, identifierName);
-			getline(fileIn, identifierName);
+			getline(fileIn, typeName);
+			getline(fileIn, typeName);
 
-			int health;
-			bool canRebound;
-			fileIn >> canRebound >> health;
-
-			Component *newComponent;
-
-			if (typeName == "/block")
+			for (int j = 0; j < numberInType; ++j)
 			{
-				newComponent = new SmallBlockComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant, health, canRebound);
-			}
+				fileIn >> numberOfVariant;
 
-			components.push_back(newComponent);
+				getline(fileIn, identifierName);
+				getline(fileIn, identifierName);
+
+				int health;
+				bool canRebound;
+				fileIn >> canRebound >> health;
+
+				Component *newComponent;
+
+				if (typeName == "/block")
+				{
+					newComponent = new SmallBlockComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant, health, canRebound);
+				}
+
+				components.push_back(newComponent);
+			}
 		}
 	}
 
-
-	getline(fileIn, objectName);
-	getline(fileIn, objectName);
-
-	fileIn >> numberOfType;
-	for (int i = 0; i < numberOfType; ++i)
 	{
-		fileIn >> numberInType;
+		getline(fileIn, objectName);
+		getline(fileIn, objectName);
 
-		getline(fileIn, typeName);
-		getline(fileIn, typeName);
-
-		for (int j = 0; j < numberInType; ++j)
+		fileIn >> numberOfType;
+		for (int i = 0; i < numberOfType; ++i)
 		{
-			fileIn >> numberOfVariant;
+			fileIn >> numberInType;
 
-			getline(fileIn, identifierName);
-			getline(fileIn, identifierName);
+			getline(fileIn, typeName);
+			getline(fileIn, typeName);
 
-			int health;
-			bool canRebound;
-			fileIn >> canRebound >> health;
-
-			Component *newComponent;
-
-			if (typeName == "/block")
+			for (int j = 0; j < numberInType; ++j)
 			{
-				newComponent = new BigBlockComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant, health, canRebound);
-			}
+				fileIn >> numberOfVariant;
 
-			components.push_back(newComponent);
+				getline(fileIn, identifierName);
+				getline(fileIn, identifierName);
+
+				int health;
+				bool canRebound;
+				fileIn >> canRebound >> health;
+
+				Component *newComponent;
+
+				if (typeName == "/block")
+				{
+					newComponent = new BigBlockComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant, health, canRebound);
+				}
+
+				components.push_back(newComponent);
+			}
 		}
 	}
 
+	{
+		getline(fileIn, objectName);
+		getline(fileIn, objectName);
 
-	getline(fileIn, objectName);
-	getline(fileIn, objectName);
+		fileIn >> numberOfVariant;
 
-	fileIn >> numberOfVariant;
+		getline(fileIn, typeName);
+		getline(fileIn, typeName);
 
-	getline(fileIn, typeName);
-	getline(fileIn, typeName);
+		getline(fileIn, identifierName);
 
-	getline(fileIn, identifierName);
+		string typeName2, identifierName2, typeName3, identifierName3;
 
-	string typeName2, identifierName2, typeName3, identifierName3;
+		int numberOfVariant2, numberOfVariant3;
 
-	int numberOfVariant2, numberOfVariant3;
+		fileIn >> numberOfVariant2;
 
-	fileIn >> numberOfVariant2;
+		getline(fileIn, typeName2);
+		getline(fileIn, typeName2);
 
-	getline(fileIn, typeName2);
-	getline(fileIn, typeName2);
+		getline(fileIn, identifierName2);
 
-	getline(fileIn, identifierName2);
+		fileIn >> numberOfVariant3;
 
-	fileIn >> numberOfVariant3;
+		getline(fileIn, typeName3);
+		getline(fileIn, typeName3);
 
-	getline(fileIn, typeName3);
-	getline(fileIn, typeName3);
+		getline(fileIn, identifierName3);
 
-	getline(fileIn, identifierName3);
+		int health;
+		fileIn >> health;
 
-	int health;
-	fileIn >> health;
+		int xOffsetForRoom,
+			yOffsetForRoom;
+		int xOffsetForPerson,
+			yOffsetForPerson;
 
-	int xOffsetForRoom,
-		yOffsetForRoom;
-	int xOffsetForPerson,
-		yOffsetForPerson;
+		fileIn >> xOffsetForRoom >> yOffsetForRoom >> xOffsetForPerson >> yOffsetForPerson;
 
-	fileIn >> xOffsetForRoom >> yOffsetForRoom >> xOffsetForPerson >> yOffsetForPerson;
+		Component *newComponent = new EngineRoomComponent(objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson);
+		components.push_back(newComponent);
+	}
 
-	Component *newComponent = new EngineRoomComponent(objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson);
-	components.push_back(newComponent);
+	{
+		getline(fileIn, objectName);
+		getline(fileIn, objectName);
 
+		getline(fileIn, typeName);
+
+		fileIn >> numberOfVariant;
+
+		getline(fileIn, identifierName);
+		getline(fileIn, identifierName);
+
+		int health;
+		fileIn >> health;
+
+		{
+			Component *newComponent = new TrackComponent(objectName, typeName, identifierName, numberOfVariant, health);
+			components.push_back(newComponent);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, typeName);
+
+		fileIn >> numberOfVariant;
+
+		getline(fileIn, identifierName);
+		getline(fileIn, identifierName);
+
+		fileIn >> health;
+
+		{
+			Component *newComponent = new TrackComponent(objectName, typeName, identifierName, numberOfVariant, health);
+			components.push_back(newComponent);
+		}
+	}
 
 	graphic->setInformation(components);
 	fileIn.close();
@@ -237,6 +275,20 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 		Object *newObject = new EngineRoom(components[35], 35);
 		newObject->setPosition(600, 500);
 		newObject->setHeath(components[35]->getStruct()->healthPoints);
+		objects.push_back(newObject);
+	}
+
+	{
+		Object *newObject = new Track(components[36], 36);
+		newObject->setPosition(800, 500);
+		newObject->setHeath(components[36]->getStruct()->healthPoints);
+		objects.push_back(newObject);
+	}
+
+	{
+		Object *newObject = new Track(components[37], 37);
+		newObject->setPosition(1000, 500);
+		newObject->setHeath(components[37]->getStruct()->healthPoints);
 		objects.push_back(newObject);
 	}
 }

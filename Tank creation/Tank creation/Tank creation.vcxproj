@@ -142,6 +142,8 @@
     <ClCompile Include="ObjectDraw.cpp" />
     <ClCompile Include="SmallBlock.cpp" />
     <ClCompile Include="SmallBlockDraw.cpp" />
+    <ClCompile Include="Track.cpp" />
+    <ClCompile Include="TrackDraw.cpp" />
     <ClCompile Include="WindowController.cpp" />
     <ClCompile Include="WorkWithWindow.cpp" />
   </ItemGroup>
@@ -168,6 +170,8 @@
     <ClInclude Include="ObjectDraw.h" />
     <ClInclude Include="SmallBlock.h" />
     <ClInclude Include="SmallBlockDraw.h" />
+    <ClInclude Include="Track.h" />
+    <ClInclude Include="TrackDraw.h" />
     <ClInclude Include="WindowController.h" />
     <ClInclude Include="WorkWithWindow.h" />
   </ItemGroup>

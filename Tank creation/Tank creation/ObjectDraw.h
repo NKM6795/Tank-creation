@@ -5,6 +5,7 @@
 #include "SmallBlockDraw.h"
 #include "BigBlockDraw.h"
 #include "EngineRoomDraw.h"
+#include "TrackDraw.h"
 
 
 void objectDraw(RenderTexture &renderTexture, long timer, vector<Object *> &objects, vector<ComponentDraw *> &components);

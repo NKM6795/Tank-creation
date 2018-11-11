@@ -191,6 +191,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new EngineRoomDraw(componentsForData[i]->getStruct());
 		}
+		else if (typeid(*componentsForData[i]) == typeid(TrackComponent))
+		{
+			newComponent = new TrackDraw(componentsForData[i]->getStruct());
+		}
 
 		components.push_back(newComponent);
 	}

@@ -202,6 +202,12 @@
     <ClCompile Include="EngineRoomDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -274,6 +280,12 @@
       <Filter>Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineRoomDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackDraw.h">
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

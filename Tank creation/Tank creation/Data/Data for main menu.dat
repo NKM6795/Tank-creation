@@ -142,3 +142,12 @@ Data/Objects/Engine room
 /position
 300
 4 4 12 15
+Data/Objects/Tracks
+/track1
+4
+/position
+2000
+/track2
+4
+/position
+4500
