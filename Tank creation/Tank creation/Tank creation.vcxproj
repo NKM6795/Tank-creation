@@ -123,6 +123,7 @@
     <ClCompile Include="BackgroundDraw.cpp" />
     <ClCompile Include="BaseElement.cpp" />
     <ClCompile Include="BasicElementDraw.cpp" />
+    <ClCompile Include="BigBlock.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonDraw.cpp" />
     <ClCompile Include="ComponentDraw.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="BackgroundDraw.h" />
     <ClInclude Include="BaseElement.h" />
     <ClInclude Include="BasicElementDraw.h" />
+    <ClInclude Include="BigBlock.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonDraw.h" />
     <ClInclude Include="ComponentDraw.h" />

@@ -50,17 +50,17 @@ public:
 	Object(Component *component);
 	Object(Component *component, int index);
 
-	~Object();
+	virtual ~Object();
 
-	Vector2int getPosition();
-	void setPosition(Vector2int position);
-	void setPosition(int x, int y);
+	virtual Vector2int getPosition();
+	virtual void setPosition(Vector2int position);
+	virtual void setPosition(int x, int y);
 
-	int getHealth();
-	void setHeath(int health);
+	virtual int getHealth();
+	virtual void setHeath(int health);
 
-	int getIndex();
-	void setIndex(int i);
+	virtual int getIndex();
+	virtual void setIndex(int i);
 
-	ComponentParameter *getComponentParameter();
+	virtual ComponentParameter *getComponentParameter();
 };
