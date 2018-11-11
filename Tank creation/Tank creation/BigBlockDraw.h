@@ -2,6 +2,7 @@
 
 
 #include "ComponentDraw.h"
+#include "BackgroundDraw.h"
 #include "BigBlock.h"
 
 
@@ -11,8 +12,10 @@ class BigBlockDraw : public ComponentDraw
 	Sprite *bigBlockSprite;
 	int numberOfVariant;
 
+	ComponentDraw *background;
+
 public:
-	BigBlockDraw(ComponentParameter *component);
+	BigBlockDraw(ComponentParameter *component, ComponentDraw *background);
 
 	~BigBlockDraw();
 

@@ -1,7 +1,7 @@
 #include "BigBlockDraw.h"
 
 
-BigBlockDraw::BigBlockDraw(ComponentParameter *component)
+BigBlockDraw::BigBlockDraw(ComponentParameter *component, ComponentDraw *background) : background(background)
 {
 	numberOfVariant = component->numberOfVariant;
 
@@ -31,6 +31,11 @@ void BigBlockDraw::draw(RenderTexture &renderTexture, long timer, Object *object
 	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
 		int index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
+
+		if (index != 0)
+		{
+			background->draw(renderTexture, timer, object);
+		}
 
 		bigBlockSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
 
