@@ -193,6 +193,9 @@
     <ClCompile Include="BigBlock.cpp">
       <Filter>Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BigBlockDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="BigBlock.h">
       <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigBlockDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
