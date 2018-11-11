@@ -185,6 +185,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new BigBlockDraw(componentsForData[i]->getStruct(), components[0]);
 		}
+		else if (typeid(*componentsForData[i]) == typeid(EngineRoomComponent))
+		{
+			newComponent = new EngineRoomDraw(componentsForData[i]->getStruct());
+		}
 
 		components.push_back(newComponent);
 	}

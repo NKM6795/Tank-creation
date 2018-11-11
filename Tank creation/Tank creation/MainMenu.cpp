@@ -4,7 +4,7 @@
 MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 {
 	string objectName, typeName, identifierName;
-	
+
 	int numberOfType, numberInType, numberOfVariant;
 
 
@@ -103,6 +103,49 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 		}
 	}
 
+
+	getline(fileIn, objectName);
+	getline(fileIn, objectName);
+
+	fileIn >> numberOfVariant;
+
+	getline(fileIn, typeName);
+	getline(fileIn, typeName);
+
+	getline(fileIn, identifierName);
+
+	string typeName2, identifierName2, typeName3, identifierName3;
+
+	int numberOfVariant2, numberOfVariant3;
+
+	fileIn >> numberOfVariant2;
+
+	getline(fileIn, typeName2);
+	getline(fileIn, typeName2);
+
+	getline(fileIn, identifierName2);
+
+	fileIn >> numberOfVariant3;
+
+	getline(fileIn, typeName3);
+	getline(fileIn, typeName3);
+
+	getline(fileIn, identifierName3);
+
+	int health;
+	fileIn >> health;
+
+	int xOffsetForRoom,
+		yOffsetForRoom;
+	int xOffsetForPerson,
+		yOffsetForPerson;
+
+	fileIn >> xOffsetForRoom >> yOffsetForRoom >> xOffsetForPerson >> yOffsetForPerson;
+
+	Component *newComponent = new EngineRoomComponent(objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson);
+	components.push_back(newComponent);
+
+
 	graphic->setInformation(components);
 	fileIn.close();
 
@@ -169,6 +212,31 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 		Object *newObject = new BigBlock(components[i], i);
 		newObject->setPosition((-17 + i) * 50, 380);
 		newObject->setHeath(components[i]->getStruct()->healthPoints);
+		objects.push_back(newObject);
+	}
+
+	{
+		Object *newObject = new EngineRoom(components[35], 35);
+		newObject->setPosition(300, 500);
+		newObject->setHeath(1);
+		objects.push_back(newObject);
+	}
+	{
+		Object *newObject = new EngineRoom(components[35], 35);
+		newObject->setPosition(400, 500);
+		newObject->setHeath((components[35]->getStruct()->healthPoints) / 2);
+		objects.push_back(newObject);
+	}
+	{
+		Object *newObject = new EngineRoom(components[35], 35);
+		newObject->setPosition(500, 500);
+		newObject->setHeath((components[35]->getStruct()->healthPoints * 3) / 4);
+		objects.push_back(newObject);
+	}
+	{
+		Object *newObject = new EngineRoom(components[35], 35);
+		newObject->setPosition(600, 500);
+		newObject->setHeath(components[35]->getStruct()->healthPoints);
 		objects.push_back(newObject);
 	}
 }

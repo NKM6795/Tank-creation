@@ -199,6 +199,9 @@
     <ClCompile Include="EngineRoom.cpp">
       <Filter>Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EngineRoomDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -269,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="EngineRoom.h">
       <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineRoomDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,6 +14,19 @@ struct ComponentParameter
 	int healthPoints;
 
 	bool canRebound;
+
+	string typeName2;
+	string identifierName2;
+	int numberOfVariant2;
+
+	string typeName3;
+	string identifierName3;
+	int numberOfVariant3;
+
+	int xOffsetForRoom,
+		yOffsetForRoom;
+	int xOffsetForPerson,
+		yOffsetForPerson;
 };
 
 

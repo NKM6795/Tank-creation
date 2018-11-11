@@ -1,9 +1,25 @@
 #include "EngineRoom.h"
 
 
-EngineRoomComponent::EngineRoomComponent(string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints) : Component(objectName, typeName, identifierName, numberOfVariant)
+EngineRoomComponent::EngineRoomComponent(string objectName, string typeName, string identifierName, int numberOfVariant, string typeName2, string identifierName2, int numberOfVariant2, 
+	string typeName3, string identifierName3, int numberOfVariant3, int healthPoints, int xOffsetForRoom, int yOffsetForRoom, int xOffsetForPerson, int yOffsetForPerson) : 
+	Component(objectName, typeName, identifierName, numberOfVariant)
 {
+	component->typeName2 = typeName2;
+	component->identifierName2 = identifierName2;
+	component->numberOfVariant2 = numberOfVariant2;
+
+	component->typeName3 = typeName3;
+	component->identifierName3 = identifierName3;
+	component->numberOfVariant3 = numberOfVariant3;
+
 	component->healthPoints = healthPoints;
+
+	component->xOffsetForRoom = xOffsetForRoom;
+	component->yOffsetForRoom = yOffsetForRoom;
+
+	component->xOffsetForPerson = xOffsetForPerson;
+	component->yOffsetForPerson = yOffsetForPerson;
 }
 
 

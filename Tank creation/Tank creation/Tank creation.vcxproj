@@ -130,6 +130,7 @@
     <ClCompile Include="ComponentDraw.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EngineRoom.cpp" />
+    <ClCompile Include="EngineRoomDraw.cpp" />
     <ClCompile Include="ExitFromEditor.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="GraphicForNotificationWindow.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="ComponentDraw.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EngineRoom.h" />
+    <ClInclude Include="EngineRoomDraw.h" />
     <ClInclude Include="ExitFromEditor.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="GraphicForNotificationWindow.h" />
