@@ -184,6 +184,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SmallBlock.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="ObjectDraw.h">
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallBlock.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

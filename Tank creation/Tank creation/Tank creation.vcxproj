@@ -136,6 +136,7 @@
     <ClCompile Include="NotAvailable.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectDraw.cpp" />
+    <ClCompile Include="SmallBlock.cpp" />
     <ClCompile Include="WindowController.cpp" />
     <ClCompile Include="WorkWithWindow.cpp" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="NotAvailable.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectDraw.h" />
+    <ClInclude Include="SmallBlock.h" />
     <ClInclude Include="WindowController.h" />
     <ClInclude Include="WorkWithWindow.h" />
   </ItemGroup>

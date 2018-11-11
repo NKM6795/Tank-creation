@@ -10,6 +10,10 @@ struct ComponentParameter
 	string typeName;
 	string identifierName;
 	int numberOfVariant;
+
+	int healthPoints;
+
+	bool canRebound;
 };
 
 
