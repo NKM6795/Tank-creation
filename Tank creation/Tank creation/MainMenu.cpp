@@ -5,7 +5,7 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 {
 	string objectName, typeName, identifierName;
 	
-	int numberOfType, numberInType, numberOfVariant, numberInVariant;
+	int numberOfType, numberInType, numberOfVariant;
 
 	getline(fileIn, objectName);
 
@@ -13,40 +13,31 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 	for (int i = 0; i < numberOfType; ++i)
 	{
 		fileIn >> numberInType;
+
+		getline(fileIn, typeName);
+		getline(fileIn, typeName);
+
 		for (int j = 0; j < numberInType; ++j)
 		{
-			getline(fileIn, typeName);
-			getline(fileIn, typeName);
-
 			fileIn >> numberOfVariant;
-			for (int l = 0; l < numberOfVariant; ++l)
+
+			getline(fileIn, identifierName);
+			getline(fileIn, identifierName);
+
+			Component *newComponent;
+
+			if (typeName == "/background")
 			{
-				fileIn >> numberInVariant;
-
-				getline(fileIn, identifierName);
-				getline(fileIn, identifierName);
-
-				Component *newComponent;
-
-				if (typeName == "/background")
-				{
-					newComponent = new BackgroundComponent(objectName, typeName + to_string(j + 1), identifierName, numberInVariant);
-				}
-
-				components.push_back(newComponent);
+				newComponent = new BackgroundComponent(objectName, typeName + to_string(j + 1), identifierName, numberOfVariant);
 			}
+
+			components.push_back(newComponent);
 		}
 	}
 
 	graphic->setInformation(components);
 
 	fileIn.close();
-
-	Object *object = new Background(components[0], 0);
-
-	object->setPosition(500, 500);
-
-	objects.push_back(object);
 }
 
 void MainMenu::work()

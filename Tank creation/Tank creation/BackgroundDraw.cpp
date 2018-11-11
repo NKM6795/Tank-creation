@@ -30,7 +30,7 @@ void BackgroundDraw::draw(RenderTexture &renderTexture, long timer, Object *obje
 {
 	if (object->needDraw)
 	{
-		int index = int((timer / 100) % 4);
+		int index = int((timer / 100) % numberOfVariant);
 
 		backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
 

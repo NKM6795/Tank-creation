@@ -173,7 +173,6 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 	for (int i = 0; i < number; ++i)
 	{
 		ComponentDraw *newComponent;
-		cout << typeid(*componentsForData[i]).name() << '\n';
 		if (typeid(*componentsForData[i]) == typeid(BackgroundComponent))
 		{
 			newComponent = new BackgroundDraw(componentsForData[i]->getStruct());
