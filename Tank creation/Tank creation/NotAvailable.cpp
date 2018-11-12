@@ -27,7 +27,7 @@ void NotAvailable::work()
 
 		for (int i = 0; i < numberOfButton; ++i)
 		{
-			button[i].work(mousePosition, Mouse::isButtonPressed(Mouse::Left), timer, timeForWork);
+			button[i].work(mousePosition, Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 		}
 
 		for (int i = 0; i < numberOfButton; ++i)

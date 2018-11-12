@@ -115,5 +115,7 @@ public:
 
 	Event getEvent();
 
+	bool hasFocus();
+
 	Vector2int getPositionOfMouse();
 };

@@ -369,6 +369,11 @@ Event Graphic::getEvent()
 	return event;
 }
 
+bool Graphic::hasFocus()
+{
+	return window->hasFocus();
+}
+
 Vector2int Graphic::getPositionOfMouse()
 {
 	return convert(Mouse::getPosition(*window));
