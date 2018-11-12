@@ -217,6 +217,9 @@
     <ClCompile Include="Tank.cpp">
       <Filter>Tank And Components\Tank\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TankEditor.cpp">
+      <Filter>Tank And Components\Tank\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -304,6 +307,9 @@
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tank.h">
+      <Filter>Tank And Components\Tank\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TankEditor.h">
       <Filter>Tank And Components\Tank\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
