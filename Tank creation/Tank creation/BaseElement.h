@@ -17,13 +17,48 @@ using namespace std;
 
 struct Vector2int
 {
-	int x;
-	int y;
+	int x, y;
 
 	Vector2int() : x(0), y(0) {}
 
 	Vector2int(int x, int y) : x(x), y(y) {}
+
+	Vector2int & operator = (const Vector2int &right)
+	{
+		if (this != &right)
+		{
+			x = right.x;
+			y = right.y;
+		}
+		return *this;
+	}
+
+	inline Vector2int operator + (const Vector2int &right) const
+	{
+		return Vector2int(x + right.x, y + right.y);
+	}
+
+	inline Vector2int operator + (int value) const
+	{
+		return Vector2int(x + value, y + value);
+	}
+
+	inline Vector2int operator - (const Vector2int &right) const
+	{
+		return Vector2int(x - right.x, y - right.y);
+	}
+
+	inline Vector2int operator - (int value) const
+	{
+		return Vector2int(x - value, y - value);
+	}
+
+	inline Vector2int operator * (int value) const
+	{
+		return Vector2int(x * value, y * value);
+	}
 };
+
 
 bool inArea(int width, int height, int xCoordinate, int yCoordinate, int x, int y);
 

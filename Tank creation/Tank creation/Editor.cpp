@@ -56,7 +56,7 @@ void Editor::work()
 
 		for (int i = 0; i < numberOfButton; ++i)
 		{
-			button[i].work(mousePosition, Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 		}
 
 		for (int i = 0; i < numberOfButton; ++i)
