@@ -2,6 +2,7 @@
 
 
 #include "ObjectDraw.h"
+#include "Tank.h"
 
 
 class TankDraw
@@ -12,5 +13,5 @@ public:
 
 	~TankDraw();
 
-	void draw(RenderTexture &renderTexture, long timer, vector<Object *> &objects, vector<ComponentDraw *> &components);
+	void draw(RenderTexture &renderTexture, long timer, Tank &tank, vector<ComponentDraw *> &components);
 };

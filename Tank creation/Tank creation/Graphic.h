@@ -43,6 +43,9 @@ class Graphic
 	bool needObject;
 	vector<ComponentDraw *> components;
 
+	bool needTank;
+	TankDraw *tankDraw;
+
 	void forConstructor();
 
 
@@ -55,7 +58,9 @@ class Graphic
 
 	void drawPrivate(string &inputField);
 	
-	void drawPrivate(long timer, vector<Object *> &objects);
+	void drawPrivate(vector<Object *> &objects, long timer);
+
+	void drawPrivate(Tank &tank, long timer);
 
 public:
 	Graphic(int screanWidth, int screanHeight) : screanWidth(screanWidth), screanHeight(screanHeight)
@@ -80,23 +85,36 @@ public:
 
 	void setInformation(vector<Component *> &componentsForData);
 
+	void setInformation(Tank &tank);
+
 
 	void draw(Button *button);
+	
+	void draw(Button *button, Tank &tank, long timer);
+
+	void draw(Button *button, vector<Object *> &objects, long timer);
 
 	void draw(Button *button, string &inputField);
+
+	void draw(Button *button, string &inputField, Tank &tank, long timer);
 	
-	void draw(Button *button, string &inputField, long timer, vector<Object *> &objects);
-	
-	void draw(Button *button, long timer, vector<Object *> &objects);
-	
+	void draw(Button *button, string &inputField, vector<Object *> &objects, long timer);
+		
 
 	void drawInRenderTexture(Button *button);
 
-	void drawInRenderTexture(Button *button, string &inputField);
-	
-	void drawInRenderTexture(Button *button, string &inputField, long timer, vector<Object *> &objects);
+	void drawInRenderTexture(Button *button, Tank &tank, long timer);
 
-	void drawInRenderTexture(Button *button, long timer, vector<Object *> &objects);
+	void drawInRenderTexture(Button *button, vector<Object *> &objects, long timer);
+
+	void drawInRenderTexture(Button *button, string &inputField);
+
+	void drawInRenderTexture(Button *button, string &inputField, Tank &tank, long timer);
+	
+	void drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, long timer);
+
+
+
 
 
 	long getTimeAsMilliseconds();

@@ -436,6 +436,6 @@ void MainMenu::work()
 
 		}
 
-		graphic->draw(button, timer, objects);
+		graphic->draw(button, objects, timer);
 	}
 }
