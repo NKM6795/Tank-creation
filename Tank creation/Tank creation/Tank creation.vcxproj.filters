@@ -208,6 +208,12 @@
     <ClCompile Include="TrackDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GunDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -286,6 +292,12 @@
       <Filter>Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TrackDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GunDraw.h">
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

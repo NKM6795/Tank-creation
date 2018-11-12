@@ -9,6 +9,9 @@
 #include <algorithm>
 
 
+#define PI 3.1415f
+
+
 using namespace std;
 
 

@@ -195,6 +195,17 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new TrackDraw(componentsForData[i]->getStruct());
 		}
+		else if (typeid(*componentsForData[i]) == typeid(GunComponent))
+		{
+			if (componentsForData[i]->getStruct()->backgroundIndex != -1)
+			{
+				newComponent = new GunDraw(componentsForData[i]->getStruct(), components[componentsForData[i]->getStruct()->backgroundIndex]);
+			}
+			else
+			{
+				newComponent = new GunDraw(componentsForData[i]->getStruct());
+			}
+		}
 
 		components.push_back(newComponent);
 	}

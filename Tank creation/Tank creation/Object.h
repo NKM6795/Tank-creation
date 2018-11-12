@@ -27,6 +27,18 @@ struct ComponentParameter
 		yOffsetForRoom;
 	int xOffsetForPerson,
 		yOffsetForPerson;
+
+	bool horizontally;
+	int damage;
+	int bulletSpeed;
+	int reload;
+	int xOffsetForBarrel,
+		yOffsetForBarrel;
+	int xOriginForBarrel,
+		yOriginForBarrel;
+	float tiltAngle;
+
+	int backgroundIndex;
 };
 
 

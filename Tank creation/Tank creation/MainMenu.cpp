@@ -184,6 +184,37 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 		}
 	}
 
+	{
+		for (int i = 0; i < 12; ++i)
+		{
+			//GunComponent(string objectName, string typeName, string identifierName, int numberOfVariant, string typeName2, 
+			//	string identifierName2, int numberOfVariant2, bool horizontally, int damage, int bulletSpeed, int reload, 
+			//	int xOffsetForBarrel, int yOffsetForBarrel, int xOriginForBarrel, int yOriginForBarrel, int healthPoints, int backgroundIndex = -1);
+			int numberOfVariant2;
+
+			fileIn >> numberOfVariant >> numberOfVariant2;
+
+			bool horizontally;
+			int damage;
+			int bulletSpeed;
+			int reload;
+			int xOffsetForBarrel,
+				yOffsetForBarrel;
+			int xOriginForBarrel,
+				yOriginForBarrel;
+			int healthPoints;
+			int backgroundIndex;
+
+			fileIn >> horizontally >> damage >> bulletSpeed >> reload >> xOffsetForBarrel >> yOffsetForBarrel >> xOriginForBarrel >> yOriginForBarrel >> healthPoints >> backgroundIndex;
+
+			Component *newComponent;
+
+			newComponent = new GunComponent("Data/Objects/Guns", "/gun" + to_string(i + 1) + "/barrel", "/barrel", numberOfVariant, "/gun" + to_string(i + 1) + "/handhold", "/damage", numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex);
+
+			components.push_back(newComponent);
+		}
+	}
+
 	graphic->setInformation(components);
 	fileIn.close();
 
@@ -198,28 +229,28 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 	for (int i = 5; i < 18; ++i)
 	{
 		Object *newObject = new SmallBlock(components[i], i);
-		newObject->setPosition((1 + i) * 50, 100);
+		newObject->setPosition((1 + i) * 20, 100);
 		newObject->setHeath(1);
 		objects.push_back(newObject);
 	}
 	for (int i = 5; i < 18; ++i)
 	{
 		Object *newObject = new SmallBlock(components[i], i);
-		newObject->setPosition((1 + i) * 50, 130);
+		newObject->setPosition((1 + i) * 20, 120);
 		newObject->setHeath((components[i]->getStruct()->healthPoints) / 2);
 		objects.push_back(newObject);
 	}
 	for (int i = 5; i < 18; ++i)
 	{
 		Object *newObject = new SmallBlock(components[i], i);
-		newObject->setPosition((1 + i) * 50, 160);
+		newObject->setPosition((1 + i) * 20, 140);
 		newObject->setHeath((components[i]->getStruct()->healthPoints * 3) / 4);
 		objects.push_back(newObject);
 	}
 	for (int i = 5; i < 18; ++i)
 	{
 		Object *newObject = new SmallBlock(components[i], i);
-		newObject->setPosition((1 + i) * 50, 190);
+		newObject->setPosition((1 + i) * 20, 160);
 		newObject->setHeath(components[i]->getStruct()->healthPoints);
 		objects.push_back(newObject);
 	}
@@ -227,70 +258,101 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 	for (int i = 18; i < 35; ++i)
 	{
 		Object *newObject = new BigBlock(components[i], i);
-		newObject->setPosition((-17 + i) * 50, 230);
+		newObject->setPosition((-8 + i) * 40, 100);
 		newObject->setHeath(1);
 		objects.push_back(newObject);
 	}
 	for (int i = 18; i < 35; ++i)
 	{
 		Object *newObject = new BigBlock(components[i], i);
-		newObject->setPosition((-17 + i) * 50, 280);
+		newObject->setPosition((-8 + i) * 40, 140);
 		newObject->setHeath((components[i]->getStruct()->healthPoints) / 2);
 		objects.push_back(newObject);
 	}
 	for (int i = 18; i < 35; ++i)
 	{
 		Object *newObject = new BigBlock(components[i], i);
-		newObject->setPosition((-17 + i) * 50, 330);
+		newObject->setPosition((-8 + i) * 40, 180);
 		newObject->setHeath((components[i]->getStruct()->healthPoints * 3) / 4);
 		objects.push_back(newObject);
 	}
 	for (int i = 18; i < 35; ++i)
 	{
 		Object *newObject = new BigBlock(components[i], i);
-		newObject->setPosition((-17 + i) * 50, 380);
+		newObject->setPosition((-8 + i) * 40, 220);
 		newObject->setHeath(components[i]->getStruct()->healthPoints);
 		objects.push_back(newObject);
 	}
 
 	{
 		Object *newObject = new EngineRoom(components[35], 35);
-		newObject->setPosition(300, 500);
+		newObject->setPosition(10, 200);
 		newObject->setHeath(1);
 		objects.push_back(newObject);
 	}
 	{
 		Object *newObject = new EngineRoom(components[35], 35);
-		newObject->setPosition(400, 500);
+		newObject->setPosition(70, 200);
 		newObject->setHeath((components[35]->getStruct()->healthPoints) / 2);
 		objects.push_back(newObject);
 	}
 	{
 		Object *newObject = new EngineRoom(components[35], 35);
-		newObject->setPosition(500, 500);
+		newObject->setPosition(130, 200);
 		newObject->setHeath((components[35]->getStruct()->healthPoints * 3) / 4);
 		objects.push_back(newObject);
 	}
 	{
 		Object *newObject = new EngineRoom(components[35], 35);
-		newObject->setPosition(600, 500);
+		newObject->setPosition(190, 200);
 		newObject->setHeath(components[35]->getStruct()->healthPoints);
 		objects.push_back(newObject);
 	}
 
 	{
 		Object *newObject = new Track(components[36], 36);
-		newObject->setPosition(800, 500);
+		newObject->setPosition(800, 10);
 		newObject->setHeath(components[36]->getStruct()->healthPoints);
 		objects.push_back(newObject);
 	}
 
 	{
 		Object *newObject = new Track(components[37], 37);
-		newObject->setPosition(1000, 500);
+		newObject->setPosition(1000, 10);
 		newObject->setHeath(components[37]->getStruct()->healthPoints);
 		objects.push_back(newObject);
 	}
+
+	for (int i = 38; i < 50; ++i)
+	{
+		Object *newObject = new Gun(components[i], i);
+		newObject->setPosition((-37 + i) * 80, 300);
+		newObject->setHeath(1);
+		objects.push_back(newObject);
+	}
+	for (int i = 38; i < 50; ++i)
+	{
+		Object *newObject = new Gun(components[i], i);
+		newObject->setPosition((-37 + i) * 80, 380);
+		newObject->setHeath((components[i]->getStruct()->healthPoints) / 2);
+		objects.push_back(newObject);
+	}
+	for (int i = 38; i < 50; ++i)
+	{
+		Object *newObject = new Gun(components[i], i);
+		newObject->setPosition((-37 + i) * 80, 460);
+		newObject->setHeath((components[i]->getStruct()->healthPoints * 3) / 4);
+		objects.push_back(newObject);
+	}
+	for (int i = 38; i < 50; ++i)
+	{
+		Object *newObject = new Gun(components[i], i);
+		newObject->setPosition((-37 + i) * 80, 540);
+		newObject->setHeath(components[i]->getStruct()->healthPoints);
+		objects.push_back(newObject);
+	}
+
+
 }
 
 MainMenu::~MainMenu()
