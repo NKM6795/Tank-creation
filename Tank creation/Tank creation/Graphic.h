@@ -3,7 +3,7 @@
 
 #include "ButtonDraw.h"
 #include "GraphicForNotificationWindow.h"
-#include "ObjectDraw.h"
+#include "TankDraw.h"
 
 
 class Graphic
