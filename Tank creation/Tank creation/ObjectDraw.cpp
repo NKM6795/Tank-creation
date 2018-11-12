@@ -7,8 +7,11 @@ void objectDraw(RenderTexture &renderTexture, long timer, vector<Object *> &obje
 
 	for (int i = 0; i < number; ++i)
 	{
-		int j = objects[i]->getIndex();
+		if (objects[i] != nullptr)
+		{
+			int j = objects[i]->getIndex();
 
-		components[j]->draw(renderTexture, timer, objects[i]);
+			components[j]->draw(renderTexture, timer, objects[i]);
+		}
 	}
 }

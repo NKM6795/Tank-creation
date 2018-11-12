@@ -45,6 +45,8 @@ protected:
 
 	ifstream fileIn;		//for constructor
 
+	vector<Component *> dataForResources();
+
 public:
 	WorkWithWindow(string &fileName)
 	{

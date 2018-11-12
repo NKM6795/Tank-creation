@@ -15,7 +15,13 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 
 	graphic->setInformation(backgroundXCoordinate, backgroundYCoordinate, backgroundWidth, backgroundHeight, backgroundNameOfPicture);
 
+	components = dataForResources();
+
+	graphic->setInformation(components);
+
 	fileIn.close();
+
+	tankEditor = new TankEditor(tank.getObjects());
 }
 
 
@@ -70,7 +76,7 @@ void Editor::work()
 
 					string fileName = "Data/Data for exit from editor.dat";
 
-					graphic->drawInRenderTexture(button);
+					graphic->drawInRenderTexture(button, tank, timer);
 
 					newWindow = new ExitFromEditor(fileName, graphic);
 
@@ -82,7 +88,7 @@ void Editor::work()
 
 					string fileName = "Data/Data for not available.dat";
 
-					graphic->drawInRenderTexture(button);
+					graphic->drawInRenderTexture(button, tank, timer);
 
 					newWindow = new NotAvailable(fileName, graphic);
 
@@ -92,6 +98,6 @@ void Editor::work()
 
 		}
 
-		graphic->draw(button);
+		graphic->draw(button, tank, timer);
 	}
 }

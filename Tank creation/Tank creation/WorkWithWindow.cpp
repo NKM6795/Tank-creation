@@ -99,6 +99,187 @@ void WorkWithWindow::forConstructor(string &fileName)
 	}
 }
 
+vector<Component *> WorkWithWindow::dataForResources()
+{
+	vector<Component *> components;
+
+	string objectName, typeName, identifierName, typeName2, identifierName2, typeName3, identifierName3;
+
+	int numberOfType, numberOfVariant, numberOfVariant2, numberOfVariant3;
+
+	//Background
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			Component *newComponent = new BackgroundComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant);
+			components.push_back(newComponent);
+		}
+	}
+
+	//Small block
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			int health;
+			bool canRebound;
+			fileIn >> canRebound >> health;
+
+			Component *newComponent = new SmallBlockComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			components.push_back(newComponent);
+		}
+	}
+
+	//Big block
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			int health;
+			bool canRebound;
+			fileIn >> canRebound >> health;
+
+			Component *newComponent = new BigBlockComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			components.push_back(newComponent);
+		}
+	}
+
+	//Engine room
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		getline(fileIn, typeName2);
+		getline(fileIn, identifierName2);
+
+		getline(fileIn, typeName3);
+		getline(fileIn, identifierName3);
+
+		fileIn >> numberOfVariant >> numberOfVariant2 >> numberOfVariant3;
+
+		int health;
+		fileIn >> health;
+
+		int xOffsetForRoom,
+			yOffsetForRoom;
+		int xOffsetForPerson,
+			yOffsetForPerson;
+		fileIn >> xOffsetForRoom >> yOffsetForRoom >> xOffsetForPerson >> yOffsetForPerson;
+
+		Component *newComponent = new EngineRoomComponent(objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson);
+		components.push_back(newComponent);
+	}
+
+	//Track
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			int health;
+			fileIn >> health;
+
+			Component *newComponent = new TrackComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health);
+			components.push_back(newComponent);
+		}
+	}
+
+	//Gun
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		getline(fileIn, typeName2);
+		getline(fileIn, identifierName2);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant >> numberOfVariant2;
+
+			bool horizontally;
+			int damage;
+			int bulletSpeed;
+			int reload;
+			int xOffsetForBarrel,
+				yOffsetForBarrel;
+			int xOriginForBarrel,
+				yOriginForBarrel;
+			int healthPoints;
+			int backgroundIndex;
+
+			fileIn >> horizontally >> damage >> bulletSpeed >> reload >> xOffsetForBarrel >> yOffsetForBarrel >> xOriginForBarrel >> yOriginForBarrel >> healthPoints >> backgroundIndex;
+
+			Component *newComponent = new GunComponent(objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex);
+			components.push_back(newComponent);
+		}
+	}
+
+	return components;
+}
+
+
 Graphic *WorkWithWindow::getGraphic()
 {
 	return graphic;
