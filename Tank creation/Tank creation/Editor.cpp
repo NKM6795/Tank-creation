@@ -12,14 +12,16 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 
 	getline(fileIn, backgroundNameOfPicture);
 	getline(fileIn, backgroundNameOfPicture);
-
 	graphic->setInformation(backgroundXCoordinate, backgroundYCoordinate, backgroundWidth, backgroundHeight, backgroundNameOfPicture);
 
 	components = dataForResources();
-
 	graphic->setInformation(components);
 
 	fileIn.close();
+
+	graphic->setInformation(tank);
+
+	tank.setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
 
 	tankEditor = new TankEditor(tank.getObjects());
 }

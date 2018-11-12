@@ -1,7 +1,7 @@
 #include "Tank.h"
 
 
-Tank::Tank(int dataArraySize) : dataArraySize(dataArraySize)
+Tank::Tank(int dataArraySize, int dimension) : dataArraySize(dataArraySize), dimension(dimension)
 {
 	xOffset = 0;
 	yOffset = 0;
@@ -38,16 +38,25 @@ Vector2int Tank::getOffset()
 
 void Tank::setOffset(Vector2int offset)
 {
-	yOffset = offset.x;
+	xOffset = offset.x;
 	yOffset = offset.y;
 }
 
 void Tank::setOffset(int x, int y)
 {
-	yOffset = x;
+	xOffset = x;
 	yOffset = y;
 }
 
+int Tank::getDimension()
+{
+	return dimension;
+}
+
+void Tank::setDimension(int dim)
+{
+	dimension = dim;
+}
 
 vector<vector<Object *> > &Tank::getObjects()
 {

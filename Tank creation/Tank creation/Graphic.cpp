@@ -80,6 +80,10 @@ Graphic::~Graphic()
 	if (needTank)
 	{
 		delete tankDraw;
+
+		delete tankTexture;
+
+		delete tankSprite;
 	}
 }
 
@@ -221,6 +225,10 @@ void Graphic::setInformation(Tank &tank)
 	needTank = true;
 
 	tankDraw = new TankDraw();
+
+	tankTexture = new Texture;
+
+	tankSprite = new Sprite;
 }
 
 
@@ -279,7 +287,23 @@ void Graphic::drawPrivate(vector<Object *> &objects, long timer)
 
 void Graphic::drawPrivate(Tank &tank, long timer)
 {
-	tankDraw->draw(*textureForWindow, timer, tank, components);
+	RenderTexture *renderTextureForTank = new RenderTexture;
+	renderTextureForTank->create(tank.getDimension(), tank.getDimension());
+	renderTextureForTank->clear(Color(0, 0, 0, 0));
+
+	tankDraw->draw(*renderTextureForTank, timer, tank, components);
+
+	renderTextureForTank->display();
+
+	delete tankTexture;
+	tankTexture = new Texture(renderTextureForTank->getTexture());
+
+	delete renderTextureForTank;
+
+	tankSprite->setTexture(*tankTexture);
+	tankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
+
+	textureForWindow->draw(*tankSprite);
 }
 
 

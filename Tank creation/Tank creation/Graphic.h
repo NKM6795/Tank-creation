@@ -45,6 +45,9 @@ class Graphic
 
 	bool needTank;
 	TankDraw *tankDraw;
+	Texture *tankTexture;
+	Sprite *tankSprite;
+
 
 	void forConstructor();
 
