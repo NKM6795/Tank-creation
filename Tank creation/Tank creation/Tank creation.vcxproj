@@ -144,6 +144,7 @@
     <ClCompile Include="ObjectDraw.cpp" />
     <ClCompile Include="SmallBlock.cpp" />
     <ClCompile Include="SmallBlockDraw.cpp" />
+    <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="TrackDraw.cpp" />
     <ClCompile Include="WindowController.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="ObjectDraw.h" />
     <ClInclude Include="SmallBlock.h" />
     <ClInclude Include="SmallBlockDraw.h" />
+    <ClInclude Include="Tank.h" />
     <ClInclude Include="Track.h" />
     <ClInclude Include="TrackDraw.h" />
     <ClInclude Include="WindowController.h" />
