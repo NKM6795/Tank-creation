@@ -73,6 +73,7 @@ protected:
 
 public:
 	bool needDraw;
+	bool needChangeColor;
 
 	Object();
 	Object(Component *component);

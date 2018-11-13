@@ -150,6 +150,7 @@ Object *TankEditor::getFreePlace(Component *component, int index, Vector2int mou
 		Object *newObject = getObject(component, index);
 		newObject->setPosition(position * 20 + getOffset());
 		newObject->setHeath(component->getStruct()->healthPoints);
+		newObject->needChangeColor = true;
 
 		return newObject;
 	}

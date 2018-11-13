@@ -75,13 +75,15 @@ void EngineRoomDraw::draw(RenderTexture &renderTexture, long timer, Object *obje
 		int index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
 		
 		backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		
+		backgroundSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+
 		renderTexture.draw(backgroundSprite[index]);
 
 
 		index = int((timer / 100) % numberOfVariantRoom);
 
 		roomSprite[index].setPosition(float(object->getPosition().x + xOffsetForRoom), float(object->getPosition().y + yOffsetForRoom));
+		roomSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
 
 		renderTexture.draw(roomSprite[index]);
 
@@ -89,6 +91,7 @@ void EngineRoomDraw::draw(RenderTexture &renderTexture, long timer, Object *obje
 		index = int((timer / 100) % numberOfVariantPerson);
 
 		personWorksSprite[index].setPosition(float(object->getPosition().x + xOffsetForPerson), float(object->getPosition().y + yOffsetForPerson));
+		personWorksSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
 
 		renderTexture.draw(personWorksSprite[index]);
 	}

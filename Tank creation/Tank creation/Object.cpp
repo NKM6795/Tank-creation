@@ -39,6 +39,7 @@ Object::Object()
 	healthPoints = -1;
 
 	needDraw = true;
+	needChangeColor = false;
 }
 
 Object::Object(Component *component) : component(component)
@@ -51,6 +52,7 @@ Object::Object(Component *component) : component(component)
 	healthPoints = -1;
 
 	needDraw = true;
+	needChangeColor = false;
 }
 
 Object::Object(Component *component, int index) : component(component), index(index)
@@ -61,6 +63,7 @@ Object::Object(Component *component, int index) : component(component), index(in
 	healthPoints = -1;
 
 	needDraw = true;
+	needChangeColor = false;
 }
 
 

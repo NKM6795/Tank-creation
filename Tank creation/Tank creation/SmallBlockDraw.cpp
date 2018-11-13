@@ -33,6 +33,7 @@ void SmallBlockDraw::draw(RenderTexture &renderTexture, long timer, Object *obje
 		int index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
 
 		smallBlockSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
+		smallBlockSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
 
 		renderTexture.draw(smallBlockSprite[index]);
 	}
