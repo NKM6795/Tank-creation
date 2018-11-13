@@ -14,6 +14,8 @@ class Editor : public WorkWithWindow
 
 	vector<Component *> components;
 
+	vector<Object *> objects;
+
 	Tank tank;
 
 	TankEditor *tankEditor;
@@ -23,6 +25,7 @@ public:
 
 	Editor(string &fileName, Graphic *forCopyWindow);
 
+	~Editor();
 
 	void work();
 };

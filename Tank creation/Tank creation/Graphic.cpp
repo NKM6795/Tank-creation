@@ -328,6 +328,13 @@ void Graphic::draw(Button *button, vector<Object *> &objects, long timer)
 	drawWindow();
 }
 
+void Graphic::draw(Button *button, vector<Object *> &objects, Tank &tank, long timer)
+{
+	drawInRenderTexture(button, objects, tank, timer);
+
+	drawWindow();
+}
+
 void Graphic::draw(Button *button, string &inputField)
 {
 	drawInRenderTexture(button, inputField);
@@ -373,6 +380,13 @@ void Graphic::drawInRenderTexture(Button *button, Tank &tank, long timer)
 void Graphic::drawInRenderTexture(Button *button, vector<Object *> &objects, long timer)
 {
 	drawInRenderTexture(button);
+
+	drawPrivate(objects, timer);
+}
+
+void Graphic::drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, long timer)
+{
+	drawInRenderTexture(button, tank, timer);
 
 	drawPrivate(objects, timer);
 }
