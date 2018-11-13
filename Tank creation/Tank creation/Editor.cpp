@@ -20,12 +20,12 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 	fileIn.close();
 
 	graphic->setInformation(tank);
-
 	tank.setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
 
 	tankEditor = new TankEditor(tank.getObjects());
-
 	tankEditor->setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
+
+	oldObject = nullptr;
 }
 
 
@@ -123,7 +123,15 @@ void Editor::work()
 		//Work with tank
 		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus())
 		{
-			tankEditor->addObject(components[5], 5, mousePosition);
+			if (oldObject == nullptr || oldObject != tank.getObject(mousePosition))
+			{
+				tankEditor->addObject(components[5], 5, mousePosition);
+				oldObject = tank.getObject(mousePosition);
+			}
+		}
+		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus())
+		{
+			tankEditor->removeObject(mousePosition);
 		}
 		
 		if (graphic->hasFocus())

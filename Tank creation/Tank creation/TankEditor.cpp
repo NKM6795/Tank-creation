@@ -98,6 +98,11 @@ Vector2int TankEditor::getFreePlace(Component *component, Vector2int mousePositi
 	float x = float(mousePosition.x) / 20,
 		y = float(mousePosition.y) / 20;
 
+	if (x < 0 || y < 0 || x >= float((*objects).size()) || y >= float((*objects).size()))
+	{
+		return Vector2int(-1, -1);
+	}
+
 	float maxR = sqrt(47.f * 47.f + 33.f * 33.f);
 
 	int tempI = (widht % 2 == 1) ? int(x - widht / 2) : int(x + 1.5f - widht / 2),
@@ -156,6 +161,7 @@ Object *TankEditor::getFreePlace(Component *component, int index, Vector2int mou
 	}
 }
 
+
 void TankEditor::addObject(Component *component, int index, Vector2int mousePosition)
 {
 	Vector2int position = getFreePlace(component, mousePosition);
@@ -170,4 +176,32 @@ void TankEditor::addObject(Component *component, int index, Vector2int mousePosi
 		(*objects)[position.x][position.y]->setPosition(position * 20);
 		(*objects)[position.x][position.y]->setHeath(component->getStruct()->healthPoints);
 	}
+}
+
+
+void TankEditor::removeObject(Vector2int mousePosition)
+{
+	mousePosition = mousePosition - getOffset();
+
+	int i = mousePosition.x / 20,
+		j = mousePosition.y / 20;
+
+	if (i < 0 || j < 0 || i >= int((*objects).size()) || j >= int((*objects).size()))
+	{
+		return;
+	}
+	
+	Object *object = (*objects)[i][j];
+
+	if (object == nullptr)
+	{
+		return;
+	}
+
+	int widht = object->getComponentParameter()->width,
+		height = object->getComponentParameter()->height;
+
+	delete object;
+
+	(*objects)[i][j] = nullptr;
 }

@@ -35,6 +35,8 @@ public:
 
 	virtual vector<vector<Object *> > &getObjects();
 
+	virtual Object *getObject(Vector2int mousePosition);
+
 	static vector<vector<bool> > getSmallTank(vector<vector<Object *> > &objectsCopy);
 	virtual vector<vector<bool> > getSmallTank();
 };

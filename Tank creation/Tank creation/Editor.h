@@ -16,6 +16,8 @@ class Editor : public WorkWithWindow
 
 	vector<Object *> objects;
 
+	Object *oldObject;
+
 	Tank tank;
 
 	TankEditor *tankEditor;

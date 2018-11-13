@@ -64,6 +64,22 @@ vector<vector<Object *> > &Tank::getObjects()
 }
 
 
+Object *Tank::getObject(Vector2int mousePosition)
+{
+	mousePosition = mousePosition - getOffset();
+
+	int i = mousePosition.x / 20,
+		j = mousePosition.y / 20;
+
+	if (i < 0 || j < 0 || i >= dataArraySize || j >= dataArraySize)
+	{
+		return nullptr;
+	}
+
+	return objects[i][j];
+}
+
+
 vector<vector<bool> > Tank::getSmallTank(vector<vector<Object *> > &objectsCopy)
 {
 	vector<vector<bool> > smallTank(objectsCopy.size(), vector<bool>(objectsCopy.size(), false));

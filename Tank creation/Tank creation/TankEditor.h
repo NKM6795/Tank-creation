@@ -30,4 +30,6 @@ public:
 	Object *getFreePlace(Component *component, int index, Vector2int mousePosition);
 
 	void addObject(Component *component, int index, Vector2int mousePosition);
+
+	void removeObject(Vector2int mousePosition);
 };
