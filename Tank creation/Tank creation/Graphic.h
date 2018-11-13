@@ -102,6 +102,8 @@ public:
 	void draw(Button *button, string &inputField, Tank &tank, long timer);
 	
 	void draw(Button *button, string &inputField, vector<Object *> &objects, long timer);
+	
+	void draw(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer);
 		
 
 	void drawInRenderTexture(Button *button);
@@ -116,8 +118,7 @@ public:
 	
 	void drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, long timer);
 
-
-
+	void drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer);
 
 
 	long getTimeAsMilliseconds();
