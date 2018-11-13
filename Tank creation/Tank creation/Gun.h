@@ -10,7 +10,7 @@ class GunComponent : public Component
 
 public:
 	GunComponent(string objectName, string typeName, string identifierName, int numberOfVariant, string typeName2, string identifierName2, int numberOfVariant2, 
-		bool horizontally, int damage, int bulletSpeed, int reload, int xOffsetForBarrel, int yOffsetForBarrel, int xOriginForBarrel, int yOriginForBarrel, int healthPoints, int backgroundIndex = -1);
+		bool horizontally, int damage, int bulletSpeed, int reload, int xOffsetForBarrel, int yOffsetForBarrel, int xOriginForBarrel, int yOriginForBarrel, int healthPoints, int backgroundIndex, int width, int height);
 
 
 };

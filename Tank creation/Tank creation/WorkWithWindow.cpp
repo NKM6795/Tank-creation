@@ -209,7 +209,11 @@ vector<Component *> WorkWithWindow::dataForResources()
 			yOffsetForPerson;
 		fileIn >> xOffsetForRoom >> yOffsetForRoom >> xOffsetForPerson >> yOffsetForPerson;
 
-		Component *newComponent = new EngineRoomComponent(objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson);
+		int width,
+			height;
+		fileIn >> width >> height;
+
+		Component *newComponent = new EngineRoomComponent(objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson, width, height);
 		components.push_back(newComponent);
 	}
 
@@ -233,7 +237,11 @@ vector<Component *> WorkWithWindow::dataForResources()
 			int health;
 			fileIn >> health;
 
-			Component *newComponent = new TrackComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health);
+			int width,
+				height;
+			fileIn >> width >> height;
+
+			Component *newComponent = new TrackComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, width, height);
 			components.push_back(newComponent);
 		}
 	}
@@ -268,10 +276,13 @@ vector<Component *> WorkWithWindow::dataForResources()
 				yOriginForBarrel;
 			int healthPoints;
 			int backgroundIndex;
-
 			fileIn >> horizontally >> damage >> bulletSpeed >> reload >> xOffsetForBarrel >> yOffsetForBarrel >> xOriginForBarrel >> yOriginForBarrel >> healthPoints >> backgroundIndex;
 
-			Component *newComponent = new GunComponent(objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex);
+			int width,
+				height;
+			fileIn >> width >> height;
+
+			Component *newComponent = new GunComponent(objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height);
 			components.push_back(newComponent);
 		}
 	}

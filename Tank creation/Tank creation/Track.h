@@ -9,7 +9,7 @@ class TrackComponent : public Component
 
 
 public:
-	TrackComponent(string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints);
+	TrackComponent(string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, int width, int height);
 
 
 };

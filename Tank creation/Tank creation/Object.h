@@ -39,6 +39,9 @@ struct ComponentParameter
 	float tiltAngle;
 
 	int backgroundIndex;
+
+	int width,
+		height;
 };
 
 
@@ -48,7 +51,7 @@ protected:
 	ComponentParameter *component;
 
 public:
-	Component(string objectName, string typeName, string identifierName, int numberOfVariant);
+	Component(string objectName, string typeName, string identifierName, int numberOfVariant, int width = 1, int height = 1);
 
 	virtual ~Component();
 

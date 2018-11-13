@@ -34,4 +34,6 @@ public:
 	virtual void setDimension(int dim);
 
 	virtual vector<vector<Object *> > &getObjects();
+
+	virtual vector<vector<bool> > getSmallTank();
 };

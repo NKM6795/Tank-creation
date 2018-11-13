@@ -1,7 +1,7 @@
 #include "Track.h"
 
 
-TrackComponent::TrackComponent(string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints) : Component(objectName, typeName, identifierName, numberOfVariant)
+TrackComponent::TrackComponent(string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, int width, int height) : Component(objectName, typeName, identifierName, numberOfVariant, width, height)
 {
 	component->healthPoints = healthPoints;
 }

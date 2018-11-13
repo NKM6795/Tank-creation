@@ -1,7 +1,7 @@
 #include "Object.h"
 
 
-Component::Component(string objectName, string typeName, string identifierName, int numberOfVariant)
+Component::Component(string objectName, string typeName, string identifierName, int numberOfVariant, int width, int height)
 {
 	component = new ComponentParameter;
 
@@ -9,6 +9,9 @@ Component::Component(string objectName, string typeName, string identifierName, 
 	component->typeName = typeName;
 	component->identifierName = identifierName;
 	component->numberOfVariant = numberOfVariant;
+
+	component->width = width;
+	component->height = height;
 }
 
 Component::~Component()

@@ -1,7 +1,7 @@
 #include "BigBlock.h"
 
 
-BigBlockComponent::BigBlockComponent(string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound) : Component(objectName, typeName, identifierName, numberOfVariant)
+BigBlockComponent::BigBlockComponent(string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound) : Component(objectName, typeName, identifierName, numberOfVariant, 2, 2)
 {
 	component->healthPoints = healthPoints;
 

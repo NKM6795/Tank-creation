@@ -62,3 +62,21 @@ vector<vector<Object *> > &Tank::getObjects()
 {
 	return objects;
 }
+
+vector<vector<bool> > Tank::getSmallTank()
+{
+	vector<vector<bool> > smallTank(dataArraySize, vector<bool>(dataArraySize, false));
+
+	for (int i = 0; i < dataArraySize; ++i)
+	{
+		for (int j = 0; j < dataArraySize; ++j)
+		{
+			if (objects[i][j] != nullptr)
+			{
+				smallTank[i][j] = true;
+			}
+		}
+	}
+
+	return smallTank;
+}
