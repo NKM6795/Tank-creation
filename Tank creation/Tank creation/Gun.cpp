@@ -28,42 +28,28 @@ GunComponent::GunComponent(string objectName, string typeName, string identifier
 
 Gun::Gun() : Object()
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToGun(this);
-	}
+	addition = new AdditionToGun(this);
 }
 
 Gun::Gun(Component *component) : Object(component)
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToGun(this);
-	}
+	addition = new AdditionToGun(this);
 }
 
 Gun::Gun(Component *component, int index) : Object(component, index)
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToGun(this);
-	}
+	addition = new AdditionToGun(this);
 }
 
 Gun::~Gun()
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		delete additions[i];
-	}
+	delete addition;
+}
 
-	delete[] additions;
+
+Object *Gun::getAddition()
+{
+	return addition;
 }
 
 

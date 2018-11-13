@@ -92,4 +92,6 @@ public:
 	virtual void setIndex(int i);
 
 	virtual ComponentParameter *getComponentParameter();
+
+	virtual Object *getAddition();
 };

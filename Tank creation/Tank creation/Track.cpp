@@ -9,42 +9,28 @@ TrackComponent::TrackComponent(string objectName, string typeName, string identi
 
 Track::Track() : Object()
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToTrack(this);
-	}
+	addition = new AdditionToTrack(this);
 }
 
 Track::Track(Component *component) : Object(component)
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToTrack(this);
-	}
+	addition = new AdditionToTrack(this);
 }
 
 Track::Track(Component *component, int index) : Object(component, index)
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToTrack(this);
-	}
+	addition = new AdditionToTrack(this);
 }
 
 Track::~Track()
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		delete additions[i];
-	}
+	delete addition;
+}
 
-	delete[] additions;
+
+Object *Track::getAddition()
+{
+	return addition;
 }
 
 

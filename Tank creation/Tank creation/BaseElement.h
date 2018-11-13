@@ -57,6 +57,11 @@ struct Vector2int
 	{
 		return Vector2int(x * value, y * value);
 	}
+
+	inline Vector2int operator / (int value) const
+	{
+		return Vector2int(x / value, y / value);
+	}
 };
 
 

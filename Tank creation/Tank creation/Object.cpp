@@ -117,3 +117,9 @@ ComponentParameter *Object::getComponentParameter()
 {
 	return component->getStruct();
 }
+
+
+Object *Object::getAddition()
+{
+	return nullptr;
+}

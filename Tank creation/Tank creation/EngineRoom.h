@@ -18,7 +18,7 @@ public:
 
 class EngineRoom : public Object
 {
-	Object **additions;
+	Object *addition;
 
 public:
 	EngineRoom();
@@ -26,6 +26,8 @@ public:
 	EngineRoom(Component *component, int index);
 
 	~EngineRoom();
+
+	Object *getAddition();
 };
 
 

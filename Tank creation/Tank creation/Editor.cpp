@@ -31,6 +31,8 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 
 Editor::~Editor()
 {
+	tank.~Tank();
+
 	while (components.size() > 0)
 	{
 		delete components.back();
@@ -125,7 +127,7 @@ void Editor::work()
 		{
 			if (oldObject == nullptr || oldObject != tank.getObject(mousePosition))
 			{
-				tankEditor->addObject(components[5], 5, mousePosition);
+				tankEditor->addObject(components[37], 37, mousePosition);
 				oldObject = tank.getObject(mousePosition);
 			}
 		}
@@ -133,12 +135,16 @@ void Editor::work()
 		{
 			tankEditor->removeObject(mousePosition);
 		}
+		else
+		{
+			oldObject = nullptr;
+		}
 		
 		if (graphic->hasFocus())
 		{
 			if (objects.size() == 0)
 			{
-				Object *temp = tankEditor->getFreePlace(components[5], 5, mousePosition);
+				Object *temp = tankEditor->getFreePlace(components[37], 37, mousePosition);
 
 				objects.push_back(temp);
 			}
@@ -146,7 +152,7 @@ void Editor::work()
 			{
 				delete objects.back();
 
-				objects.back() = tankEditor->getFreePlace(components[5], 5, mousePosition);
+				objects.back() = tankEditor->getFreePlace(components[37], 37, mousePosition);
 			}
 
 		}

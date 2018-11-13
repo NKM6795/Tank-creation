@@ -22,7 +22,22 @@ Tank::~Tank()
 		{
 			if (objects.back().back() != nullptr)
 			{
-				delete objects.back().back();
+				Vector2int position = objects.back().back()->getPosition() / 20;
+
+				Object *object = objects[position.x][position.y];
+
+				int widht = object->getComponentParameter()->width,
+					height = object->getComponentParameter()->height;
+
+				delete object;
+
+				for (int l = 0; l < widht; ++l)
+				{
+					for (int k = 0; k < height; ++k)
+					{
+						objects[position.x + l][position.y + k] = nullptr;
+					}
+				}
 			}
 			objects.back().pop_back();
 		}

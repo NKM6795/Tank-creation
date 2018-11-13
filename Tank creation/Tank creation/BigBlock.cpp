@@ -11,42 +11,28 @@ BigBlockComponent::BigBlockComponent(string objectName, string typeName, string 
 
 BigBlock::BigBlock() : Object()
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToBigBlock(this);
-	}
+	addition = new AdditionToBigBlock(this);
 }
 
 BigBlock::BigBlock(Component *component) : Object(component)
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToBigBlock(this);
-	}
+	addition = new AdditionToBigBlock(this);
 }
 
 BigBlock::BigBlock(Component *component, int index) : Object(component, index)
 {
-	additions = new Object*[3];
-
-	for (int i = 0; i < 3; ++i)
-	{
-		additions[i] = new AdditionToBigBlock(this);
-	}
+	addition = new AdditionToBigBlock(this);
 }
 
 BigBlock::~BigBlock()
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		delete additions[i];
-	}
+	delete addition;
+}
 
-	delete[] additions;
+
+Object *BigBlock::getAddition()
+{
+	return addition;
 }
 
 

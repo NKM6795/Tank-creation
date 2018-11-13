@@ -17,7 +17,7 @@ public:
 
 class BigBlock : public Object
 {
-	Object **additions;
+	Object *addition;
 
 public:
 	BigBlock();
@@ -25,6 +25,8 @@ public:
 	BigBlock(Component *component, int index);
 
 	~BigBlock();
+
+	Object *getAddition();
 };
 
 

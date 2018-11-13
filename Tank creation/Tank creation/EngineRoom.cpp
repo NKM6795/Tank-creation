@@ -25,42 +25,28 @@ EngineRoomComponent::EngineRoomComponent(string objectName, string typeName, str
 
 EngineRoom::EngineRoom() : Object()
 {
-	additions = new Object*[5];
-
-	for (int i = 0; i < 5; ++i)
-	{
-		additions[i] = new AdditionToEngineRoom(this);
-	}
+	addition = new AdditionToEngineRoom(this);
 }
 
 EngineRoom::EngineRoom(Component *component) : Object(component)
 {
-	additions = new Object*[5];
-
-	for (int i = 0; i < 5; ++i)
-	{
-		additions[i] = new AdditionToEngineRoom(this);
-	}
+	addition= new AdditionToEngineRoom(this);
 }
 
 EngineRoom::EngineRoom(Component *component, int index) : Object(component, index)
 {
-	additions = new Object*[5];
-
-	for (int i = 0; i < 5; ++i)
-	{
-		additions[i] = new AdditionToEngineRoom(this);
-	}
+	addition= new AdditionToEngineRoom(this);
 }
 
 EngineRoom::~EngineRoom()
 {
-	for (int i = 0; i < 5; ++i)
-	{
-		delete additions[i];
-	}
+	delete addition;
+}
 
-	delete[] additions;
+
+Object *EngineRoom::getAddition()
+{
+	return addition;
 }
 
 

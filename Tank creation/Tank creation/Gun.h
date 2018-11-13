@@ -18,7 +18,7 @@ public:
 
 class Gun : public Object
 {
-	Object **additions;
+	Object *addition;
 
 public:
 	Gun();
@@ -26,6 +26,8 @@ public:
 	Gun(Component *component, int index);
 
 	~Gun();
+
+	Object *getAddition();
 };
 
 

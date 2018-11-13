@@ -17,7 +17,7 @@ public:
 
 class Track : public Object
 {
-	Object **additions;
+	Object *addition;
 
 public:
 	Track();
@@ -25,6 +25,8 @@ public:
 	Track(Component *component, int index);
 
 	~Track();
+
+	Object *getAddition();
 };
 
 
