@@ -63,15 +63,16 @@ vector<vector<Object *> > &Tank::getObjects()
 	return objects;
 }
 
-vector<vector<bool> > Tank::getSmallTank()
-{
-	vector<vector<bool> > smallTank(dataArraySize, vector<bool>(dataArraySize, false));
 
-	for (int i = 0; i < dataArraySize; ++i)
+vector<vector<bool> > Tank::getSmallTank(vector<vector<Object *> > &objectsCopy)
+{
+	vector<vector<bool> > smallTank(objectsCopy.size(), vector<bool>(objectsCopy.size(), false));
+
+	for (int i = 0; i < int(objectsCopy.size()); ++i)
 	{
-		for (int j = 0; j < dataArraySize; ++j)
+		for (int j = 0; j < int(objectsCopy.size()); ++j)
 		{
-			if (objects[i][j] != nullptr)
+			if (objectsCopy[i][j] != nullptr)
 			{
 				smallTank[i][j] = true;
 			}
@@ -79,4 +80,9 @@ vector<vector<bool> > Tank::getSmallTank()
 	}
 
 	return smallTank;
+}
+
+vector<vector<bool> > Tank::getSmallTank()
+{
+	return getSmallTank(objects);
 }

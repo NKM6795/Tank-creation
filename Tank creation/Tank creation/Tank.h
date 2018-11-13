@@ -35,5 +35,6 @@ public:
 
 	virtual vector<vector<Object *> > &getObjects();
 
+	static vector<vector<bool> > getSmallTank(vector<vector<Object *> > &objectsCopy);
 	virtual vector<vector<bool> > getSmallTank();
 };
