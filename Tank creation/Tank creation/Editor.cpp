@@ -26,33 +26,6 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 	tankEditor = new TankEditor(tank.getObjects());
 
 	tankEditor->setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
-
-	tank.getObjects()[0][0] = TankEditor::getObject(components[5], 5);
-	tank.getObjects()[0][0]->setHeath(1);
-
-	tank.getObjects()[5][5] = TankEditor::getObject(components[5], 5);
-	tank.getObjects()[5][5]->setHeath(1);
-	tank.getObjects()[5][5]->setPosition(100, 100);
-
-	tank.getObjects()[6][5] = TankEditor::getObject(components[5], 5);
-	tank.getObjects()[6][5]->setHeath(1);
-	tank.getObjects()[6][5]->setPosition(120, 100);
-
-	tank.getObjects()[7][5] = TankEditor::getObject(components[5], 5);
-	tank.getObjects()[7][5]->setHeath(1);
-	tank.getObjects()[7][5]->setPosition(140, 100);
-
-	tank.getObjects()[5][6] = TankEditor::getObject(components[5], 5);
-	tank.getObjects()[5][6]->setHeath(1);
-	tank.getObjects()[5][6]->setPosition(100, 120);
-
-	tank.getObjects()[6][6] = TankEditor::getObject(components[5], 5);
-	tank.getObjects()[6][6]->setHeath(1);
-	tank.getObjects()[6][6]->setPosition(120, 120);
-
-	Object *newObject = tankEditor->getFreePlace(components[5], 5, Vector2int(350, 70));
-
-	objects.push_back(newObject);
 }
 
 
@@ -106,15 +79,9 @@ void Editor::work()
 
 				newWindow = new ExitFromEditor(fileName, graphic);
 			}
-			if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::F))
-			{
-				delete objects.back();
-
-				objects.back() = tankEditor->getFreePlace(components[5], 5, mousePosition);
-			}
 		}
 
-
+		//Work with buttons
 		for (int i = 0; i < numberOfButton; ++i)
 		{
 			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
@@ -149,6 +116,29 @@ void Editor::work()
 
 					button[i].setActivateAnAction(false);
 				}
+			}
+
+		}
+
+		//Work with tank
+		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus())
+		{
+			tankEditor->addObject(components[5], 5, mousePosition);
+		}
+		
+		if (graphic->hasFocus())
+		{
+			if (objects.size() == 0)
+			{
+				Object *temp = tankEditor->getFreePlace(components[5], 5, mousePosition);
+
+				objects.push_back(temp);
+			}
+			else
+			{
+				delete objects.back();
+
+				objects.back() = tankEditor->getFreePlace(components[5], 5, mousePosition);
 			}
 
 		}

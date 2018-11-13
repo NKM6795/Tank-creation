@@ -28,4 +28,6 @@ public:
 
 	Vector2int getFreePlace(Component *component, Vector2int mousePosition);
 	Object *getFreePlace(Component *component, int index, Vector2int mousePosition);
+
+	void addObject(Component *component, int index, Vector2int mousePosition);
 };

@@ -155,3 +155,19 @@ Object *TankEditor::getFreePlace(Component *component, int index, Vector2int mou
 		return newObject;
 	}
 }
+
+void TankEditor::addObject(Component *component, int index, Vector2int mousePosition)
+{
+	Vector2int position = getFreePlace(component, mousePosition);
+
+	if (position.x == -1)
+	{
+		return;
+	}
+	else
+	{
+		(*objects)[position.x][position.y] = getObject(component, index);
+		(*objects)[position.x][position.y]->setPosition(position * 20);
+		(*objects)[position.x][position.y]->setHeath(component->getStruct()->healthPoints);
+	}
+}
