@@ -30,14 +30,14 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 
 	vector<Object *> temp;
 
-	for (int i = 5; i < 15; ++i)
+	for (int i = 5; i < 40; ++i)
 	{
 		Object *newObject = TankEditor::getObject(components[i], i);
 		newObject->setHeath(components[i]->getStruct()->healthPoints);
 		temp.push_back(newObject);
 	}
 
-	list = new List(temp, 300, 300, 50, 50);
+	list = new List(temp, 300, 290, 50, 50);
 
 	graphic->setInformation(*list);
 }
@@ -97,11 +97,11 @@ void Editor::work()
 			}
 			if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0))
 			{
-				list->work(true, timer, timeForWork);
+				list->setDirect(true);
 			}
 			if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0))
 			{
-				list->work(false, timer, timeForWork);
+				list->setDirect(false);
 			}
 		}
 

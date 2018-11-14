@@ -1,12 +1,23 @@
 #include "List.h"
 
 
+void List::updateObject()
+{
+	for (int i = 0; i < int(objects.size()); ++i)
+	{
+		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - objects[i]->getComponentParameter()->width * 20) / 2, i * fragmentHeight + (fragmentHeight - objects[i]->getComponentParameter()->height * 20) / 2 - position);
+	}
+
+	button->getStruct()->yCoordinate = int(conversionFactor * position) + 25;
+}
+
 List::List(vector<Object *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth, int objectHeight, int fragmentHeight, int separationThickness) : 
 	objects(objects), width(width), height(height), xCoordinate(xCoordinate), yCoordinate(yCoordinate), objectWidth(objectWidth), objectHeight(objectHeight), fragmentHeight(fragmentHeight), separationThickness(separationThickness)
 {
 	position = 0;
 	index = 0;
 
+	needDirect = false;
 	activateAnAction = false;
 	
 	needButton = false;
@@ -16,11 +27,11 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	{
 		needButton = true;
 
-		conversionFactor = float(int(objects.size()) * fragmentHeight) / float(height);
+		conversionFactor = float(height) / float(int(objects.size()) * fragmentHeight);
 
 		button = new Button;
 
-		button->setInformation(width - 11, position, 11, 9, 0, "", "scrollbar", "");
+		button->setInformation(width - 5, 25, 10, 51, 0, "", "scrollbar", "");
 	}
 
 	for (int i = 0; i < int(objects.size()); ++i)
@@ -42,6 +53,12 @@ List::~List()
 int List::getIndex()
 {
 	return index;
+}
+
+
+int List::getPosition()
+{
+	return position;
 }
 
 
@@ -75,6 +92,14 @@ void List::setOffset(int x, int y)
 }
 
 
+void List::setDirect(bool direct)
+{
+	needDirect = true;
+
+	up = direct;
+}
+
+
 int List::getFragmentHeight()
 {
 	return fragmentHeight;
@@ -101,18 +126,56 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 		button->work(mousePosition, isPressed, timer, fps);
 	}
 
+	if (needDirect)
+	{
+		if (mousePosition > Vector2int() && mousePosition < Vector2int(width, height))
+		{
+			if (!up && position + height + fragmentHeight <= int(objects.size()) * fragmentHeight)
+			{
+				position += fragmentHeight;
+
+				updateObject();
+			}
+			else if (up && position - fragmentHeight >= 0)
+			{
+				position -= fragmentHeight;
+
+				updateObject();
+			}
+		}
+		else
+		{
+			index += up ? -1 : 1;
+			index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
+
+			if (index * fragmentHeight < position)
+			{
+				position = index * fragmentHeight;
+			}
+			else if ((index + 1) * fragmentHeight > position + height)
+			{
+				position = (index + 1) * fragmentHeight - height;
+			}
+
+			updateObject();
+		}
+		needDirect = false;
+	}
 	if (mousePosition > Vector2int() && mousePosition < Vector2int(width, height))
 	{
-		index = (mousePosition.y - position) / fragmentHeight;
+		index = (mousePosition.y + position) / fragmentHeight;
+
+		if (index * fragmentHeight < position)
+		{
+			position = index * fragmentHeight;
+		}
+		else if ((index + 1) * fragmentHeight > position + height)
+		{
+			position = (index + 1) * fragmentHeight - height;
+		}
+
+		updateObject();
 	}
-
-}
-
-void List::work(bool up, long timer, int fps)
-{
-	index += up ? -1 : 1;
-	index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
-
 
 }
 

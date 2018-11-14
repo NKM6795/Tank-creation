@@ -38,5 +38,5 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 		button->drawButton(renderTexture, *list.getButton()->getStruct());
 	}
 
-	drawRectangle(renderTexture, 1, list.getIndex() * list.getFragmentHeight(), list.getWidth() - (needButton ? 11 : 0), (list.getIndex() + 1) * list.getFragmentHeight() - 1, Color::White);
+	drawRectangle(renderTexture, 1, list.getIndex() * list.getFragmentHeight() - list.getPosition(), list.getWidth() - (needButton ? 11 : 0), (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition(), Color::White);
 }
