@@ -8,7 +8,7 @@ class BackgroundComponent : public Component
 {
 
 public:
-	BackgroundComponent(string objectName, string typeName, string identifierName, int numberOfVariant);
+	BackgroundComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant);
 
 
 };

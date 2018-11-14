@@ -1,7 +1,7 @@
 #include "Background.h"
 
 
-BackgroundComponent::BackgroundComponent(string objectName, string typeName, string identifierName, int numberOfVariant) : Component(objectName, typeName, identifierName, numberOfVariant)
+BackgroundComponent::BackgroundComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant) : Component(name, objectName, typeName, identifierName, numberOfVariant)
 {
 
 }

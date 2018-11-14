@@ -6,6 +6,8 @@
 
 struct ComponentParameter
 {
+	string name;
+
 	string objectName;
 	string typeName;
 	string identifierName;
@@ -51,7 +53,7 @@ protected:
 	ComponentParameter *component;
 
 public:
-	Component(string objectName, string typeName, string identifierName, int numberOfVariant, int width = 1, int height = 1);
+	Component(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int width = 1, int height = 1);
 
 	virtual ~Component();
 
@@ -70,6 +72,8 @@ protected:
 		yCoordinate;
 
 	int healthPoints;
+
+	float scale;
 
 public:
 	bool needDraw;
@@ -90,6 +94,9 @@ public:
 
 	virtual int getIndex();
 	virtual void setIndex(int i);
+
+	virtual float getScale();
+	virtual void setScale(float scale);
 
 	virtual ComponentParameter *getComponentParameter();
 

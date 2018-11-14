@@ -30,7 +30,7 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 
 	vector<Object *> temp;
 
-	for (int i = 5; i < 40; ++i)
+	for (int i = 5; i < 50; ++i)
 	{
 		Object *newObject = TankEditor::getObject(components[i], i);
 		newObject->setHeath(components[i]->getStruct()->healthPoints);

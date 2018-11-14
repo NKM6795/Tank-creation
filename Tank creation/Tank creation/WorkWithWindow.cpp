@@ -103,7 +103,7 @@ vector<Component *> WorkWithWindow::dataForResources()
 {
 	vector<Component *> components;
 
-	string objectName, typeName, identifierName, typeName2, identifierName2, typeName3, identifierName3;
+	string name, objectName, typeName, identifierName, typeName2, identifierName2, typeName3, identifierName3;
 
 	int numberOfType, numberOfVariant, numberOfVariant2, numberOfVariant3;
 
@@ -124,7 +124,10 @@ vector<Component *> WorkWithWindow::dataForResources()
 		{
 			fileIn >> numberOfVariant;
 
-			Component *newComponent = new BackgroundComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant);
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new BackgroundComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant);
 			components.push_back(newComponent);
 		}
 	}
@@ -150,7 +153,10 @@ vector<Component *> WorkWithWindow::dataForResources()
 			bool canRebound;
 			fileIn >> canRebound >> health;
 
-			Component *newComponent = new SmallBlockComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new SmallBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
 			components.push_back(newComponent);
 		}
 	}
@@ -176,7 +182,10 @@ vector<Component *> WorkWithWindow::dataForResources()
 			bool canRebound;
 			fileIn >> canRebound >> health;
 
-			Component *newComponent = new BigBlockComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new BigBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
 			components.push_back(newComponent);
 		}
 	}
@@ -213,7 +222,10 @@ vector<Component *> WorkWithWindow::dataForResources()
 			height;
 		fileIn >> width >> height;
 
-		Component *newComponent = new EngineRoomComponent(objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson, width, height);
+		getline(fileIn, name);
+		getline(fileIn, name);
+
+		Component *newComponent = new EngineRoomComponent(name, objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson, width, height);
 		components.push_back(newComponent);
 	}
 
@@ -241,7 +253,10 @@ vector<Component *> WorkWithWindow::dataForResources()
 				height;
 			fileIn >> width >> height;
 
-			Component *newComponent = new TrackComponent(objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, width, height);
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new TrackComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, width, height);
 			components.push_back(newComponent);
 		}
 	}
@@ -282,7 +297,10 @@ vector<Component *> WorkWithWindow::dataForResources()
 				height;
 			fileIn >> width >> height;
 
-			Component *newComponent = new GunComponent(objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height);
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height);
 			components.push_back(newComponent);
 		}
 	}

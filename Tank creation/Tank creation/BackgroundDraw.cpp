@@ -34,6 +34,7 @@ void BackgroundDraw::draw(RenderTexture &renderTexture, long timer, Object *obje
 
 		backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
 		backgroundSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		backgroundSprite[index].setScale(object->getScale(), object->getScale());
 
 		renderTexture.draw(backgroundSprite[index]);
 	}

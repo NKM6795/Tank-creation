@@ -1,9 +1,11 @@
 #include "Object.h"
 
 
-Component::Component(string objectName, string typeName, string identifierName, int numberOfVariant, int width, int height)
+Component::Component(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int width, int height)
 {
 	component = new ComponentParameter;
+
+	component->name = name;
 
 	component->objectName = objectName;
 	component->typeName = typeName;
@@ -40,6 +42,8 @@ Object::Object()
 
 	needDraw = true;
 	needChangeColor = false;
+
+	scale = 1.f;
 }
 
 Object::Object(Component *component) : component(component)
@@ -53,6 +57,8 @@ Object::Object(Component *component) : component(component)
 
 	needDraw = true;
 	needChangeColor = false;
+
+	scale = 1.f;
 }
 
 Object::Object(Component *component, int index) : component(component), index(index)
@@ -64,6 +70,8 @@ Object::Object(Component *component, int index) : component(component), index(in
 
 	needDraw = true;
 	needChangeColor = false;
+
+	scale = 1.f;
 }
 
 
@@ -110,6 +118,17 @@ int Object::getIndex()
 void Object::setIndex(int i)
 {
 	index = i;
+}
+
+
+float Object::getScale()
+{
+	return scale;
+}
+
+void Object::setScale(float scaleCopy)
+{
+	scale = scaleCopy;
 }
 
 

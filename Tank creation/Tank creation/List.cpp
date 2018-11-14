@@ -5,7 +5,7 @@ void List::updateObject()
 {
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
-		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - objects[i]->getComponentParameter()->width * 20) / 2, i * fragmentHeight + (fragmentHeight - objects[i]->getComponentParameter()->height * 20) / 2 - position);
+		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2 - position);
 	}
 
 	button->getStruct()->yCoordinate = int(conversionFactor * position) + 25;
@@ -37,7 +37,11 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
-		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - objects[i]->getComponentParameter()->width * 20) / 2, i * fragmentHeight + (fragmentHeight - objects[i]->getComponentParameter()->height * 20) / 2);
+		if (objects[i]->getComponentParameter()->width > 3 || objects[i]->getComponentParameter()->height > 2)
+		{
+			objects[i]->setScale(min(3.f / float(objects[i]->getComponentParameter()->width), 2.f / float(objects[i]->getComponentParameter()->height)));
+		}
+		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2);
 	}
 }
 
