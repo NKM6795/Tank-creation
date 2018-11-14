@@ -101,7 +101,18 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 		button->work(mousePosition, isPressed, timer, fps);
 	}
 
-	
+	if (mousePosition > Vector2int() && mousePosition < Vector2int(width, height))
+	{
+		index = (mousePosition.y - position) / fragmentHeight;
+	}
+
+}
+
+void List::work(bool up, long timer, int fps)
+{
+	index += up ? -1 : 1;
+	index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
+
 
 }
 

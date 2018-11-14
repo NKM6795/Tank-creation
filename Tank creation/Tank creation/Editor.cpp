@@ -95,6 +95,14 @@ void Editor::work()
 
 				newWindow = new ExitFromEditor(fileName, graphic);
 			}
+			if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0))
+			{
+				list->work(true, timer, timeForWork);
+			}
+			if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0))
+			{
+				list->work(false, timer, timeForWork);
+			}
 		}
 
 		//Work with buttons
@@ -170,6 +178,10 @@ void Editor::work()
 			}
 
 		}
+
+		//Work with list
+		list->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+
 
 		graphic->draw(button, objects, tank, *list, timer);
 	}

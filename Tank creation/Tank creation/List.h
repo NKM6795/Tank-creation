@@ -49,6 +49,7 @@ public:
 	int getHeight();
 
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps);
+	void work(bool up, long timer, int fps);
 
 	bool getActivateAnAction();
 };
