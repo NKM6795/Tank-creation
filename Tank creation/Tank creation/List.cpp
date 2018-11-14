@@ -22,6 +22,20 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 
 		button->setInformation(width - 11, position, 11, 9, 0, "", "scrollbar", "");
 	}
+
+	for (int i = 0; i < int(objects.size()); ++i)
+	{
+		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth) / 2, i * fragmentHeight + (fragmentHeight - objectHeight) / 2);
+	}
+}
+
+
+List::~List()
+{
+	if (needButton)
+	{
+		delete button;
+	}
 }
 
 
@@ -58,6 +72,23 @@ void List::setOffset(int x, int y)
 {
 	xCoordinate = x;
 	yCoordinate = y;
+}
+
+
+int List::getFragmentHeight()
+{
+	return fragmentHeight;
+}
+
+
+int List::getWidth()
+{
+	return width;
+}
+
+int List::getHeight()
+{
+	return height;
 }
 
 

@@ -26,6 +26,20 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 	tankEditor->setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
 
 	oldObject = nullptr;
+
+
+	vector<Object *> temp;
+
+	for (int i = 5; i < 10; ++i)
+	{
+		Object *newObject = TankEditor::getObject(components[i], i);
+		newObject->setHeath(components[i]->getStruct()->healthPoints);
+		temp.push_back(newObject);
+	}
+
+	list = new List(temp, 300, 300, 50, 50);
+
+	graphic->setInformation(*list);
 }
 
 
@@ -157,6 +171,6 @@ void Editor::work()
 
 		}
 
-		graphic->draw(button, objects, tank, timer);
+		graphic->draw(button, objects, tank, *list, timer);
 	}
 }

@@ -13,14 +13,13 @@ class Editor : public WorkWithWindow
 	string backgroundNameOfPicture;
 
 	vector<Component *> components;
-
 	vector<Object *> objects;
-
 	Object *oldObject;
 
 	Tank tank;
-
 	TankEditor *tankEditor;
+
+	List *list;
 
 public:
 	Editor(string &fileName);

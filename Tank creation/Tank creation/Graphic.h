@@ -4,6 +4,7 @@
 #include "ButtonDraw.h"
 #include "GraphicForNotificationWindow.h"
 #include "TankDraw.h"
+#include "ListDraw.h"
 
 
 class Graphic
@@ -48,6 +49,10 @@ class Graphic
 	Texture *tankTexture;
 	Sprite *tankSprite;
 
+	bool needList;
+	ListDraw *listDraw;
+	Texture *listTexture;
+	Sprite *listSprite;
 
 	void forConstructor();
 
@@ -64,6 +69,8 @@ class Graphic
 	void drawPrivate(vector<Object *> &objects, long timer);
 
 	void drawPrivate(Tank &tank, long timer);
+
+	void drawPrivate(List &list, long timer);
 
 public:
 	Graphic(int screanWidth, int screanHeight) : screanWidth(screanWidth), screanHeight(screanHeight)
@@ -90,6 +97,8 @@ public:
 
 	void setInformation(Tank &tank);
 
+	void setInformation(List &list);
+
 
 	void draw(Button *button);
 	
@@ -98,6 +107,8 @@ public:
 	void draw(Button *button, vector<Object *> &objects, long timer);
 
 	void draw(Button *button, vector<Object *> &objects, Tank &tank, long timer);
+
+	void draw(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer);
 
 	void draw(Button *button, string &inputField);
 
@@ -115,6 +126,8 @@ public:
 	void drawInRenderTexture(Button *button, vector<Object *> &objects, long timer);
 
 	void drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, long timer);
+
+	void drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer);
 
 	void drawInRenderTexture(Button *button, string &inputField);
 

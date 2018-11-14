@@ -1,7 +1,7 @@
 #include "ListDraw.h"
 
 
-ListDraw::ListDraw(List &list, vector<ComponentDraw *> components) : components(&components)
+ListDraw::ListDraw(List &list, vector<ComponentDraw *> &components) : components(&components)
 {
 	needButton = false;
 
@@ -16,11 +16,25 @@ ListDraw::ListDraw(List &list, vector<ComponentDraw *> components) : components(
 }
 
 
+ListDraw::~ListDraw()
+{
+	if (needButton)
+	{
+		delete button;
+	}
+}
+
+
 void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 {
 	renderTexture.clear(Color(84, 63, 37));
 
 	objectDraw(renderTexture, timer, list.getObjects(), (*components));
 
-	button->drawButton(renderTexture, *list.getButton()->getStruct());
+	if (needButton)
+	{
+		button->drawButton(renderTexture, *list.getButton()->getStruct());
+	}
+
+	drawRectangle(renderTexture, 1, list.getIndex() * list.getFragmentHeight(), list.getWidth() - (needButton ? 11 : 0), (list.getIndex() + 1) * list.getFragmentHeight() - 1, Color::White);
 }

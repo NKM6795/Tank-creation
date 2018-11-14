@@ -12,6 +12,7 @@ void Graphic::forConstructor()
 	needBackground = false;
 	needNotificationWindow = false;
 	notificationNeedInputField = false;
+	needList = false;
 }
 
 
@@ -84,6 +85,11 @@ Graphic::~Graphic()
 		delete tankTexture;
 
 		delete tankSprite;
+	}
+
+	if (needList)
+	{
+		delete listDraw;
 	}
 }
 
@@ -231,6 +237,17 @@ void Graphic::setInformation(Tank &tank)
 	tankSprite = new Sprite;
 }
 
+void Graphic::setInformation(List &list)
+{
+	needList = true;
+
+	listDraw = new ListDraw(list, components);
+
+	listTexture = new Texture;
+
+	listSprite = new Sprite;
+}
+
 
 void Graphic::drawWindow()
 {
@@ -306,6 +323,26 @@ void Graphic::drawPrivate(Tank &tank, long timer)
 	textureForWindow->draw(*tankSprite);
 }
 
+void Graphic::drawPrivate(List &list, long timer)
+{
+	RenderTexture *renderTextureForList = new RenderTexture;
+	renderTextureForList->create(list.getWidth(), list.getHeight());
+
+	listDraw->draw(*renderTextureForList, list, timer);
+
+	renderTextureForList->display();
+
+	delete listTexture;
+	listTexture = new Texture(renderTextureForList->getTexture());
+
+	delete renderTextureForList;
+
+	listSprite->setTexture(*listTexture);
+	listSprite->setPosition(float(list.getOffset().x), float(list.getOffset().y));
+
+	textureForWindow->draw(*listSprite);
+}
+
 
 void Graphic::draw(Button *button)
 {
@@ -331,6 +368,13 @@ void Graphic::draw(Button *button, vector<Object *> &objects, long timer)
 void Graphic::draw(Button *button, vector<Object *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, objects, tank, timer);
+
+	drawWindow();
+}
+
+void Graphic::draw(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer)
+{
+	drawInRenderTexture(button, objects, tank, list, timer);
 
 	drawWindow();
 }
@@ -389,6 +433,13 @@ void Graphic::drawInRenderTexture(Button *button, vector<Object *> &objects, Tan
 	drawInRenderTexture(button, tank, timer);
 
 	drawPrivate(objects, timer);
+}
+
+void Graphic::drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer)
+{
+	drawInRenderTexture(button, objects, tank, timer);
+
+	drawPrivate(list, timer);
 }
 
 void Graphic::drawInRenderTexture(Button *button, string &inputField)
