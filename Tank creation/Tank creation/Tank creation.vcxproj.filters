@@ -121,6 +121,15 @@
     <Filter Include="Graphic\Tank And Components\Components\Source Files">
       <UniqueIdentifier>{0c02294a-2a93-4032-82d4-896e36ed6390}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\List">
+      <UniqueIdentifier>{39ee9731-8342-44c5-8fa7-16e828a73a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\List\Header Files">
+      <UniqueIdentifier>{ee3b0524-503b-4bdd-8810-76f40933f5c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\List\Source Files">
+      <UniqueIdentifier>{f1f07f11-daf2-4fe1-9bbe-978c508eec84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -223,6 +232,9 @@
     <ClCompile Include="TankDraw.cpp">
       <Filter>Graphic\Tank And Components\Tank\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>Windows\List\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -317,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="TankDraw.h">
       <Filter>Graphic\Tank And Components\Tank\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Windows\List\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

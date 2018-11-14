@@ -1,7 +1,7 @@
 #include "Button.h"
 
 
-void Button::setInformation(int xCoordinate, int yCoordinate, int width, int height, int characterSize, string &buttonName, string &buttonType, string &fontName)
+void Button::setInformation(int xCoordinate, int yCoordinate, int width, int height, int characterSize, string buttonName, string buttonType, string fontName)
 {
 	button.maxTimerForPointing = 200;
 	button.maxTimerForPressing = 50;

@@ -136,6 +136,7 @@
     <ClCompile Include="GraphicForNotificationWindow.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="GunDraw.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="NotificationWindow.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="GraphicForNotificationWindow.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="GunDraw.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="NotificationWindow.h" />
     <ClInclude Include="NotAvailable.h" />
