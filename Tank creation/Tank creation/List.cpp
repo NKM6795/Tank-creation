@@ -25,7 +25,7 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
-		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth) / 2, i * fragmentHeight + (fragmentHeight - objectHeight) / 2);
+		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - objects[i]->getComponentParameter()->width * 20) / 2, i * fragmentHeight + (fragmentHeight - objects[i]->getComponentParameter()->height * 20) / 2);
 	}
 }
 

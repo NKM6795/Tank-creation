@@ -33,6 +33,8 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 
 	if (needButton)
 	{
+		drawLine(renderTexture, list.getWidth() - 10, 0, list.getWidth() - 10, list.getHeight(), Color::Black);
+
 		button->drawButton(renderTexture, *list.getButton()->getStruct());
 	}
 

@@ -340,6 +340,9 @@ void Graphic::drawPrivate(List &list, long timer)
 	listSprite->setTexture(*listTexture);
 	listSprite->setPosition(float(list.getOffset().x), float(list.getOffset().y));
 
+	drawFramework(*textureForWindow, list.getOffset().x, list.getOffset().y, list.getOffset().x + list.getWidth(), list.getOffset().y + list.getHeight());
+
+
 	textureForWindow->draw(*listSprite);
 }
 

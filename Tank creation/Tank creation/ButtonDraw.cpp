@@ -10,14 +10,17 @@ void ButtonDraw::setInformation(ButtonParameter &button)
 	buttonSprite.setPosition(float(button.xCoordinate), float(button.yCoordinate));
 	buttonSprite.setScale(float(button.scale), float(button.scale));
 
-	font.loadFromFile(button.fontName);
-	
-	textForButton.setFont(font);
-	textForButton.setString(button.buttonName);
-	textForButton.setCharacterSize(button.characterSize);
-	textForButton.setOrigin(textForButton.getLocalBounds().width * 0.5f, textForButton.getLocalBounds().height * 0.5f);
-	textForButton.setPosition(float(button.xCoordinate), float(button.yCoordinate) - 7.f);
-	textForButton.setScale(float(button.scale), float(button.scale));
+	if (button.fontName != "")
+	{
+		font.loadFromFile(button.fontName);
+
+		textForButton.setFont(font);
+		textForButton.setString(button.buttonName);
+		textForButton.setCharacterSize(button.characterSize);
+		textForButton.setOrigin(textForButton.getLocalBounds().width * 0.5f, textForButton.getLocalBounds().height * 0.5f);
+		textForButton.setPosition(float(button.xCoordinate), float(button.yCoordinate) - 7.f);
+		textForButton.setScale(float(button.scale), float(button.scale));
+	}
 }
 
 void ButtonDraw::setInformationPrivate(ButtonParameter &button)
