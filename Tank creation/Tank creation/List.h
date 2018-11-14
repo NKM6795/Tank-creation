@@ -33,6 +33,10 @@ public:
 
 	int getIndex();
 
+	Button *getButton();
+
+	vector<Object *> &getObjects();
+
 	Vector2int getOffset();
 	void setOffset(Vector2int offset);
 	void setOffset(int x, int y);

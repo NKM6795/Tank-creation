@@ -130,6 +130,15 @@
     <Filter Include="Windows\List\Source Files">
       <UniqueIdentifier>{f1f07f11-daf2-4fe1-9bbe-978c508eec84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphic\Window\List">
+      <UniqueIdentifier>{75721cad-9fe2-4b75-b846-657d8be7fc80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Window\List\Header Files">
+      <UniqueIdentifier>{7a80bc97-829d-4a41-adff-a7ae826b3a0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\Window\List\Source Files">
+      <UniqueIdentifier>{5a3e8340-45b0-4000-95ab-d5027ebdf9ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -235,6 +244,9 @@
     <ClCompile Include="List.cpp">
       <Filter>Windows\List\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ListDraw.cpp">
+      <Filter>Graphic\Window\List\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -332,6 +344,9 @@
     </ClInclude>
     <ClInclude Include="List.h">
       <Filter>Windows\List\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ListDraw.h">
+      <Filter>Graphic\Window\List\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

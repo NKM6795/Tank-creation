@@ -8,7 +8,10 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	index = 0;
 
 	activateAnAction = false;
-
+	
+	needButton = false;
+	conversionFactor = 1.f;
+	button = nullptr;
 	if (int(objects.size()) * fragmentHeight > height)
 	{
 		needButton = true;
@@ -25,6 +28,18 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 int List::getIndex()
 {
 	return index;
+}
+
+
+Button *List::getButton()
+{
+	return button;
+}
+
+
+vector<Object *> &List::getObjects()
+{
+	return objects;
 }
 
 
