@@ -24,6 +24,7 @@ class List
 
 	bool needButton;
 	Button *button;
+	int deltaPosition;
 
 	int separationThickness;
 

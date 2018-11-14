@@ -18,6 +18,7 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	index = 0;
 
 	needDirect = false;
+	deltaPosition = -1;
 	activateAnAction = false;
 	
 	needButton = false;
@@ -126,9 +127,36 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 		button->work(mousePosition, isPressed, timer, fps);
 	}
 
+	if (button->getStruct()->checkButtonIsPressed)
+	{
+		if (deltaPosition == -1)
+		{
+			deltaPosition = mousePosition.y - int(conversionFactor * position);
+		}
+
+		int positionForButton = mousePosition.y - deltaPosition;
+
+		position = int(float(positionForButton) / conversionFactor);
+
+		if (position < 0)
+		{
+			position = 0;
+		}
+		else if (position + height > int(objects.size()) * fragmentHeight)
+		{
+			position = int(objects.size()) * fragmentHeight - height;
+		}
+
+		updateObject();
+	}
+	else
+	{
+		deltaPosition = -1;
+	}
+
 	if (needDirect)
 	{
-		if (mousePosition > Vector2int() && mousePosition < Vector2int(width, height))
+		if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
 		{
 			if (!up && position + height + fragmentHeight <= int(objects.size()) * fragmentHeight)
 			{
@@ -161,7 +189,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 		}
 		needDirect = false;
 	}
-	if (mousePosition > Vector2int() && mousePosition < Vector2int(width, height))
+	if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
 	{
 		index = (mousePosition.y + position) / fragmentHeight;
 
