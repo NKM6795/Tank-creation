@@ -8,9 +8,10 @@
 
 class ExitFromEditor : public NotificationWindow
 {
+	bool canSave;
 
 public:
-	ExitFromEditor(string &fileName, Graphic *forCopyWindow);
+	ExitFromEditor(string &fileName, Graphic *forCopyWindow, bool canSave);
 
 
 	void work();

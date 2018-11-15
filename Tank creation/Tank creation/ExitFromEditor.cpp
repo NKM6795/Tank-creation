@@ -1,7 +1,7 @@
 #include "ExitFromEditor.h"
 
 
-ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
+ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow, bool canSave) : NotificationWindow(fileName, forCopyWindow), canSave(canSave)
 {
 	fileIn.close();
 }
@@ -63,15 +63,29 @@ void ExitFromEditor::work()
 				else
 				{
 					needNewWindow = true;
-					needWindowResult = true;
 
-					string fileName = "Data/Data for save tank.dat";
+					if (canSave)
+					{
+						needWindowResult = true;
 
-					graphic->drawInRenderTexture(button);
+						string fileName = "Data/Data for save tank.dat";
 
-					newWindow = new SaveTank(fileName, graphic);
+						graphic->drawInRenderTexture(button);
 
-					button[i].setActivateAnAction(false);
+						newWindow = new SaveTank(fileName, graphic);
+
+						button[i].setActivateAnAction(false);
+					}
+					else
+					{
+						string fileName = "Data/Data for not available.dat";
+
+						graphic->drawInRenderTexture(button);
+
+						newWindow = new NotAvailable(fileName, graphic);
+
+						button[i].setActivateAnAction(false);
+					}
 				}
 			}
 

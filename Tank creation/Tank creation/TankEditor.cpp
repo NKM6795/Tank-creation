@@ -1,4 +1,4 @@
-#include "TankEditor.h"
+﻿#include "TankEditor.h"
 
 
 bool TankEditor::checkFreePlace(vector<vector<bool> > &smallTank, int widht, int height, int i, int j)
@@ -42,6 +42,34 @@ void TankEditor::addObjectOnPosition(Component *component, int index, Vector2int
 				}
 			}
 		}
+	}
+}
+
+
+void TankEditor::dfs(vector<vector<bool> > &smallTank, int i, int j)
+{
+	if (i - 1 >= 0 && smallTank[i - 1][j])
+	{
+		smallTank[i - 1][j] = false;
+		dfs(smallTank, i - 1, j);
+	}
+
+	if (j - 1 >= 0 && smallTank[i][j - 1])
+	{
+		smallTank[i][j - 1] = false;
+		dfs(smallTank, i, j - 1);
+	}
+	
+	if (i + 1 < int(smallTank.size()) && smallTank[i + 1][j])
+	{
+		smallTank[i + 1][j] = false;
+		dfs(smallTank, i + 1, j);
+	}
+	
+	if (j + 1 < int(smallTank.size()) && smallTank[i][j + 1])
+	{
+		smallTank[i][j + 1] = false;
+		dfs(smallTank, i, j + 1);
 	}
 }
 
@@ -278,6 +306,54 @@ void TankEditor::clear()
 			removeObject(Vector2int(i, j) * 20 + getOffset());
 		}
 	}
+}
+
+
+bool TankEditor::completenessСheck()
+{
+	bool checkMain = false,
+		checkTrack = false,
+		checkCompleteness = false;
+
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			if (!checkMain && (*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(EngineRoom))
+			{
+				checkMain = true;
+			}
+			if (!checkTrack && (*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(Track))
+			{
+				checkTrack = true;
+			}
+		}
+	}
+
+	if (!checkMain || !checkTrack)
+	{
+		return false;
+	}
+
+	vector<vector<bool> > smallTank = Tank::getSmallTank(*objects);
+
+	for (int i = 0; i < int(smallTank.size()); ++i)
+	{
+		for (int j = 0; j < int(smallTank.size()); ++j)
+		{
+			if (smallTank[i][j] && !checkCompleteness)
+			{
+				dfs(smallTank, i, j);
+				checkCompleteness = true;
+			}
+			else if (smallTank[i][j] && checkCompleteness)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
 
 

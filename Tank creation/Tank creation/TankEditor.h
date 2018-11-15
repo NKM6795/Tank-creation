@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 #include "Tank.h"
@@ -16,6 +16,8 @@ class TankEditor
 	bool checkFreePlace(vector<vector<bool> > &smallTank, int widht, int height, int i, int j);
 
 	void addObjectOnPosition(Component *component, int index, Vector2int position);
+
+	void dfs(vector<vector<bool> > &smallTank, int i, int j);
 
 public:
 	TankEditor(vector<vector<Object *> > &objects, int dataArraySize = 30);
@@ -39,6 +41,8 @@ public:
 	void removeObject(Vector2int mousePosition);
 
 	void clear();
+
+	bool completenessСheck();
 
 	void save(string fileName);
 	void download(string fileName, vector<Component *> &components);

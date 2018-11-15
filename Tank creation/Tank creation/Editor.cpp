@@ -1,4 +1,4 @@
-#include "Editor.h"
+﻿#include "Editor.h"
 
 
 Editor::Editor(string &fileName) : WorkWithWindow(fileName)
@@ -101,7 +101,7 @@ void Editor::work()
 
 				graphic->drawInRenderTexture(button);
 
-				newWindow = new ExitFromEditor(fileName, graphic);
+				newWindow = new ExitFromEditor(fileName, graphic, tankEditor->completenessСheck());
 			}
 			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0)))
 			{
@@ -139,7 +139,7 @@ void Editor::work()
 
 					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
-					newWindow = new ExitFromEditor(fileName, graphic);
+					newWindow = new ExitFromEditor(fileName, graphic, tankEditor->completenessСheck());
 
 					button[i].setActivateAnAction(false);
 				}
@@ -152,15 +152,29 @@ void Editor::work()
 				else if (button[i].getStruct()->buttonName == "Save")
 				{
 					needNewWindow = true;
-					needWindowResult = true;
 
-					string fileName = "Data/Data for save tank.dat";
+					if (tankEditor->completenessСheck())
+					{
+						needWindowResult = true;
 
-					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+						string fileName = "Data/Data for save tank.dat";
 
-					newWindow = new SaveTank(fileName, graphic);
+						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
-					button[i].setActivateAnAction(false);
+						newWindow = new SaveTank(fileName, graphic);
+
+						button[i].setActivateAnAction(false);
+					}
+					else
+					{
+						string fileName = "Data/Data for not available.dat";
+
+						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+
+						newWindow = new NotAvailable(fileName, graphic);
+						
+						button[i].setActivateAnAction(false);
+					}
 				}
 			}
 
