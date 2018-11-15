@@ -150,6 +150,8 @@
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankDraw.cpp" />
     <ClCompile Include="TankEditor.cpp" />
+    <ClCompile Include="TankPicture.cpp" />
+    <ClCompile Include="TankPictureDraw.cpp" />
     <ClCompile Include="TankSelection.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="TrackDraw.cpp" />
@@ -187,6 +189,8 @@
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankDraw.h" />
     <ClInclude Include="TankEditor.h" />
+    <ClInclude Include="TankPicture.h" />
+    <ClInclude Include="TankPictureDraw.h" />
     <ClInclude Include="TankSelection.h" />
     <ClInclude Include="Track.h" />
     <ClInclude Include="TrackDraw.h" />
