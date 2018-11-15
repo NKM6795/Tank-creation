@@ -55,6 +55,16 @@ void MainMenu::work()
 
 					button[i].setActivateAnAction(false);
 				}
+				else if (button[i].getStruct()->buttonName == "Modify an existing tank")
+				{
+					needNewWindow = true;
+
+					string fileName = "Data/Data for tank selection.dat";
+
+					newWindow = new TankSelection(fileName, graphic);
+
+					button[i].setActivateAnAction(false);
+				}
 				else
 				{
 					needNewWindow = true;

@@ -377,6 +377,37 @@ void TankEditor::save(string fileName)
 			}
 		}
 	}
+
+	fileOut.close();
+
+	ifstream fileIn("Data/Tanks/Number.dat");
+
+	int number;
+	fileIn >> number;
+
+	vector<string> names(number, "");
+
+	getline(fileIn, names[0]);
+	for (int i = 0; i < number; ++i)
+	{
+		getline(fileIn, names[i]);
+	}
+	fileIn.close();
+
+	fileOut.open("Data/Tanks/Number.dat");
+
+	++number;
+
+	fileOut << number << '\n';
+
+	for (int i = 0; i < number - 1; ++i)
+	{
+		fileOut << names[i] << '\n';
+	}
+
+	fileOut << fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".dat") - fileName.find("Tanks/") - 6) << '\n';
+
+	fileOut.close();
 }
 
 void TankEditor::download(string fileName, vector<Component *> &components)

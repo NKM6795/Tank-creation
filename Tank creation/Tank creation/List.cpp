@@ -8,7 +8,10 @@ void List::updateObject()
 		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2 - position);
 	}
 
-	button->getStruct()->yCoordinate = int(conversionFactor * position) + 25;
+	if (needButton)
+	{
+		button->getStruct()->yCoordinate = int(conversionFactor * position) + 25;
+	}
 }
 
 
@@ -84,7 +87,7 @@ void List::closeList()
 
 bool List::inFocuse(Vector2int mousePosition)
 {
-	return open && ((mousePosition >= Vector2int(xCoordinate - 3, yCoordinate - 3) && mousePosition <= Vector2int(xCoordinate + width + 3, yCoordinate + height + 3)) || button->getStruct()->checkButtonIsPressed);
+	return open && ((mousePosition >= Vector2int(xCoordinate - 3, yCoordinate - 3) && mousePosition <= Vector2int(xCoordinate + width + 3, yCoordinate + height + 3)) || (needButton && button->getStruct()->checkButtonIsPressed));
 }
 
 
@@ -248,7 +251,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 	}
 	else
 	{
-		if (button->getStruct()->checkButtonIsPressed)
+		if (needButton && button->getStruct()->checkButtonIsPressed)
 		{
 			timerForInformation = timer;
 			oldMousePosition = mousePosition;
@@ -337,7 +340,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 
 			updateObject();
 
-			if (isPressed && !button->getStruct()->checkButtonIsPressed)
+			if (isPressed && (!needButton || (needButton && !button->getStruct()->checkButtonIsPressed)))
 			{
 				closeList();
 

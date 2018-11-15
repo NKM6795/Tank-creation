@@ -354,6 +354,13 @@ void Graphic::draw(Button *button)
 	drawWindow();
 }
 
+void Graphic::draw(Button *button, List &list, long timer)
+{
+	drawInRenderTexture(button, list, timer);
+
+	drawWindow();
+}
+
 void Graphic::draw(Button *button, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, tank, timer);
@@ -415,6 +422,13 @@ void Graphic::drawInRenderTexture(Button *button)
 {
 	drawPrivate();
 	drawPrivate(button);
+}
+
+void Graphic::drawInRenderTexture(Button *button, List &list, long timer)
+{
+	drawInRenderTexture(button);
+
+	drawPrivate(list, timer);
 }
 
 void Graphic::drawInRenderTexture(Button *button, Tank &tank, long timer)

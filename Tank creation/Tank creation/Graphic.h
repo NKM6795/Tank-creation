@@ -85,6 +85,7 @@ public:
 	void setInformation(List &list);
 
 	void draw(Button *button);
+	void draw(Button *button, List &list, long timer);
 	void draw(Button *button, Tank &tank, long timer);
 	void draw(Button *button, vector<Object *> &objects, long timer);
 	void draw(Button *button, vector<Object *> &objects, Tank &tank, long timer);
@@ -95,6 +96,7 @@ public:
 	void draw(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer);
 		
 	void drawInRenderTexture(Button *button);
+	void drawInRenderTexture(Button *button, List &list, long timer);
 	void drawInRenderTexture(Button *button, Tank &tank, long timer);
 	void drawInRenderTexture(Button *button, vector<Object *> &objects, long timer);
 	void drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, long timer);

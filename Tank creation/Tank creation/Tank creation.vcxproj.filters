@@ -250,6 +250,9 @@
     <ClCompile Include="SaveTank.cpp">
       <Filter>Windows\Notification Windows\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TankSelection.cpp">
+      <Filter>Windows\Sourse Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -353,6 +356,9 @@
     </ClInclude>
     <ClInclude Include="SaveTank.h">
       <Filter>Windows\Notification Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TankSelection.h">
+      <Filter>Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
