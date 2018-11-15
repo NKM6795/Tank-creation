@@ -20,8 +20,6 @@ ListDraw::ListDraw(List &list, vector<ComponentDraw *> &components) : components
 	text.setFillColor(Color::White);
 	text.setCharacterSize(list.getObjectHeight() / 2);
 
-	needInformation = true;
-
 	Image image;
 	image.create(list.getWidth() - (needButton ? 18 : 0) - list.getFragmentHeight() + list.getObjectHeight() - list.getObjectWidth(), list.getHeight() - list.getFragmentHeight() + list.getObjectHeight() - list.getObjectWidth(), Color(84, 63, 37));
 	
@@ -126,30 +124,33 @@ void ListDraw::drawInformation(RenderTexture &renderTexture, List &list, long ti
 
 void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 {
-	renderTexture.clear(Color(84, 63, 37));
-
-	objectDraw(renderTexture, timer, list.getObjects(), (*components));
-
-	for (int i = 0; i < int(list.getObjects().size()); ++i)
+	if (list.isOpen())
 	{
-		text.setPosition(float(list.getFragmentHeight() - list.getObjectHeight() + list.getObjectWidth()), float(i * list.getFragmentHeight() + list.getFragmentHeight() - list.getObjectHeight() - list.getPosition()));
-		text.setString(list.getObjects()[i]->getComponentParameter()->name);
+		renderTexture.clear(Color(84, 63, 37));
 
-		renderTexture.draw(text);
-	}
+		objectDraw(renderTexture, timer, list.getObjects(), (*components));
 
-	if (needButton)
-	{
-		drawLine(renderTexture, list.getWidth() - 10, 0, list.getWidth() - 10, list.getHeight(), Color::Black);
+		for (int i = 0; i < int(list.getObjects().size()); ++i)
+		{
+			text.setPosition(float(list.getFragmentHeight() - list.getObjectHeight() + list.getObjectWidth()), float(i * list.getFragmentHeight() + list.getFragmentHeight() - list.getObjectHeight() - list.getPosition()));
+			text.setString(list.getObjects()[i]->getComponentParameter()->name);
 
-		button->drawButton(renderTexture, *list.getButton()->getStruct());
-	}
+			renderTexture.draw(text);
+		}
 
-	drawRectangle(renderTexture, 1, list.getIndex() * list.getFragmentHeight() - list.getPosition(), list.getWidth() - (needButton ? 11 : 0), (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition(), Color::White);
+		if (needButton)
+		{
+			drawLine(renderTexture, list.getWidth() - 10, 0, list.getWidth() - 10, list.getHeight(), Color::Black);
+
+			button->drawButton(renderTexture, *list.getButton()->getStruct());
+		}
+
+		drawRectangle(renderTexture, 1, list.getIndex() * list.getFragmentHeight() - list.getPosition(), list.getWidth() - (needButton ? 11 : 0), (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition(), Color::White);
 
 
-	if (needInformation)
-	{
-		drawInformation(renderTexture, list, timer);
+		if (list.getNeedInformation())
+		{
+			drawInformation(renderTexture, list, timer);
+		}
 	}
 }

@@ -15,6 +15,8 @@ void List::updateObject()
 List::List(vector<Object *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth, int objectHeight, int fragmentHeight, int separationThickness) : 
 	objects(objects), width(width), height(height), xCoordinate(xCoordinate), yCoordinate(yCoordinate), objectWidth(objectWidth), objectHeight(objectHeight), fragmentHeight(fragmentHeight), separationThickness(separationThickness)
 {
+	open = false;
+
 	position = 0;
 	index = 0;
 
@@ -22,6 +24,8 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	deltaPosition = -1;
 	activateAnAction = false;
 	
+	needInformation = false;
+
 	needButton = false;
 	conversionFactor = 1.f;
 	button = nullptr;
@@ -55,6 +59,25 @@ List::~List()
 	{
 		delete button;
 	}
+}
+
+
+bool List::isOpen()
+{
+	return open;
+}
+
+void List::openList(Vector2int mousePosition)
+{
+	open = true;
+
+	xCoordinate = mousePosition.x - ((mousePosition.x - width) > 0 ? width : 0);
+	yCoordinate = mousePosition.y - ((mousePosition.y - height) > 0 ? height : 0);
+}
+
+void List::closeList()
+{
+	open = false;
 }
 
 
@@ -160,63 +183,104 @@ int List::getObjectHeight()
 }
 
 
+bool List::getNeedInformation()
+{
+	return needInformation;
+}
+
+
 void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 {
 	mousePosition = mousePosition - getOffset();
 
 	if (needButton)
 	{
-		button->work(mousePosition, isPressed, timer, fps);
+		button->work(mousePosition * (open ? 1 : -100), isPressed && open, timer, fps);
 	}
 
-	if (button->getStruct()->checkButtonIsPressed)
+	if (!open)
 	{
-		if (deltaPosition == -1)
-		{
-			deltaPosition = mousePosition.y - int(conversionFactor * position);
-		}
-
-		int positionForButton = mousePosition.y - deltaPosition;
-
-		position = int(float(positionForButton) / conversionFactor);
-
-		if (position < 0)
-		{
-			position = 0;
-		}
-		else if (position + height > int(objects.size()) * fragmentHeight)
-		{
-			position = int(objects.size()) * fragmentHeight - height;
-		}
-
-		updateObject();
+		timerForInformation = timer;
 	}
 	else
 	{
-		deltaPosition = -1;
-	}
-
-	if (needDirect)
-	{
-		if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
+		if (button->getStruct()->checkButtonIsPressed)
 		{
-			if (!up && position + height + fragmentHeight <= int(objects.size()) * fragmentHeight)
-			{
-				position += fragmentHeight;
+			timerForInformation = timer;
+			oldMousePosition = mousePosition;
 
-				updateObject();
-			}
-			else if (up && position - fragmentHeight >= 0)
+			if (deltaPosition == -1)
 			{
-				position -= fragmentHeight;
-
-				updateObject();
+				deltaPosition = mousePosition.y - int(conversionFactor * position);
 			}
+
+			int positionForButton = mousePosition.y - deltaPosition;
+
+			position = int(float(positionForButton) / conversionFactor);
+
+			if (position < 0)
+			{
+				position = 0;
+			}
+			else if (position + height > int(objects.size()) * fragmentHeight)
+			{
+				position = int(objects.size()) * fragmentHeight - height;
+			}
+
+			updateObject();
 		}
 		else
 		{
-			index += up ? -1 : 1;
-			index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
+			deltaPosition = -1;
+		}
+
+		if (needDirect)
+		{
+			timerForInformation = timer;
+			oldMousePosition = mousePosition;
+
+			if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
+			{
+				if (!up && position + height + fragmentHeight <= int(objects.size()) * fragmentHeight)
+				{
+					position += fragmentHeight;
+
+					updateObject();
+				}
+				else if (up && position - fragmentHeight >= 0)
+				{
+					position -= fragmentHeight;
+
+					updateObject();
+				}
+			}
+			else
+			{
+				index += up ? -1 : 1;
+				index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
+
+				if (index * fragmentHeight < position)
+				{
+					position = index * fragmentHeight;
+				}
+				else if ((index + 1) * fragmentHeight > position + height)
+				{
+					position = (index + 1) * fragmentHeight - height;
+				}
+
+				updateObject();
+			}
+			needDirect = false;
+		}
+		if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
+		{
+			index = (mousePosition.y + position) / fragmentHeight;
+
+			if (mousePosition != oldMousePosition)
+			{
+				timerForInformation = timer;
+				oldMousePosition = mousePosition;
+			}
 
 			if (index * fragmentHeight < position)
 			{
@@ -229,24 +293,16 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 
 			updateObject();
 		}
-		needDirect = false;
-	}
-	if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
-	{
-		index = (mousePosition.y + position) / fragmentHeight;
 
-		if (index * fragmentHeight < position)
+		if (timer - timerForInformation >= 500)
 		{
-			position = index * fragmentHeight;
+			needInformation = true;
 		}
-		else if ((index + 1) * fragmentHeight > position + height)
+		else
 		{
-			position = (index + 1) * fragmentHeight - height;
+			needInformation = false;
 		}
-
-		updateObject();
 	}
-
 }
 
 

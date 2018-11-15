@@ -84,7 +84,7 @@ void Editor::work()
 
 		while (graphic->pollEvent())
 		{
-			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
+			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape) && !list->isOpen()))
 			{
 				needNewWindow = true;
 				needWindowResult = true;
@@ -95,13 +95,21 @@ void Editor::work()
 
 				newWindow = new ExitFromEditor(fileName, graphic);
 			}
-			if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0))
+			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0)))
 			{
 				list->setDirect(true);
 			}
-			if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0))
+			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0)))
 			{
 				list->setDirect(false);
+			}
+			else if (mousePosition >= Vector2int() && mousePosition <= Vector2int(screanWidth, screanHeight) && !list->isOpen() && (Mouse::isButtonPressed(Mouse::XButton2) || graphic->getEvent().type == Event::MouseWheelMoved || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Q))))
+			{
+				list->openList(mousePosition);
+			}
+			else if (Mouse::isButtonPressed(Mouse::XButton1) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Q)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
+			{
+				list->closeList();
 			}
 		}
 

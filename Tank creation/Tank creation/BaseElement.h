@@ -82,6 +82,16 @@ struct Vector2int
 	{
 		return this->x >= right.x && this->y >= right.y;
 	}
+
+	inline bool operator == (const Vector2int &right) const
+	{
+		return this->x == right.x && this->y == right.y;
+	}
+
+	inline bool operator != (const Vector2int &right) const
+	{
+		return this->x != right.x || this->y != right.y;
+	}
 };
 
 
