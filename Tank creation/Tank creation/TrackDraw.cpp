@@ -28,7 +28,7 @@ TrackDraw::~TrackDraw()
 
 void TrackDraw::draw(RenderTexture &renderTexture, long timer, Object *object)
 {
-	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints && object->getPosition() >= Vector2int())
+	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
 		int index = object->getPosition().x % numberOfVariant;
 
