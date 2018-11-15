@@ -153,7 +153,7 @@ void Editor::work()
 		}
 
 		//Work with tank
-		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus() && !list->inFocuse(mousePosition))
+		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left)))
 		{
 			list->closeList();
 
@@ -168,6 +168,12 @@ void Editor::work()
 			list->closeList();
 
 			tankEditor->removeObject(mousePosition);
+		}
+		else if (Mouse::isButtonPressed(Mouse::Middle) && graphic->hasFocus() && !list->inFocuse(mousePosition))
+		{
+			list->closeList();
+
+			list->copyObject(tankEditor->getObject(mousePosition));
 		}
 		else
 		{

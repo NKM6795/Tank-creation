@@ -25,6 +25,8 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	
 	needInformation = false;
 
+	mouseButtonIsPressed = false;
+
 	needButton = false;
 	conversionFactor = 1.f;
 	button = nullptr;
@@ -86,6 +88,20 @@ bool List::inFocuse(Vector2int mousePosition)
 }
 
 
+bool List::canAddElement(bool isPressed)
+{
+	if (isPressed && mouseButtonIsPressed)
+	{
+		return false;
+	}
+	else
+	{
+		mouseButtonIsPressed = false;
+		return true;
+	}
+}
+
+
 string List::getFileName()
 {
 	return fileName;
@@ -131,6 +147,24 @@ vector<Object *> List::getSelectedObject()
 	result.push_back(newObject);
 
 	return result;
+}
+
+
+void List::copyObject(Object *object)
+{
+	if (object == nullptr)
+	{
+		return;
+	}
+
+	for (int i = 0; i < int(objects.size()); ++i)
+	{
+		if (objects[i]->getIndex() == object->getIndex())
+		{
+			index = i;
+			return;
+		}
+	}
 }
 
 
@@ -196,6 +230,11 @@ bool List::getNeedInformation()
 
 void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 {
+	if (!(isPressed && mouseButtonIsPressed))
+	{
+		mouseButtonIsPressed = false;
+	}
+
 	mousePosition = mousePosition - getOffset();
 
 	if (needButton)
@@ -301,6 +340,8 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 			if (isPressed && !button->getStruct()->checkButtonIsPressed)
 			{
 				closeList();
+
+				mouseButtonIsPressed = true;
 			}
 		}
 

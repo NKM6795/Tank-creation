@@ -85,6 +85,30 @@ Object *TankEditor::getObject(Component *component, int index)
 	return newObject;
 }
 
+Object *TankEditor::getObject(Vector2int mousePosition)
+{
+	mousePosition = mousePosition - getOffset();
+
+	int i = mousePosition.x / 20,
+		j = mousePosition.y / 20;
+
+	if (i < 0 || j < 0 || i >= int((*objects).size()) || j >= int((*objects).size()))
+	{
+		return nullptr;
+	}
+
+	Object *object = (*objects)[i][j];
+
+	if (object == nullptr)
+	{
+		return nullptr;
+	}
+
+	Vector2int position = (*objects)[i][j]->getPosition() / 20;
+
+	return (*objects)[position.x][position.y];
+}
+
 
 Object *TankEditor::getCopy(Object *object)
 {
@@ -201,26 +225,14 @@ void TankEditor::addObject(Component *component, int index, Vector2int mousePosi
 
 void TankEditor::removeObject(Vector2int mousePosition)
 {
-	mousePosition = mousePosition - getOffset();
-
-	int i = mousePosition.x / 20,
-		j = mousePosition.y / 20;
-
-	if (i < 0 || j < 0 || i >= int((*objects).size()) || j >= int((*objects).size()))
-	{
-		return;
-	}
-
-	Object *object = (*objects)[i][j];
+	Object *object = getObject(mousePosition);
 
 	if (object == nullptr)
 	{
 		return;
 	}
 
-	Vector2int position = (*objects)[i][j]->getPosition() / 20;
-	
-	object = (*objects)[position.x][position.y];
+	Vector2int position = object->getPosition() / 20;
 
 	int widht = object->getComponentParameter()->width,
 		height = object->getComponentParameter()->height;

@@ -25,6 +25,7 @@ public:
 	void setOffset(int x, int y);
 
 	static Object *getObject(Component *component, int index);
+	Object *getObject(Vector2int mousePosition);
 
 	static Object *getCopy(Object *object);
 

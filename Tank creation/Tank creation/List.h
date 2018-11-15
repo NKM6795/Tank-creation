@@ -39,6 +39,8 @@ class List
 
 	bool needInformation;
 
+	bool mouseButtonIsPressed;
+
 	Vector2int oldMousePosition;
 
 	void updateObject();
@@ -54,6 +56,8 @@ public:
 
 	bool inFocuse(Vector2int mousePosition);
 
+	bool canAddElement(bool isPressed);
+
 	string getFileName();
 	void setFileName(string fileName);
 
@@ -66,6 +70,8 @@ public:
 	vector<Object *> &getObjects();
 
 	vector<Object *> getSelectedObject();
+
+	void copyObject(Object *object);
 
 	Vector2int getOffset();
 	void setOffset(Vector2int offset);
