@@ -14,7 +14,7 @@ class Editor : public WorkWithWindow
 
 	vector<Component *> components;
 	vector<Object *> objects;
-	Object *oldObject;
+	pair<Vector2int, Vector2int> oldObject;
 
 	Tank tank;
 	TankEditor *tankEditor;

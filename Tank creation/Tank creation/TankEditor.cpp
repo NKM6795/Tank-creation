@@ -247,3 +247,14 @@ void TankEditor::removeObject(Vector2int mousePosition)
 		}
 	}
 }
+
+void TankEditor::clear()
+{
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			removeObject(Vector2int(i, j) * 20 + getOffset());
+		}
+	}
+}

@@ -25,7 +25,7 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 	tankEditor = new TankEditor(tank.getObjects());
 	tankEditor->setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
 
-	oldObject = nullptr;
+	oldObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
 
 
 	vector<Object *> temp;
@@ -116,9 +116,8 @@ void Editor::work()
 		//Work with buttons
 		for (int i = 0; i < numberOfButton; ++i)
 		{
-			button[i].work(mousePosition * ((graphic->hasFocus() && !list->inFocuse(mousePosition)) ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && (graphic->hasFocus() && !list->inFocuse(mousePosition)), timer, timeForWork);
+			button[i].work(mousePosition * ((graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))) ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && (graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))), timer, timeForWork);
 		}
-
 		for (int i = 0; i < numberOfButton; ++i)
 		{
 			if (button[i].getActivateAnAction())
@@ -133,6 +132,12 @@ void Editor::work()
 					graphic->drawInRenderTexture(button, tank, timer);
 
 					newWindow = new ExitFromEditor(fileName, graphic);
+
+					button[i].setActivateAnAction(false);
+				}
+				else if (button[i].getStruct()->buttonName == "Clear")
+				{
+					tankEditor->clear();
 
 					button[i].setActivateAnAction(false);
 				}
@@ -157,10 +162,16 @@ void Editor::work()
 		{
 			list->closeList();
 
-			if (oldObject == nullptr || oldObject != tank.getObject(mousePosition))
+			if (oldObject == pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } ||
+				(mousePosition.x - tankEditor->getOffset().x < oldObject.first.x - oldObject.second.x ||
+					mousePosition.y - tankEditor->getOffset().y < oldObject.first.y - oldObject.second.y ||
+					mousePosition.x - tankEditor->getOffset().x > oldObject.first.x + oldObject.second.x ||
+					mousePosition.y - tankEditor->getOffset().y > oldObject.first.y + oldObject.second.y))
 			{
 				tankEditor->addObject(components[list->getObjects()[list->getIndex()]->getIndex()], list->getObjects()[list->getIndex()]->getIndex(), mousePosition);
-				oldObject = tank.getObject(mousePosition);
+				oldObject = objects.back() == nullptr ?
+					pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } :
+					pair<Vector2int, Vector2int>{ mousePosition - tankEditor->getOffset(), Vector2int(objects.back()->getComponentParameter()->width, objects.back()->getComponentParameter()->height) * 20 };
 			}
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus() && !list->inFocuse(mousePosition))
@@ -177,9 +188,10 @@ void Editor::work()
 		}
 		else
 		{
-			oldObject = nullptr;
+			oldObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
 		}
 		
+		//Work with selecting object
 		if (graphic->hasFocus())
 		{
 			if (objects.size() == 0)
