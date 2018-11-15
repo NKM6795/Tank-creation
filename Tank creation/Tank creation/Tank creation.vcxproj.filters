@@ -31,15 +31,6 @@
     <Filter Include="Windows\Sourse Files">
       <UniqueIdentifier>{8e340d61-0367-46d9-9675-26789b23d22c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Windows\Notification Windows">
-      <UniqueIdentifier>{b11e9fc8-a471-4184-b0b1-9937104a819a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Notification Windows\Header Files">
-      <UniqueIdentifier>{7d07fe29-3fb8-443a-bfe5-1728ff0b8f9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Notification Windows\Source Files">
-      <UniqueIdentifier>{b4e03b10-ed1e-4832-a243-2f712f909f2c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Windows\Window Controller">
       <UniqueIdentifier>{b9505c25-b9f5-4692-a813-d28ae3fad6af}</UniqueIdentifier>
     </Filter>
@@ -138,6 +129,15 @@
     </Filter>
     <Filter Include="Graphic\Window\List\Source Files">
       <UniqueIdentifier>{5a3e8340-45b0-4000-95ab-d5027ebdf9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Notification Windows">
+      <UniqueIdentifier>{b11e9fc8-a471-4184-b0b1-9937104a819a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Notification Windows\Header Files">
+      <UniqueIdentifier>{7d07fe29-3fb8-443a-bfe5-1728ff0b8f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Notification Windows\Source Files">
+      <UniqueIdentifier>{b4e03b10-ed1e-4832-a243-2f712f909f2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

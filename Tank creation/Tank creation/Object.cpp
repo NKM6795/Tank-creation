@@ -14,6 +14,8 @@ Component::Component(string name, string objectName, string typeName, string ide
 
 	component->width = width;
 	component->height = height;
+
+	component->canRebound = false;
 }
 
 Component::~Component()
@@ -78,6 +80,12 @@ Object::Object(Component *component, int index) : component(component), index(in
 Object::~Object()
 {
 
+}
+
+
+Component *Object::getComponent()
+{
+	return component;
 }
 
 

@@ -85,6 +85,8 @@ public:
 
 	virtual ~Object();
 
+	virtual Component *getComponent();
+
 	virtual Vector2int getPosition();
 	virtual void setPosition(Vector2int position);
 	virtual void setPosition(int x, int y);

@@ -14,6 +14,18 @@ class ListDraw
 
 	vector<ComponentDraw *> *components;
 
+	Font font;
+	Text text;
+
+	bool needInformation;
+
+	Texture backgroundRorInformationTexture;
+	Sprite backgroundRorInformationSprite;
+
+	Text information;
+
+	void drawInformation(RenderTexture &renderTexture, List &list, long timer);
+
 public:
 	ListDraw(List &list, vector<ComponentDraw *> &components);
 

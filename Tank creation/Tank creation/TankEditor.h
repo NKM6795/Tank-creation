@@ -26,6 +26,8 @@ public:
 
 	static Object *getObject(Component *component, int index);
 
+	static Object *getCopy(Object *object);
+
 	Vector2int getFreePlace(Component *component, Vector2int mousePosition);
 	Object *getFreePlace(Component *component, int index, Vector2int mousePosition);
 

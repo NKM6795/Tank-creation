@@ -11,6 +11,7 @@ void List::updateObject()
 	button->getStruct()->yCoordinate = int(conversionFactor * position) + 25;
 }
 
+
 List::List(vector<Object *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth, int objectHeight, int fragmentHeight, int separationThickness) : 
 	objects(objects), width(width), height(height), xCoordinate(xCoordinate), yCoordinate(yCoordinate), objectWidth(objectWidth), objectHeight(objectHeight), fragmentHeight(fragmentHeight), separationThickness(separationThickness)
 {
@@ -43,6 +44,8 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 		}
 		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2);
 	}
+
+	fileName = "Data/Fonts/Strangiato.otf";
 }
 
 
@@ -52,6 +55,17 @@ List::~List()
 	{
 		delete button;
 	}
+}
+
+
+string List::getFileName()
+{
+	return fileName;
+}
+
+void List::setFileName(string name)
+{
+	fileName = name;
 }
 
 
@@ -76,6 +90,19 @@ Button *List::getButton()
 vector<Object *> &List::getObjects()
 {
 	return objects;
+}
+
+
+vector<Object *> List::getSelectedObject()
+{
+	vector<Object *> result;
+
+	Object *newObject = TankEditor::getCopy(objects[index]);
+	newObject->setHeath(newObject->getComponentParameter()->healthPoints);
+
+	result.push_back(newObject);
+
+	return result;
 }
 
 
@@ -119,6 +146,17 @@ int List::getWidth()
 int List::getHeight()
 {
 	return height;
+}
+
+
+int List::getObjectWidth()
+{
+	return objectWidth;
+}
+
+int List::getObjectHeight()
+{
+	return objectHeight;
 }
 
 

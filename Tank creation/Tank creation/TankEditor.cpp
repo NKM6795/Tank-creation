@@ -86,6 +86,12 @@ Object *TankEditor::getObject(Component *component, int index)
 }
 
 
+Object *TankEditor::getCopy(Object *object)
+{
+	return getObject(object->getComponent(), object->getIndex());
+}
+
+
 Vector2int TankEditor::getFreePlace(Component *component, Vector2int mousePosition)
 {
 	vector<vector<bool> > smallTank = Tank::getSmallTank(*objects);

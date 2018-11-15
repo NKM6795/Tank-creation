@@ -1,12 +1,14 @@
 #pragma once
 
 
-#include "Tank.h"
+#include "TankEditor.h"
 #include "Button.h"
 
 
 class List
 {
+	string fileName;
+
 	vector<Object *> objects;
 
 	int objectWidth,
@@ -40,6 +42,9 @@ public:
 
 	~List();
 
+	string getFileName();
+	void setFileName(string fileName);
+
 	int getIndex();
 
 	int getPosition();
@@ -47,6 +52,8 @@ public:
 	Button *getButton();
 
 	vector<Object *> &getObjects();
+
+	vector<Object *> getSelectedObject();
 
 	Vector2int getOffset();
 	void setOffset(Vector2int offset);
@@ -58,6 +65,9 @@ public:
 
 	int getWidth();
 	int getHeight();
+
+	int getObjectWidth();
+	int getObjectHeight();
 
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps);
 	
