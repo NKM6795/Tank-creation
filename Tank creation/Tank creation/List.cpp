@@ -32,7 +32,7 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	{
 		needButton = true;
 
-		conversionFactor = float(height) / float(int(objects.size()) * fragmentHeight);
+		conversionFactor = float(height - 14) / float(int(objects.size()) * fragmentHeight);
 
 		button = new Button;
 
@@ -82,7 +82,7 @@ void List::closeList()
 
 bool List::inFocuse(Vector2int mousePosition)
 {
-	return mousePosition >= Vector2int(xCoordinate - 3, yCoordinate - 3) && mousePosition <= Vector2int(xCoordinate + width + 3, yCoordinate + height + 3);
+	return open && ((mousePosition >= Vector2int(xCoordinate - 3, yCoordinate - 3) && mousePosition <= Vector2int(xCoordinate + width + 3, yCoordinate + height + 3)) || button->getStruct()->checkButtonIsPressed);
 }
 
 
@@ -298,7 +298,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 
 			updateObject();
 
-			if (isPressed)
+			if (isPressed && !button->getStruct()->checkButtonIsPressed)
 			{
 				closeList();
 			}

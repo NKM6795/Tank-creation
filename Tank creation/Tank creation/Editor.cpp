@@ -155,14 +155,18 @@ void Editor::work()
 		//Work with tank
 		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
+			list->closeList();
+
 			if (oldObject == nullptr || oldObject != tank.getObject(mousePosition))
 			{
-				tankEditor->addObject(components[37], 37, mousePosition);
+				tankEditor->addObject(components[list->getObjects()[list->getIndex()]->getIndex()], list->getObjects()[list->getIndex()]->getIndex(), mousePosition);
 				oldObject = tank.getObject(mousePosition);
 			}
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
+			list->closeList();
+
 			tankEditor->removeObject(mousePosition);
 		}
 		else
