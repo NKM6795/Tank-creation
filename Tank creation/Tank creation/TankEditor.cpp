@@ -160,7 +160,14 @@ Vector2int TankEditor::getFreePlace(Component *component, Vector2int mousePositi
 	int tempI = (widht % 2 == 1) ? int(x - widht / 2) : int(x + 0.5f - widht / 2),
 		tempJ = (height % 2 == 1) ? int(y - height / 2) : int(y + 0.5f - height / 2);
 
-	for (float r = 0; r < maxR; r += 0.1f)
+	float r = 0;
+
+	if (typeid(*component) == typeid(TrackComponent) && component->getStruct()->height + int(y) < int(smallTank.size()))
+	{
+		r = float(smallTank.size()) - component->getStruct()->height - y - 1;
+	}
+
+	for (; r < maxR; r += 0.5f)
 	{
 		int oldI = -1,
 			oldJ = -1;
@@ -171,6 +178,14 @@ Vector2int TankEditor::getFreePlace(Component *component, Vector2int mousePositi
 
 			if (checkFreePlace(smallTank, widht, height, i, j))
 			{
+				if (typeid(*component) == typeid(TrackComponent))
+				{
+					if (component->getStruct()->height + j < int(smallTank.size()))
+					{
+						continue;
+					}
+				}
+
 				if (oldI == -1)
 				{
 					oldI = i;
