@@ -60,6 +60,8 @@ Editor::~Editor()
 	}
 
 	delete tankEditor;
+
+	delete list;
 }
 
 
@@ -75,6 +77,12 @@ void Editor::work()
 			{
 				windowIsOpen = false;
 				return;
+			}
+			else if (windowResult != "Cancel.")
+			{
+				tankEditor->save("Data/Tanks/" + windowResult + ".dat");
+
+				graphic->saveTank("Data/Tanks/" + windowResult + ".png", tank, timer);
 			}
 			needWindowResult = false;
 		}
@@ -129,7 +137,7 @@ void Editor::work()
 
 					string fileName = "Data/Data for exit from editor.dat";
 
-					graphic->drawInRenderTexture(button, tank, timer);
+					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
 					newWindow = new ExitFromEditor(fileName, graphic);
 
@@ -143,23 +151,14 @@ void Editor::work()
 				}
 				else if (button[i].getStruct()->buttonName == "Save")
 				{
-					tankEditor->save("Data/Tanks/12.dat");
-					
-					graphic->saveTank("Data/Tanks/12.png", tank, timer);
-
-					tankEditor->download("Data/Tanks/12.dat", components);
-
-					button[i].setActivateAnAction(false);
-				}
-				else
-				{
 					needNewWindow = true;
+					needWindowResult = true;
 
-					string fileName = "Data/Data for not available.dat";
+					string fileName = "Data/Data for save tank.dat";
 
-					graphic->drawInRenderTexture(button, tank, timer);
+					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
-					newWindow = new NotAvailable(fileName, graphic);
+					newWindow = new SaveTank(fileName, graphic);
 
 					button[i].setActivateAnAction(false);
 				}

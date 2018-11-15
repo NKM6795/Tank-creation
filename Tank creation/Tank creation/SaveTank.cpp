@@ -1,27 +1,17 @@
-#include "ExitFromEditor.h"
+#include "SaveTank.h"
 
 
-ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
+SaveTank::SaveTank(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
 {
 	fileIn.close();
 }
 
 
-void ExitFromEditor::work()
+void SaveTank::work()
 {
 	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
 		timer += timeForWork;
-
-		if (needWindowResult)
-		{
-			if (windowResult != "Cancel.")
-			{
-				windowIsOpen = false;
-				return;
-			}
-			needWindowResult = false;
-		}
 
 		mousePosition = graphic->getPositionOfMouse();
 
@@ -31,6 +21,10 @@ void ExitFromEditor::work()
 			{
 				windowIsOpen = false;
 				return;
+			}
+			if (graphic->getEvent().type == Event::TextEntered)
+			{
+				inputText(graphic->getEvent().text.unicode);
 			}
 		}
 
@@ -51,30 +45,32 @@ void ExitFromEditor::work()
 					windowIsOpen = false;
 					return;
 				}
-				if (button[i].getStruct()->buttonName == "Yes")
+				else if (button[i].getStruct()->buttonName == "Save")
 				{
-					windowResult = "Exit.";
+					windowResult = inputField;
 
-					windowIsOpen = false;
-					return;
-				}
-				else
-				{
-					needNewWindow = true;
-					needWindowResult = true;
+					if (inputField == "")
+					{
+						needNewWindow = true;
 
-					string fileName = "Data/Data for save tank.dat";
+						string fileName = "Data/Data for not available.dat";
 
-					graphic->drawInRenderTexture(button);
+						graphic->drawInRenderTexture(button);
 
-					newWindow = new SaveTank(fileName, graphic);
+						newWindow = new NotAvailable(fileName, graphic);
 
-					button[i].setActivateAnAction(false);
+						button[i].setActivateAnAction(false);
+					}
+					else
+					{
+						windowIsOpen = false;
+						return;
+					}
 				}
 			}
 
 		}
 
-		graphic->draw(button);
+		graphic->draw(button, inputField);
 	}
 }

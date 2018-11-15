@@ -247,6 +247,9 @@
     <ClCompile Include="ListDraw.cpp">
       <Filter>Graphic\Window\List\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SaveTank.cpp">
+      <Filter>Windows\Notification Windows\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -347,6 +350,9 @@
     </ClInclude>
     <ClInclude Include="ListDraw.h">
       <Filter>Graphic\Window\List\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveTank.h">
+      <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

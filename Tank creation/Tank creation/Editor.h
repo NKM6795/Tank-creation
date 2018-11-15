@@ -5,6 +5,7 @@
 #include "ExitFromEditor.h"
 #include "NotAvailable.h"
 #include "TankEditor.h"
+#include "SaveTank.h"
 
 
 class Editor : public WorkWithWindow

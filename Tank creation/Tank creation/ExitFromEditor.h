@@ -3,6 +3,7 @@
 
 #include "NotificationWindow.h"
 #include "NotAvailable.h"
+#include "SaveTank.h"
 
 
 class ExitFromEditor : public NotificationWindow
