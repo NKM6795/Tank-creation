@@ -474,6 +474,12 @@ void Graphic::drawInRenderTexture(Button *button, string &inputField, vector<Obj
 }
 
 
+void Graphic::saveTank(string fileName, Tank &tank, long timer)
+{
+	tankDraw->save(fileName, timer, tank, components);
+}
+
+
 long Graphic::getTimeAsMilliseconds()
 {
 	return globalTimer.getElapsedTime().asMilliseconds();

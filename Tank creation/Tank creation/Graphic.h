@@ -56,20 +56,13 @@ class Graphic
 
 	void forConstructor();
 
-
 	void drawWindow();
-
-
-	void drawPrivate();
-
-	void drawPrivate(Button *button);
-
-	void drawPrivate(string &inputField);
 	
+	void drawPrivate();
+	void drawPrivate(Button *button);
+	void drawPrivate(string &inputField);
 	void drawPrivate(vector<Object *> &objects, long timer);
-
 	void drawPrivate(Tank &tank, long timer);
-
 	void drawPrivate(List &list, long timer);
 
 public:
@@ -79,79 +72,50 @@ public:
 
 		forConstructor();
 	}
-
 	Graphic(RenderWindow *windowForCopy);
 
 	~Graphic();
 
-
 	void setInformation(int numberOfButton, Button *button);
-
 	void setInformation(int numberOfText, string *text, string *fontName, int *characterSize, int *xCoordinate, int *yCoordinate);
-
 	void setInformation(int xCoordinate, int yCoordinate, int width, int height, string fileName);
-
 	void setInformation(int width, int height, bool needInputField, int xCoordinate, int yCoordinate, int characterSize, string fontName, RenderTexture *renderTextureForBackground);
-
 	void setInformation(vector<Component *> &componentsForData);
-
 	void setInformation(Tank &tank);
-
 	void setInformation(List &list);
 
-
 	void draw(Button *button);
-	
 	void draw(Button *button, Tank &tank, long timer);
-
 	void draw(Button *button, vector<Object *> &objects, long timer);
-
 	void draw(Button *button, vector<Object *> &objects, Tank &tank, long timer);
-
 	void draw(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer);
-
 	void draw(Button *button, string &inputField);
-
 	void draw(Button *button, string &inputField, Tank &tank, long timer);
-	
 	void draw(Button *button, string &inputField, vector<Object *> &objects, long timer);
-	
 	void draw(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer);
 		
-
 	void drawInRenderTexture(Button *button);
-
 	void drawInRenderTexture(Button *button, Tank &tank, long timer);
-
 	void drawInRenderTexture(Button *button, vector<Object *> &objects, long timer);
-
 	void drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, long timer);
-
 	void drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer);
-
 	void drawInRenderTexture(Button *button, string &inputField);
-
 	void drawInRenderTexture(Button *button, string &inputField, Tank &tank, long timer);
-	
 	void drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, long timer);
-
 	void drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer);
 
+	void saveTank(string fileName, Tank &tank, long timer);
 
 	long getTimeAsMilliseconds();
-
 	long long getTimeAsMicroseconds();
 
 	RenderWindow *getWindow();
-
 	RenderTexture *getRenderTexture();
 
 	bool isOpen();
-
 	void close();
 
 	bool pollEvent();
-
 	Event getEvent();
 
 	bool hasFocus();

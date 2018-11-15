@@ -141,6 +141,16 @@ void Editor::work()
 
 					button[i].setActivateAnAction(false);
 				}
+				else if (button[i].getStruct()->buttonName == "Save")
+				{
+					tankEditor->save("Data/Tanks/12.dat");
+					
+					graphic->saveTank("Data/Tanks/12.png", tank, timer);
+
+					tankEditor->download("Data/Tanks/12.dat", components);
+
+					button[i].setActivateAnAction(false);
+				}
 				else
 				{
 					needNewWindow = true;

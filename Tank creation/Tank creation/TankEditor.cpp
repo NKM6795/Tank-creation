@@ -24,6 +24,28 @@ bool TankEditor::checkFreePlace(vector<vector<bool> > &smallTank, int widht, int
 }
 
 
+void TankEditor::addObjectOnPosition(Component *component, int index, Vector2int position)
+{
+	(*objects)[position.x][position.y] = getObject(component, index);
+	(*objects)[position.x][position.y]->setPosition(position * 20);
+	(*objects)[position.x][position.y]->setHeath(component->getStruct()->healthPoints);
+
+	if (component->getStruct()->width > 1)
+	{
+		for (int i = 0; i < component->getStruct()->width; ++i)
+		{
+			for (int j = 0; j < component->getStruct()->height; ++j)
+			{
+				if (!(i == 0 && j == 0))
+				{
+					(*objects)[position.x + i][position.y + j] = (*objects)[position.x][position.y]->getAddition();
+				}
+			}
+		}
+	}
+}
+
+
 TankEditor::TankEditor(vector<vector<Object *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
 {
 
@@ -202,23 +224,7 @@ void TankEditor::addObject(Component *component, int index, Vector2int mousePosi
 	}
 	else
 	{
-		(*objects)[position.x][position.y] = getObject(component, index);
-		(*objects)[position.x][position.y]->setPosition(position * 20);
-		(*objects)[position.x][position.y]->setHeath(component->getStruct()->healthPoints);
-
-		if (component->getStruct()->width > 1)
-		{
-			for (int i = 0; i < component->getStruct()->width; ++i)
-			{
-				for (int j = 0; j < component->getStruct()->height; ++j)
-				{
-					if (!(i == 0 && j == 0))
-					{
-						(*objects)[position.x + i][position.y + j] = (*objects)[position.x][position.y]->getAddition();
-					}
-				}
-			}
-		}
+		addObjectOnPosition(component, index, position);
 	}
 }
 
@@ -255,6 +261,54 @@ void TankEditor::clear()
 		for (int j = 0; j < int((*objects).size()); ++j)
 		{
 			removeObject(Vector2int(i, j) * 20 + getOffset());
+		}
+	}
+}
+
+
+void TankEditor::save(string fileName)
+{
+	ofstream fileOut(fileName);
+
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			fileOut << i << ' ' << j << ' ';
+
+			if ((*objects)[i][j] == nullptr || typeid(*(*objects)[i][j]) == typeid(AdditionToBigBlock) || typeid(*(*objects)[i][j]) == typeid(AdditionToEngineRoom) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun) || typeid(*(*objects)[i][j]) == typeid(AdditionToTrack))
+			{
+				fileOut << -1 << ' ';
+			}
+			else
+			{
+				fileOut << (*objects)[i][j]->getIndex() << ' ';
+			}
+		}
+	}
+}
+
+void TankEditor::download(string fileName, vector<Component *> &components)
+{
+	ifstream fileIn(fileName);
+
+	if (fileIn)
+	{
+		clear();
+
+		for (int i = 0; i < int((*objects).size()); ++i)
+		{
+			for (int j = 0; j < int((*objects).size()); ++j)
+			{
+				Vector2int position;
+				int index;
+				fileIn >> position.x >> position.y >> index;
+
+				if (index != -1)
+				{
+					addObjectOnPosition(components[index], index, position);
+				}
+			}
 		}
 	}
 }
