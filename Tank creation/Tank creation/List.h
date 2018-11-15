@@ -34,8 +34,6 @@ class List
 
 	int separationThickness;
 
-	bool activateAnAction;
-
 	bool needDirect;
 	bool up;
 
@@ -53,6 +51,8 @@ public:
 	bool isOpen();
 	void openList(Vector2int mousePosition);
 	void closeList();
+
+	bool inFocuse(Vector2int mousePosition);
 
 	string getFileName();
 	void setFileName(string fileName);
@@ -84,6 +84,4 @@ public:
 	bool getNeedInformation();
 
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps);
-	
-	bool getActivateAnAction();
 };

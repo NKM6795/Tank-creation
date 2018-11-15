@@ -22,7 +22,6 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 
 	needDirect = false;
 	deltaPosition = -1;
-	activateAnAction = false;
 	
 	needInformation = false;
 
@@ -78,6 +77,12 @@ void List::openList(Vector2int mousePosition)
 void List::closeList()
 {
 	open = false;
+}
+
+
+bool List::inFocuse(Vector2int mousePosition)
+{
+	return mousePosition >= Vector2int(xCoordinate - 3, yCoordinate - 3) && mousePosition <= Vector2int(xCoordinate + width + 3, yCoordinate + height + 3);
 }
 
 
@@ -292,6 +297,11 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 			}
 
 			updateObject();
+
+			if (isPressed)
+			{
+				closeList();
+			}
 		}
 
 		if (timer - timerForInformation >= 500)
@@ -303,10 +313,4 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 			needInformation = false;
 		}
 	}
-}
-
-
-bool List::getActivateAnAction()
-{
-	return activateAnAction;
 }

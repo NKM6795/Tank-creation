@@ -107,7 +107,7 @@ void Editor::work()
 			{
 				list->openList(mousePosition);
 			}
-			else if (Mouse::isButtonPressed(Mouse::XButton1) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Q)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
+			else if (Mouse::isButtonPressed(Mouse::XButton1) || Mouse::isButtonPressed(Mouse::XButton2) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Q)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
 				list->closeList();
 			}
@@ -116,7 +116,7 @@ void Editor::work()
 		//Work with buttons
 		for (int i = 0; i < numberOfButton; ++i)
 		{
-			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+			button[i].work(mousePosition * ((graphic->hasFocus() && !list->inFocuse(mousePosition)) ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && (graphic->hasFocus() && !list->inFocuse(mousePosition)), timer, timeForWork);
 		}
 
 		for (int i = 0; i < numberOfButton; ++i)
@@ -153,7 +153,7 @@ void Editor::work()
 		}
 
 		//Work with tank
-		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus())
+		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
 			if (oldObject == nullptr || oldObject != tank.getObject(mousePosition))
 			{
@@ -161,7 +161,7 @@ void Editor::work()
 				oldObject = tank.getObject(mousePosition);
 			}
 		}
-		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus())
+		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
 			tankEditor->removeObject(mousePosition);
 		}
@@ -174,7 +174,7 @@ void Editor::work()
 		{
 			if (objects.size() == 0)
 			{
-				Object *temp = tankEditor->getFreePlace(components[37], 37, mousePosition);
+				Object *temp = tankEditor->getFreePlace(components[list->getObjects()[list->getIndex()]->getIndex()], list->getObjects()[list->getIndex()]->getIndex(), mousePosition);
 
 				objects.push_back(temp);
 			}
@@ -182,7 +182,7 @@ void Editor::work()
 			{
 				delete objects.back();
 
-				objects.back() = tankEditor->getFreePlace(components[37], 37, mousePosition);
+				objects.back() = tankEditor->getFreePlace(components[list->getObjects()[list->getIndex()]->getIndex()], list->getObjects()[list->getIndex()]->getIndex(), mousePosition);
 			}
 
 		}
