@@ -85,6 +85,10 @@ void Editor::work()
 				windowIsOpen = false;
 				return;
 			}
+			else if (windowResult.size() > 7 && windowResult.substr(0, 7) == "rename/")
+			{
+				tank.name = windowResult.substr(7);
+			}
 			else if (windowResult != "Cancel.")
 			{
 				tank.name = windowResult;
@@ -180,6 +184,19 @@ void Editor::work()
 						
 						button[i].setActivateAnAction(false);
 					}
+				}
+				else if (button[i].getStruct()->buttonName == "Change name")
+				{
+					needNewWindow = true;
+					needWindowResult = true;
+
+					string fileName = "Data/Data for rename tank.dat";
+
+					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+
+					newWindow = new RenameTank(fileName, graphic, tank.name);
+
+					button[i].setActivateAnAction(false);
 				}
 			}
 

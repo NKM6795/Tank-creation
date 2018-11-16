@@ -6,6 +6,7 @@
 #include "NotAvailable.h"
 #include "TankEditor.h"
 #include "SaveTank.h"
+#include "RenameTank.h"
 
 
 class Editor : public WorkWithWindow

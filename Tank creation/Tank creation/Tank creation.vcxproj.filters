@@ -259,6 +259,9 @@
     <ClCompile Include="ViewableObjectDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RenameTank.cpp">
+      <Filter>Windows\Notification Windows\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -371,6 +374,9 @@
     </ClInclude>
     <ClInclude Include="ViewableObjectDraw.h">
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenameTank.h">
+      <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

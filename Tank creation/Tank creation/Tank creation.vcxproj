@@ -142,6 +142,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="NotificationWindow.cpp" />
     <ClCompile Include="NotAvailable.cpp" />
+    <ClCompile Include="RenameTank.cpp" />
     <ClCompile Include="ViewableObject.cpp" />
     <ClCompile Include="ViewableObjectDraw.cpp" />
     <ClCompile Include="SaveTank.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="NotificationWindow.h" />
     <ClInclude Include="NotAvailable.h" />
+    <ClInclude Include="RenameTank.h" />
     <ClInclude Include="ViewableObject.h" />
     <ClInclude Include="ViewableObjectDraw.h" />
     <ClInclude Include="SaveTank.h" />
