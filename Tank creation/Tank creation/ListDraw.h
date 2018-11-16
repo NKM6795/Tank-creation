@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "ObjectDraw.h"
+#include "ViewableObjectDraw.h"
 #include "ButtonDraw.h"
 #include "GraphicForNotificationWindow.h"
 #include "List.h"

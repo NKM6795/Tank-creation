@@ -24,9 +24,9 @@ bool TankEditor::checkFreePlace(vector<vector<bool> > &smallTank, int widht, int
 }
 
 
-void TankEditor::addObjectOnPosition(Component *component, int index, Vector2int position)
+void TankEditor::addViewableObjectOnPosition(Component *component, int index, Vector2int position)
 {
-	(*objects)[position.x][position.y] = getObject(component, index);
+	(*objects)[position.x][position.y] = getViewableObject(component, index);
 	(*objects)[position.x][position.y]->setPosition(position * 20);
 	(*objects)[position.x][position.y]->setHeath(component->getStruct()->healthPoints);
 
@@ -74,7 +74,7 @@ void TankEditor::dfs(vector<vector<bool> > &smallTank, int i, int j)
 }
 
 
-TankEditor::TankEditor(vector<vector<Object *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
+TankEditor::TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
 {
 
 }
@@ -103,43 +103,43 @@ void TankEditor::setOffset(int x, int y)
 }
 
 
-Object *TankEditor::getObject(Component *component, int index)
+ViewableObject *TankEditor::getViewableObject(Component *component, int index)
 {
-	Object *newObject = nullptr;
+	ViewableObject *newViewableObject = nullptr;
 
 	if (typeid(*component) == typeid(BackgroundComponent))
 	{
-		newObject = new Background(component, index);
+		newViewableObject = new Background(component, index);
 	}
 	else if (typeid(*component) == typeid(SmallBlockComponent))
 	{
-		newObject = new SmallBlock(component, index);
+		newViewableObject = new SmallBlock(component, index);
 	}
 	else if (typeid(*component) == typeid(BigBlockComponent))
 	{
-		newObject = new BigBlock(component, index);
+		newViewableObject = new BigBlock(component, index);
 	}
 	else if (typeid(*component) == typeid(EngineRoomComponent))
 	{
-		newObject = new EngineRoom(component, index);
+		newViewableObject = new EngineRoom(component, index);
 	}
 	else if (typeid(*component) == typeid(TrackComponent))
 	{
-		newObject = new Track(component, index);
+		newViewableObject = new Track(component, index);
 	}
 	else if (typeid(*component) == typeid(GunComponent))
 	{
-		newObject = new Gun(component, index);
+		newViewableObject = new Gun(component, index);
 	}
 	else if (typeid(*component) == typeid(TankPictureComponent))
 	{
-		newObject = new TankPicture(component, index);
+		newViewableObject = new TankPicture(component, index);
 	}
 
-	return newObject;
+	return newViewableObject;
 }
 
-Object *TankEditor::getObject(Vector2int mousePosition)
+ViewableObject *TankEditor::getViewableObject(Vector2int mousePosition)
 {
 	mousePosition = mousePosition - getOffset();
 
@@ -151,7 +151,7 @@ Object *TankEditor::getObject(Vector2int mousePosition)
 		return nullptr;
 	}
 
-	Object *object = (*objects)[i][j];
+	ViewableObject *object = (*objects)[i][j];
 
 	if (object == nullptr)
 	{
@@ -164,9 +164,9 @@ Object *TankEditor::getObject(Vector2int mousePosition)
 }
 
 
-Object *TankEditor::getCopy(Object *object)
+ViewableObject *TankEditor::getCopy(ViewableObject *object)
 {
-	return getObject(object->getComponent(), object->getIndex());
+	return getViewableObject(object->getComponent(), object->getIndex());
 }
 
 
@@ -241,7 +241,7 @@ Vector2int TankEditor::getFreePlace(Component *component, Vector2int mousePositi
 	return Vector2int(-1, -1);
 }
 
-Object *TankEditor::getFreePlace(Component *component, int index, Vector2int mousePosition)
+ViewableObject *TankEditor::getFreePlace(Component *component, int index, Vector2int mousePosition)
 {
 	Vector2int position = getFreePlace(component, mousePosition);
 
@@ -251,17 +251,17 @@ Object *TankEditor::getFreePlace(Component *component, int index, Vector2int mou
 	}
 	else
 	{
-		Object *newObject = getObject(component, index);
-		newObject->setPosition(position * 20 + getOffset());
-		newObject->setHeath(component->getStruct()->healthPoints);
-		newObject->needChangeColor = true;
+		ViewableObject *newViewableObject = getViewableObject(component, index);
+		newViewableObject->setPosition(position * 20 + getOffset());
+		newViewableObject->setHeath(component->getStruct()->healthPoints);
+		newViewableObject->needChangeColor = true;
 
-		return newObject;
+		return newViewableObject;
 	}
 }
 
 
-void TankEditor::addObject(Component *component, int index, Vector2int mousePosition)
+void TankEditor::addViewableObject(Component *component, int index, Vector2int mousePosition)
 {
 	Vector2int position = getFreePlace(component, mousePosition);
 
@@ -271,14 +271,14 @@ void TankEditor::addObject(Component *component, int index, Vector2int mousePosi
 	}
 	else
 	{
-		addObjectOnPosition(component, index, position);
+		addViewableObjectOnPosition(component, index, position);
 	}
 }
 
 
-void TankEditor::removeObject(Vector2int mousePosition)
+void TankEditor::removeViewableObject(Vector2int mousePosition)
 {
-	Object *object = getObject(mousePosition);
+	ViewableObject *object = getViewableObject(mousePosition);
 
 	if (object == nullptr)
 	{
@@ -307,7 +307,7 @@ void TankEditor::clear()
 	{
 		for (int j = 0; j < int((*objects).size()); ++j)
 		{
-			removeObject(Vector2int(i, j) * 20 + getOffset());
+			removeViewableObject(Vector2int(i, j) * 20 + getOffset());
 		}
 	}
 }
@@ -363,6 +363,8 @@ bool TankEditor::completenessСheck()
 
 void TankEditor::save(string fileName)
 {
+	fileName = "Data/Tanks/" + fileName + ".tnk";
+
 	ofstream fileOut(fileName);
 
 	for (int i = 0; i < int((*objects).size()); ++i)
@@ -389,7 +391,7 @@ void TankEditor::save(string fileName)
 	int number;
 	fileIn >> number;
 
-	bool needNewObject = true;
+	bool needNewViewableObject = true;
 
 	vector<string> names(number, "");
 	
@@ -399,9 +401,9 @@ void TankEditor::save(string fileName)
 		for (int i = 0; i < number; ++i)
 		{
 			getline(fileIn, names[i]);
-			if (names[i] == fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".dat") - fileName.find("Tanks/") - 6))
+			if (names[i] == fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".tnk") - fileName.find("Tanks/") - 6))
 			{
-				needNewObject = false;
+				needNewViewableObject = false;
 			}
 		}
 	}
@@ -409,18 +411,18 @@ void TankEditor::save(string fileName)
 
 	fileOut.open("Data/Tanks/Number.dat");
 
-	number += needNewObject;
+	number += needNewViewableObject;
 
 	fileOut << number << '\n';
 
-	for (int i = 0; i < number - needNewObject; ++i)
+	for (int i = 0; i < number - needNewViewableObject; ++i)
 	{
 		fileOut << names[i] << '\n';
 	}
 
-	if (needNewObject)
+	if (needNewViewableObject)
 	{
-		fileOut << fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".dat") - fileName.find("Tanks/") - 6) << '\n';
+		fileOut << fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".tnk") - fileName.find("Tanks/") - 6) << '\n';
 	}
 
 	fileOut.close();
@@ -428,6 +430,8 @@ void TankEditor::save(string fileName)
 
 void TankEditor::download(string fileName, vector<Component *> &components)
 {
+	fileName = "Data/Tanks/" + fileName + ".tnk";
+
 	ifstream fileIn(fileName);
 
 	if (fileIn)
@@ -444,7 +448,7 @@ void TankEditor::download(string fileName, vector<Component *> &components)
 
 				if (index != -1)
 				{
-					addObjectOnPosition(components[index], index, position);
+					addViewableObjectOnPosition(components[index], index, position);
 				}
 			}
 		}

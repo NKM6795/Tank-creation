@@ -14,7 +14,7 @@ TankPictureDraw::~TankPictureDraw()
 }
 
 
-void TankPictureDraw::draw(RenderTexture &renderTexture, long timer, Object *object)
+void TankPictureDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
 {
 	if (object->needDraw)
 	{

@@ -9,17 +9,17 @@ SmallBlockComponent::SmallBlockComponent(string name, string objectName, string 
 }
 
 
-SmallBlock::SmallBlock() : Object()
+SmallBlock::SmallBlock() : ViewableObject()
 {
 
 }
 
-SmallBlock::SmallBlock(Component *component) : Object(component)
+SmallBlock::SmallBlock(Component *component) : ViewableObject(component)
 {
 
 }
 
-SmallBlock::SmallBlock(Component *component, int index) : Object(component, index)
+SmallBlock::SmallBlock(Component *component, int index) : ViewableObject(component, index)
 {
 
 }

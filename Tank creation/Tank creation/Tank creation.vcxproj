@@ -142,8 +142,8 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="NotificationWindow.cpp" />
     <ClCompile Include="NotAvailable.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="ObjectDraw.cpp" />
+    <ClCompile Include="ViewableObject.cpp" />
+    <ClCompile Include="ViewableObjectDraw.cpp" />
     <ClCompile Include="SaveTank.cpp" />
     <ClCompile Include="SmallBlock.cpp" />
     <ClCompile Include="SmallBlockDraw.cpp" />
@@ -181,8 +181,8 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="NotificationWindow.h" />
     <ClInclude Include="NotAvailable.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectDraw.h" />
+    <ClInclude Include="ViewableObject.h" />
+    <ClInclude Include="ViewableObjectDraw.h" />
     <ClInclude Include="SaveTank.h" />
     <ClInclude Include="SmallBlock.h" />
     <ClInclude Include="SmallBlockDraw.h" />

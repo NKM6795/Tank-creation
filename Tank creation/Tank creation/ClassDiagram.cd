@@ -67,14 +67,14 @@
     <Position X="2.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAIAAAAAAAAAAAAAAAAAAAABAAAAAQAA=</HashCode>
-      <FileName>Object.h</FileName>
+      <FileName>ViewableObject.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Object" Collapsed="true">
+  <Class Name="ViewableObject" Collapsed="true">
     <Position X="2.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAIAAEAQAAAEAgAAAAEAADAAAAKAAAIAAAAAABQAA=</HashCode>
-      <FileName>Object.h</FileName>
+      <FileName>ViewableObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SmallBlockComponent" Collapsed="true">
@@ -270,7 +270,7 @@
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAADgDAALgFRAAAAIIAAAAAIIAAAAAAAQYAAABAg=</HashCode>
-      <FileName>Object.h</FileName>
+      <FileName>ViewableObject.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Font Name="Segoe UI" Size="9" />

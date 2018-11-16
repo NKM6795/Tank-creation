@@ -29,5 +29,5 @@ public:
 
 	~EngineRoomDraw();
 
-	void draw(RenderTexture &renderTexture, long timer, Object *object);
+	void draw(RenderTexture &renderTexture, long timer, ViewableObject *object);
 };

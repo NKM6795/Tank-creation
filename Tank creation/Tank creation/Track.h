@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Object.h"
+#include "ViewableObject.h"
 
 
 class TrackComponent : public Component
@@ -15,9 +15,9 @@ public:
 };
 
 
-class Track : public Object
+class Track : public ViewableObject
 {
-	Object *addition;
+	ViewableObject *addition;
 
 public:
 	Track();
@@ -26,16 +26,16 @@ public:
 
 	~Track();
 
-	Object *getAddition();
+	ViewableObject *getAddition();
 };
 
 
-class AdditionToTrack : public Object
+class AdditionToTrack : public ViewableObject
 {
-	Object *main;
+	ViewableObject *main;
 
 public:
-	AdditionToTrack(Object *main);
+	AdditionToTrack(ViewableObject *main);
 
 
 	Vector2int getPosition();

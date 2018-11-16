@@ -6,7 +6,7 @@
 
 class TankEditor
 {
-	vector<vector<Object *> > *objects;
+	vector<vector<ViewableObject *> > *objects;
 
 	int xOffset,
 		yOffset;
@@ -15,12 +15,12 @@ class TankEditor
 
 	bool checkFreePlace(vector<vector<bool> > &smallTank, int widht, int height, int i, int j);
 
-	void addObjectOnPosition(Component *component, int index, Vector2int position);
+	void addViewableObjectOnPosition(Component *component, int index, Vector2int position);
 
 	void dfs(vector<vector<bool> > &smallTank, int i, int j);
 
 public:
-	TankEditor(vector<vector<Object *> > &objects, int dataArraySize = 30);
+	TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize = 30);
 
 	~TankEditor();
 
@@ -28,17 +28,17 @@ public:
 	void setOffset(Vector2int offset);
 	void setOffset(int x, int y);
 
-	static Object *getObject(Component *component, int index);
-	Object *getObject(Vector2int mousePosition);
+	static ViewableObject *getViewableObject(Component *component, int index);
+	ViewableObject *getViewableObject(Vector2int mousePosition);
 
-	static Object *getCopy(Object *object);
+	static ViewableObject *getCopy(ViewableObject *object);
 
 	Vector2int getFreePlace(Component *component, Vector2int mousePosition);
-	Object *getFreePlace(Component *component, int index, Vector2int mousePosition);
+	ViewableObject *getFreePlace(Component *component, int index, Vector2int mousePosition);
 
-	void addObject(Component *component, int index, Vector2int mousePosition);
+	void addViewableObject(Component *component, int index, Vector2int mousePosition);
 
-	void removeObject(Vector2int mousePosition);
+	void removeViewableObject(Vector2int mousePosition);
 
 	void clear();
 

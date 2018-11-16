@@ -66,7 +66,7 @@ Graphic::~Graphic()
 		delete notificationFont;
 	}
 
-	if (needObject)
+	if (needViewableObject)
 	{
 		int number = int(components.size());
 
@@ -183,7 +183,7 @@ void Graphic::setInformation(int width, int height, bool needInputField, int xCo
 
 void Graphic::setInformation(vector<Component *> &componentsForData)
 {
-	if (needObject)
+	if (needViewableObject)
 	{
 		int number = int(components.size());
 
@@ -195,7 +195,7 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		}
 	}
 
-	needObject = true;
+	needViewableObject = true;
 
 	int number = int(componentsForData.size());
 
@@ -322,7 +322,7 @@ void Graphic::drawPrivate(string &inputField)
 	textureForWindow->draw(*notificationText);
 }
 
-void Graphic::drawPrivate(vector<Object *> &objects, long timer)
+void Graphic::drawPrivate(vector<ViewableObject *> &objects, long timer)
 {
 	objectDraw(*textureForWindow, timer, objects, components);
 }
@@ -393,21 +393,21 @@ void Graphic::draw(Button *button, Tank &tank, long timer)
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, vector<Object *> &objects, long timer)
+void Graphic::draw(Button *button, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button, objects, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, vector<Object *> &objects, Tank &tank, long timer)
+void Graphic::draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, objects, tank, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer)
+void Graphic::draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
 {
 	drawInRenderTexture(button, objects, tank, list, timer);
 
@@ -428,14 +428,14 @@ void Graphic::draw(Button *button, string &inputField, Tank &tank, long timer)
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, string &inputField, vector<Object *> &objects, long timer)
+void Graphic::draw(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button, inputField, objects, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer)
+void Graphic::draw(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, inputField, objects, tank, timer);
 
@@ -463,21 +463,21 @@ void Graphic::drawInRenderTexture(Button *button, Tank &tank, long timer)
 	drawPrivate(tank, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, vector<Object *> &objects, long timer)
+void Graphic::drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, tank, timer);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer)
+void Graphic::drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
 {
 	drawInRenderTexture(button, objects, tank, timer);
 
@@ -498,14 +498,14 @@ void Graphic::drawInRenderTexture(Button *button, string &inputField, Tank &tank
 	drawPrivate(tank, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, long timer)
+void Graphic::drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button, inputField);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, inputField, objects, timer);
 

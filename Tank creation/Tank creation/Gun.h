@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Object.h"
+#include "ViewableObject.h"
 
 
 class GunComponent : public Component
@@ -16,9 +16,9 @@ public:
 };
 
 
-class Gun : public Object
+class Gun : public ViewableObject
 {
-	Object *addition;
+	ViewableObject *addition;
 
 public:
 	Gun();
@@ -27,16 +27,16 @@ public:
 
 	~Gun();
 
-	Object *getAddition();
+	ViewableObject *getAddition();
 };
 
 
-class AdditionToGun : public Object
+class AdditionToGun : public ViewableObject
 {
-	Object *main;
+	ViewableObject *main;
 
 public:
-	AdditionToGun(Object *main);
+	AdditionToGun(ViewableObject *main);
 
 
 	Vector2int getPosition();

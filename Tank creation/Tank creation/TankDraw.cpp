@@ -13,14 +13,16 @@ TankDraw::~TankDraw()
 
 void TankDraw::draw(RenderTexture &renderTexture, long timer, Tank &tank, vector<ComponentDraw *> &components)
 {
-	for (int i = 0; i < int(tank.getObjects().size()); ++i)
+	for (int i = 0; i < int(tank.getViewableObjects().size()); ++i)
 	{
-		objectDraw(renderTexture, timer, tank.getObjects()[i], components);
+		objectDraw(renderTexture, timer, tank.getViewableObjects()[i], components);
 	}
 }
 
 void TankDraw::save(string fileName, long timer, Tank &tank, vector<ComponentDraw *> &components)
 {
+	fileName = "Data/Tanks/" + fileName + ".png";
+
 	RenderTexture renderForSave;
 	renderForSave.create(tank.getDimension(), tank.getDimension());
 	renderForSave.clear(Color(89, 85, 83));

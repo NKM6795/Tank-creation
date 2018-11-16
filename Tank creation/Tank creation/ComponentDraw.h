@@ -2,7 +2,7 @@
 
 
 #include "BasicElementDraw.h"
-#include "Object.h"
+#include "ViewableObject.h"
 
 
 class ComponentDraw
@@ -12,5 +12,5 @@ public:
 	ComponentDraw() {}
 	virtual ~ComponentDraw() {}
 
-	virtual void draw(RenderTexture &renderTexture, long timer, Object *object) = 0;
+	virtual void draw(RenderTexture &renderTexture, long timer, ViewableObject *object) = 0;
 };

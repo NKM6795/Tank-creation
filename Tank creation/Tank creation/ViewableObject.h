@@ -61,7 +61,7 @@ public:
 };
 
 
-class Object
+class ViewableObject
 {
 protected:
 	int index;
@@ -79,11 +79,11 @@ public:
 	bool needDraw;
 	bool needChangeColor;
 
-	Object();
-	Object(Component *component);
-	Object(Component *component, int index);
+	ViewableObject();
+	ViewableObject(Component *component);
+	ViewableObject(Component *component, int index);
 
-	virtual ~Object();
+	virtual ~ViewableObject();
 
 	virtual Component *getComponent();
 
@@ -102,5 +102,5 @@ public:
 
 	virtual ComponentParameter *getComponentParameter();
 
-	virtual Object *getAddition();
+	virtual ViewableObject *getAddition();
 };

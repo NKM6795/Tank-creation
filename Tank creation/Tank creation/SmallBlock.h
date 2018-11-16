@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Object.h"
+#include "ViewableObject.h"
 
 
 class SmallBlockComponent : public Component
@@ -15,7 +15,7 @@ public:
 };
 
 
-class SmallBlock : public Object
+class SmallBlock : public ViewableObject
 {
 
 

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "ObjectDraw.h"
+#include "ViewableObjectDraw.h"
 #include "Tank.h"
 
 

@@ -1,7 +1,7 @@
 #include "List.h"
 
 
-void List::updateObject()
+void List::updateViewableObject()
 {
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
@@ -15,7 +15,7 @@ void List::updateObject()
 }
 
 
-List::List(vector<Object *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth, int objectHeight, int fragmentHeight, int separationThickness) : 
+List::List(vector<ViewableObject *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth, int objectHeight, int fragmentHeight, int separationThickness) : 
 	objects(objects), width(width), height(height), xCoordinate(xCoordinate), yCoordinate(yCoordinate), objectWidth(objectWidth), objectHeight(objectHeight), fragmentHeight(fragmentHeight), separationThickness(separationThickness)
 {
 	open = false;
@@ -143,31 +143,31 @@ Button *List::getButton()
 }
 
 
-vector<Object *> &List::getObjects()
+vector<ViewableObject *> &List::getViewableObjects()
 {
 	return objects;
 }
 
 
-vector<Object *> List::getSelectedObject()
+vector<ViewableObject *> List::getSelectedViewableObject()
 {
-	vector<Object *> result;
+	vector<ViewableObject *> result;
 
 	if (index == -1)
 	{
 		return result;
 	}
 
-	Object *newObject = TankEditor::getCopy(objects[index]);
-	newObject->setHeath(newObject->getComponentParameter()->healthPoints);
+	ViewableObject *newViewableObject = TankEditor::getCopy(objects[index]);
+	newViewableObject->setHeath(newViewableObject->getComponentParameter()->healthPoints);
 
-	result.push_back(newObject);
+	result.push_back(newViewableObject);
 
 	return result;
 }
 
 
-void List::copyObject(Object *object)
+void List::copyViewableObject(ViewableObject *object)
 {
 	if (object == nullptr)
 	{
@@ -228,12 +228,12 @@ int List::getHeight()
 }
 
 
-int List::getObjectWidth()
+int List::getViewableObjectWidth()
 {
 	return objectWidth;
 }
 
-int List::getObjectHeight()
+int List::getViewableObjectHeight()
 {
 	return objectHeight;
 }
@@ -288,7 +288,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 				position = int(objects.size()) * fragmentHeight - height;
 			}
 
-			updateObject();
+			updateViewableObject();
 		}
 		else
 		{
@@ -306,13 +306,13 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 				{
 					position += fragmentHeight;
 
-					updateObject();
+					updateViewableObject();
 				}
 				else if (up && position - fragmentHeight >= 0)
 				{
 					position -= fragmentHeight;
 
-					updateObject();
+					updateViewableObject();
 				}
 			}
 			else
@@ -329,7 +329,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 					position = (index + 1) * fragmentHeight - height;
 				}
 
-				updateObject();
+				updateViewableObject();
 			}
 			needDirect = false;
 		}
@@ -354,7 +354,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 				position = (index + 1) * fragmentHeight - height;
 			}
 
-			updateObject();
+			updateViewableObject();
 
 			if (isPressed && (!needButton || (needButton && !button->getStruct()->checkButtonIsPressed)))
 			{

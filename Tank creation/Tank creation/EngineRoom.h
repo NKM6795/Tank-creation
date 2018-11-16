@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Object.h"
+#include "ViewableObject.h"
 
 
 class EngineRoomComponent : public Component
@@ -16,9 +16,9 @@ public:
 };
 
 
-class EngineRoom : public Object
+class EngineRoom : public ViewableObject
 {
-	Object *addition;
+	ViewableObject *addition;
 
 public:
 	EngineRoom();
@@ -27,16 +27,16 @@ public:
 
 	~EngineRoom();
 
-	Object *getAddition();
+	ViewableObject *getAddition();
 };
 
 
-class AdditionToEngineRoom : public Object
+class AdditionToEngineRoom : public ViewableObject
 {
-	Object *main;
+	ViewableObject *main;
 
 public:
-	AdditionToEngineRoom(Object *main);
+	AdditionToEngineRoom(ViewableObject *main);
 
 
 	Vector2int getPosition();

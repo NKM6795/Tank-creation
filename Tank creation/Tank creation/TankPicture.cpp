@@ -7,17 +7,17 @@ TankPictureComponent::TankPictureComponent(string name, string objectName, strin
 }
 
 
-TankPicture::TankPicture() : Object()
+TankPicture::TankPicture() : ViewableObject()
 {
 
 }
 
-TankPicture::TankPicture(Component *component) : Object(component)
+TankPicture::TankPicture(Component *component) : ViewableObject(component)
 {
 
 }
 
-TankPicture::TankPicture(Component *component, int index) : Object(component, index)
+TankPicture::TankPicture(Component *component, int index) : ViewableObject(component, index)
 {
 
 }

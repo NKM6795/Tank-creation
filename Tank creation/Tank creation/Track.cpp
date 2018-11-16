@@ -7,17 +7,17 @@ TrackComponent::TrackComponent(string name, string objectName, string typeName, 
 }
 
 
-Track::Track() : Object()
+Track::Track() : ViewableObject()
 {
 	addition = new AdditionToTrack(this);
 }
 
-Track::Track(Component *component) : Object(component)
+Track::Track(Component *component) : ViewableObject(component)
 {
 	addition = new AdditionToTrack(this);
 }
 
-Track::Track(Component *component, int index) : Object(component, index)
+Track::Track(Component *component, int index) : ViewableObject(component, index)
 {
 	addition = new AdditionToTrack(this);
 }
@@ -28,13 +28,13 @@ Track::~Track()
 }
 
 
-Object *Track::getAddition()
+ViewableObject *Track::getAddition()
 {
 	return addition;
 }
 
 
-AdditionToTrack::AdditionToTrack(Object *main) : main(main)
+AdditionToTrack::AdditionToTrack(ViewableObject *main) : main(main)
 {
 
 }

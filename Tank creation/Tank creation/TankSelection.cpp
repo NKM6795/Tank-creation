@@ -46,8 +46,8 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 
 			components.push_back(newComponent);
 
-			Object *newObject = new TankPicture(newComponent, i);
-			objects.push_back(newObject);
+			ViewableObject *newViewableObject = new TankPicture(newComponent, i);
+			objects.push_back(newViewableObject);
 		}
 	}
 	fileIn.close();
@@ -78,18 +78,18 @@ TankSelection::~TankSelection()
 
 void TankSelection::deleteSelectedElement()
 {
-	if (remove(("Data/Tanks/" + components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".dat").c_str()))
+	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".tnk").c_str()))
 	{
 
 	}
-	if (remove(("Data/Tanks/" + components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".png").c_str()))
+	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".png").c_str()))
 	{
 
 	}
 
-	string fileName = components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
+	string fileName = components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
 
-	delete components[list->getObjects()[list->getIndex()]->getIndex()];
+	delete components[list->getViewableObjects()[list->getIndex()]->getIndex()];
 	components.erase(components.begin() + list->getIndex());
 
 	while (objects.size() > 0)
@@ -100,8 +100,8 @@ void TankSelection::deleteSelectedElement()
 
 	for (int i = 0; i < int(components.size()); ++i)
 	{
-		Object *newObject = new TankPicture(components[i], i);
-		objects.push_back(newObject);
+		ViewableObject *newViewableObject = new TankPicture(components[i], i);
+		objects.push_back(newViewableObject);
 	}
 
 	graphic->setInformation(components);
@@ -184,7 +184,7 @@ void TankSelection::work()
 
 		if (!list->isOpen())
 		{
-			windowResult = components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
+			windowResult = components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
 
 			windowIsOpen = false;
 			return;

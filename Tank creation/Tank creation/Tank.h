@@ -13,7 +13,7 @@
 class Tank
 {
 protected:
-	vector<vector<Object *> > objects;
+	vector<vector<ViewableObject *> > objects;
 
 	int xOffset,
 		yOffset;
@@ -34,10 +34,10 @@ public:
 	virtual int getDimension();
 	virtual void setDimension(int dim);
 
-	virtual vector<vector<Object *> > &getObjects();
+	virtual vector<vector<ViewableObject *> > &getViewableObjects();
 
-	virtual Object *getObject(Vector2int mousePosition);
+	virtual ViewableObject *getViewableObject(Vector2int mousePosition);
 
-	static vector<vector<bool> > getSmallTank(vector<vector<Object *> > &objectsCopy);
+	static vector<vector<bool> > getSmallTank(vector<vector<ViewableObject *> > &objectsCopy);
 	virtual vector<vector<bool> > getSmallTank();
 };

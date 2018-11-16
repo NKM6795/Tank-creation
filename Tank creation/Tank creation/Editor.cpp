@@ -22,23 +22,23 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	graphic->setInformation(tank);
 	tank.setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
 
-	tankEditor = new TankEditor(tank.getObjects());
+	tankEditor = new TankEditor(tank.getViewableObjects());
 	tankEditor->setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
 
 	if (tankName != "")
 	{
-		tankEditor->download("Data/Tanks/" + tankName + ".dat", components);
+		tankEditor->download(tankName, components);
 	}
 
-	oldObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
+	oldViewableObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
 
-	vector<Object *> temp;
+	vector<ViewableObject *> temp;
 
 	for (int i = 5; i < 50; ++i)
 	{
-		Object *newObject = TankEditor::getObject(components[i], i);
-		newObject->setHeath(components[i]->getStruct()->healthPoints);
-		temp.push_back(newObject);
+		ViewableObject *newViewableObject = TankEditor::getViewableObject(components[i], i);
+		newViewableObject->setHeath(components[i]->getStruct()->healthPoints);
+		temp.push_back(newViewableObject);
 	}
 
 	list = new List(temp, 300, 290, 50, 50);
@@ -84,9 +84,9 @@ void Editor::work()
 			}
 			else if (windowResult != "Cancel.")
 			{
-				tankEditor->save("Data/Tanks/" + windowResult + ".dat");
+				tankEditor->save(windowResult);
 
-				graphic->saveTank("Data/Tanks/" + windowResult + ".png", tank, timer);
+				graphic->saveTank(windowResult, tank, timer);
 			}
 			needWindowResult = false;
 		}
@@ -189,14 +189,14 @@ void Editor::work()
 		{
 			list->closeList();
 
-			if (oldObject == pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } ||
-				(mousePosition.x - tankEditor->getOffset().x < oldObject.first.x - oldObject.second.x ||
-					mousePosition.y - tankEditor->getOffset().y < oldObject.first.y - oldObject.second.y ||
-					mousePosition.x - tankEditor->getOffset().x > oldObject.first.x + oldObject.second.x ||
-					mousePosition.y - tankEditor->getOffset().y > oldObject.first.y + oldObject.second.y))
+			if (oldViewableObject == pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } ||
+				(mousePosition.x - tankEditor->getOffset().x < oldViewableObject.first.x - oldViewableObject.second.x ||
+					mousePosition.y - tankEditor->getOffset().y < oldViewableObject.first.y - oldViewableObject.second.y ||
+					mousePosition.x - tankEditor->getOffset().x > oldViewableObject.first.x + oldViewableObject.second.x ||
+					mousePosition.y - tankEditor->getOffset().y > oldViewableObject.first.y + oldViewableObject.second.y))
 			{
-				tankEditor->addObject(components[list->getObjects()[list->getIndex()]->getIndex()], list->getObjects()[list->getIndex()]->getIndex(), mousePosition);
-				oldObject = objects.back() == nullptr ?
+				tankEditor->addViewableObject(components[list->getViewableObjects()[list->getIndex()]->getIndex()], list->getViewableObjects()[list->getIndex()]->getIndex(), mousePosition);
+				oldViewableObject = objects.back() == nullptr ?
 					pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } :
 					pair<Vector2int, Vector2int>{ mousePosition - tankEditor->getOffset(), Vector2int(objects.back()->getComponentParameter()->width, objects.back()->getComponentParameter()->height) * 20 };
 			}
@@ -205,17 +205,17 @@ void Editor::work()
 		{
 			list->closeList();
 
-			tankEditor->removeObject(mousePosition);
+			tankEditor->removeViewableObject(mousePosition);
 		}
 		else if (Mouse::isButtonPressed(Mouse::Middle) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
 			list->closeList();
 
-			list->copyObject(tankEditor->getObject(mousePosition));
+			list->copyViewableObject(tankEditor->getViewableObject(mousePosition));
 		}
 		else
 		{
-			oldObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
+			oldViewableObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
 		}
 		
 		//Work with selecting object
@@ -223,7 +223,7 @@ void Editor::work()
 		{
 			if (objects.size() == 0)
 			{
-				Object *temp = tankEditor->getFreePlace(components[list->getObjects()[list->getIndex()]->getIndex()], list->getObjects()[list->getIndex()]->getIndex(), mousePosition);
+				ViewableObject *temp = tankEditor->getFreePlace(components[list->getViewableObjects()[list->getIndex()]->getIndex()], list->getViewableObjects()[list->getIndex()]->getIndex(), mousePosition);
 
 				objects.push_back(temp);
 			}
@@ -231,7 +231,7 @@ void Editor::work()
 			{
 				delete objects.back();
 
-				objects.back() = tankEditor->getFreePlace(components[list->getObjects()[list->getIndex()]->getIndex()], list->getObjects()[list->getIndex()]->getIndex(), mousePosition);
+				objects.back() = tankEditor->getFreePlace(components[list->getViewableObjects()[list->getIndex()]->getIndex()], list->getViewableObjects()[list->getIndex()]->getIndex(), mousePosition);
 			}
 
 		}

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Object.h"
+#include "ViewableObject.h"
 
 
 class BigBlockComponent : public Component
@@ -15,9 +15,9 @@ public:
 };
 
 
-class BigBlock : public Object
+class BigBlock : public ViewableObject
 {
-	Object *addition;
+	ViewableObject *addition;
 
 public:
 	BigBlock();
@@ -26,16 +26,16 @@ public:
 
 	~BigBlock();
 
-	Object *getAddition();
+	ViewableObject *getAddition();
 };
 
 
-class AdditionToBigBlock : public Object
+class AdditionToBigBlock : public ViewableObject
 {
-	Object *main;
+	ViewableObject *main;
 
 public:
-	AdditionToBigBlock(Object *main);
+	AdditionToBigBlock(ViewableObject *main);
 
 
 	Vector2int getPosition();

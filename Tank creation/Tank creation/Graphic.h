@@ -41,7 +41,7 @@ class Graphic
 	
 	int sizeOfDateArrayDraw;
 	
-	bool needObject;
+	bool needViewableObject;
 	vector<ComponentDraw *> components;
 
 	bool needTank;
@@ -61,7 +61,7 @@ class Graphic
 	void drawPrivate();
 	void drawPrivate(Button *button);
 	void drawPrivate(string &inputField);
-	void drawPrivate(vector<Object *> &objects, long timer);
+	void drawPrivate(vector<ViewableObject *> &objects, long timer);
 	void drawPrivate(Tank &tank, long timer);
 	void drawPrivate(List &list, long timer);
 
@@ -87,24 +87,24 @@ public:
 	void draw(Button *button);
 	void draw(Button *button, List &list, long timer);
 	void draw(Button *button, Tank &tank, long timer);
-	void draw(Button *button, vector<Object *> &objects, long timer);
-	void draw(Button *button, vector<Object *> &objects, Tank &tank, long timer);
-	void draw(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer);
+	void draw(Button *button, vector<ViewableObject *> &objects, long timer);
+	void draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void draw(Button *button, string &inputField);
 	void draw(Button *button, string &inputField, Tank &tank, long timer);
-	void draw(Button *button, string &inputField, vector<Object *> &objects, long timer);
-	void draw(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer);
+	void draw(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer);
+	void draw(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
 		
 	void drawInRenderTexture(Button *button);
 	void drawInRenderTexture(Button *button, List &list, long timer);
 	void drawInRenderTexture(Button *button, Tank &tank, long timer);
-	void drawInRenderTexture(Button *button, vector<Object *> &objects, long timer);
-	void drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, long timer);
-	void drawInRenderTexture(Button *button, vector<Object *> &objects, Tank &tank, List &list, long timer);
+	void drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, long timer);
+	void drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void drawInRenderTexture(Button *button, string &inputField);
 	void drawInRenderTexture(Button *button, string &inputField, Tank &tank, long timer);
-	void drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, long timer);
-	void drawInRenderTexture(Button *button, string &inputField, vector<Object *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer);
+	void drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
 
 	void saveTank(string fileName, Tank &tank, long timer);
 

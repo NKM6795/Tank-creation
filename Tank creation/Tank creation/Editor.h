@@ -14,8 +14,8 @@ class Editor : public WorkWithWindow
 	string backgroundNameOfPicture;
 
 	vector<Component *> components;
-	vector<Object *> objects;
-	pair<Vector2int, Vector2int> oldObject;
+	vector<ViewableObject *> objects;
+	pair<Vector2int, Vector2int> oldViewableObject;
 
 	Tank tank;
 	TankEditor *tankEditor;

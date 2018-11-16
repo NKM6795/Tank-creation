@@ -196,12 +196,6 @@
     <ClCompile Include="BackgroundDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectDraw.cpp">
-      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Tank And Components\Components\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SmallBlock.cpp">
       <Filter>Tank And Components\Components\Source Files</Filter>
     </ClCompile>
@@ -259,6 +253,12 @@
     <ClCompile Include="TankPictureDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ViewableObject.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewableObjectDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -307,12 +307,6 @@
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundDraw.h">
-      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Tank And Components\Components\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectDraw.h">
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SmallBlock.h">
@@ -370,6 +364,12 @@
       <Filter>Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TankPictureDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewableObject.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewableObjectDraw.h">
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

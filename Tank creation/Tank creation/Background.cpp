@@ -7,17 +7,17 @@ BackgroundComponent::BackgroundComponent(string name, string objectName, string 
 }
 
 
-Background::Background() : Object()
+Background::Background() : ViewableObject()
 {
 
 }
 
-Background::Background(Component *component) : Object(component)
+Background::Background(Component *component) : ViewableObject(component)
 {
 
 }
 
-Background::Background(Component *component, int index) : Object(component, index)
+Background::Background(Component *component, int index) : ViewableObject(component, index)
 {
 
 }

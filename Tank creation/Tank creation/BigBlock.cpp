@@ -9,17 +9,17 @@ BigBlockComponent::BigBlockComponent(string name, string objectName, string type
 }
 
 
-BigBlock::BigBlock() : Object()
+BigBlock::BigBlock() : ViewableObject()
 {
 	addition = new AdditionToBigBlock(this);
 }
 
-BigBlock::BigBlock(Component *component) : Object(component)
+BigBlock::BigBlock(Component *component) : ViewableObject(component)
 {
 	addition = new AdditionToBigBlock(this);
 }
 
-BigBlock::BigBlock(Component *component, int index) : Object(component, index)
+BigBlock::BigBlock(Component *component, int index) : ViewableObject(component, index)
 {
 	addition = new AdditionToBigBlock(this);
 }
@@ -30,13 +30,13 @@ BigBlock::~BigBlock()
 }
 
 
-Object *BigBlock::getAddition()
+ViewableObject *BigBlock::getAddition()
 {
 	return addition;
 }
 
 
-AdditionToBigBlock::AdditionToBigBlock(Object *main) : main(main)
+AdditionToBigBlock::AdditionToBigBlock(ViewableObject *main) : main(main)
 {
 
 }

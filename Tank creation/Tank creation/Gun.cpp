@@ -26,17 +26,17 @@ GunComponent::GunComponent(string name, string objectName, string typeName, stri
 }
 
 
-Gun::Gun() : Object()
+Gun::Gun() : ViewableObject()
 {
 	addition = new AdditionToGun(this);
 }
 
-Gun::Gun(Component *component) : Object(component)
+Gun::Gun(Component *component) : ViewableObject(component)
 {
 	addition = new AdditionToGun(this);
 }
 
-Gun::Gun(Component *component, int index) : Object(component, index)
+Gun::Gun(Component *component, int index) : ViewableObject(component, index)
 {
 	addition = new AdditionToGun(this);
 }
@@ -47,13 +47,13 @@ Gun::~Gun()
 }
 
 
-Object *Gun::getAddition()
+ViewableObject *Gun::getAddition()
 {
 	return addition;
 }
 
 
-AdditionToGun::AdditionToGun(Object *main) : main(main)
+AdditionToGun::AdditionToGun(ViewableObject *main) : main(main)
 {
 
 }

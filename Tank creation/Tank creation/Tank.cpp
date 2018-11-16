@@ -8,7 +8,7 @@ Tank::Tank(int dataArraySize, int dimension) : dataArraySize(dataArraySize), dim
 
 	for (int i = 0; i < dataArraySize; ++i)
 	{
-		vector<Object *> temp(dataArraySize, nullptr);
+		vector<ViewableObject *> temp(dataArraySize, nullptr);
 
 		objects.push_back(temp);
 	}
@@ -24,7 +24,7 @@ Tank::~Tank()
 			{
 				Vector2int position = objects.back().back()->getPosition() / 20;
 
-				Object *object = objects[position.x][position.y];
+				ViewableObject *object = objects[position.x][position.y];
 
 				int widht = object->getComponentParameter()->width,
 					height = object->getComponentParameter()->height;
@@ -73,13 +73,13 @@ void Tank::setDimension(int dim)
 	dimension = dim;
 }
 
-vector<vector<Object *> > &Tank::getObjects()
+vector<vector<ViewableObject *> > &Tank::getViewableObjects()
 {
 	return objects;
 }
 
 
-Object *Tank::getObject(Vector2int mousePosition)
+ViewableObject *Tank::getViewableObject(Vector2int mousePosition)
 {
 	mousePosition = mousePosition - getOffset();
 
@@ -95,7 +95,7 @@ Object *Tank::getObject(Vector2int mousePosition)
 }
 
 
-vector<vector<bool> > Tank::getSmallTank(vector<vector<Object *> > &objectsCopy)
+vector<vector<bool> > Tank::getSmallTank(vector<vector<ViewableObject *> > &objectsCopy)
 {
 	vector<vector<bool> > smallTank(objectsCopy.size(), vector<bool>(objectsCopy.size(), false));
 

@@ -26,7 +26,7 @@ BackgroundDraw::~BackgroundDraw()
 }
 
 
-void BackgroundDraw::draw(RenderTexture &renderTexture, long timer, Object *object)
+void BackgroundDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
 {
 	if (object->needDraw)
 	{

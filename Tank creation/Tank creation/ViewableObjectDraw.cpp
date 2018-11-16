@@ -1,7 +1,7 @@
-#include "ObjectDraw.h"
+#include "ViewableObjectDraw.h"
 
 
-void objectDraw(RenderTexture &renderTexture, long timer, vector<Object *> &objects, vector<ComponentDraw *> &components)
+void objectDraw(RenderTexture &renderTexture, long timer, vector<ViewableObject *> &objects, vector<ComponentDraw *> &components)
 {
 	int number = int(objects.size());
 

@@ -26,7 +26,7 @@ TrackDraw::~TrackDraw()
 }
 
 
-void TrackDraw::draw(RenderTexture &renderTexture, long timer, Object *object)
+void TrackDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
 {
 	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{

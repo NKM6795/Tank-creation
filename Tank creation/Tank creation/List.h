@@ -13,7 +13,7 @@ class List
 
 	string fileName;
 
-	vector<Object *> objects;
+	vector<ViewableObject *> objects;
 
 	int objectWidth,
 		objectHeight;
@@ -43,10 +43,10 @@ class List
 
 	Vector2int oldMousePosition;
 
-	void updateObject();
+	void updateViewableObject();
 
 public:
-	List(vector<Object *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth = 60, int objectHeight = 40, int fragmentHeight = 50, int separationThickness = 1);
+	List(vector<ViewableObject *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth = 60, int objectHeight = 40, int fragmentHeight = 50, int separationThickness = 1);
 
 	~List();
 
@@ -67,11 +67,11 @@ public:
 
 	Button *getButton();
 
-	vector<Object *> &getObjects();
+	vector<ViewableObject *> &getViewableObjects();
 
-	vector<Object *> getSelectedObject();
+	vector<ViewableObject *> getSelectedViewableObject();
 
-	void copyObject(Object *object);
+	void copyViewableObject(ViewableObject *object);
 
 	Vector2int getOffset();
 	void setOffset(Vector2int offset);
@@ -84,8 +84,8 @@ public:
 	int getWidth();
 	int getHeight();
 
-	int getObjectWidth();
-	int getObjectHeight();
+	int getViewableObjectWidth();
+	int getViewableObjectHeight();
 
 	bool getNeedInformation();
 

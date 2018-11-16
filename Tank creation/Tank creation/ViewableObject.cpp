@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "ViewableObject.h"
 
 
 Component::Component(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int width, int height)
@@ -31,7 +31,7 @@ ComponentParameter *Component::getStruct()
 
 
 
-Object::Object()
+ViewableObject::ViewableObject()
 {
 	index = -1;
 
@@ -48,7 +48,7 @@ Object::Object()
 	scale = 1.f;
 }
 
-Object::Object(Component *component) : component(component)
+ViewableObject::ViewableObject(Component *component) : component(component)
 {
 	index = -1;
 
@@ -63,7 +63,7 @@ Object::Object(Component *component) : component(component)
 	scale = 1.f;
 }
 
-Object::Object(Component *component, int index) : component(component), index(index)
+ViewableObject::ViewableObject(Component *component, int index) : component(component), index(index)
 {
 	xCoordinate = 0;
 	yCoordinate = 0;
@@ -77,76 +77,76 @@ Object::Object(Component *component, int index) : component(component), index(in
 }
 
 
-Object::~Object()
+ViewableObject::~ViewableObject()
 {
 
 }
 
 
-Component *Object::getComponent()
+Component *ViewableObject::getComponent()
 {
 	return component;
 }
 
 
-Vector2int Object::getPosition()
+Vector2int ViewableObject::getPosition()
 {
 	return Vector2int(xCoordinate, yCoordinate);
 }
 
-void Object::setPosition(Vector2int position)
+void ViewableObject::setPosition(Vector2int position)
 {
 	xCoordinate = position.x;
 	yCoordinate = position.y;
 }
 
-void Object::setPosition(int x, int y)
+void ViewableObject::setPosition(int x, int y)
 {
 	xCoordinate = x;
 	yCoordinate = y;
 }
 
 
-int Object::getHealth()
+int ViewableObject::getHealth()
 {
 	return healthPoints;
 }
 
-void Object::setHeath(int health)
+void ViewableObject::setHeath(int health)
 {
 	healthPoints = health;
 }
 
 
-int Object::getIndex()
+int ViewableObject::getIndex()
 {
 	return index;
 }
 
-void Object::setIndex(int i)
+void ViewableObject::setIndex(int i)
 {
 	index = i;
 }
 
 
-float Object::getScale()
+float ViewableObject::getScale()
 {
 	return scale;
 }
 
-void Object::setScale(float scaleCopy)
+void ViewableObject::setScale(float scaleCopy)
 {
 	scale = scaleCopy;
 }
 
 
-ComponentParameter *Object::getComponentParameter()
+ComponentParameter *ViewableObject::getComponentParameter()
 {
 	return component->getStruct();
 }
 
 
-Object *Object::getAddition()
+ViewableObject *ViewableObject::getAddition()
 {
 	return nullptr;
 }

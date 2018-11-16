@@ -23,17 +23,17 @@ EngineRoomComponent::EngineRoomComponent(string name, string objectName, string 
 }
 
 
-EngineRoom::EngineRoom() : Object()
+EngineRoom::EngineRoom() : ViewableObject()
 {
 	addition = new AdditionToEngineRoom(this);
 }
 
-EngineRoom::EngineRoom(Component *component) : Object(component)
+EngineRoom::EngineRoom(Component *component) : ViewableObject(component)
 {
 	addition= new AdditionToEngineRoom(this);
 }
 
-EngineRoom::EngineRoom(Component *component, int index) : Object(component, index)
+EngineRoom::EngineRoom(Component *component, int index) : ViewableObject(component, index)
 {
 	addition= new AdditionToEngineRoom(this);
 }
@@ -44,13 +44,13 @@ EngineRoom::~EngineRoom()
 }
 
 
-Object *EngineRoom::getAddition()
+ViewableObject *EngineRoom::getAddition()
 {
 	return addition;
 }
 
 
-AdditionToEngineRoom::AdditionToEngineRoom(Object *main) : main(main)
+AdditionToEngineRoom::AdditionToEngineRoom(ViewableObject *main) : main(main)
 {
 
 }
