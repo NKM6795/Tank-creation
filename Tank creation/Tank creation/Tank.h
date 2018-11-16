@@ -23,6 +23,8 @@ protected:
 	int dimension;
 
 public:
+	string name;
+
 	Tank(int dataArraySize = 30, int dimension = 600);
 
 	~Tank();

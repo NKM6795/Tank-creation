@@ -27,7 +27,8 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 	if (tankName != "")
 	{
-		tankEditor->download(tankName, components);
+		tank.name = tankName;
+		tankEditor->download(tank.name, components);
 	}
 
 	oldViewableObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
@@ -86,9 +87,11 @@ void Editor::work()
 			}
 			else if (windowResult != "Cancel.")
 			{
-				tankEditor->save(windowResult);
+				tank.name = windowResult;
 
-				graphic->saveTank(windowResult, tank, timer);
+				tankEditor->save(tank.name);
+
+				graphic->saveTank(tank.name, tank, timer);
 			}
 			needWindowResult = false;
 		}
