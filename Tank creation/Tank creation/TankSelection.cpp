@@ -78,19 +78,19 @@ TankSelection::~TankSelection()
 
 void TankSelection::deleteSelectedElement()
 {
-	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".tnk").c_str()))
+	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name + ".tnk").c_str()))
 	{
 
 	}
-	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".png").c_str()))
+	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name + ".png").c_str()))
 	{
 
 	}
 
-	string fileName = components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
+	string fileName = components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
 
-	delete components[list->getViewableObjects()[list->getIndex()]->getIndex()];
-	components.erase(components.begin() + list->getIndex());
+	delete components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()];
+	components.erase(components.begin() + list->getIndexOfSelectedObject());
 
 	while (objects.size() > 0)
 	{

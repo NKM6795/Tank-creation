@@ -12,6 +12,8 @@ class List
 	bool needClose;
 
 	long timerForInformation;
+	long timerForDoubleClick;
+	bool firstClick;
 
 	string fileName;
 

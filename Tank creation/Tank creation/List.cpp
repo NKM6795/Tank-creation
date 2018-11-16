@@ -23,6 +23,9 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 	needClose = false;
 	needSelect = false;
 
+	timerForDoubleClick = 0;
+	firstClick = false;
+
 	position = 0;
 	index = 0;
 	indexOfSelectedObject = 0;
@@ -285,9 +288,29 @@ bool List::getNeedInformation()
 
 void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
 {
-	if (!(isPressed && mouseButtonIsPressed))
+	if (!isPressed && mouseButtonIsPressed)
 	{
 		mouseButtonIsPressed = false;
+		if (!firstClick)
+		{
+			firstClick = true;
+			timerForDoubleClick = timer;
+		}
+		else if (timer - timerForDoubleClick < 300)
+		{
+			if (needClose)
+			{
+				closeList();
+			}
+
+			indexOfSelectedObject = index;
+
+			firstClick = false;
+		}
+		else
+		{
+			firstClick = false;
+		}
 	}
 
 	mousePosition = mousePosition - getOffset();
@@ -404,11 +427,6 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 			if (isPressed && (!needButton || (needButton && !button->getStruct()->checkButtonIsPressed)))
 			{
-				if (needClose)
-				{
-					closeList();
-				}
-
 				indexOfSelectedObject = index;
 
 				mouseButtonIsPressed = true;
