@@ -19,7 +19,7 @@ void SaveTank::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowResult = "Cancel.";
+				windowResult = "Cancel/";
 
 				windowIsOpen = false;
 				return;
@@ -42,7 +42,7 @@ void SaveTank::work()
 			{
 				if (button[i].getStruct()->buttonName == "Cancel")
 				{
-					windowResult = "Cancel.";
+					windowResult = "Cancel/";
 
 					windowIsOpen = false;
 					return;

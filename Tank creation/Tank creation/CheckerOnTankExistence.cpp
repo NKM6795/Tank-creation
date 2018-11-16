@@ -1,15 +1,13 @@
-#include "RenameTank.h"
+#include "CheckerOnTankExistence.h"
 
 
-RenameTank::RenameTank(string &fileName, Graphic *forCopyWindow, string tankName) : NotificationWindow(fileName, forCopyWindow)
+CheckerOnTankExistence::CheckerOnTankExistence(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
 {
 	fileIn.close();
-
-	inputField = tankName;
 }
 
 
-void RenameTank::work()
+void CheckerOnTankExistence::work()
 {
 	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
@@ -21,14 +19,8 @@ void RenameTank::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowResult = "Cancel/";
-
 				windowIsOpen = false;
 				return;
-			}
-			if (graphic->getEvent().type == Event::TextEntered)
-			{
-				inputText(graphic->getEvent().text.unicode);
 			}
 		}
 
@@ -49,34 +41,17 @@ void RenameTank::work()
 					windowIsOpen = false;
 					return;
 				}
-				else if (button[i].getStruct()->buttonName == "Save")
+				else if (button[i].getStruct()->buttonName == "Yes")
 				{
-					windowResult = inputField;
+					windowResult = "Yes/";
 
-					if (inputField == "")
-					{
-						needNewWindow = true;
-
-						string fileName = "Data/Data for not available.dat";
-
-						graphic->drawInRenderTexture(button);
-
-						newWindow = new NotAvailable(fileName, graphic);
-
-						button[i].setActivateAnAction(false);
-					}
-					else
-					{
-						windowResult = "rename/" + windowResult;
-
-						windowIsOpen = false;
-						return;
-					}
+					windowIsOpen = false;
+					return;
 				}
 			}
 
 		}
 
-		graphic->draw(button, inputField);
+		graphic->draw(button);
 	}
 }

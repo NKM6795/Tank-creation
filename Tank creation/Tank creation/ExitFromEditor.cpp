@@ -15,7 +15,7 @@ void ExitFromEditor::work()
 
 		if (needWindowResult)
 		{
-			if (windowResult != "Cancel.")
+			if (windowResult != "Cancel/")
 			{
 				windowIsOpen = false;
 				return;
@@ -29,7 +29,7 @@ void ExitFromEditor::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowResult = "Cancel.";
+				windowResult = "Cancel/";
 
 				windowIsOpen = false;
 				return;
@@ -48,14 +48,14 @@ void ExitFromEditor::work()
 			{
 				if (button[i].getStruct()->buttonName == "Cancel")
 				{
-					windowResult = "Cancel.";
+					windowResult = "Cancel/";
 
 					windowIsOpen = false;
 					return;
 				}
 				if (button[i].getStruct()->buttonName == "Yes")
 				{
-					windowResult = "Exit.";
+					windowResult = "Exit/";
 
 					windowIsOpen = false;
 					return;

@@ -80,7 +80,7 @@ void Editor::work()
 
 		if (needWindowResult)
 		{
-			if (windowResult == "Exit.")
+			if (windowResult == "Exit/")
 			{
 				windowIsOpen = false;
 				return;
@@ -89,7 +89,7 @@ void Editor::work()
 			{
 				tank.name = windowResult.substr(7);
 			}
-			else if (windowResult != "Cancel.")
+			else if (windowResult != "Cancel/")
 			{
 				tank.name = windowResult;
 

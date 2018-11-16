@@ -262,6 +262,9 @@
     <ClCompile Include="RenameTank.cpp">
       <Filter>Windows\Notification Windows\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CheckerOnTankExistence.cpp">
+      <Filter>Windows\Notification Windows\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -376,6 +379,9 @@
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenameTank.h">
+      <Filter>Windows\Notification Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckerOnTankExistence.h">
       <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

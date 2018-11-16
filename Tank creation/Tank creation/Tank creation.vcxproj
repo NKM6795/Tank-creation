@@ -127,6 +127,7 @@
     <ClCompile Include="BigBlockDraw.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonDraw.cpp" />
+    <ClCompile Include="CheckerOnTankExistence.cpp" />
     <ClCompile Include="ComponentDraw.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EngineRoom.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="BigBlockDraw.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonDraw.h" />
+    <ClInclude Include="CheckerOnTankExistence.h" />
     <ClInclude Include="ComponentDraw.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EngineRoom.h" />

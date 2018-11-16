@@ -19,7 +19,7 @@ void MainMenu::work()
 
 		if (needWindowResult)
 		{
-			if (windowResult != "Cancel.")
+			if (windowResult != "Cancel/")
 			{
 				needNewWindow = true;
 
