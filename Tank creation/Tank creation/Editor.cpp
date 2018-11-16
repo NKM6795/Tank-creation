@@ -103,7 +103,7 @@ void Editor::work()
 
 				string fileName = "Data/Data for exit from editor.dat";
 
-				graphic->drawInRenderTexture(button);
+				graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
 				newWindow = new ExitFromEditor(fileName, graphic, tankEditor->completenessСheck());
 			}
