@@ -2,7 +2,7 @@ Editor
 683 384
 1280 720
 16 1
-3
+4
 3
 116 66 33
 small
@@ -10,7 +10,17 @@ Data/Fonts/Strangiato.otf
 70 50 Back
 1210 50 Save
 1210 670 Clear
-0
+1
+299 66 33
+medium
+Data/Fonts/Strangiato.otf
+1115 250 Change name
+2
+2
+40
+Data/Fonts/Strangiato.otf
+1115 140 Name
+1115 190 Tank creation
 640 360 602 602
 Data/Images/Place for building.png
 Data/Objects/Backgrounds

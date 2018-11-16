@@ -9,6 +9,8 @@ class List
 {
 	bool open;
 
+	bool needClose;
+
 	long timerForInformation;
 
 	string fileName;
@@ -53,6 +55,8 @@ public:
 	bool isOpen();
 	void openList(Vector2int mousePosition);
 	void closeList();
+
+	void setNeedClose();
 
 	bool inFocuse(Vector2int mousePosition);
 

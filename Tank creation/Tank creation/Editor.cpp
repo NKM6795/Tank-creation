@@ -41,7 +41,9 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 		temp.push_back(newViewableObject);
 	}
 
-	list = new List(temp, 300, 290, 50, 50);
+	list = new List(temp, 300, 550, 50, 50);
+
+	list->openList(Vector2int(22, 94));
 
 	graphic->setInformation(*list);
 }
@@ -115,14 +117,6 @@ void Editor::work()
 			{
 				list->setDirect(false);
 			}
-			else if (mousePosition >= Vector2int() && mousePosition <= Vector2int(screanWidth, screanHeight) && !list->isOpen() && (Mouse::isButtonPressed(Mouse::XButton2) || graphic->getEvent().type == Event::MouseWheelMoved || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Q))))
-			{
-				list->openList(mousePosition);
-			}
-			else if (Mouse::isButtonPressed(Mouse::XButton1) || Mouse::isButtonPressed(Mouse::XButton2) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Q)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
-			{
-				list->closeList();
-			}
 		}
 
 		//Work with buttons
@@ -187,8 +181,6 @@ void Editor::work()
 		//Work with tank
 		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left)))
 		{
-			list->closeList();
-
 			if (oldViewableObject == pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } ||
 				(mousePosition.x - tankEditor->getOffset().x < oldViewableObject.first.x - oldViewableObject.second.x ||
 					mousePosition.y - tankEditor->getOffset().y < oldViewableObject.first.y - oldViewableObject.second.y ||
@@ -203,14 +195,10 @@ void Editor::work()
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
-			list->closeList();
-
 			tankEditor->removeViewableObject(mousePosition);
 		}
 		else if (Mouse::isButtonPressed(Mouse::Middle) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
-			list->closeList();
-
 			list->copyViewableObject(tankEditor->getViewableObject(mousePosition));
 		}
 		else

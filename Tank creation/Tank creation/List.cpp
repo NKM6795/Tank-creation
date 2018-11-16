@@ -20,6 +20,8 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 {
 	open = false;
 
+	needClose = false;
+
 	position = 0;
 	index = 0;
 
@@ -91,6 +93,12 @@ void List::openList(Vector2int mousePosition)
 void List::closeList()
 {
 	open = false;
+}
+
+
+void List::setNeedClose()
+{
+	needClose = true;
 }
 
 
@@ -358,7 +366,10 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 			if (isPressed && (!needButton || (needButton && !button->getStruct()->checkButtonIsPressed)))
 			{
-				closeList();
+				if (needClose)
+				{
+					closeList();
+				}
 
 				mouseButtonIsPressed = true;
 			}
