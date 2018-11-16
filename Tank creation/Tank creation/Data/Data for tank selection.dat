@@ -1,4 +1,4 @@
-Tank creation
+Tank selection
 683 384
 1280 720
 16 1
@@ -8,3 +8,8 @@ Tank creation
 small
 Data/Fonts/Strangiato.otf
 70 50 Back
+0
+Data
+/Tanks
+
+1

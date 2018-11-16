@@ -7,6 +7,7 @@
 #include "EngineRoom.h"
 #include "Track.h"
 #include "Gun.h"
+#include "TankPicture.h"
 
 
 class Tank

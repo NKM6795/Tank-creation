@@ -25,7 +25,7 @@ class Editor : public WorkWithWindow
 public:
 	Editor(string &fileName);
 
-	Editor(string &fileName, Graphic *forCopyWindow);
+	Editor(string &fileName, Graphic *forCopyWindow, string tankName = "");
 
 	~Editor();
 

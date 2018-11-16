@@ -8,11 +8,52 @@ TankSelection::TankSelection(string &fileName) : WorkWithWindow(fileName)
 
 TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileName, forCopyWindow)
 {
-	vector<Object *> temp;
+	string objectName, typeName, identifierName;
 
-	list = new List(temp, screanWidth, screanHeight, 0, 70, 300, 300, 340);
+	int numberOfVariant;
 
-	list->openList(Vector2int(0, 70));
+	getline(fileIn, objectName);
+	if (objectName == "")
+	{
+		getline(fileIn, objectName);
+	}
+
+	getline(fileIn, typeName);
+	getline(fileIn, identifierName);
+	fileIn >> numberOfVariant;
+
+	fileIn.close();
+
+
+	fileIn.open("Data/Tanks/Number.dat");
+
+	int number;
+	fileIn >> number;
+
+	vector<string> names(number, "");
+
+	getline(fileIn, names[0]);
+	for (int i = 0; i < number; ++i)
+	{
+		getline(fileIn, names[i]);
+
+		Component *newComponent = new TankPictureComponent(names[i], objectName, typeName, identifierName, numberOfVariant);
+		newComponent->getStruct()->healthPoints = 1;
+		newComponent->getStruct()->width = 30;
+		newComponent->getStruct()->height = 30;
+
+		components.push_back(newComponent);
+
+		Object *newObject = new TankPicture(newComponent, i);
+		objects.push_back(newObject);
+	}
+	fileIn.close();
+
+	graphic->setInformation(components);
+
+	list = new List(objects, screanWidth - 6, screanHeight - 90, 3, 87, 100, 100, 120);
+
+	list->openList(Vector2int(3, 87));
 
 	graphic->setInformation(*list);
 
@@ -42,9 +83,10 @@ void TankSelection::work()
 
 		while (graphic->pollEvent())
 		{
-			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape) && !list->isOpen()))
+			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				graphic->close();
+				windowResult = "Cancel.";
+
 				windowIsOpen = false;
 				return;
 			}
@@ -69,17 +111,24 @@ void TankSelection::work()
 			{
 				if (button[i].getStruct()->buttonName == "Back")
 				{
-					graphic->close();
+					windowResult = "Cancel.";
+
 					windowIsOpen = false;
 					return;
 				}
 			}
-
 		}
 
 		//Work with list
 		list->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 
+		if (!list->isOpen())
+		{
+			windowResult = components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
+
+			windowIsOpen = false;
+			return;
+		}
 
 		graphic->draw(button, *list, timer);
 	}

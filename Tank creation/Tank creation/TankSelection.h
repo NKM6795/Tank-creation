@@ -6,6 +6,8 @@
 
 class TankSelection : public WorkWithWindow
 {
+	vector<Component *> components;
+
 	vector<Object *> objects;
 
 	List *list;

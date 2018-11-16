@@ -221,6 +221,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 				newComponent = new GunDraw(componentsForData[i]->getStruct());
 			}
 		}
+		else if (typeid(*componentsForData[i]) == typeid(TankPictureComponent))
+		{
+			newComponent = new TankPictureDraw(componentsForData[i]->getStruct());
+		}
 
 		components.push_back(newComponent);
 	}

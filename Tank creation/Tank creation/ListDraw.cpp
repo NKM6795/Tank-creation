@@ -21,8 +21,15 @@ ListDraw::ListDraw(List &list, vector<ComponentDraw *> &components) : components
 	text.setCharacterSize(list.getObjectHeight() / 2);
 
 	Image image;
-	image.create(list.getWidth() - (needButton ? 18 : 0) - list.getFragmentHeight() + list.getObjectHeight() - list.getObjectWidth(), list.getHeight() - list.getFragmentHeight() + list.getObjectHeight() - list.getObjectWidth(), Color(84, 63, 37));
-	
+	if (list.getObjectWidth() == 100)
+	{
+		image.create(list.getWidth() - (needButton ? 18 : 0) - list.getFragmentHeight() + list.getObjectHeight() - list.getObjectWidth(), list.getHeight() - (list.getFragmentHeight() - list.getObjectHeight()), Color(84, 63, 37));
+	}
+	else
+	{
+		image.create(list.getWidth() - (needButton ? 18 : 0) - list.getFragmentHeight() + list.getObjectHeight() - list.getObjectWidth(), list.getHeight() - list.getFragmentHeight() + list.getObjectHeight() - list.getObjectWidth(), Color(84, 63, 37));
+	}
+
 	backgroundRorInformationTexture.loadFromImage(image);
 
 	backgroundRorInformationSprite.setTexture(backgroundRorInformationTexture);
@@ -60,17 +67,40 @@ void ListDraw::drawInformation(RenderTexture &renderTexture, List &list, long ti
 
 	string textForInformation;
 
-	textForInformation = "Name: " + selectedObject.back()->getComponentParameter()->name;
-	information.setPosition(x, y);
-	information.setString(textForInformation);
-	y += list.getObjectHeight() / 3 + 7;
-	renderTexture.draw(information);
+	if (list.getObjectWidth() == 100)
+	{
+		x = float(2 * (list.getFragmentHeight() - list.getObjectHeight()) + list.getObjectWidth() + selectedObject.back()->getComponentParameter()->width * 20);
+		y = float((list.getFragmentHeight() - list.getObjectHeight()) / 2);
 
-	textForInformation = "Healht: " + to_string(selectedObject.back()->getHealth());
-	information.setPosition(x, y);
-	information.setString(textForInformation);
-	y += list.getObjectHeight() / 3 + 7;
-	renderTexture.draw(information);
+		textForInformation = "Name: ";
+		information.setPosition(x, y);
+		information.setString(textForInformation);
+		y += list.getObjectHeight() / 3 + 7;
+		renderTexture.draw(information);
+
+		textForInformation = selectedObject.back()->getComponentParameter()->name;
+		information.setPosition(x, y);
+		information.setString(textForInformation);
+		y += list.getObjectHeight() / 3 + 7;
+		renderTexture.draw(information);
+	}
+	else
+	{
+		textForInformation = "Name: " + selectedObject.back()->getComponentParameter()->name;
+		information.setPosition(x, y);
+		information.setString(textForInformation);
+		y += list.getObjectHeight() / 3 + 7;
+		renderTexture.draw(information);
+	}
+
+	if (selectedObject.back()->getHealth() > 1)
+	{
+		textForInformation = "Healht: " + to_string(selectedObject.back()->getHealth());
+		information.setPosition(x, y);
+		information.setString(textForInformation);
+		y += list.getObjectHeight() / 3 + 7;
+		renderTexture.draw(information);
+	}
 
 	if (typeid(*selectedObject.back()) == typeid(Gun))
 	{
@@ -132,7 +162,7 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 
 		for (int i = 0; i < int(list.getObjects().size()); ++i)
 		{
-			text.setPosition(float(list.getFragmentHeight() - list.getObjectHeight() + list.getObjectWidth()), float(i * list.getFragmentHeight() + list.getFragmentHeight() - list.getObjectHeight() - list.getPosition()));
+			text.setPosition(float(list.getFragmentHeight() - list.getObjectHeight() + list.getObjectWidth() + (list.getObjectWidth() == 100 ? 20 : 0)), float(i * list.getFragmentHeight() + list.getFragmentHeight() - list.getObjectHeight() - list.getPosition()));
 			text.setString(list.getObjects()[i]->getComponentParameter()->name);
 
 			renderTexture.draw(text);

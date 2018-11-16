@@ -131,6 +131,10 @@ Object *TankEditor::getObject(Component *component, int index)
 	{
 		newObject = new Gun(component, index);
 	}
+	else if (typeid(*component) == typeid(TankPictureComponent))
+	{
+		newObject = new TankPicture(component, index);
+	}
 
 	return newObject;
 }

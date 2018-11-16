@@ -6,7 +6,7 @@ Editor::Editor(string &fileName) : WorkWithWindow(fileName)
 	fileIn.close();
 }
 
-Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileName, forCopyWindow)
+Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : WorkWithWindow(fileName, forCopyWindow)
 {
 	fileIn >> backgroundXCoordinate >> backgroundYCoordinate >> backgroundWidth >> backgroundHeight;
 
@@ -25,8 +25,12 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileNa
 	tankEditor = new TankEditor(tank.getObjects());
 	tankEditor->setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
 
-	oldObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
+	if (tankName != "")
+	{
+		tankEditor->download("Data/Tanks/" + tankName + ".dat", components);
+	}
 
+	oldObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
 
 	vector<Object *> temp;
 

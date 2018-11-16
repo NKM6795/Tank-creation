@@ -17,6 +17,23 @@ void MainMenu::work()
 	{
 		timer += timeForWork;
 
+		if (needWindowResult)
+		{
+			if (windowResult != "Cancel.")
+			{
+				needNewWindow = true;
+
+				string fileName = "Data/Data for editor.dat";
+
+				newWindow = new Editor(fileName, graphic, windowResult);
+
+				needWindowResult = false;
+
+				return;
+			}
+			needWindowResult = false;
+		}
+
 		mousePosition = graphic->getPositionOfMouse();
 
 		while (graphic->pollEvent())
@@ -58,6 +75,7 @@ void MainMenu::work()
 				else if (button[i].getStruct()->buttonName == "Modify an existing tank")
 				{
 					needNewWindow = true;
+					needWindowResult = true;
 
 					string fileName = "Data/Data for tank selection.dat";
 

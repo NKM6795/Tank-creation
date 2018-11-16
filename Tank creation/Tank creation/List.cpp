@@ -37,7 +37,7 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	{
 		needButton = true;
 
-		conversionFactor = float(height - 14) / float(int(objects.size()) * fragmentHeight);
+		conversionFactor = float(height - 51) / float(int(objects.size()) * fragmentHeight - height);
 
 		button = new Button;
 
@@ -46,7 +46,11 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
-		if (objects[i]->getComponentParameter()->width > 3 || objects[i]->getComponentParameter()->height > 2)
+		if (objects[i]->getComponentParameter()->width == 30)
+		{
+			objects[i]->setScale(0.166666666667f);
+		}
+		else if (objects[i]->getComponentParameter()->width > 3 || objects[i]->getComponentParameter()->height > 2)
 		{
 			objects[i]->setScale(min(3.f / float(objects[i]->getComponentParameter()->width), 2.f / float(objects[i]->getComponentParameter()->height)));
 		}
