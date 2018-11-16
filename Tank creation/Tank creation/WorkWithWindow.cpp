@@ -132,64 +132,6 @@ vector<Component *> WorkWithWindow::dataForResources()
 		}
 	}
 
-	//Small block
-	{
-		getline(fileIn, objectName);
-		if (objectName == "")
-		{
-			getline(fileIn, objectName);
-		}
-
-		getline(fileIn, typeName);
-		getline(fileIn, identifierName);
-
-		fileIn >> numberOfType;
-
-		for (int i = 0; i < numberOfType; ++i)
-		{
-			fileIn >> numberOfVariant;
-
-			int health;
-			bool canRebound;
-			fileIn >> canRebound >> health;
-
-			getline(fileIn, name);
-			getline(fileIn, name);
-
-			Component *newComponent = new SmallBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
-			components.push_back(newComponent);
-		}
-	}
-
-	//Big block
-	{
-		getline(fileIn, objectName);
-		if (objectName == "")
-		{
-			getline(fileIn, objectName);
-		}
-
-		getline(fileIn, typeName);
-		getline(fileIn, identifierName);
-
-		fileIn >> numberOfType;
-
-		for (int i = 0; i < numberOfType; ++i)
-		{
-			fileIn >> numberOfVariant;
-
-			int health;
-			bool canRebound;
-			fileIn >> canRebound >> health;
-
-			getline(fileIn, name);
-			getline(fileIn, name);
-
-			Component *newComponent = new BigBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
-			components.push_back(newComponent);
-		}
-	}
-
 	//Engine room
 	{
 		getline(fileIn, objectName);
@@ -261,6 +203,64 @@ vector<Component *> WorkWithWindow::dataForResources()
 		}
 	}
 
+	//Small block
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			int health;
+			bool canRebound;
+			fileIn >> canRebound >> health;
+
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new SmallBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			components.push_back(newComponent);
+		}
+	}
+
+	//Big block
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			int health;
+			bool canRebound;
+			fileIn >> canRebound >> health;
+
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new BigBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			components.push_back(newComponent);
+		}
+	}
+	   
 	//Gun
 	{
 		getline(fileIn, objectName);

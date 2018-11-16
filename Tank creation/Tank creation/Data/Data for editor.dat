@@ -37,6 +37,30 @@ Background
 Background
 1
 Background
+Data/Objects/Engine room
+/background of engine room
+/damage
+/engine room
+/position
+/person
+/position
+4 9 27
+300
+4 4 12 15
+3 2
+Engine Room
+Data/Objects/Tracks
+/track
+/position
+2
+4
+2000
+4 2
+Small Tracks
+4
+4500
+6 3
+Large Tracks
 Data/Objects/Blocks 1x1
 /block
 /damage
@@ -135,30 +159,6 @@ Reflactium Armour
 4
 0 1000
 Robot Armour
-Data/Objects/Engine room
-/background of engine room
-/damage
-/engine room
-/position
-/person
-/position
-4 9 27
-300
-4 4 12 15
-3 2
-Engine Room
-Data/Objects/Tracks
-/track
-/position
-2
-4
-2000
-4 2
-Small Tracks
-4
-4500
-6 3
-Large Tracks
 Data/Objects/Guns/gun
 /barrel
 /barrel
