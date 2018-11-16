@@ -89,5 +89,5 @@ public:
 
 	bool getNeedInformation();
 
-	void work(Vector2int mousePosition, bool isPressed, long timer, int fps);
+	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed = false);
 };

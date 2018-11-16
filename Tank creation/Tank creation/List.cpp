@@ -235,7 +235,7 @@ bool List::getNeedInformation()
 }
 
 
-void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
+void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
 {
 	if (!(isPressed && mouseButtonIsPressed))
 	{
@@ -352,8 +352,9 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps)
 			}
 		}
 
-		if (timer - timerForInformation >= 500)
+		if (timer - timerForInformation >= 500 || rightIsPressed)
 		{
+			timerForInformation = timer - 500;
 			needInformation = true;
 		}
 		else
