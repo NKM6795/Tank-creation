@@ -185,7 +185,7 @@ void TankSelection::work()
 
 		if (!list->isOpen())
 		{
-			windowResult = components[list->getViewableObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
+			windowResult = components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
 
 			windowIsOpen = false;
 			return;

@@ -21,13 +21,16 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 	open = false;
 
 	needClose = false;
+	needSelect = false;
 
 	position = 0;
 	index = 0;
+	indexOfSelectedObject = 0;
 
 	if (objects.size() == 0)
 	{
 		index = -1;
+		indexOfSelectedObject = -1;
 	}
 
 	needDirect = false;
@@ -138,6 +141,11 @@ int List::getIndex()
 	return index;
 }
 
+int List::getIndexOfSelectedObject()
+{
+	return indexOfSelectedObject;
+}
+
 
 int List::getPosition()
 {
@@ -157,7 +165,7 @@ vector<ViewableObject *> &List::getViewableObjects()
 }
 
 
-vector<ViewableObject *> List::getSelectedViewableObject()
+vector<ViewableObject *> List::getHighlightedViewableObject()
 {
 	vector<ViewableObject *> result;
 
@@ -167,6 +175,23 @@ vector<ViewableObject *> List::getSelectedViewableObject()
 	}
 
 	ViewableObject *newViewableObject = TankEditor::getCopy(objects[index]);
+	newViewableObject->setHeath(newViewableObject->getComponentParameter()->healthPoints);
+
+	result.push_back(newViewableObject);
+
+	return result;
+}
+
+vector<ViewableObject *> List::getSelectedViewableObject()
+{
+	vector<ViewableObject *> result;
+
+	if (indexOfSelectedObject == -1)
+	{
+		return result;
+	}
+
+	ViewableObject *newViewableObject = TankEditor::getCopy(objects[indexOfSelectedObject]);
 	newViewableObject->setHeath(newViewableObject->getComponentParameter()->healthPoints);
 
 	result.push_back(newViewableObject);
@@ -186,6 +211,7 @@ void List::copyViewableObject(ViewableObject *object)
 	{
 		if (objects[i]->getIndex() == object->getIndex())
 		{
+			indexOfSelectedObject = i;
 			index = i;
 			return;
 		}
@@ -218,6 +244,10 @@ void List::setDirect(bool direct)
 	up = direct;
 }
 
+void List::select()
+{
+	needSelect = true;
+}
 
 int List::getFragmentHeight()
 {
@@ -273,6 +303,14 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 	}
 	else
 	{
+		if (needSelect)
+		{
+			needSelect = false;
+
+			indexOfSelectedObject = index;
+		}
+
+
 		if (needButton && button->getStruct()->checkButtonIsPressed)
 		{
 			timerForInformation = timer;
@@ -370,6 +408,8 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 				{
 					closeList();
 				}
+
+				indexOfSelectedObject = index;
 
 				mouseButtonIsPressed = true;
 			}

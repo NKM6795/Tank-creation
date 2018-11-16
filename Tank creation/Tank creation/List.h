@@ -27,6 +27,7 @@ class List
 		yCoordinate;
 
 	int index;
+	int indexOfSelectedObject;
 	int position;
 	float conversionFactor;
 
@@ -38,6 +39,7 @@ class List
 
 	bool needDirect;
 	bool up;
+	bool needSelect;
 
 	bool needInformation;
 
@@ -66,6 +68,7 @@ public:
 	void setFileName(string fileName);
 
 	int getIndex();
+	int getIndexOfSelectedObject();
 
 	int getPosition();
 
@@ -73,6 +76,7 @@ public:
 
 	vector<ViewableObject *> &getViewableObjects();
 
+	vector<ViewableObject *> getHighlightedViewableObject();
 	vector<ViewableObject *> getSelectedViewableObject();
 
 	void copyViewableObject(ViewableObject *object);
@@ -82,6 +86,7 @@ public:
 	void setOffset(int x, int y);
 
 	void setDirect(bool up);
+	void select();
 
 	int getFragmentHeight();
 

@@ -98,7 +98,7 @@ void Editor::work()
 
 		while (graphic->pollEvent())
 		{
-			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape) && !list->isOpen()))
+			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
 				needNewWindow = true;
 				needWindowResult = true;
@@ -116,6 +116,10 @@ void Editor::work()
 			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0)))
 			{
 				list->setDirect(false);
+			}
+			else if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Left)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Right)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::A)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::D)) || Mouse::isButtonPressed(Mouse::XButton2) || Mouse::isButtonPressed(Mouse::XButton1) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter)))
+			{
+				list->select();
 			}
 		}
 
@@ -187,7 +191,7 @@ void Editor::work()
 					mousePosition.x - tankEditor->getOffset().x > oldViewableObject.first.x + oldViewableObject.second.x ||
 					mousePosition.y - tankEditor->getOffset().y > oldViewableObject.first.y + oldViewableObject.second.y))
 			{
-				tankEditor->addViewableObject(components[list->getViewableObjects()[list->getIndex()]->getIndex()], list->getViewableObjects()[list->getIndex()]->getIndex(), mousePosition);
+				tankEditor->addViewableObject(components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()], list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex(), mousePosition);
 				oldViewableObject = objects.back() == nullptr ?
 					pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } :
 					pair<Vector2int, Vector2int>{ mousePosition - tankEditor->getOffset(), Vector2int(objects.back()->getComponentParameter()->width, objects.back()->getComponentParameter()->height) * 20 };
@@ -211,7 +215,7 @@ void Editor::work()
 		{
 			if (objects.size() == 0)
 			{
-				ViewableObject *temp = tankEditor->getFreePlace(components[list->getViewableObjects()[list->getIndex()]->getIndex()], list->getViewableObjects()[list->getIndex()]->getIndex(), mousePosition);
+				ViewableObject *temp = tankEditor->getFreePlace(components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()], list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex(), mousePosition);
 
 				objects.push_back(temp);
 			}
@@ -219,7 +223,7 @@ void Editor::work()
 			{
 				delete objects.back();
 
-				objects.back() = tankEditor->getFreePlace(components[list->getViewableObjects()[list->getIndex()]->getIndex()], list->getViewableObjects()[list->getIndex()]->getIndex(), mousePosition);
+				objects.back() = tankEditor->getFreePlace(components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()], list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex(), mousePosition);
 			}
 
 		}

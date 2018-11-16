@@ -56,7 +56,7 @@ void ListDraw::drawInformation(RenderTexture &renderTexture, List &list, long ti
 
 	drawFramework(renderTexture, int(backgroundRorInformationSprite.getPosition().x), int(backgroundRorInformationSprite.getPosition().y), int(backgroundRorInformationSprite.getPosition().x + backgroundRorInformationSprite.getLocalBounds().width), int(backgroundRorInformationSprite.getPosition().y + backgroundRorInformationSprite.getLocalBounds().height));
 
-	vector<ViewableObject *> selectedViewableObject = list.getSelectedViewableObject();
+	vector<ViewableObject *> selectedViewableObject = list.getHighlightedViewableObject();
 
 	selectedViewableObject.back()->setPosition(list.getFragmentHeight() - list.getViewableObjectHeight() + list.getViewableObjectWidth() + 5, (list.getFragmentHeight() - list.getViewableObjectHeight()) / 2 + 5);
 
@@ -175,7 +175,9 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 			button->drawButton(renderTexture, *list.getButton()->getStruct());
 		}
 
-		drawRectangle(renderTexture, 1, list.getIndex() * list.getFragmentHeight() - list.getPosition(), list.getWidth() - (needButton ? 11 : 0), (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition(), Color::White);
+		drawRectangle(renderTexture, 2, list.getIndex() * list.getFragmentHeight() - list.getPosition() + 1, list.getWidth() - (needButton ? 11 : 0) - 1, (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition() - 1, Color::White);
+		
+		drawRectangle(renderTexture, 1, list.getIndexOfSelectedObject() * list.getFragmentHeight() - list.getPosition(), list.getWidth() - (needButton ? 11 : 0), (list.getIndexOfSelectedObject() + 1) * list.getFragmentHeight() - 1 - list.getPosition(), Color::Blue);
 
 
 		if (list.getNeedInformation())
