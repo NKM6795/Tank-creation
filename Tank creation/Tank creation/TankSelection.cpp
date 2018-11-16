@@ -32,20 +32,23 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 
 	vector<string> names(number, "");
 
-	getline(fileIn, names[0]);
-	for (int i = 0; i < number; ++i)
+	if (number > 0)
 	{
-		getline(fileIn, names[i]);
+		getline(fileIn, names[0]);
+		for (int i = 0; i < number; ++i)
+		{
+			getline(fileIn, names[i]);
 
-		Component *newComponent = new TankPictureComponent(names[i], objectName, typeName, identifierName, numberOfVariant);
-		newComponent->getStruct()->healthPoints = 1;
-		newComponent->getStruct()->width = 30;
-		newComponent->getStruct()->height = 30;
+			Component *newComponent = new TankPictureComponent(names[i], objectName, typeName, identifierName, numberOfVariant);
+			newComponent->getStruct()->healthPoints = 1;
+			newComponent->getStruct()->width = 30;
+			newComponent->getStruct()->height = 30;
 
-		components.push_back(newComponent);
+			components.push_back(newComponent);
 
-		Object *newObject = new TankPicture(newComponent, i);
-		objects.push_back(newObject);
+			Object *newObject = new TankPicture(newComponent, i);
+			objects.push_back(newObject);
+		}
 	}
 	fileIn.close();
 
@@ -70,6 +73,57 @@ TankSelection::~TankSelection()
 	}
 
 	delete list;
+}
+
+
+void TankSelection::deleteSelectedElement()
+{
+	if (remove(("Data/Tanks/" + components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".dat").c_str()))
+	{
+
+	}
+	if (remove(("Data/Tanks/" + components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name + ".png").c_str()))
+	{
+
+	}
+
+	string fileName = components[list->getObjects()[list->getIndex()]->getIndex()]->getStruct()->name;
+
+	delete components[list->getObjects()[list->getIndex()]->getIndex()];
+	components.erase(components.begin() + list->getIndex());
+
+	while (objects.size() > 0)
+	{
+		delete objects.back();
+		objects.pop_back();
+	}
+
+	for (int i = 0; i < int(components.size()); ++i)
+	{
+		Object *newObject = new TankPicture(components[i], i);
+		objects.push_back(newObject);
+	}
+
+	graphic->setInformation(components);
+
+	delete list;
+	list = new List(objects, screanWidth - 6, screanHeight - 90, 3, 87, 100, 100, 120);
+	list->openList(Vector2int(3, 87));
+
+	graphic->setInformation(*list);
+
+	ofstream fileOut("Data/Tanks/Number.dat");
+
+	int number = int(components.size());
+
+	fileOut << number << '\n';
+
+	for (int i = 0; i < number; ++i)
+	{
+		fileOut << components[i]->getStruct()->name << '\n';
+	}
+
+	fileOut.close();
 }
 
 
@@ -115,6 +169,12 @@ void TankSelection::work()
 
 					windowIsOpen = false;
 					return;
+				}
+				else if (button[i].getStruct()->buttonName == "Delete")
+				{
+					deleteSelectedElement();
+
+					button[i].setActivateAnAction(false);
 				}
 			}
 		}

@@ -23,6 +23,11 @@ List::List(vector<Object *> objects, int width, int height, int xCoordinate, int
 	position = 0;
 	index = 0;
 
+	if (objects.size() == 0)
+	{
+		index = -1;
+	}
+
 	needDirect = false;
 	deltaPosition = -1;
 	
@@ -147,6 +152,11 @@ vector<Object *> &List::getObjects()
 vector<Object *> List::getSelectedObject()
 {
 	vector<Object *> result;
+
+	if (index == -1)
+	{
+		return result;
+	}
 
 	Object *newObject = TankEditor::getCopy(objects[index]);
 	newObject->setHeath(newObject->getComponentParameter()->healthPoints);
@@ -323,9 +333,11 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			}
 			needDirect = false;
 		}
-		if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
+		if (index != -1 && mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
 		{
 			index = (mousePosition.y + position) / fragmentHeight;
+			index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
+
 
 			if (mousePosition != oldMousePosition)
 			{
@@ -352,7 +364,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			}
 		}
 
-		if (timer - timerForInformation >= 500 || rightIsPressed)
+		if (index != -1 && (timer - timerForInformation >= 500 || rightIsPressed))
 		{
 			timerForInformation = timer - 500;
 			needInformation = true;

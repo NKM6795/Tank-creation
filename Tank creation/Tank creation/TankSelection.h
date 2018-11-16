@@ -12,6 +12,8 @@ class TankSelection : public WorkWithWindow
 
 	List *list;
 
+	void deleteSelectedElement();
+
 public:
 	TankSelection(string &fileName);
 

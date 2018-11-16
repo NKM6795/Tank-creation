@@ -183,6 +183,18 @@ void Graphic::setInformation(int width, int height, bool needInputField, int xCo
 
 void Graphic::setInformation(vector<Component *> &componentsForData)
 {
+	if (needObject)
+	{
+		int number = int(components.size());
+
+		for (int i = 0; i < number; ++i)
+		{
+			delete components.back();
+
+			components.pop_back();
+		}
+	}
+
 	needObject = true;
 
 	int number = int(componentsForData.size());
@@ -243,13 +255,22 @@ void Graphic::setInformation(Tank &tank)
 
 void Graphic::setInformation(List &list)
 {
-	needList = true;
+	if (needList)
+	{
+		delete listDraw;
 
-	listDraw = new ListDraw(list, components);
+		listDraw = new ListDraw(list, components);
+	}
+	else
+	{
+		needList = true;
 
-	listTexture = new Texture;
+		listDraw = new ListDraw(list, components);
 
-	listSprite = new Sprite;
+		listTexture = new Texture;
+
+		listSprite = new Sprite;
+	}
 }
 
 

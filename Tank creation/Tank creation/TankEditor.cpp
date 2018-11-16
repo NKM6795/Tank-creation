@@ -389,27 +389,39 @@ void TankEditor::save(string fileName)
 	int number;
 	fileIn >> number;
 
-	vector<string> names(number, "");
+	bool needNewObject = true;
 
-	getline(fileIn, names[0]);
-	for (int i = 0; i < number; ++i)
+	vector<string> names(number, "");
+	
+	if (number > 0)
 	{
-		getline(fileIn, names[i]);
+		getline(fileIn, names[0]);
+		for (int i = 0; i < number; ++i)
+		{
+			getline(fileIn, names[i]);
+			if (names[i] == fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".dat") - fileName.find("Tanks/") - 6))
+			{
+				needNewObject = false;
+			}
+		}
 	}
 	fileIn.close();
 
 	fileOut.open("Data/Tanks/Number.dat");
 
-	++number;
+	number += needNewObject;
 
 	fileOut << number << '\n';
 
-	for (int i = 0; i < number - 1; ++i)
+	for (int i = 0; i < number - needNewObject; ++i)
 	{
 		fileOut << names[i] << '\n';
 	}
 
-	fileOut << fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".dat") - fileName.find("Tanks/") - 6) << '\n';
+	if (needNewObject)
+	{
+		fileOut << fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".dat") - fileName.find("Tanks/") - 6) << '\n';
+	}
 
 	fileOut.close();
 }
