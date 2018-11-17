@@ -287,6 +287,10 @@ Vector2int TankEditor::getFreePlace(Component *component, Vector2int mousePositi
 						continue;
 					}
 				}
+				else if (j + height == int(smallTank.size()))
+				{
+					continue;
+				}
 
 				if (oldI == -1)
 				{
