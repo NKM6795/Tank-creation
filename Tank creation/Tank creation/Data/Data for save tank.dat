@@ -3,16 +3,19 @@ Exit from editior
 1280 720
 16 1
 2
-2
+1
 116 66 30
 small
 Data/Fonts/Strangiato.otf
-560 410 Cancel
-740 410 Save
+400 390 Cancel
+1
+299 66 33
+medium
+Data/Fonts/Strangiato.otf
+800 390 Enter name
 1
 1
 33
 Data/Fonts/Strangiato.otf
-640 285 Enter name
-454 190 1 640 335 33 12
-Data/Fonts/Strangiato.otf
+640 310 Tank can not be saved without a name
+650 170 0 0 0 0 0

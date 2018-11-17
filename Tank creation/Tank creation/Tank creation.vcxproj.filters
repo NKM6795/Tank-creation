@@ -265,6 +265,9 @@
     <ClCompile Include="CheckerOnTankExistence.cpp">
       <Filter>Windows\Notification Windows\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Saved.cpp">
+      <Filter>Windows\Notification Windows\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -382,6 +385,9 @@
       <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CheckerOnTankExistence.h">
+      <Filter>Windows\Notification Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Saved.h">
       <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

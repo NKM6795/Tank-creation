@@ -13,6 +13,38 @@ void SaveTank::work()
 	{
 		timer += timeForWork;
 
+		if (needWindowResult)
+		{
+			if (windowResult == "Cancel/")
+			{
+				windowIsOpen = false;
+				return;
+			}
+			else if (windowResult == "Saved/")
+			{
+				windowResult += tankName;
+
+				windowIsOpen = false;
+				return;
+			}
+			else if (windowResult.size() > 7 && windowResult.substr(0, 7) == "Rename/")
+			{
+				tankName = windowResult;
+
+				needNewWindow = true;
+				needWindowResult = true;
+					
+				string fileName = "Data/Data for saved.dat";
+
+				graphic->drawInRenderTexture(button);
+
+				newWindow = new Saved(fileName, graphic);
+					
+				return;
+			}
+			needWindowResult = false;
+		}
+
 		mousePosition = graphic->getPositionOfMouse();
 
 		while (graphic->pollEvent())
@@ -47,32 +79,23 @@ void SaveTank::work()
 					windowIsOpen = false;
 					return;
 				}
-				else if (button[i].getStruct()->buttonName == "Save")
+				else if (button[i].getStruct()->buttonName == "Enter name")
 				{
-					windowResult = inputField;
+					needNewWindow = true;
+					needWindowResult = true;
 
-					if (inputField == "")
-					{
-						needNewWindow = true;
+					string fileName = "Data/Data for rename tank.dat";
 
-						string fileName = "Data/Data for not available.dat";
+					graphic->drawInRenderTexture(button);
 
-						graphic->drawInRenderTexture(button);
+					newWindow = new RenameTank(fileName, graphic);
 
-						newWindow = new NotAvailable(fileName, graphic);
-
-						button[i].setActivateAnAction(false);
-					}
-					else
-					{
-						windowIsOpen = false;
-						return;
-					}
+					button[i].setActivateAnAction(false);
 				}
 			}
 
 		}
 
-		graphic->draw(button, inputField);
+		graphic->draw(button);
 	}
 }

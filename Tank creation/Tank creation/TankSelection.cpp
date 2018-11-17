@@ -140,7 +140,7 @@ void TankSelection::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowResult = "Cancel.";
+				windowResult = "Cancel/";
 
 				windowIsOpen = false;
 				return;
@@ -152,6 +152,10 @@ void TankSelection::work()
 			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0)))
 			{
 				list->setDirect(false);
+			}
+			else if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Left)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Right)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::A)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::D)) || Mouse::isButtonPressed(Mouse::XButton2) || Mouse::isButtonPressed(Mouse::XButton1) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter)))
+			{
+				list->select();
 			}
 		}
 
@@ -166,7 +170,7 @@ void TankSelection::work()
 			{
 				if (button[i].getStruct()->buttonName == "Back")
 				{
-					windowResult = "Cancel.";
+					windowResult = "Cancel/";
 
 					windowIsOpen = false;
 					return;

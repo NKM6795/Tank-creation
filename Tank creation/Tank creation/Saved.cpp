@@ -1,13 +1,13 @@
-#include "CheckerOnTankExistence.h"
+#include "Saved.h"
 
 
-CheckerOnTankExistence::CheckerOnTankExistence(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
+Saved::Saved(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
 {
 	fileIn.close();
 }
 
 
-void CheckerOnTankExistence::work()
+void Saved::work()
 {
 	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
@@ -19,7 +19,7 @@ void CheckerOnTankExistence::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowResult = "Cancel/";
+				windowResult = "Saved/";
 
 				windowIsOpen = false;
 				return;
@@ -36,16 +36,9 @@ void CheckerOnTankExistence::work()
 		{
 			if (button[i].getActivateAnAction())
 			{
-				if (button[i].getStruct()->buttonName == "Cancel")
+				if (button[i].getStruct()->buttonName == "Ok")
 				{
-					windowResult = "Cancel/";
-
-					windowIsOpen = false;
-					return;
-				}
-				else if (button[i].getStruct()->buttonName == "Yes")
-				{
-					windowResult = "Yes/";
+					windowResult = "Saved/";
 
 					windowIsOpen = false;
 					return;

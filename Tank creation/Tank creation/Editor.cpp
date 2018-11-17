@@ -21,6 +21,7 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 	graphic->setInformation(tank);
 	tank.setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
+	tankIsChanged = false;
 
 	tankEditor = new TankEditor(tank.getViewableObjects());
 	tankEditor->setOffset(backgroundXCoordinate - backgroundWidth / 2 + 1, backgroundYCoordinate - backgroundHeight / 2 + 1);
@@ -85,13 +86,42 @@ void Editor::work()
 				windowIsOpen = false;
 				return;
 			}
-			else if (windowResult.size() > 7 && windowResult.substr(0, 7) == "rename/")
+			else if (windowResult.size() > 18 && windowResult.substr(0, 18) == "Exit/Saved/Rename/")
+			{
+				tank.name = windowResult.substr(18);
+
+				tankEditor->save(tank.name);
+
+				graphic->saveTank(tank.name, tank, timer);
+
+				windowIsOpen = false;
+				return;
+			}
+			else if (windowResult == "Exit/Saved/")
+			{
+				tankEditor->save(tank.name);
+
+				graphic->saveTank(tank.name, tank, timer);
+
+				windowIsOpen = false;
+				return;
+			}
+			else if (windowResult.size() > 7 && windowResult.substr(0, 7) == "Rename/")
 			{
 				tank.name = windowResult.substr(7);
 			}
-			else if (windowResult != "Cancel/")
+			else if (windowResult.size() > 13 && windowResult.substr(0, 13) == "Saved/Rename/")
 			{
-				tank.name = windowResult;
+				tank.name = windowResult.substr(13);
+				tankIsChanged = true;
+
+				tankEditor->save(tank.name);
+
+				graphic->saveTank(tank.name, tank, timer);
+			}
+			else if (windowResult == "Saved/")
+			{
+				tankIsChanged = true;
 
 				tankEditor->save(tank.name);
 
@@ -107,14 +137,22 @@ void Editor::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				needNewWindow = true;
-				needWindowResult = true;
+				if (!tankIsChanged || tankEditor->isEmpty())
+				{
+					windowIsOpen = false;
+					return;
+				}
+				else
+				{
+					needNewWindow = true;
+					needWindowResult = true;
 
-				string fileName = "Data/Data for exit from editor.dat";
+					string fileName = "Data/Data for exit from editor.dat";
 
-				graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
-				newWindow = new ExitFromEditor(fileName, graphic, tankEditor->completenessСheck());
+					newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
+				}
 			}
 			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0)))
 			{
@@ -141,16 +179,24 @@ void Editor::work()
 			{
 				if (button[i].getStruct()->buttonName == "Back")
 				{
-					needNewWindow = true;
-					needWindowResult = true;
+					if (!tankIsChanged || tankEditor->isEmpty())
+					{
+						windowIsOpen = false;
+						return;
+					}
+					else
+					{
+						needNewWindow = true;
+						needWindowResult = true;
 
-					string fileName = "Data/Data for exit from editor.dat";
+						string fileName = "Data/Data for exit from editor.dat";
 
-					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
-					newWindow = new ExitFromEditor(fileName, graphic, tankEditor->completenessСheck());
+						newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
 
-					button[i].setActivateAnAction(false);
+						button[i].setActivateAnAction(false);
+					}
 				}
 				else if (button[i].getStruct()->buttonName == "Clear")
 				{
@@ -162,7 +208,7 @@ void Editor::work()
 				{
 					needNewWindow = true;
 
-					if (tankEditor->completenessСheck())
+					if (tankEditor->completenessСheck() && tank.name == "")
 					{
 						needWindowResult = true;
 
@@ -171,6 +217,19 @@ void Editor::work()
 						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
 
 						newWindow = new SaveTank(fileName, graphic);
+
+						button[i].setActivateAnAction(false);
+					}
+					else if (tankEditor->completenessСheck())
+					{
+						needNewWindow = true;
+						needWindowResult = true;
+
+						string fileName = "Data/Data for saved.dat";
+
+						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+
+						newWindow = new Saved(fileName, graphic);
 
 						button[i].setActivateAnAction(false);
 					}
@@ -211,7 +270,7 @@ void Editor::work()
 					mousePosition.x - tankEditor->getOffset().x > oldViewableObject.first.x + oldViewableObject.second.x ||
 					mousePosition.y - tankEditor->getOffset().y > oldViewableObject.first.y + oldViewableObject.second.y))
 			{
-				tankEditor->addViewableObject(components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()], list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex(), mousePosition);
+				tankIsChanged = tankEditor->addViewableObject(components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()], list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex(), mousePosition) || tankIsChanged;
 				oldViewableObject = objects.back() == nullptr ?
 					pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } :
 					pair<Vector2int, Vector2int>{ mousePosition - tankEditor->getOffset(), Vector2int(objects.back()->getComponentParameter()->width, objects.back()->getComponentParameter()->height) * 20 };
@@ -219,7 +278,7 @@ void Editor::work()
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{
-			tankEditor->removeViewableObject(mousePosition);
+			tankIsChanged = tankEditor->removeViewableObject(mousePosition) || tankIsChanged;
 		}
 		else if (Mouse::isButtonPressed(Mouse::Middle) && graphic->hasFocus() && !list->inFocuse(mousePosition))
 		{

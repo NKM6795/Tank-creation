@@ -3,13 +3,17 @@ Exit from editior
 1280 720
 16 1
 3
-3
+2
 116 66 30
 small
 Data/Fonts/Strangiato.otf
-480 410 Save
-640 410 Yes
-800 410 Cancel
+430 410 Cancel
+550 410 Yes
+1
+299 66 33
+medium
+Data/Fonts/Strangiato.otf
+760 410 Save and exit
 2
 2
 33

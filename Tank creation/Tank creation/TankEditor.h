@@ -36,11 +36,13 @@ public:
 	Vector2int getFreePlace(Component *component, Vector2int mousePosition);
 	ViewableObject *getFreePlace(Component *component, int index, Vector2int mousePosition);
 
-	void addViewableObject(Component *component, int index, Vector2int mousePosition);
+	bool addViewableObject(Component *component, int index, Vector2int mousePosition);
 
-	void removeViewableObject(Vector2int mousePosition);
+	bool removeViewableObject(Vector2int mousePosition);
 
 	void clear();
+
+	bool isEmpty();
 
 	bool completenessСheck();
 

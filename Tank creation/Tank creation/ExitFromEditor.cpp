@@ -1,7 +1,7 @@
 #include "ExitFromEditor.h"
 
 
-ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow, bool canSave) : NotificationWindow(fileName, forCopyWindow), canSave(canSave)
+ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow, string tankName, bool canSave) : NotificationWindow(fileName, forCopyWindow), canSave(canSave), tankName(tankName)
 {
 	fileIn.close();
 }
@@ -15,8 +15,10 @@ void ExitFromEditor::work()
 
 		if (needWindowResult)
 		{
-			if (windowResult != "Cancel/")
+			if ((windowResult.size() > 13 && windowResult.substr(0, 13) == "Saved/Rename/") || windowResult == "Saved/")
 			{
+				windowResult = "Exit/" + windowResult;
+
 				windowIsOpen = false;
 				return;
 			}
@@ -64,7 +66,7 @@ void ExitFromEditor::work()
 				{
 					needNewWindow = true;
 
-					if (canSave)
+					if (canSave && tankName == "")
 					{
 						needWindowResult = true;
 
@@ -73,6 +75,18 @@ void ExitFromEditor::work()
 						graphic->drawInRenderTexture(button);
 
 						newWindow = new SaveTank(fileName, graphic);
+
+						button[i].setActivateAnAction(false);
+					}
+					else if (canSave)
+					{
+						needWindowResult = true;
+
+						string fileName = "Data/Data for saved.dat";
+
+						graphic->drawInRenderTexture(button);
+
+						newWindow = new Saved(fileName, graphic);
 
 						button[i].setActivateAnAction(false);
 					}

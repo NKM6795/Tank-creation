@@ -261,28 +261,29 @@ ViewableObject *TankEditor::getFreePlace(Component *component, int index, Vector
 }
 
 
-void TankEditor::addViewableObject(Component *component, int index, Vector2int mousePosition)
+bool TankEditor::addViewableObject(Component *component, int index, Vector2int mousePosition)
 {
 	Vector2int position = getFreePlace(component, mousePosition);
 
 	if (position.x == -1)
 	{
-		return;
+		return false;
 	}
 	else
 	{
 		addViewableObjectOnPosition(component, index, position);
+		return true;
 	}
 }
 
 
-void TankEditor::removeViewableObject(Vector2int mousePosition)
+bool TankEditor::removeViewableObject(Vector2int mousePosition)
 {
 	ViewableObject *object = getViewableObject(mousePosition);
 
 	if (object == nullptr)
 	{
-		return;
+		return false;
 	}
 
 	Vector2int position = object->getPosition() / 20;
@@ -299,6 +300,8 @@ void TankEditor::removeViewableObject(Vector2int mousePosition)
 			(*objects)[position.x + l][position.y + k] = nullptr;
 		}
 	}
+
+	return true;
 }
 
 void TankEditor::clear()
@@ -310,6 +313,23 @@ void TankEditor::clear()
 			removeViewableObject(Vector2int(i, j) * 20 + getOffset());
 		}
 	}
+}
+
+
+bool TankEditor::isEmpty()
+{
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			if ((*objects)[i][j] != nullptr)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
 
 

@@ -15,6 +15,18 @@ void RenameTank::work()
 	{
 		timer += timeForWork;
 
+		if (needWindowResult)
+		{
+			if (windowResult == "Yes/")
+			{
+				windowResult = "Rename/" + tankName;
+
+				windowIsOpen = false;
+				return;
+			}
+			needWindowResult = false;
+		}
+
 		mousePosition = graphic->getPositionOfMouse();
 
 		while (graphic->pollEvent())
@@ -51,7 +63,7 @@ void RenameTank::work()
 				}
 				else if (button[i].getStruct()->buttonName == "Save")
 				{
-					windowResult = inputField;
+					tankName = inputField;
 
 					if (inputField == "")
 					{
@@ -67,10 +79,33 @@ void RenameTank::work()
 					}
 					else
 					{
-						windowResult = "rename/" + windowResult;
+						ifstream checkOnExistence("Data/Tanks/" + tankName + ".tnk");
+						if (checkOnExistence)
+						{
+							checkOnExistence.close();
 
-						windowIsOpen = false;
-						return;
+							needNewWindow = true;
+							needWindowResult = true;
+
+							string fileName = "Data/Data for checker on tank existence.dat";
+
+							graphic->drawInRenderTexture(button);
+
+							newWindow = new CheckerOnTankExistence(fileName, graphic);
+
+							button[i].setActivateAnAction(false);
+
+							return;
+						}
+						else
+						{
+							checkOnExistence.close();
+
+							windowResult = "Rename/" + windowResult;
+
+							windowIsOpen = false;
+							return;
+						}
 					}
 				}
 			}
