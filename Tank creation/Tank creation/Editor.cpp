@@ -33,7 +33,7 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 		tankEditor->download(tank.name, components);
 	}
 
-	oldViewableObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
+	oldViewableObject = pair<Vector2int, Vector2int>(Vector2int(-1, -1), Vector2int(-1, -1));
 
 	vector<ViewableObject *> temp;
 
@@ -268,7 +268,7 @@ void Editor::work()
 		//Work with tank
 		if (Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left)))
 		{
-			if (oldViewableObject == pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } ||
+			if (oldViewableObject == pair<Vector2int, Vector2int>(Vector2int(-1, -1), Vector2int(-1, -1)) ||
 				(mousePosition.x - tankEditor->getOffset().x < oldViewableObject.first.x - oldViewableObject.second.x ||
 					mousePosition.y - tankEditor->getOffset().y < oldViewableObject.first.y - oldViewableObject.second.y ||
 					mousePosition.x - tankEditor->getOffset().x > oldViewableObject.first.x + oldViewableObject.second.x ||
@@ -276,8 +276,8 @@ void Editor::work()
 			{
 				tankIsChanged = tankEditor->addViewableObject(components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()], list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex(), mousePosition) || tankIsChanged;
 				oldViewableObject = objects.back() == nullptr ?
-					pair<Vector2int, Vector2int>{ Vector2int(-1, -1), Vector2int(-1, -1) } :
-					pair<Vector2int, Vector2int>{ mousePosition - tankEditor->getOffset(), Vector2int(objects.back()->getComponentParameter()->width, objects.back()->getComponentParameter()->height) * 20 };
+					pair<Vector2int, Vector2int>(Vector2int(-1, -1), Vector2int(-1, -1)) :
+					pair<Vector2int, Vector2int>(mousePosition - tankEditor->getOffset(), Vector2int(objects.back()->getComponentParameter()->width, objects.back()->getComponentParameter()->height) * 20);
 			}
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus() && !list->inFocuse(mousePosition))
@@ -290,7 +290,7 @@ void Editor::work()
 		}
 		else
 		{
-			oldViewableObject = { Vector2int(-1, -1), Vector2int(-1, -1) };
+			oldViewableObject = pair<Vector2int, Vector2int>(Vector2int(-1, -1), Vector2int(-1, -1));
 		}
 		
 		//Work with selecting object

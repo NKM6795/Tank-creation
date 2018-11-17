@@ -49,7 +49,7 @@ void TankEditor::addViewableObjectOnPosition(Component *component, int index, Ve
 void TankEditor::dfs(vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > &smallTank, int i, int j)
 {
 	pair<Direct, Direct> direct = smallTank[i][j];
-	smallTank[i][j].first = Nowhere;
+	smallTank[i][j] = { Nowhere, Nowhere };
 
 	if ((direct.first == Direct::All || direct.first == Direct::Left || direct.second == Direct::Left) && i - 1 >= 0 && (smallTank[i - 1][j].first == Direct::All || smallTank[i - 1][j].first == Direct::Right || smallTank[i - 1][j].second == Direct::Right))
 	{

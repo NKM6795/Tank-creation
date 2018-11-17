@@ -1,275 +1,338 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="WorkWithWindow" Collapsed="true">
-    <Position X="26.75" Y="2" Width="1.5" />
+    <Position X="31.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAfAAAJMMESETAACAAAEAADCACAAAIAsAkAAgCABCAA=</HashCode>
+      <HashCode>AAfAAAJMMESETAACAAAEAADCACAAEIAsAkAAgCABCAA=</HashCode>
       <FileName>WorkWithWindow.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MainMenu" Collapsed="true">
-    <Position X="26" Y="3.75" Width="1.5" />
+    <Position X="29.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAACAAAAAACAAAAQAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAIAAACAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MainMenu.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Editor" Collapsed="true">
-    <Position X="27.75" Y="3.75" Width="1.5" />
+    <Position X="31.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIEAAAAoAAQAAAAAAAAAIAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAAAAgAIEAAAAoAASACAAAABAQIAAAAQAAAAAAREAAA=</HashCode>
       <FileName>Editor.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NotificationWindow" Collapsed="true">
-    <Position X="30.25" Y="2" Width="1.5" />
+    <Position X="39.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAMAIAAAAQAQAAAAAAAAEAAAAAIAIQAgAAAAAA=</HashCode>
       <FileName>NotificationWindow.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NotAvailable" Collapsed="true">
-    <Position X="29.5" Y="3.75" Width="1.5" />
+    <Position X="34.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>NotAvailable.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ExitFromEditor" Collapsed="true">
-    <Position X="31.25" Y="3.75" Width="1.5" />
+    <Position X="36.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACIAAAEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>ExitFromEditor.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Button" Collapsed="true">
-    <Position X="33" Y="2" Width="1.5" />
+    <Position X="47.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIADIIAAAAIAAAAAAAAQAABAAAAAACgAAAARAQAA=</HashCode>
       <FileName>Button.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ButtonDraw" Collapsed="true">
-    <Position X="34.75" Y="2" Width="1.5" />
+    <Position X="49.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAACAAQAAAAAAABAQAAgAABAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>ButtonDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Graphic" Collapsed="true">
-    <Position X="36.5" Y="2" Width="1.5" />
+    <Position X="51" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>goK4QIAEAAAAVCAQAIKEMAAAGDAKSBKMAIgBBCCCACE=</HashCode>
+      <HashCode>hoK4QIAEAAAAVCAQAIKEEQAKGDAKSBKMEIgBJCCCACE=</HashCode>
       <FileName>Graphic.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Component" Collapsed="true">
-    <Position X="2.25" Y="1.25" Width="1.5" />
+    <Position X="4" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAIAAAAAAAAAAAAAAAAAAAABAAAAAQAA=</HashCode>
       <FileName>ViewableObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ViewableObject" Collapsed="true">
-    <Position X="2.25" Y="2" Width="1.5" />
+    <Position X="4" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAIAAEAQAAAEAgAAAAEAADAAAAKAAAIAAAAAABQAA=</HashCode>
+      <HashCode>ABCAICAEAAAAEEAEAAAAMAADAAAgKAACIAAAAAABQAA=</HashCode>
       <FileName>ViewableObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SmallBlockComponent" Collapsed="true">
-    <Position X="2.25" Y="5.75" Width="1.5" />
+    <Position X="4" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SmallBlock.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SmallBlock" Collapsed="true">
-    <Position X="2.25" Y="3.75" Width="1.5" />
+    <Position X="4" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SmallBlock.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EngineRoomComponent" Collapsed="true">
-    <Position X="5.75" Y="5.75" Width="1.5" />
+    <Position X="7.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>EngineRoom.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EngineRoom" Collapsed="true">
-    <Position X="5.75" Y="3.75" Width="1.5" />
+    <Position X="7.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAABAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAACAAAAAAAAABAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EngineRoom.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AdditionToEngineRoom" Collapsed="true">
-    <Position X="5.75" Y="4.75" Width="1.5" />
+    <Position X="7.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAIAAAAAAAAAAAAAAAEAADAAAACAABIAAAAAAAAAQ=</HashCode>
       <FileName>EngineRoom.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BigBlockComponent" Collapsed="true">
-    <Position X="4" Y="5.75" Width="1.5" />
+    <Position X="5.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>BigBlock.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BigBlock" Collapsed="true">
-    <Position X="4" Y="3.75" Width="1.5" />
+    <Position X="5.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAAAAAACAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAACgAAAAAAAAAAAAAAAACAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>BigBlock.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AdditionToBigBlock" Collapsed="true">
-    <Position X="4" Y="4.75" Width="1.5" />
+    <Position X="5.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CBAAIAAAAAAAAAAAAAAAEAADAAAACAAAIAAAAAAAAAQ=</HashCode>
       <FileName>BigBlock.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BackgroundComponent" Collapsed="true">
-    <Position X="0.5" Y="5.75" Width="1.5" />
+    <Position X="2.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Background.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Background" Collapsed="true">
-    <Position X="0.5" Y="3.75" Width="1.5" />
+    <Position X="2.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Background.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ComponentDraw" Collapsed="true">
-    <Position X="19.5" Y="2" Width="1.5" />
+    <Position X="23" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAIAIAAACAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ComponentDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SmallBlockDraw" Collapsed="true">
-    <Position X="17" Y="3.75" Width="1.5" />
+    <Position X="20.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAiAAAAAAACAAAIAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>SmallBlockDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EngineRoomDraw" Collapsed="true">
-    <Position X="20.5" Y="3.75" Width="1.5" />
+    <Position X="24" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQABgAAAAEBAgAAIICIAAAAAAABAAAEAAAIAQAQA=</HashCode>
       <FileName>EngineRoomDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BigBlockDraw" Collapsed="true">
-    <Position X="18.75" Y="3.75" Width="1.5" />
+    <Position X="22.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>MAAAAACAAAAAAAAAAAIAAAAABAAAAAAAAAAABAAAIAA=</HashCode>
       <FileName>BigBlockDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BackgroundDraw" Collapsed="true">
-    <Position X="15.25" Y="3.75" Width="1.5" />
+    <Position X="18.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAQAACAAAAAEAAAAAIAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>BackgroundDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GunComponent" Collapsed="true">
-    <Position X="7.5" Y="5.75" Width="1.5" />
+    <Position X="9.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>Gun.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Gun" Collapsed="true">
-    <Position X="7.5" Y="3.75" Width="1.5" />
+    <Position X="9.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAAAAAAAAgAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEAAACAAAAAAAAAAAAAAgAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Gun.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AdditionToGun" Collapsed="true">
-    <Position X="7.5" Y="4.75" Width="1.5" />
+    <Position X="9.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAIAAAAgAAAAAAAAAAEAADAAAACAAAIAAAAAAAAAQ=</HashCode>
       <FileName>Gun.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TrackComponent" Collapsed="true">
-    <Position X="9.25" Y="5.75" Width="1.5" />
+    <Position X="0.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Track.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Track" Collapsed="true">
-    <Position X="9.25" Y="3.75" Width="1.5" />
+    <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAABAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAACAAAEAAABAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Track.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AdditionToTrack" Collapsed="true">
-    <Position X="9.25" Y="4.75" Width="1.5" />
+    <Position X="11" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAIAAAAAAAAQAAAAAAEAADAAAACAAAIAAAAAAAAAQ=</HashCode>
       <FileName>Track.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GunDraw" Collapsed="true">
-    <Position X="22.25" Y="3.75" Width="1.5" />
+    <Position X="25.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAACAAIAAQAAAIAAAICAQAAAAAAIAAIQQAAIBA=</HashCode>
       <FileName>GunDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TrackDraw" Collapsed="true">
-    <Position X="24" Y="3.75" Width="1.5" />
+    <Position X="27.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAIAAAAIAAAAACAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>TrackDraw.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TankEditor" Collapsed="true">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAQAgAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AEAAAAgACACAAAEAAAAAOBAAQQAgIAAAACQxQAABQAA=</HashCode>
       <FileName>TankEditor.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Tank" Collapsed="true">
-    <Position X="11.25" Y="1.5" Width="1.5" />
+    <Position X="13" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEACACAAAAAAACAAAAAAQAgAAAAAEAwAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAADACAAAAAAACAAABAAQIkIAAAQEAwAAAAAAA=</HashCode>
       <FileName>Tank.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TankDraw" Collapsed="true">
-    <Position X="13.25" Y="0.5" Width="1.5" />
+    <Position X="15" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
       <FileName>TankDraw.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="TankPictureComponent" Collapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>TankPicture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TankPicture" Collapsed="true">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>TankPicture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TankPictureDraw" Collapsed="true">
+    <Position X="17" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACIAAAACABAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>TankPictureDraw.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TankSelection" Collapsed="true">
+    <Position X="33" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAgAIAAEAAAAAAACAAAAAAwAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TankSelection.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckerOnTankExistence" Collapsed="true">
+    <Position X="43.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>CheckerOnTankExistence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RenameTank" Collapsed="true">
+    <Position X="41.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RenameTank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saved" Collapsed="true">
+    <Position X="40" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Saved.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SaveTank" Collapsed="true">
+    <Position X="38.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAEAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>SaveTank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="List" Collapsed="true">
+    <Position X="45.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAHBIgRNGATQgoUhwCDAOAQCBQAAcCRAAGgAQiEBACo=</HashCode>
+      <FileName>List.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="ButtonParameter" Collapsed="true">
-    <Position X="33" Y="1" Width="1.5" />
+    <Position X="47.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAMUAAAABCQgQAgAAAEiAAAAEABAAEAAAAQAAAA=</HashCode>
       <FileName>Button.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="ComponentParameter" Collapsed="true">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAADgDAALgFRAAAAIIAAAAAIIAAAAAAAQYAAABAg=</HashCode>
+      <HashCode>AAAAAADgDAALgFRAQAAIIAAAAAIMAAAAAAAQYAAABAg=</HashCode>
       <FileName>ViewableObject.h</FileName>
     </TypeIdentifier>
   </Struct>

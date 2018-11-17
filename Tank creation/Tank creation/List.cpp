@@ -222,7 +222,6 @@ void List::copyViewableObject(ViewableObject *object)
 		{
 			indexOfSelectedObject = i;
 			index = i;
-			delete object;
 			return;
 		}
 	}
