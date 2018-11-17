@@ -101,7 +101,7 @@ void RenameTank::work()
 						{
 							checkOnExistence.close();
 
-							windowResult = "Rename/" + windowResult;
+							windowResult = "Rename/" + tankName;
 
 							windowIsOpen = false;
 							return;

@@ -92,11 +92,8 @@ void TankSelection::deleteSelectedElement()
 	delete components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()];
 	components.erase(components.begin() + list->getIndexOfSelectedObject());
 
-	while (objects.size() > 0)
-	{
-		delete objects.back();
-		objects.pop_back();
-	}
+	delete list;
+	objects.clear();
 
 	for (int i = 0; i < int(components.size()); ++i)
 	{
@@ -106,7 +103,7 @@ void TankSelection::deleteSelectedElement()
 
 	graphic->setInformation(components);
 
-	delete list;
+	
 	list = new List(objects, screanWidth - 6, screanHeight - 90, 3, 87, 100, 100, 120);
 	list->openList(Vector2int(3, 87));
 	list->setNeedClose();

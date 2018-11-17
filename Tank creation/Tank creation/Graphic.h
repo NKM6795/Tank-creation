@@ -59,6 +59,7 @@ class Graphic
 	void drawWindow();
 	
 	void drawPrivate();
+	void drawPrivate(string *text);
 	void drawPrivate(Button *button);
 	void drawPrivate(string &inputField);
 	void drawPrivate(vector<ViewableObject *> &objects, long timer);
@@ -94,7 +95,13 @@ public:
 	void draw(Button *button, string &inputField, Tank &tank, long timer);
 	void draw(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer);
 	void draw(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
-		
+	void draw(string *text, Button *button);
+	void draw(string *text, Button *button, List &list, long timer);
+	void draw(string *text, Button *button, Tank &tank, long timer);
+	void draw(string *text, Button *button, vector<ViewableObject *> &objects, long timer);
+	void draw(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void draw(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
+
 	void drawInRenderTexture(Button *button);
 	void drawInRenderTexture(Button *button, List &list, long timer);
 	void drawInRenderTexture(Button *button, Tank &tank, long timer);
@@ -105,6 +112,12 @@ public:
 	void drawInRenderTexture(Button *button, string &inputField, Tank &tank, long timer);
 	void drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer);
 	void drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(string *text, Button *button);
+	void drawInRenderTexture(string *text, Button *button, List &list, long timer);
+	void drawInRenderTexture(string *text, Button *button, Tank &tank, long timer);
+	void drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, long timer);
+	void drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 
 	void saveTank(string fileName, Tank &tank, long timer);
 

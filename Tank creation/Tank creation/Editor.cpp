@@ -29,6 +29,7 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	if (tankName != "")
 	{
 		tank.name = tankName;
+		text[1] = tank.name;
 		tankEditor->download(tank.name, components);
 	}
 
@@ -89,6 +90,7 @@ void Editor::work()
 			else if (windowResult.size() > 18 && windowResult.substr(0, 18) == "Exit/Saved/Rename/")
 			{
 				tank.name = windowResult.substr(18);
+				text[1] = tank.name;
 
 				tankEditor->save(tank.name);
 
@@ -109,11 +111,13 @@ void Editor::work()
 			else if (windowResult.size() > 7 && windowResult.substr(0, 7) == "Rename/")
 			{
 				tank.name = windowResult.substr(7);
+				text[1] = tank.name;
 			}
 			else if (windowResult.size() > 13 && windowResult.substr(0, 13) == "Saved/Rename/")
 			{
 				tank.name = windowResult.substr(13);
-				tankIsChanged = true;
+				text[1] = tank.name;
+				tankIsChanged = false;
 
 				tankEditor->save(tank.name);
 
@@ -121,7 +125,7 @@ void Editor::work()
 			}
 			else if (windowResult == "Saved/")
 			{
-				tankIsChanged = true;
+				tankIsChanged = false;
 
 				tankEditor->save(tank.name);
 
@@ -149,7 +153,7 @@ void Editor::work()
 
 					string fileName = "Data/Data for exit from editor.dat";
 
-					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
 					newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
 				}
@@ -191,7 +195,7 @@ void Editor::work()
 
 						string fileName = "Data/Data for exit from editor.dat";
 
-						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
 						newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
 
@@ -214,7 +218,7 @@ void Editor::work()
 
 						string fileName = "Data/Data for save tank.dat";
 
-						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
 						newWindow = new SaveTank(fileName, graphic);
 
@@ -227,7 +231,7 @@ void Editor::work()
 
 						string fileName = "Data/Data for saved.dat";
 
-						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
 						newWindow = new Saved(fileName, graphic);
 
@@ -237,7 +241,7 @@ void Editor::work()
 					{
 						string fileName = "Data/Data for not available.dat";
 
-						graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
 						newWindow = new NotAvailable(fileName, graphic);
 						
@@ -251,7 +255,7 @@ void Editor::work()
 
 					string fileName = "Data/Data for rename tank.dat";
 
-					graphic->drawInRenderTexture(button, objects, tank, *list, timer);
+					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
 					newWindow = new RenameTank(fileName, graphic, tank.name);
 
@@ -311,6 +315,6 @@ void Editor::work()
 		list->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 
-		graphic->draw(button, objects, tank, *list, timer);
+		graphic->draw(text, button, objects, tank, *list, timer);
 	}
 }
