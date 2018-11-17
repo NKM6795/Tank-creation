@@ -80,6 +80,12 @@ List::~List()
 	{
 		delete button;
 	}
+
+	while (objects.size() > 0)
+	{
+		delete objects.back();
+		objects.pop_back();
+	}
 }
 
 
@@ -216,6 +222,7 @@ void List::copyViewableObject(ViewableObject *object)
 		{
 			indexOfSelectedObject = i;
 			index = i;
+			delete object;
 			return;
 		}
 	}

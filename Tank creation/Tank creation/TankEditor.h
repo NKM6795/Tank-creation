@@ -13,11 +13,23 @@ class TankEditor
 
 	int dataArraySize;
 
+	enum Direct
+	{
+		Nowhere,
+		All,
+		Up,
+		Down,
+		Left,
+		Right
+	};
+
+
 	bool checkFreePlace(vector<vector<bool> > &smallTank, int widht, int height, int i, int j);
 
 	void addViewableObjectOnPosition(Component *component, int index, Vector2int position);
 
-	void dfs(vector<vector<bool> > &smallTank, int i, int j);
+	void dfs(vector<vector<pair<Direct, Direct> > > &smallTank, int i, int j);
+	vector<vector<pair<Direct, Direct> > > getSmallTankForDfs();
 
 public:
 	TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize = 30);

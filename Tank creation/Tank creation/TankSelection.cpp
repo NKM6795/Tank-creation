@@ -66,13 +66,13 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 
 TankSelection::~TankSelection()
 {
-	while (objects.size() > 0)
-	{
-		delete objects.back();
-		objects.pop_back();
-	}
-
 	delete list;
+
+	while (components.size() > 0)
+	{
+		delete components.back();
+		components.pop_back();
+	}
 }
 
 

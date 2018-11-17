@@ -149,6 +149,8 @@ void ListDraw::drawInformation(RenderTexture &renderTexture, List &list, long ti
 		y += list.getViewableObjectHeight() / 3 + 7;
 		renderTexture.draw(information);
 	}
+
+	delete selectedViewableObject.back();
 }
 
 

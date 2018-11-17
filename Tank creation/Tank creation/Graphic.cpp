@@ -90,6 +90,10 @@ Graphic::~Graphic()
 	if (needList)
 	{
 		delete listDraw;
+
+		delete listTexture;
+
+		delete listSprite;
 	}
 }
 
