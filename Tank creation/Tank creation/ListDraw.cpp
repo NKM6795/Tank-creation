@@ -5,7 +5,7 @@ ListDraw::ListDraw(List &list, vector<ComponentDraw *> &components) : components
 {
 	needButton = false;
 
-	if (list.getButton() != nullptr)
+	if (list.getNeedButton())
 	{
 		needButton = true;
 
@@ -23,11 +23,11 @@ ListDraw::ListDraw(List &list, vector<ComponentDraw *> &components) : components
 	Image image;
 	if (list.getViewableObjectWidth() == 100)
 	{
-		image.create(list.getWidth() - (needButton ? 18 : 0) - list.getFragmentHeight() + list.getViewableObjectHeight() - list.getViewableObjectWidth(), list.getHeight() - (list.getFragmentHeight() - list.getViewableObjectHeight()), Color(84, 63, 37));
+		image.create(list.getWidth() - 18 - list.getFragmentHeight() + list.getViewableObjectHeight() - list.getViewableObjectWidth(), list.getHeight() - (list.getFragmentHeight() - list.getViewableObjectHeight()), Color(84, 63, 37));
 	}
 	else
 	{
-		image.create(list.getWidth() - (needButton ? 18 : 0) - list.getFragmentHeight() + list.getViewableObjectHeight() - list.getViewableObjectWidth(), list.getHeight() - list.getFragmentHeight() + list.getViewableObjectHeight() - list.getViewableObjectWidth(), Color(84, 63, 37));
+		image.create(list.getWidth() - 18 - list.getFragmentHeight() + list.getViewableObjectHeight() - list.getViewableObjectWidth(), list.getHeight() - list.getFragmentHeight() + list.getViewableObjectHeight() - list.getViewableObjectWidth(), Color(84, 63, 37));
 	}
 
 	backgroundRorInformationTexture.loadFromImage(image);
@@ -58,14 +58,17 @@ ListDraw::~ListDraw()
 
 void ListDraw::drawInformation(RenderTexture &renderTexture, List &list, long timer)
 {
-	renderTexture.draw(backgroundRorInformationSprite);
-
-	drawFramework(renderTexture, int(backgroundRorInformationSprite.getPosition().x), int(backgroundRorInformationSprite.getPosition().y), int(backgroundRorInformationSprite.getPosition().x + backgroundRorInformationSprite.getLocalBounds().width), int(backgroundRorInformationSprite.getPosition().y + backgroundRorInformationSprite.getLocalBounds().height));
-
 	vector<ViewableObject *> selectedViewableObject = list.getHighlightedViewableObject();
 
-	selectedViewableObject.back()->setPosition(list.getFragmentHeight() - list.getViewableObjectHeight() + list.getViewableObjectWidth() + 5, (list.getFragmentHeight() - list.getViewableObjectHeight()) / 2 + 5 + ((list.getViewableObjectWidth() == 100) ? 0 : list.getSearchEngineHeight()));
+	if (selectedViewableObject.size() == 0)
+	{
+		return;
+	}
 
+	renderTexture.draw(backgroundRorInformationSprite);
+	drawFramework(renderTexture, int(backgroundRorInformationSprite.getPosition().x), int(backgroundRorInformationSprite.getPosition().y), int(backgroundRorInformationSprite.getPosition().x + backgroundRorInformationSprite.getLocalBounds().width), int(backgroundRorInformationSprite.getPosition().y + backgroundRorInformationSprite.getLocalBounds().height));
+	
+	selectedViewableObject.back()->setPosition(list.getFragmentHeight() - list.getViewableObjectHeight() + list.getViewableObjectWidth() + 5, (list.getFragmentHeight() - list.getViewableObjectHeight()) / 2 + 5 + ((list.getViewableObjectWidth() == 100) ? 0 : list.getSearchEngineHeight()));
 	objectDraw(renderTexture, timer, selectedViewableObject, (*components));
 
 	float x = float(list.getFragmentHeight() - list.getViewableObjectHeight() + list.getViewableObjectWidth() + 5),
@@ -176,16 +179,22 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 			renderTexture.draw(text);
 		}
 
-		if (needButton)
+		if (list.getNeedButton())
 		{
 			drawLine(renderTexture, list.getWidth() - 10, list.getSearchEngineHeight(), list.getWidth() - 10, list.getHeight(), Color::Black);
 
 			button->drawButton(renderTexture, *list.getButton()->getStruct());
 		}
 
-		drawRectangle(renderTexture, 2, list.getIndex() * list.getFragmentHeight() - list.getPosition() + 1 + list.getSearchEngineHeight(), list.getWidth() - (needButton ? 11 : 0) - 1, (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition() - 1 + list.getSearchEngineHeight(), Color::White);
-		
-		drawRectangle(renderTexture, 1, list.getIndexOfSelectedObject() * list.getFragmentHeight() - list.getPosition() + list.getSearchEngineHeight(), list.getWidth() - (needButton ? 11 : 0), (list.getIndexOfSelectedObject() + 1) * list.getFragmentHeight() - 1 - list.getPosition() + list.getSearchEngineHeight(), Color::Blue);
+		if (list.getIndex() != -1)
+		{
+			drawRectangle(renderTexture, 2, list.getIndex() * list.getFragmentHeight() - list.getPosition() + 1 + list.getSearchEngineHeight(), list.getWidth() - (needButton ? 11 : 0) - 1, (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition() - 1 + list.getSearchEngineHeight(), Color::White);
+		}
+
+		if (list.getIndexOfSelectedObject() != -1)
+		{
+			drawRectangle(renderTexture, 1, list.getIndexOfSelectedObject() * list.getFragmentHeight() - list.getPosition() + list.getSearchEngineHeight(), list.getWidth() - (needButton ? 11 : 0), (list.getIndexOfSelectedObject() + 1) * list.getFragmentHeight() - 1 - list.getPosition() + list.getSearchEngineHeight(), Color::Blue);
+		}
 
 		renderTexture.draw(backgroundRorSearchEngineHeightSprite);
 

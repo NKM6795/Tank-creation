@@ -16,6 +16,8 @@ class List
 	int searchEngineHeight;
 	int index;
 	int indexOfSelectedObject;
+	int mainIndex;
+	int mainIndexOfSelectedObject;
 	bool needDirect;
 	bool up;
 	bool needSelect;
@@ -42,6 +44,7 @@ class List
 	float conversionFactor;
 
 	//Objects
+	vector<ViewableObject *> mainObjects;
 	vector<ViewableObject *> objects;
 	string fileName;
 	int objectWidth,
@@ -50,6 +53,7 @@ class List
 
 	//Filter
 	string inputField;
+	int maxSizeOfText;
 
 	void updateViewableObject();
 
@@ -72,12 +76,17 @@ public:
 
 	int getIndex();
 	int getIndexOfSelectedObject();
+	int getMainIndex();
+	int getMainIndexOfSelectedObject();
 
 	int getPosition();
+
+	bool getNeedButton();
 
 	Button *getButton();
 
 	vector<ViewableObject *> &getViewableObjects();
+	vector<ViewableObject *> &getViewableMainObjects();
 
 	vector<ViewableObject *> getHighlightedViewableObject();
 	vector<ViewableObject *> getSelectedViewableObject();
@@ -106,4 +115,5 @@ public:
 	bool getNeedInformation();
 
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed = false);
+	void workWithText(int unicode);
 };

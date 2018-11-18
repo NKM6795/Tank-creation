@@ -81,21 +81,21 @@ TankSelection::~TankSelection()
 
 void TankSelection::deleteSelectedElement()
 {
-	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name + ".tnk").c_str()))
+	if (remove(("Data/Tanks/" + components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()]->getStruct()->name + ".tnk").c_str()))
 	{
 
 	}
-	if (remove(("Data/Tanks/" + components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name + ".png").c_str()))
+	if (remove(("Data/Tanks/" + components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()]->getStruct()->name + ".png").c_str()))
 	{
 
 	}
 
-	string fileName = components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
+	string fileName = components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
 
-	delete components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()];
-	components.erase(components.begin() + list->getIndexOfSelectedObject());
+	delete components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()];
+	components.erase(components.begin() + list->getMainIndexOfSelectedObject());
 
-	int newIndex = list->getIndexOfSelectedObject() == int(components.size()) ? list->getIndexOfSelectedObject() - 1 : list->getIndexOfSelectedObject();
+	int newIndex = list->getMainIndexOfSelectedObject() == int(components.size()) ? list->getMainIndexOfSelectedObject() - 1 : list->getMainIndexOfSelectedObject();
 
 	delete list;
 	objects.clear();
@@ -148,21 +148,26 @@ void TankSelection::work()
 				windowIsOpen = false;
 				return;
 			}
-			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0)))
+			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0)))
 			{
 				list->setDirect(true);
 			}
-			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0)))
+			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Down)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta < 0)))
 			{
 				list->setDirect(false);
 			}
-			else if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Left)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Right)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::A)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::D)) || Mouse::isButtonPressed(Mouse::XButton2) || Mouse::isButtonPressed(Mouse::XButton1) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter)))
+			else if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Left)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Right)) || Mouse::isButtonPressed(Mouse::XButton2) || Mouse::isButtonPressed(Mouse::XButton1) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter)))
 			{
 				list->select();
 			}
 			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Delete))
 			{
 				deleteSelectedElement();
+			}
+
+			if (graphic->getEvent().type == Event::TextEntered)
+			{
+				list->workWithText(graphic->getEvent().text.unicode);
 			}
 		}
 
@@ -196,7 +201,7 @@ void TankSelection::work()
 
 		if (!list->isOpen())
 		{
-			windowResult = components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
+			windowResult = components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
 
 			windowIsOpen = false;
 			return;

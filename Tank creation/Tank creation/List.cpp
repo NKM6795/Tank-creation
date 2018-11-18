@@ -16,7 +16,7 @@ void List::updateViewableObject()
 
 
 List::List(vector<ViewableObject *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth, int objectHeight, int fragmentHeight, int separationThickness) : 
-	objects(objects), width(width), height(height), xCoordinate(xCoordinate), yCoordinate(yCoordinate), objectWidth(objectWidth), objectHeight(objectHeight), fragmentHeight(fragmentHeight), separationThickness(separationThickness)
+	mainObjects(objects), objects(objects), width(width), height(height), xCoordinate(xCoordinate), yCoordinate(yCoordinate), objectWidth(objectWidth), objectHeight(objectHeight), fragmentHeight(fragmentHeight), separationThickness(separationThickness)
 {
 	//Open and close list
 	open = false;
@@ -28,10 +28,14 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 	this->height -= searchEngineHeight;
 	index = 0;
 	indexOfSelectedObject = 0;
+	mainIndex = 0;
+	mainIndexOfSelectedObject = 0;
 	if (objects.size() == 0)
 	{
 		index = -1;
 		indexOfSelectedObject = -1;
+		mainIndex = -1;
+		mainIndexOfSelectedObject = -1;
 	}
 	needDirect = false;
 	deltaPosition = -1;
@@ -54,7 +58,7 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 	{
 		needButton = true;
 
-		conversionFactor = float(height - 51) / float(int(objects.size()) * fragmentHeight - height);
+		conversionFactor = float(this->height - 51) / float(int(objects.size()) * fragmentHeight - this->height);
 
 		button = new Button;
 
@@ -77,7 +81,7 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 	fileName = "Data/Fonts/Strangiato.otf";
 
 	//Filter
-
+	maxSizeOfText = 17;
 }
 
 
@@ -88,10 +92,10 @@ List::~List()
 		delete button;
 	}
 
-	while (objects.size() > 0)
+	while (mainObjects.size() > 0)
 	{
-		delete objects.back();
-		objects.pop_back();
+		delete mainObjects.back();
+		mainObjects.pop_back();
 	}
 }
 
@@ -162,10 +166,27 @@ int List::getIndexOfSelectedObject()
 	return indexOfSelectedObject;
 }
 
+int List::getMainIndex()
+{
+	return mainIndex;
+}
+
+int List::getMainIndexOfSelectedObject()
+{
+	return mainIndexOfSelectedObject;
+}
+
+
 
 int List::getPosition()
 {
 	return position;
+}
+
+
+bool List::getNeedButton()
+{
+	return needButton;
 }
 
 
@@ -178,6 +199,11 @@ Button *List::getButton()
 vector<ViewableObject *> &List::getViewableObjects()
 {
 	return objects;
+}
+
+vector<ViewableObject *> &List::getViewableMainObjects()
+{
+	return mainObjects;
 }
 
 
@@ -229,6 +255,16 @@ void List::copyViewableObject(ViewableObject *object)
 		{
 			indexOfSelectedObject = i;
 			index = i;
+			break;
+		}
+	}
+
+	for (int i = 0; i < int(mainObjects.size()); ++i)
+	{
+		if (mainObjects[i]->getIndex() == object->getIndex())
+		{
+			mainIndexOfSelectedObject = i;
+			mainIndex = i;
 			return;
 		}
 	}
@@ -329,6 +365,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			}
 
 			indexOfSelectedObject = index;
+			mainIndexOfSelectedObject = mainIndex;
 
 			firstClick = false;
 		}
@@ -356,9 +393,33 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 		{
 			needSelect = false;
 
-			indexOfSelectedObject = index;
-		}
+			if (index != -1)
+			{
+				indexOfSelectedObject = index;
+				mainIndexOfSelectedObject = mainIndex;
 
+				if (needClose)
+				{
+					closeList();
+				}
+			}
+			else if (objects.size() > 0)
+			{
+				index = 0;
+
+				for (int i = 0; i < int(mainObjects.size()); ++i)
+				{
+					if (mainObjects[i] == objects[index])
+					{
+						mainIndex = i;
+						break;
+					}
+				}
+
+				indexOfSelectedObject = index;
+				mainIndexOfSelectedObject = mainIndex;
+			}
+		}
 
 		if (needButton && button->getStruct()->checkButtonIsPressed)
 		{
@@ -405,7 +466,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 				}
 				else if (!up)
 				{
-					position = int(objects.size()) * fragmentHeight - height;
+					position = max(0, int(objects.size()) * fragmentHeight - height);
 
 					updateViewableObject();
 				}
@@ -426,11 +487,20 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 				index += up ? -1 : 1;
 				index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
 
-				if (index * fragmentHeight < position)
+				for (int i = 0; i < int(mainObjects.size()); ++i)
+				{
+					if (mainObjects[i] == objects[index])
+					{
+						mainIndex = i;
+						break;
+					}
+				}
+
+				if (index * fragmentHeight <= position)
 				{
 					position = index * fragmentHeight;
 				}
-				else if ((index + 1) * fragmentHeight > position + height)
+				else if ((index + 1) * fragmentHeight >= position + height)
 				{
 					position = (index + 1) * fragmentHeight - height;
 				}
@@ -444,6 +514,14 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			index = (mousePosition.y + position) / fragmentHeight;
 			index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
 
+			for (int i = 0; i < int(mainObjects.size()); ++i)
+			{
+				if (mainObjects[i] == objects[index])
+				{
+					mainIndex = i;
+					break;
+				}
+			}
 
 			if (mousePosition != oldMousePosition)
 			{
@@ -451,11 +529,11 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 				oldMousePosition = mousePosition;
 			}
 
-			if (index * fragmentHeight < position)
+			if (index * fragmentHeight <= position)
 			{
 				position = index * fragmentHeight;
 			}
-			else if ((index + 1) * fragmentHeight > position + height)
+			else if ((index + 1) * fragmentHeight >= position + height)
 			{
 				position = (index + 1) * fragmentHeight - height;
 			}
@@ -465,6 +543,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			if (isPressed && (!needButton || (needButton && !button->getStruct()->checkButtonIsPressed)))
 			{
 				indexOfSelectedObject = index;
+				mainIndexOfSelectedObject = mainIndex;
 
 				mouseButtonIsPressed = true;
 			}
@@ -479,5 +558,92 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 		{
 			needInformation = false;
 		}
+	}
+}
+
+void List::workWithText(int unicode)
+{
+	bool changed = false;
+
+	if (int(inputField.size()) < maxSizeOfText || unicode == 8)
+	{
+		if (unicode == 8 || unicode == 32 || (unicode >= 48 && unicode <= 57) || (unicode >= 65 && unicode <= 90) || (unicode >= 97 && unicode <= 122))
+		{
+			if (unicode == 8 && inputField.size() > 0)
+			{
+				inputField.pop_back();
+				changed = true;
+			}
+			else if (unicode != 8)
+			{
+				inputField.push_back(char(unicode));
+				changed = true;
+			}
+		}
+	}
+
+	if (changed)
+	{
+		objects.clear();
+
+		for (int i = 0; i < int(mainObjects.size()); ++i)
+		{
+			if (mainObjects[i]->getComponentParameter()->name.size() >= inputField.size())
+			{
+				string firstName = mainObjects[i]->getComponentParameter()->name,
+					secondName = inputField;
+
+				for (int j = 0; j < int(firstName.size()); ++j)
+				{
+					if (firstName[j] >= 'A' && firstName[j] <= 'Z')
+					{
+						firstName[j] = char(int(firstName[j]) + 32);
+					}
+				}
+
+				for (int j = 0; j < int(secondName.size()); ++j)
+				{
+					if (secondName[j] > 'A' && secondName[j] < 'Z')
+					{
+						secondName[j] = char(int(secondName[j]) + 40);
+					}
+				}
+
+				if (firstName.find(secondName) != string::npos)
+				{
+					objects.push_back(mainObjects[i]);
+				}
+			}
+		}
+
+
+		if (int(objects.size()) * fragmentHeight > height)
+		{
+			needButton = true;
+
+			conversionFactor = float(height - 51) / float(int(objects.size()) * fragmentHeight - height);
+		}
+		else
+		{
+			needButton = false;
+		}
+
+		index = -1;
+		indexOfSelectedObject = -1;
+		for (int i = 0; i < int(objects.size()); ++i)
+		{
+			if (objects[i] == mainObjects[mainIndex])
+			{
+				index = i;
+			}
+			if (objects[i] == mainObjects[mainIndexOfSelectedObject])
+			{
+				indexOfSelectedObject = i;
+			}
+		}
+
+		position = 0;
+
+		updateViewableObject();
 	}
 }
