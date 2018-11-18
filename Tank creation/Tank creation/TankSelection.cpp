@@ -92,6 +92,8 @@ void TankSelection::deleteSelectedElement()
 	delete components[list->getViewableObjects()[list->getIndexOfSelectedObject()]->getIndex()];
 	components.erase(components.begin() + list->getIndexOfSelectedObject());
 
+	int newIndex = list->getIndexOfSelectedObject() == int(components.size()) ? list->getIndexOfSelectedObject() - 1 : list->getIndexOfSelectedObject();
+
 	delete list;
 	objects.clear();
 
@@ -107,6 +109,7 @@ void TankSelection::deleteSelectedElement()
 	list = new List(objects, screanWidth - 6, screanHeight - 90, 3, 87, 100, 100, 120);
 	list->openList(Vector2int(3, 87));
 	list->setNeedClose();
+	list->copyViewableObject(objects[newIndex]);
 
 	graphic->setInformation(*list);
 
@@ -153,6 +156,10 @@ void TankSelection::work()
 			else if ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Left)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Right)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::A)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::D)) || Mouse::isButtonPressed(Mouse::XButton2) || Mouse::isButtonPressed(Mouse::XButton1) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter)))
 			{
 				list->select();
+			}
+			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Delete))
+			{
+				deleteSelectedElement();
 			}
 		}
 
