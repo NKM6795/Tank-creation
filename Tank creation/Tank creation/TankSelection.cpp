@@ -189,6 +189,12 @@ void TankSelection::work()
 
 			button["Delete"].setActivateAnAction(false);
 		}
+		else if (button["Choose"].getActivateAnAction())
+		{
+			list->closeList();
+
+			button["Choose"].setActivateAnAction(false);
+		}
 
 		//Work with list
 		list->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());

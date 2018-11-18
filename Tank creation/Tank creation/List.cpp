@@ -54,7 +54,7 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 	needButton = false;
 	conversionFactor = 1.f;
 	button = nullptr;
-	if (int(objects.size()) * fragmentHeight > height)
+	if (int(objects.size()) * fragmentHeight > this->height)
 	{
 		needButton = true;
 
@@ -127,7 +127,7 @@ void List::setNeedClose()
 
 bool List::inFocuse(Vector2int mousePosition)
 {
-	return open && ((mousePosition >= Vector2int(xCoordinate - 3, yCoordinate - 3) && mousePosition <= Vector2int(xCoordinate + width + 3, yCoordinate + height + 3)) || (needButton && button->getStruct()->checkButtonIsPressed));
+	return open && ((mousePosition >= Vector2int(xCoordinate, yCoordinate) && mousePosition <= Vector2int(xCoordinate + width, yCoordinate + min(getHeight(), int(objects.size()) * fragmentHeight))) || (needButton && button->getStruct()->checkButtonIsPressed));
 }
 
 
@@ -349,7 +349,7 @@ bool List::getNeedInformation()
 
 void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
 {
-	if (!isPressed && mouseButtonIsPressed)
+	if (!isPressed && mouseButtonIsPressed && inFocuse(mousePosition))
 	{
 		mouseButtonIsPressed = false;
 		if (!firstClick)
@@ -456,7 +456,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			timerForInformation = timer;
 			oldMousePosition = mousePosition;
 
-			if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
+			if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), min(height, int(objects.size()) * fragmentHeight)))
 			{
 				if (!up && position + height + fragmentHeight <= int(objects.size()) * fragmentHeight)
 				{
@@ -509,7 +509,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			}
 			needDirect = false;
 		}
-		if (index != -1 && mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), height))
+		if (index != -1 && mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), min(height, int(objects.size()) * fragmentHeight)))
 		{
 			index = (mousePosition.y + position) / fragmentHeight;
 			index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
@@ -521,12 +521,6 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 					mainIndex = i;
 					break;
 				}
-			}
-
-			if (mousePosition != oldMousePosition)
-			{
-				timerForInformation = timer;
-				oldMousePosition = mousePosition;
 			}
 
 			if (index * fragmentHeight <= position)
@@ -547,6 +541,12 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 				mouseButtonIsPressed = true;
 			}
+		}
+
+		if (mousePosition != oldMousePosition && mousePosition >= Vector2int() && mousePosition < Vector2int(width - 11, height))
+		{
+			timerForInformation = timer;
+			oldMousePosition = mousePosition;
 		}
 
 		if (index != -1 && (timer - timerForInformation >= 500 || rightIsPressed))
