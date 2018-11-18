@@ -158,6 +158,40 @@ void Editor::work()
 					newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
 				}
 			}
+			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::LControl))
+			{
+				needNewWindow = true;
+
+				if (tankEditor->completenessСheck() && tank.name == "")
+				{
+					needWindowResult = true;
+
+					string fileName = "Data/Data for save tank.dat";
+
+					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+					newWindow = new SaveTank(fileName, graphic);
+				}
+				else if (tankEditor->completenessСheck())
+				{
+					needNewWindow = true;
+					needWindowResult = true;
+
+					string fileName = "Data/Data for saved.dat";
+
+					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+					newWindow = new Saved(fileName, graphic);
+				}
+				else
+				{
+					string fileName = "Data/Data for not available.dat";
+
+					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+					newWindow = new NotAvailable(fileName, graphic);
+				}
+			}
 			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::W)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0)))
 			{
 				list->setDirect(true);
