@@ -19,10 +19,11 @@ void CheckerOnTankExistence::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowResult = "Cancel/";
-
-				windowIsOpen = false;
-				return;
+				button["Cancel"].setActivateAnAction(true);
+			}
+			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter))
+			{
+				button["Yes"].setActivateAnAction(true);
 			}
 		}
 

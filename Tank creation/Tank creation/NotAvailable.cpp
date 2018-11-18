@@ -17,10 +17,9 @@ void NotAvailable::work()
 
 		while (graphic->pollEvent())
 		{
-			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
+			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)) || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter)))
 			{
-				windowIsOpen = false;
-				return;
+				button["Ok"].setActivateAnAction(true);
 			}
 		}
 

@@ -51,11 +51,13 @@ void SaveTank::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				windowResult = "Cancel/";
-
-				windowIsOpen = false;
-				return;
+				button["Cancel"].setActivateAnAction(true);
 			}
+			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter))
+			{
+				button["Enter name"].setActivateAnAction(true);
+			}
+
 			if (graphic->getEvent().type == Event::TextEntered)
 			{
 				inputText(graphic->getEvent().text.unicode);
