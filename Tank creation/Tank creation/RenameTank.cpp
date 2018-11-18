@@ -45,71 +45,63 @@ void RenameTank::work()
 		}
 
 
-		for (int i = 0; i < numberOfButton; ++i)
+		for (auto i = button.begin(); i != button.end(); ++i)
 		{
-			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+			i->second.work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 		}
-
-		for (int i = 0; i < numberOfButton; ++i)
+		if (button["Cancel"].getActivateAnAction())
 		{
-			if (button[i].getActivateAnAction())
+			windowResult = "Cancel/";
+
+			windowIsOpen = false;
+			return;
+		}
+		else if (button["Save"].getActivateAnAction())
+		{
+			tankName = inputField;
+
+			if (inputField == "")
 			{
-				if (button[i].getStruct()->buttonName == "Cancel")
+				needNewWindow = true;
+
+				string fileName = "Data/Data for not available.dat";
+
+				graphic->drawInRenderTexture(button);
+
+				newWindow = new NotAvailable(fileName, graphic);
+
+				button["Save"].setActivateAnAction(false);
+			}
+			else
+			{
+				ifstream checkOnExistence("Data/Tanks/" + tankName + ".tnk");
+				if (checkOnExistence)
 				{
-					windowResult = "Cancel/";
+					checkOnExistence.close();
+
+					needNewWindow = true;
+					needWindowResult = true;
+
+					string fileName = "Data/Data for checker on tank existence.dat";
+
+					graphic->drawInRenderTexture(button);
+
+					newWindow = new CheckerOnTankExistence(fileName, graphic);
+
+					button["Save"].setActivateAnAction(false);
+
+					return;
+				}
+				else
+				{
+					checkOnExistence.close();
+
+					windowResult = "Rename/" + tankName;
 
 					windowIsOpen = false;
 					return;
 				}
-				else if (button[i].getStruct()->buttonName == "Save")
-				{
-					tankName = inputField;
-
-					if (inputField == "")
-					{
-						needNewWindow = true;
-
-						string fileName = "Data/Data for not available.dat";
-
-						graphic->drawInRenderTexture(button);
-
-						newWindow = new NotAvailable(fileName, graphic);
-
-						button[i].setActivateAnAction(false);
-					}
-					else
-					{
-						ifstream checkOnExistence("Data/Tanks/" + tankName + ".tnk");
-						if (checkOnExistence)
-						{
-							checkOnExistence.close();
-
-							needNewWindow = true;
-							needWindowResult = true;
-
-							string fileName = "Data/Data for checker on tank existence.dat";
-
-							graphic->drawInRenderTexture(button);
-
-							newWindow = new CheckerOnTankExistence(fileName, graphic);
-
-							button[i].setActivateAnAction(false);
-
-							return;
-						}
-						else
-						{
-							checkOnExistence.close();
-
-							windowResult = "Rename/" + tankName;
-
-							windowIsOpen = false;
-							return;
-						}
-					}
-				}
 			}
-
 		}
 
 		graphic->draw(button, inputField);

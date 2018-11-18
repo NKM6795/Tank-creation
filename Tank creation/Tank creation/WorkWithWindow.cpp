@@ -18,8 +18,6 @@ void WorkWithWindow::forConstructor(string &fileName)
 	fileIn >> numberOfButton;
 	if (numberOfButton != 0)
 	{
-		button = new Button[numberOfButton];
-
 		int countOfSimilarButton;
 		int firstParameters[5];
 		string secondParameters[3];
@@ -46,7 +44,8 @@ void WorkWithWindow::forConstructor(string &fileName)
 				{
 					secondParameters[0].erase(secondParameters[0].begin());
 				}
-				button[j].setInformation(firstParameters[0], firstParameters[1], firstParameters[2], firstParameters[3], firstParameters[4], secondParameters[0], secondParameters[1], secondParameters[2]);
+
+				button[secondParameters[0]] = Button(firstParameters[0], firstParameters[1], firstParameters[2], firstParameters[3], firstParameters[4], secondParameters[0], secondParameters[1], secondParameters[2]);
 			}
 			i += countOfSimilarButton;
 		}

@@ -39,70 +39,58 @@ void ExitFromEditor::work()
 		}
 
 
-		for (int i = 0; i < numberOfButton; ++i)
+		for (auto i = button.begin(); i != button.end(); ++i)
 		{
-			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+			i->second.work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 		}
-
-		for (int i = 0; i < numberOfButton; ++i)
+		if (button["Cancel"].getActivateAnAction())
 		{
-			if (button[i].getActivateAnAction())
+			windowResult = "Cancel/";
+
+			windowIsOpen = false;
+			return;
+		}
+		else if (button["Yes"].getActivateAnAction())
+		{
+			windowResult = "Exit/";
+
+			windowIsOpen = false;
+			return;
+		}
+		else if (button["Save and exit"].getActivateAnAction())
+		{
+			needNewWindow = true;
+
+			if (canSave && tankName == "")
 			{
-				if (button[i].getStruct()->buttonName == "Cancel")
-				{
-					windowResult = "Cancel/";
+				needWindowResult = true;
 
-					windowIsOpen = false;
-					return;
-				}
-				if (button[i].getStruct()->buttonName == "Yes")
-				{
-					windowResult = "Exit/";
+				string fileName = "Data/Data for save tank.dat";
 
-					windowIsOpen = false;
-					return;
-				}
-				else
-				{
-					needNewWindow = true;
+				graphic->drawInRenderTexture(button);
 
-					if (canSave && tankName == "")
-					{
-						needWindowResult = true;
+				newWindow = new SaveTank(fileName, graphic);
+			}
+			else if (canSave)
+			{
+				needWindowResult = true;
 
-						string fileName = "Data/Data for save tank.dat";
+				string fileName = "Data/Data for saved.dat";
 
-						graphic->drawInRenderTexture(button);
+				graphic->drawInRenderTexture(button);
 
-						newWindow = new SaveTank(fileName, graphic);
+				newWindow = new Saved(fileName, graphic);
+			}
+			else
+			{
+				string fileName = "Data/Data for not available.dat";
 
-						button[i].setActivateAnAction(false);
-					}
-					else if (canSave)
-					{
-						needWindowResult = true;
+				graphic->drawInRenderTexture(button);
 
-						string fileName = "Data/Data for saved.dat";
-
-						graphic->drawInRenderTexture(button);
-
-						newWindow = new Saved(fileName, graphic);
-
-						button[i].setActivateAnAction(false);
-					}
-					else
-					{
-						string fileName = "Data/Data for not available.dat";
-
-						graphic->drawInRenderTexture(button);
-
-						newWindow = new NotAvailable(fileName, graphic);
-
-						button[i].setActivateAnAction(false);
-					}
-				}
+				newWindow = new NotAvailable(fileName, graphic);
 			}
 
+			button["Save and exit"].setActivateAnAction(false);
 		}
 
 		graphic->draw(button);

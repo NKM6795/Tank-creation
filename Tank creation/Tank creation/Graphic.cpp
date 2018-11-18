@@ -98,14 +98,15 @@ Graphic::~Graphic()
 }
 
 
-void Graphic::setInformation(int countOfButton, Button *button)
+void Graphic::setInformation(int countOfButton, map<string, Button> &button)
 {
 	numberOfButtonDraw = countOfButton;
 	buttonDraw = new ButtonDraw[numberOfButtonDraw];
 
-	for (int i = 0; i < numberOfButtonDraw; ++i)
+	int i = 0;
+	for (auto j = button.begin(); j != button.end(); ++j, ++i)
 	{
-		buttonDraw[i].setInformation(*button[i].getStruct());
+		buttonDraw[i].setInformation(*j->second.getStruct());
 	}
 }
 
@@ -360,11 +361,12 @@ void Graphic::drawPrivate(string *text)
 	}
 }
 
-void Graphic::drawPrivate(Button *button)
+void Graphic::drawPrivate(map<string, Button> &button)
 {
-	for (int i = 0; i < numberOfButtonDraw; ++i)
+	int i = 0;
+	for (auto j = button.begin(); j != button.end(); ++j, ++i)
 	{
-		buttonDraw[i].drawButton(*textureForWindow, *button[i].getStruct());
+		buttonDraw[i].drawButton(*textureForWindow, *j->second.getStruct());
 	}
 }
 
@@ -421,112 +423,112 @@ void Graphic::drawPrivate(List &list, long timer)
 }
 
 
-void Graphic::draw(Button *button)
+void Graphic::draw(map<string, Button> &button)
 {
 	drawInRenderTexture(button);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, List &list, long timer)
+void Graphic::draw(map<string, Button> &button, List &list, long timer)
 {
 	drawInRenderTexture(button, list, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, Tank &tank, long timer)
+void Graphic::draw(map<string, Button> &button, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, tank, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, vector<ViewableObject *> &objects, long timer)
+void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button, objects, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer)
+void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, objects, tank, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
+void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
 {
 	drawInRenderTexture(button, objects, tank, list, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, string &inputField)
+void Graphic::draw(map<string, Button> &button, string &inputField)
 {
 	drawInRenderTexture(button, inputField);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, string &inputField, Tank &tank, long timer)
+void Graphic::draw(map<string, Button> &button, string &inputField, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, inputField, tank, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer)
+void Graphic::draw(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button, inputField, objects, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer)
+void Graphic::draw(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, inputField, objects, tank, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(string *text, Button *button)
+void Graphic::draw(string *text, map<string, Button> &button)
 {
 	drawInRenderTexture(text, button);
 
 	drawWindow();
 }
 
-void Graphic::draw(string *text, Button *button, List &list, long timer)
+void Graphic::draw(string *text, map<string, Button> &button, List &list, long timer)
 {
 	drawInRenderTexture(text, button, list, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(string *text, Button *button, Tank &tank, long timer)
+void Graphic::draw(string *text, map<string, Button> &button, Tank &tank, long timer)
 {
 	drawInRenderTexture(text, button, tank, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(string *text, Button *button, vector<ViewableObject *> &objects, long timer)
+void Graphic::draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(text, button, objects, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer)
+void Graphic::draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(text, button, objects, tank, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
+void Graphic::draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
 {
 	drawInRenderTexture(text, button, objects, tank, list, timer);
 
@@ -534,110 +536,110 @@ void Graphic::draw(string *text, Button *button, vector<ViewableObject *> &objec
 }
 
 
-void Graphic::drawInRenderTexture(Button *button)
+void Graphic::drawInRenderTexture(map<string, Button> &button)
 {
 	drawPrivate();
 	drawPrivate(button);
 }
 
-void Graphic::drawInRenderTexture(Button *button, List &list, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, List &list, long timer)
 {
 	drawInRenderTexture(button);
 
 	drawPrivate(list, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, Tank &tank, long timer)
 {
 	drawInRenderTexture(button);
 
 	drawPrivate(tank, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, tank, timer);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
 {
 	drawInRenderTexture(button, objects, tank, timer);
 
 	drawPrivate(list, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, string &inputField)
+void Graphic::drawInRenderTexture(map<string, Button> &button, string &inputField)
 {
 	drawInRenderTexture(button);
 
 	drawPrivate(inputField);
 }
 
-void Graphic::drawInRenderTexture(Button *button, string &inputField, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, string &inputField, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, inputField);
 
 	drawPrivate(tank, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(button, inputField);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(button, inputField, objects, timer);
 
 	drawPrivate(tank, timer);
 }
 
-void Graphic::drawInRenderTexture(string *text, Button *button)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button)
 {
 	drawPrivate(text);
 	drawPrivate(button);
 }
 
-void Graphic::drawInRenderTexture(string *text, Button *button, List &list, long timer)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, List &list, long timer)
 {
 	drawInRenderTexture(text, button);
 
 	drawPrivate(list, timer);
 }
 
-void Graphic::drawInRenderTexture(string *text, Button *button, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, Tank &tank, long timer)
 {
 	drawInRenderTexture(text, button);
 
 	drawPrivate(tank, timer);
 }
 
-void Graphic::drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, long timer)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, long timer)
 {
 	drawInRenderTexture(text, button);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
 	drawInRenderTexture(text, button, tank, timer);
 
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
 {
 	drawInRenderTexture(text, button, objects, tank, timer);
 

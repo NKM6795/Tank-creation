@@ -63,37 +63,29 @@ void SaveTank::work()
 		}
 
 
-		for (int i = 0; i < numberOfButton; ++i)
+		for (auto i = button.begin(); i != button.end(); ++i)
 		{
-			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+			i->second.work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 		}
-
-		for (int i = 0; i < numberOfButton; ++i)
+		if (button["Cancel"].getActivateAnAction())
 		{
-			if (button[i].getActivateAnAction())
-			{
-				if (button[i].getStruct()->buttonName == "Cancel")
-				{
-					windowResult = "Cancel/";
+			windowResult = "Cancel/";
 
-					windowIsOpen = false;
-					return;
-				}
-				else if (button[i].getStruct()->buttonName == "Enter name")
-				{
-					needNewWindow = true;
-					needWindowResult = true;
+			windowIsOpen = false;
+			return;
+		}
+		else if (button["Enter name"].getActivateAnAction())
+		{
+			needNewWindow = true;
+			needWindowResult = true;
 
-					string fileName = "Data/Data for rename tank.dat";
+			string fileName = "Data/Data for rename tank.dat";
 
-					graphic->drawInRenderTexture(button);
+			graphic->drawInRenderTexture(button);
 
-					newWindow = new RenameTank(fileName, graphic);
+			newWindow = new RenameTank(fileName, graphic);
 
-					button[i].setActivateAnAction(false);
-				}
-			}
-
+			button["Enter name"].setActivateAnAction(false);
 		}
 
 		graphic->draw(button);

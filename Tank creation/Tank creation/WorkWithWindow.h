@@ -18,7 +18,7 @@ protected:
 	string windowName;
 
 	int numberOfButton;
-	Button *button;
+	map<string, Button> button;
 
 	int numberOfText;
 	int *textXCoordinate;
@@ -84,11 +84,6 @@ public:
 	
 	virtual ~WorkWithWindow()
 	{
-		if (numberOfButton != 0)
-		{
-			delete[] button;
-		}
-
 		if (numberOfText != 0)
 		{
 			delete[] textXCoordinate;

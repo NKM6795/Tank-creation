@@ -212,96 +212,86 @@ void Editor::work()
 		}
 
 		//Work with buttons
-		for (int i = 0; i < numberOfButton; ++i)
+		for (auto i = button.begin(); i != button.end(); ++i)
 		{
-			button[i].work(mousePosition * ((graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))) ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && (graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))), timer, timeForWork);
+			i->second.work(mousePosition * ((graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))) ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && (graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))), timer, timeForWork);
 		}
-		for (int i = 0; i < numberOfButton; ++i)
+		if (button["Back"].getActivateAnAction())
 		{
-			if (button[i].getActivateAnAction())
+			if (!tankIsChanged || tankEditor->isEmpty())
 			{
-				if (button[i].getStruct()->buttonName == "Back")
-				{
-					if (!tankIsChanged || tankEditor->isEmpty())
-					{
-						windowIsOpen = false;
-						return;
-					}
-					else
-					{
-						needNewWindow = true;
-						needWindowResult = true;
+				windowIsOpen = false;
+				return;
+			}
+			else
+			{
+				needNewWindow = true;
+				needWindowResult = true;
 
-						string fileName = "Data/Data for exit from editor.dat";
+				string fileName = "Data/Data for exit from editor.dat";
 
-						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
-						newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
+				newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
 
-						button[i].setActivateAnAction(false);
-					}
-				}
-				else if (button[i].getStruct()->buttonName == "Clear")
-				{
-					tankEditor->clear();
-
-					button[i].setActivateAnAction(false);
-				}
-				else if (button[i].getStruct()->buttonName == "Save")
-				{
-					needNewWindow = true;
-
-					if (tankEditor->completenessСheck() && tank.name == "")
-					{
-						needWindowResult = true;
-
-						string fileName = "Data/Data for save tank.dat";
-
-						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-						newWindow = new SaveTank(fileName, graphic);
-
-						button[i].setActivateAnAction(false);
-					}
-					else if (tankEditor->completenessСheck())
-					{
-						needNewWindow = true;
-						needWindowResult = true;
-
-						string fileName = "Data/Data for saved.dat";
-
-						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-						newWindow = new Saved(fileName, graphic);
-
-						button[i].setActivateAnAction(false);
-					}
-					else
-					{
-						string fileName = "Data/Data for not available.dat";
-
-						graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-						newWindow = new NotAvailable(fileName, graphic);
-						
-						button[i].setActivateAnAction(false);
-					}
-				}
-				else if (button[i].getStruct()->buttonName == "Change name")
-				{
-					needNewWindow = true;
-					needWindowResult = true;
-
-					string fileName = "Data/Data for rename tank.dat";
-
-					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-					newWindow = new RenameTank(fileName, graphic, tank.name);
-
-					button[i].setActivateAnAction(false);
-				}
+				button["Back"].setActivateAnAction(false);
 			}
 
+		}
+		else if (button["Clear"].getActivateAnAction())
+		{
+			tankEditor->clear();
+
+			button["Clear"].setActivateAnAction(false);
+		}
+		else if (button["Save"].getActivateAnAction())
+		{
+			needNewWindow = true;
+
+			if (tankEditor->completenessСheck() && tank.name == "")
+			{
+				needWindowResult = true;
+
+				string fileName = "Data/Data for save tank.dat";
+
+				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+				newWindow = new SaveTank(fileName, graphic);
+			}
+			else if (tankEditor->completenessСheck())
+			{
+				needNewWindow = true;
+				needWindowResult = true;
+
+				string fileName = "Data/Data for saved.dat";
+
+				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+				newWindow = new Saved(fileName, graphic);
+			}
+			else
+			{
+				string fileName = "Data/Data for not available.dat";
+
+				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+				newWindow = new NotAvailable(fileName, graphic);
+			}
+
+			button["Save"].setActivateAnAction(false);
+		}
+		else if (button["Change name"].getActivateAnAction())
+		{
+			needNewWindow = true;
+			needWindowResult = true;
+
+			string fileName = "Data/Data for rename tank.dat";
+
+			graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+			newWindow = new RenameTank(fileName, graphic, tank.name);
+
+			button["Change name"].setActivateAnAction(false);
 		}
 
 		//Work with tank

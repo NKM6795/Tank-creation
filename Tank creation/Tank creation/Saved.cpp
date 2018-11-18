@@ -27,24 +27,16 @@ void Saved::work()
 		}
 
 
-		for (int i = 0; i < numberOfButton; ++i)
+		for (auto i = button.begin(); i != button.end(); ++i)
 		{
-			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+			i->second.work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 		}
-
-		for (int i = 0; i < numberOfButton; ++i)
+		if (button["Ok"].getActivateAnAction())
 		{
-			if (button[i].getActivateAnAction())
-			{
-				if (button[i].getStruct()->buttonName == "Ok")
-				{
-					windowResult = "Saved/";
+			windowResult = "Saved/";
 
-					windowIsOpen = false;
-					return;
-				}
-			}
-
+			windowIsOpen = false;
+			return;
 		}
 
 		graphic->draw(button);

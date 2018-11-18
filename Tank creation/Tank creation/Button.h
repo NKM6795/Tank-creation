@@ -40,6 +40,9 @@ private:
 	ButtonParameter button;
 
 public:
+	Button();
+	Button(int xCoordinate, int yCoordinate, int width, int height, int characterSize, string buttonName, string buttonType, string fontName);
+
 	void setInformation(int xCoordinate, int yCoordinate, int width, int height, int characterSize, string buttonName, string buttonType, string fontName);
 
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps);

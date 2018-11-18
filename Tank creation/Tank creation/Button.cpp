@@ -1,6 +1,16 @@
 #include "Button.h"
 
 
+Button::Button()
+{
+
+}
+
+Button::Button(int xCoordinate, int yCoordinate, int width, int height, int characterSize, string buttonName, string buttonType, string fontName)
+{
+	setInformation(xCoordinate, yCoordinate, width, height, characterSize, buttonName, buttonType, fontName);
+}
+
 void Button::setInformation(int xCoordinate, int yCoordinate, int width, int height, int characterSize, string buttonName, string buttonType, string fontName)
 {
 	button.maxTimerForPointing = 200;

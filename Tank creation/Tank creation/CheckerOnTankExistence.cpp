@@ -27,31 +27,23 @@ void CheckerOnTankExistence::work()
 		}
 
 
-		for (int i = 0; i < numberOfButton; ++i)
+		for (auto i = button.begin(); i != button.end(); ++i)
 		{
-			button[i].work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
+			i->second.work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork);
 		}
-
-		for (int i = 0; i < numberOfButton; ++i)
+		if (button["Cancel"].getActivateAnAction())
 		{
-			if (button[i].getActivateAnAction())
-			{
-				if (button[i].getStruct()->buttonName == "Cancel")
-				{
-					windowResult = "Cancel/";
+			windowResult = "Cancel/";
 
-					windowIsOpen = false;
-					return;
-				}
-				else if (button[i].getStruct()->buttonName == "Yes")
-				{
-					windowResult = "Yes/";
+			windowIsOpen = false;
+			return;
+		}
+		else if (button["Yes"].getActivateAnAction())
+		{
+			windowResult = "Yes/";
 
-					windowIsOpen = false;
-					return;
-				}
-			}
-
+			windowIsOpen = false;
+			return;
 		}
 
 		graphic->draw(button);

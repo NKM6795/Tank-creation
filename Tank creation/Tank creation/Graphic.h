@@ -61,7 +61,7 @@ class Graphic
 	
 	void drawPrivate();
 	void drawPrivate(string *text);
-	void drawPrivate(Button *button);
+	void drawPrivate(map<string, Button> &button);
 	void drawPrivate(string &inputField);
 	void drawPrivate(vector<ViewableObject *> &objects, long timer);
 	void drawPrivate(Tank &tank, long timer);
@@ -78,7 +78,7 @@ public:
 
 	~Graphic();
 
-	void setInformation(int numberOfButton, Button *button);
+	void setInformation(int numberOfButton, map<string, Button> &button);
 	void setInformation(int numberOfText, string *text, string *fontName, int *characterSize, int *xCoordinate, int *yCoordinate);
 	void setInformation(int xCoordinate, int yCoordinate, int width, int height, string fileName);
 	void setInformation(int width, int height, bool needInputField, int xCoordinate, int yCoordinate, int characterSize, string fontName, RenderTexture *renderTextureForBackground);
@@ -86,39 +86,39 @@ public:
 	void setInformation(Tank &tank);
 	void setInformation(List &list);
 
-	void draw(Button *button);
-	void draw(Button *button, List &list, long timer);
-	void draw(Button *button, Tank &tank, long timer);
-	void draw(Button *button, vector<ViewableObject *> &objects, long timer);
-	void draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void draw(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
-	void draw(Button *button, string &inputField);
-	void draw(Button *button, string &inputField, Tank &tank, long timer);
-	void draw(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer);
-	void draw(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void draw(string *text, Button *button);
-	void draw(string *text, Button *button, List &list, long timer);
-	void draw(string *text, Button *button, Tank &tank, long timer);
-	void draw(string *text, Button *button, vector<ViewableObject *> &objects, long timer);
-	void draw(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void draw(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
+	void draw(map<string, Button> &button);
+	void draw(map<string, Button> &button, List &list, long timer);
+	void draw(map<string, Button> &button, Tank &tank, long timer);
+	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
+	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
+	void draw(map<string, Button> &button, string &inputField);
+	void draw(map<string, Button> &button, string &inputField, Tank &tank, long timer);
+	void draw(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, long timer);
+	void draw(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void draw(string *text, map<string, Button> &button);
+	void draw(string *text, map<string, Button> &button, List &list, long timer);
+	void draw(string *text, map<string, Button> &button, Tank &tank, long timer);
+	void draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
+	void draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 
-	void drawInRenderTexture(Button *button);
-	void drawInRenderTexture(Button *button, List &list, long timer);
-	void drawInRenderTexture(Button *button, Tank &tank, long timer);
-	void drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, long timer);
-	void drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void drawInRenderTexture(Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
-	void drawInRenderTexture(Button *button, string &inputField);
-	void drawInRenderTexture(Button *button, string &inputField, Tank &tank, long timer);
-	void drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, long timer);
-	void drawInRenderTexture(Button *button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void drawInRenderTexture(string *text, Button *button);
-	void drawInRenderTexture(string *text, Button *button, List &list, long timer);
-	void drawInRenderTexture(string *text, Button *button, Tank &tank, long timer);
-	void drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, long timer);
-	void drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void drawInRenderTexture(string *text, Button *button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
+	void drawInRenderTexture(map<string, Button> &button);
+	void drawInRenderTexture(map<string, Button> &button, List &list, long timer);
+	void drawInRenderTexture(map<string, Button> &button, Tank &tank, long timer);
+	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
+	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
+	void drawInRenderTexture(map<string, Button> &button, string &inputField);
+	void drawInRenderTexture(map<string, Button> &button, string &inputField, Tank &tank, long timer);
+	void drawInRenderTexture(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, long timer);
+	void drawInRenderTexture(map<string, Button> &button, string &inputField, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(string *text, map<string, Button> &button);
+	void drawInRenderTexture(string *text, map<string, Button> &button, List &list, long timer);
+	void drawInRenderTexture(string *text, map<string, Button> &button, Tank &tank, long timer);
+	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
+	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 
 	void saveTank(string fileName, Tank &tank, long timer);
 

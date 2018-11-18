@@ -172,28 +172,22 @@ void TankSelection::work()
 		}
 
 		//Work with buttons
-		for (int i = 0; i < numberOfButton; ++i)
+		for (auto i = button.begin(); i != button.end(); ++i)
 		{
-			button[i].work(mousePosition * ((graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))) ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && (graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))), timer, timeForWork);
+			i->second.work(mousePosition * ((graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))) ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && (graphic->hasFocus() && !list->inFocuse(mousePosition) && list->canAddElement(Mouse::isButtonPressed(Mouse::Left))), timer, timeForWork);
 		}
-		for (int i = 0; i < numberOfButton; ++i)
+		if (button["Back"].getActivateAnAction())
 		{
-			if (button[i].getActivateAnAction())
-			{
-				if (button[i].getStruct()->buttonName == "Back")
-				{
-					windowResult = "Cancel/";
+			windowResult = "Cancel/";
 
-					windowIsOpen = false;
-					return;
-				}
-				else if (button[i].getStruct()->buttonName == "Delete")
-				{
-					deleteSelectedElement();
+			windowIsOpen = false;
+			return;
+		}
+		else if (button["Delete"].getActivateAnAction())
+		{
+			deleteSelectedElement();
 
-					button[i].setActivateAnAction(false);
-				}
-			}
+			button["Delete"].setActivateAnAction(false);
 		}
 
 		//Work with list
