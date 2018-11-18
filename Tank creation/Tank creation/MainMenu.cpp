@@ -4,6 +4,8 @@
 MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 {
 	fileIn.close();
+
+	needOpenBattle = false;
 }
 
 MainMenu::~MainMenu()
@@ -21,15 +23,32 @@ void MainMenu::work()
 		{
 			if (windowResult != "Cancel/")
 			{
-				needNewWindow = true;
+				if (needOpenBattle)
+				{
+					needOpenBattle = false;
 
-				string fileName = "Data/Data for editor.dat";
+					needNewWindow = true;
 
-				newWindow = new Editor(fileName, graphic, windowResult);
+					string fileName = "Data/Data for battle.dat";
 
-				needWindowResult = false;
+					newWindow = new Battle(fileName, graphic, windowResult);
 
-				return;
+					needWindowResult = false;
+
+					return;
+				}
+				else
+				{
+					needNewWindow = true;
+
+					string fileName = "Data/Data for editor.dat";
+
+					newWindow = new Editor(fileName, graphic, windowResult);
+
+					needWindowResult = false;
+
+					return;
+				}
 			}
 			needWindowResult = false;
 		}
@@ -80,13 +99,14 @@ void MainMenu::work()
 		}
 		else if (button["Battle with the bot"].getActivateAnAction())
 		{
+			needOpenBattle = true;
+
 			needNewWindow = true;
+			needWindowResult = true;
 
-			string fileName = "Data/Data for not available.dat";
+			string fileName = "Data/Data for tank selection.dat";
 
-			graphic->drawInRenderTexture(button);
-
-			newWindow = new NotAvailable(fileName, graphic);
+			newWindow = new TankSelection(fileName, graphic);
 
 			button["Battle with the bot"].setActivateAnAction(false);
 		}

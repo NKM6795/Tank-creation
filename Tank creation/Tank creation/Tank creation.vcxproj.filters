@@ -271,6 +271,9 @@
     <ClCompile Include="PersonalTank.cpp">
       <Filter>Tank And Components\Tank\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>Windows\Sourse Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -395,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="PersonalTank.h">
       <Filter>Tank And Components\Tank\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
