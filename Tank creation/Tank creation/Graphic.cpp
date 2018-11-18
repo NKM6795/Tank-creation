@@ -405,9 +405,7 @@ void Graphic::drawPrivate(List &list, long timer)
 {
 	RenderTexture *renderTextureForList = new RenderTexture;
 	renderTextureForList->create(list.getWidth(), list.getHeight());
-
 	listDraw->draw(*renderTextureForList, list, timer);
-
 	renderTextureForList->display();
 
 	delete listTexture;
@@ -419,8 +417,6 @@ void Graphic::drawPrivate(List &list, long timer)
 	listSprite->setPosition(float(list.getOffset().x), float(list.getOffset().y));
 
 	drawFramework(*textureForWindow, list.getOffset().x, list.getOffset().y, list.getOffset().x + list.getWidth(), list.getOffset().y + list.getHeight());
-
-
 	textureForWindow->draw(*listSprite);
 }
 

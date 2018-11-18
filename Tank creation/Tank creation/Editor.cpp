@@ -17,6 +17,8 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	components = dataForResources();
 	graphic->setInformation(components);
 
+	fileIn >> listWidth >> listHeight >> listPosition.x >> listPosition.y;
+
 	fileIn.close();
 
 	graphic->setInformation(tank);
@@ -44,9 +46,8 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 		temp.push_back(newViewableObject);
 	}
 
-	list = new List(temp, 300, 550, 50, 50);
-
-	list->openList(Vector2int(22, 94));
+	list = new List(temp, listWidth, listHeight, listPosition.x, listPosition.y);
+	list->openList(listPosition);
 
 	graphic->setInformation(*list);
 }

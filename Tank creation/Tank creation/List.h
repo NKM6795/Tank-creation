@@ -7,47 +7,49 @@
 
 class List
 {
+	//Open and close list
 	bool open;
-
 	bool needClose;
 
-	long timerForInformation;
-	long timerForDoubleClick;
-	bool firstClick;
-
-	string fileName;
-
-	vector<ViewableObject *> objects;
-
-	int objectWidth,
-		objectHeight;
+	//Indexes and position
+	int position;
+	int searchEngineHeight;
+	int index;
+	int indexOfSelectedObject;
+	bool needDirect;
+	bool up;
+	bool needSelect;
+	int deltaPosition;
 	int fragmentHeight;
-
 	int width,
 		height;
 	int xCoordinate,
 		yCoordinate;
 
-	int index;
-	int indexOfSelectedObject;
-	int position;
-	float conversionFactor;
+	//Information
+	bool needInformation;
+	long timerForInformation;
 
+	//Mouse
+	bool mouseButtonIsPressed;
+	long timerForDoubleClick;
+	bool firstClick;
+	Vector2int oldMousePosition;
+
+	//Scrollbar
 	bool needButton;
 	Button *button;
-	int deltaPosition;
+	float conversionFactor;
 
+	//Objects
+	vector<ViewableObject *> objects;
+	string fileName;
+	int objectWidth,
+		objectHeight;
 	int separationThickness;
 
-	bool needDirect;
-	bool up;
-	bool needSelect;
-
-	bool needInformation;
-
-	bool mouseButtonIsPressed;
-
-	Vector2int oldMousePosition;
+	//Filter
+	string inputField;
 
 	void updateViewableObject();
 
@@ -59,7 +61,6 @@ public:
 	bool isOpen();
 	void openList(Vector2int mousePosition);
 	void closeList();
-
 	void setNeedClose();
 
 	bool inFocuse(Vector2int mousePosition);
@@ -97,6 +98,10 @@ public:
 
 	int getViewableObjectWidth();
 	int getViewableObjectHeight();
+
+	int getSearchEngineHeight();
+
+	string getInputField();
 
 	bool getNeedInformation();
 

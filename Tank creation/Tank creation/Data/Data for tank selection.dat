@@ -7,10 +7,11 @@ Tank selection
 116 66 33
 small
 Data/Fonts/Strangiato.otf
-70 50 Back
-1210 50 Delete
+55 30 Back
+1207 30 Delete
 0
 Data
 /Tanks
 
 1
+1274 655 3 62 100 100 120

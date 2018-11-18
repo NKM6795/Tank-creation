@@ -22,6 +22,9 @@ class ListDraw
 	Texture backgroundRorInformationTexture;
 	Sprite backgroundRorInformationSprite;
 
+	Texture backgroundRorSearchEngineHeightTexture;
+	Sprite backgroundRorSearchEngineHeightSprite;
+
 	Text information;
 
 	void drawInformation(RenderTexture &renderTexture, List &list, long timer);

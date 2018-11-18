@@ -10,6 +10,12 @@ class TankSelection : public WorkWithWindow
 
 	vector<ViewableObject *> objects;
 
+	int listWidth,
+		listHeight;
+	int listObjectWidth,
+		listObjectHeight;
+	int listFragmentHeight;
+	Vector2int listPosition;
 	List *list;
 
 	void deleteSelectedElement();

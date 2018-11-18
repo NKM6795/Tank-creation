@@ -22,6 +22,9 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 	getline(fileIn, identifierName);
 	fileIn >> numberOfVariant;
 
+	fileIn >> listWidth >> listHeight >> listPosition.x >> listPosition.y >> listObjectWidth >> listObjectHeight >> listFragmentHeight;
+
+
 	fileIn.close();
 
 
@@ -54,8 +57,8 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 
 	graphic->setInformation(components);
 
-	list = new List(objects, screanWidth - 6, screanHeight - 90, 3, 87, 100, 100, 120);
-	list->openList(Vector2int(3, 87));
+	list = new List(objects, listWidth, listHeight, listPosition.x, listPosition.y, listObjectWidth, listObjectHeight, listFragmentHeight);
+	list->openList(listPosition);
 	list->setNeedClose();
 
 	graphic->setInformation(*list);
@@ -106,8 +109,8 @@ void TankSelection::deleteSelectedElement()
 	graphic->setInformation(components);
 
 	
-	list = new List(objects, screanWidth - 6, screanHeight - 90, 3, 87, 100, 100, 120);
-	list->openList(Vector2int(3, 87));
+	list = new List(objects, listWidth, listHeight, listPosition.x, listPosition.y, listObjectWidth, listObjectHeight, listFragmentHeight);
+	list->openList(listPosition);
 	list->setNeedClose();
 	list->copyViewableObject(objects[newIndex]);
 

@@ -5,12 +5,12 @@ void List::updateViewableObject()
 {
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
-		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2 - position);
+		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2 - position + searchEngineHeight);
 	}
 
 	if (needButton)
 	{
-		button->getStruct()->yCoordinate = int(conversionFactor * position) + 25;
+		button->getStruct()->yCoordinate = int(conversionFactor * position) + 25 + searchEngineHeight;
 	}
 }
 
@@ -18,31 +18,35 @@ void List::updateViewableObject()
 List::List(vector<ViewableObject *> objects, int width, int height, int xCoordinate, int yCoordinate, int objectWidth, int objectHeight, int fragmentHeight, int separationThickness) : 
 	objects(objects), width(width), height(height), xCoordinate(xCoordinate), yCoordinate(yCoordinate), objectWidth(objectWidth), objectHeight(objectHeight), fragmentHeight(fragmentHeight), separationThickness(separationThickness)
 {
+	//Open and close list
 	open = false;
-
 	needClose = false;
-	needSelect = false;
 
-	timerForDoubleClick = 0;
-	firstClick = false;
-
+	//Indexes and position
 	position = 0;
+	searchEngineHeight = fragmentHeight / 2;
+	this->height -= searchEngineHeight;
 	index = 0;
 	indexOfSelectedObject = 0;
-
 	if (objects.size() == 0)
 	{
 		index = -1;
 		indexOfSelectedObject = -1;
 	}
-
 	needDirect = false;
 	deltaPosition = -1;
+	needSelect = false;
 	
+	//Information
 	needInformation = false;
+	timerForInformation = 0;
 
+	//Mouse
 	mouseButtonIsPressed = false;
+	timerForDoubleClick = 0;
+	firstClick = false;
 
+	//Scrollbar
 	needButton = false;
 	conversionFactor = 1.f;
 	button = nullptr;
@@ -54,9 +58,10 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 
 		button = new Button;
 
-		button->setInformation(width - 5, 25, 10, 51, 0, "", "scrollbar", "");
+		button->setInformation(width - 5, 25 + searchEngineHeight, 10, 51, 0, "", "scrollbar", "");
 	}
 
+	//Objects
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
 		if (objects[i]->getComponentParameter()->width == 30)
@@ -67,10 +72,12 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 		{
 			objects[i]->setScale(min(3.f / float(objects[i]->getComponentParameter()->width), 2.f / float(objects[i]->getComponentParameter()->height)));
 		}
-		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2);
+		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2 + searchEngineHeight);
 	}
-
 	fileName = "Data/Fonts/Strangiato.otf";
+
+	//Filter
+
 }
 
 
@@ -271,7 +278,7 @@ int List::getWidth()
 
 int List::getHeight()
 {
-	return height;
+	return height + searchEngineHeight;
 }
 
 
@@ -283,6 +290,18 @@ int List::getViewableObjectWidth()
 int List::getViewableObjectHeight()
 {
 	return objectHeight;
+}
+
+
+int List::getSearchEngineHeight()
+{
+	return searchEngineHeight;
+}
+
+
+string List::getInputField()
+{
+	return inputField;
 }
 
 
@@ -320,10 +339,11 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 	}
 
 	mousePosition = mousePosition - getOffset();
+	mousePosition.y -= searchEngineHeight;
 
 	if (needButton)
 	{
-		button->work(mousePosition * (open ? 1 : -100), isPressed && open, timer, fps);
+		button->work((mousePosition + Vector2int(0, searchEngineHeight)) * (open ? 1 : -100), isPressed && open, timer, fps);
 	}
 
 	if (!open)
@@ -383,9 +403,20 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 					updateViewableObject();
 				}
+				else if (!up)
+				{
+					position = int(objects.size()) * fragmentHeight - height;
+
+					updateViewableObject();
+				}
 				else if (up && position - fragmentHeight >= 0)
 				{
 					position -= fragmentHeight;
+
+				}
+				else if (up)
+				{
+					position = 0;
 
 					updateViewableObject();
 				}

@@ -17,11 +17,14 @@ class Editor : public WorkWithWindow
 	vector<Component *> components;
 	vector<ViewableObject *> objects;
 	pair<Vector2int, Vector2int> oldViewableObject;
-
+	
 	bool tankIsChanged;
 	Tank tank;
 	TankEditor *tankEditor;
 
+	int listWidth,
+		listHeight;
+	Vector2int listPosition;
 	List *list;
 
 public:
