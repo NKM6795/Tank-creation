@@ -6,6 +6,15 @@ void List::updateViewableObject()
 	for (int i = 0; i < int(objects.size()); ++i)
 	{
 		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2 - position + searchEngineHeight);
+
+		if (objects[i]->getPosition().y + objects[i]->getComponentParameter()->height * 20 < searchEngineHeight || objects[i]->getPosition().y > getHeight())
+		{
+			objects[i]->needDraw = false;
+		}
+		else
+		{
+			objects[i]->needDraw = true;
+		}
 	}
 
 	if (needButton)
@@ -76,8 +85,8 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 		{
 			objects[i]->setScale(min(3.f / float(objects[i]->getComponentParameter()->width), 2.f / float(objects[i]->getComponentParameter()->height)));
 		}
-		objects[i]->setPosition((fragmentHeight - objectHeight + objectWidth - int(objects[i]->getScale() * objects[i]->getComponentParameter()->width * 20)) / 2, i * fragmentHeight + (fragmentHeight - int(objects[i]->getScale() * objects[i]->getComponentParameter()->height * 20)) / 2 + searchEngineHeight);
 	}
+	updateViewableObject();
 	fileName = "Data/Fonts/Strangiato.otf";
 
 	//Filter

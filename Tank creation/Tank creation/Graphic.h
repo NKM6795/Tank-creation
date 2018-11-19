@@ -47,12 +47,12 @@ class Graphic
 
 	bool needTank;
 	TankDraw *tankDraw;
-	Texture *tankTexture;
+	RenderTexture *renderTextureForTank;
 	Sprite *tankSprite;
 
 	bool needList;
 	ListDraw *listDraw;
-	Texture *listTexture;
+	RenderTexture *renderTextureForList;
 	Sprite *listSprite;
 
 	void forConstructor();

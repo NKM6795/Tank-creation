@@ -82,16 +82,12 @@ Graphic::~Graphic()
 	{
 		delete tankDraw;
 
-		delete tankTexture;
-
 		delete tankSprite;
 	}
 
 	if (needList)
 	{
 		delete listDraw;
-
-		delete listTexture;
 
 		delete listSprite;
 	}
@@ -263,9 +259,10 @@ void Graphic::setInformation(Tank &tank)
 
 	tankDraw = new TankDraw();
 
-	tankTexture = new Texture;
-
 	tankSprite = new Sprite;
+
+	renderTextureForTank = new RenderTexture;
+	renderTextureForTank->create(tank.getDimension(), tank.getDimension());
 }
 
 void Graphic::setInformation(List &list)
@@ -282,9 +279,10 @@ void Graphic::setInformation(List &list)
 
 		listDraw = new ListDraw(list, components);
 
-		listTexture = new Texture;
-
 		listSprite = new Sprite;
+
+		renderTextureForList = new RenderTexture;
+		renderTextureForList->create(list.getWidth(), list.getHeight());
 	}
 }
 
@@ -384,20 +382,12 @@ void Graphic::drawPrivate(vector<ViewableObject *> &objects, long timer)
 
 void Graphic::drawPrivate(Tank &tank, long timer)
 {
-	RenderTexture *renderTextureForTank = new RenderTexture;
-	renderTextureForTank->create(tank.getDimension(), tank.getDimension());
 	renderTextureForTank->clear(Color(0, 0, 0, 0));
 
 	tankDraw->draw(*renderTextureForTank, timer, tank, components);
-
 	renderTextureForTank->display();
 
-	delete tankTexture;
-	tankTexture = new Texture(renderTextureForTank->getTexture());
-
-	delete renderTextureForTank;
-
-	tankSprite->setTexture(*tankTexture);
+	tankSprite->setTexture(renderTextureForTank->getTexture());
 	tankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
 
 	textureForWindow->draw(*tankSprite);
@@ -405,17 +395,10 @@ void Graphic::drawPrivate(Tank &tank, long timer)
 
 void Graphic::drawPrivate(List &list, long timer)
 {
-	RenderTexture *renderTextureForList = new RenderTexture;
-	renderTextureForList->create(list.getWidth(), list.getHeight());
 	listDraw->draw(*renderTextureForList, list, timer);
 	renderTextureForList->display();
-
-	delete listTexture;
-	listTexture = new Texture(renderTextureForList->getTexture());
-
-	delete renderTextureForList;
-
-	listSprite->setTexture(*listTexture);
+	
+	listSprite->setTexture(renderTextureForList->getTexture());
 	listSprite->setPosition(float(list.getOffset().x), float(list.getOffset().y));
 
 	drawFramework(*textureForWindow, list.getOffset().x, list.getOffset().y, list.getOffset().x + list.getWidth(), list.getOffset().y + list.getHeight());

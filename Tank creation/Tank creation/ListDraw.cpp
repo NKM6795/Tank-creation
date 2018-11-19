@@ -67,7 +67,7 @@ void ListDraw::drawInformation(RenderTexture &renderTexture, List &list, long ti
 
 	renderTexture.draw(backgroundRorInformationSprite);
 	drawFramework(renderTexture, int(backgroundRorInformationSprite.getPosition().x), int(backgroundRorInformationSprite.getPosition().y), int(backgroundRorInformationSprite.getPosition().x + backgroundRorInformationSprite.getLocalBounds().width), int(backgroundRorInformationSprite.getPosition().y + backgroundRorInformationSprite.getLocalBounds().height));
-	
+
 	selectedViewableObject.back()->setPosition(list.getFragmentHeight() - list.getViewableObjectHeight() + list.getViewableObjectWidth() + 5, (list.getFragmentHeight() - list.getViewableObjectHeight()) / 2 + 5 + ((list.getViewableObjectWidth() == 100) ? 0 : list.getSearchEngineHeight()));
 	objectDraw(renderTexture, timer, selectedViewableObject, (*components));
 
@@ -173,10 +173,13 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 
 		for (int i = 0; i < int(list.getViewableObjects().size()); ++i)
 		{
-			text.setPosition(float(list.getFragmentHeight() - list.getViewableObjectHeight() + list.getViewableObjectWidth() + (list.getViewableObjectWidth() == 100 ? 20 : 0)), float(i * list.getFragmentHeight() + list.getFragmentHeight() - list.getViewableObjectHeight() - list.getPosition() + list.getSearchEngineHeight()));
-			text.setString(list.getViewableObjects()[i]->getComponentParameter()->name);
+			if (list.getViewableObjects()[i]->needDraw)
+			{
+				text.setPosition(float(list.getFragmentHeight() - list.getViewableObjectHeight() + list.getViewableObjectWidth() + (list.getViewableObjectWidth() == 100 ? 20 : 0)), float(i * list.getFragmentHeight() + list.getFragmentHeight() - list.getViewableObjectHeight() - list.getPosition() + list.getSearchEngineHeight()));
+				text.setString(list.getViewableObjects()[i]->getComponentParameter()->name);
 
-			renderTexture.draw(text);
+				renderTexture.draw(text);
+			}
 		}
 
 		if (list.getNeedButton())
@@ -190,7 +193,6 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 		{
 			drawRectangle(renderTexture, 2, list.getIndex() * list.getFragmentHeight() - list.getPosition() + 1 + list.getSearchEngineHeight(), list.getWidth() - (needButton ? 11 : 0) - 1, (list.getIndex() + 1) * list.getFragmentHeight() - 1 - list.getPosition() - 1 + list.getSearchEngineHeight(), Color::White);
 		}
-
 		if (list.getIndexOfSelectedObject() != -1)
 		{
 			drawRectangle(renderTexture, 1, list.getIndexOfSelectedObject() * list.getFragmentHeight() - list.getPosition() + list.getSearchEngineHeight(), list.getWidth() - (needButton ? 11 : 0), (list.getIndexOfSelectedObject() + 1) * list.getFragmentHeight() - 1 - list.getPosition() + list.getSearchEngineHeight(), Color::Blue);
@@ -200,11 +202,10 @@ void ListDraw::draw(RenderTexture &renderTexture, List &list, long timer)
 
 		information.setPosition(float(list.getFragmentHeight() - list.getViewableObjectHeight()) / 2, 0.f);
 		information.setString(list.getInputField());
-
 		renderTexture.draw(information);
 
 		drawFramework(renderTexture, 0, 0, list.getWidth(), list.getSearchEngineHeight() - 3);
-
+		
 		if (list.getNeedInformation())
 		{
 			drawInformation(renderTexture, list, timer);

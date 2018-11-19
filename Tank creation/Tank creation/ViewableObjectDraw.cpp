@@ -7,7 +7,7 @@ void objectDraw(RenderTexture &renderTexture, long timer, vector<ViewableObject 
 
 	for (int i = 0; i < number; ++i)
 	{
-		if (objects[i] != nullptr)
+		if (objects[i] != nullptr && objects[i]->needDraw && typeid(*objects[i]) != typeid(AdditionToBigBlock) && typeid(*objects[i]) != typeid(AdditionToEngineRoom) && typeid(*objects[i]) != typeid(AdditionToGun) && typeid(*objects[i]) != typeid(AdditionToTrack))
 		{
 			int j = objects[i]->getIndex();
 
