@@ -44,6 +44,9 @@ struct ComponentParameter
 
 	int width,
 		height;
+
+	vector<Vector2int> dimensions;
+	vector<Vector2int> offsets;
 };
 
 

@@ -98,6 +98,7 @@ void WorkWithWindow::forConstructor(string &fileName)
 	}
 }
 
+
 vector<Component *> WorkWithWindow::dataForResources()
 {
 	vector<Component *> components;
@@ -307,16 +308,69 @@ vector<Component *> WorkWithWindow::dataForResources()
 	return components;
 }
 
+vector<Component *> WorkWithWindow::dataForBackgroundBattle()
+{
+	vector<Component *> components;
+
+	string name, objectName, typeName, identifierName;
+
+	int numberOfType, numberOfVariant;
+
+	vector<Vector2int> dimensions;
+	vector<Vector2int> offsets;
+
+	//Background for battle
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			dimensions.clear();
+			dimensions.resize(numberOfVariant);
+
+			offsets.clear();
+			offsets.resize(numberOfVariant);
+
+			for (int j = 0; j < numberOfVariant; ++j)
+			{
+				fileIn >> dimensions[j].x >> dimensions[j].y >> offsets[j].x >> offsets[j].y;
+			}
+
+			getline(fileIn, name);
+			getline(fileIn, name);
+
+			Component *newComponent = new BackgroundForBattleComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, dimensions, offsets);
+
+			components.push_back(newComponent);
+		}
+	}
+
+	return components;
+}
+
 
 Graphic *WorkWithWindow::getGraphic()
 {
 	return graphic;
 }
 
+
 bool WorkWithWindow::isOpen()
 {
 	return windowIsOpen;
 }
+
 
 bool WorkWithWindow::getNeedNewWindow()
 {
@@ -328,6 +382,12 @@ void WorkWithWindow::finishNewWindow()
 	needNewWindow = false;
 	delete newWindow;
 }
+
+WorkWithWindow *WorkWithWindow::getNewWindow()
+{
+	return newWindow;
+}
+
 
 bool WorkWithWindow::getNeedWindowResult()
 {
@@ -342,9 +402,4 @@ string WorkWithWindow::getWindowResult()
 void WorkWithWindow::setWindowResult(string result)
 {
 	windowResult = result;
-}
-
-WorkWithWindow *WorkWithWindow::getNewWindow()
-{
-	return newWindow;
 }

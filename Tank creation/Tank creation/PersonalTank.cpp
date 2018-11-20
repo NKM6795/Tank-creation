@@ -3,7 +3,9 @@
 
 PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
 {
+	position = 0;
 
+	needDrive = false;
 }
 
 PersonalTank::~PersonalTank()
@@ -27,6 +29,41 @@ void PersonalTank::setOffset(int x, int y)
 {
 	xOffset = x;
 	yOffset = y;
+}
+
+
+Vector2int PersonalTank::getGlobalOffset()
+{
+	return globalOffset;
+}
+
+Vector2int PersonalTank::getOffsetForTank()
+{
+	return Vector2int(xOffset - globalOffset.x, yOffset - globalOffset.y + position);
+}
+
+
+void PersonalTank::setDrive(bool right)
+{
+	needDrive = true;
+	driveRight = right;
+}
+
+
+void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
+{
+	if (needDrive)
+	{
+		needDrive = false;
+		if (driveRight)
+		{
+			globalOffset.x -= 1;
+		}
+		else
+		{
+			globalOffset.x += 1;
+		}
+	}
 }
 
 

@@ -217,6 +217,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new BackgroundDraw(componentsForData[i]->getStruct());
 		}
+		else if (typeid(*componentsForData[i]) == typeid(BackgroundForBattleComponent))
+		{
+			newComponent = new BackgroundForBattleDraw(componentsForData[i]->getStruct());
+		}
 		else if (typeid(*componentsForData[i]) == typeid(SmallBlockComponent))
 		{
 			newComponent = new SmallBlockDraw(componentsForData[i]->getStruct());
@@ -548,9 +552,11 @@ void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableOb
 
 void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
-	drawInRenderTexture(button, tank, timer);
-
 	drawPrivate(objects, timer);
+
+	drawPrivate(tank, timer);
+
+	drawPrivate(button);
 }
 
 void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)

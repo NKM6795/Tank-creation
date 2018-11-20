@@ -25,3 +25,27 @@ public:
 
 
 };
+
+
+class BackgroundForBattleComponent : public Component
+{
+
+public:
+	BackgroundForBattleComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, vector<Vector2int> dimensions, vector<Vector2int> offsets);
+
+
+};
+
+
+class BackgroundForBattle : public ViewableObject
+{
+
+
+public:
+	BackgroundForBattle();
+	BackgroundForBattle(Component *component);
+	BackgroundForBattle(Component *component, int index);
+
+
+};
+

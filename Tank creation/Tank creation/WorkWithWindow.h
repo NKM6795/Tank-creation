@@ -46,6 +46,7 @@ protected:
 	ifstream fileIn;		//for constructor
 
 	vector<Component *> dataForResources();
+	vector<Component *> dataForBackgroundBattle();
 
 public:
 	WorkWithWindow(string &fileName)
@@ -64,7 +65,6 @@ public:
 			graphic->setInformation(numberOfText, text, fontName, characterSize, textXCoordinate, textYCoordinate);
 		}
 	}
-
 	WorkWithWindow(string &fileName, Graphic *forCopyWindow)
 	{
 		forConstructor(fileName);
@@ -105,15 +105,11 @@ public:
 	bool isOpen();
 
 	bool getNeedNewWindow();
-
 	void finishNewWindow();
-
 	WorkWithWindow *getNewWindow();
 
 	bool getNeedWindowResult();
-
 	string getWindowResult();
-
 	void setWindowResult(string result);
 
 	virtual void work() = 0;

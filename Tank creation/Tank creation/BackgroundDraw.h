@@ -18,3 +18,18 @@ public:
 
 	void draw(RenderTexture &renderTexture, long timer, ViewableObject *object);
 };
+
+
+class BackgroundForBattleDraw : public ComponentDraw
+{
+	Texture *backgroundTexture;
+	Sprite *backgroundSprite;
+	int numberOfVariant;
+
+public:
+	BackgroundForBattleDraw(ComponentParameter *component);
+
+	~BackgroundForBattleDraw();
+
+	void draw(RenderTexture &renderTexture, long timer, ViewableObject *object);
+};

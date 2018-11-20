@@ -11,7 +11,13 @@ class PersonalTank
 	int xOffset,
 		yOffset;
 
+	Vector2int globalOffset;
+	int position;
+
 	int dataArraySize;
+
+	bool needDrive;
+	bool driveRight;
 
 public:
 	PersonalTank(vector<vector<ViewableObject *> > &objects, int dataArraySize = 30);
@@ -21,6 +27,13 @@ public:
 	Vector2int getOffset();
 	void setOffset(Vector2int offset);
 	void setOffset(int x, int y);
+
+	Vector2int getGlobalOffset();
+	Vector2int getOffsetForTank();
+
+	void setDrive(bool right);
+
+	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed = false);
 
 	void download(string fileName, vector<Component *> &components);
 };
