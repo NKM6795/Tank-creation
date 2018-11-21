@@ -8,7 +8,7 @@ Exit from editior
 small
 Data/Fonts/Strangiato.otf
 430 410 Cancel
-550 410 Yes
+550 410 Exit
 1
 299 66 33
 medium
@@ -19,5 +19,5 @@ Data/Fonts/Strangiato.otf
 33
 Data/Fonts/Strangiato.otf
 640 290 Attention
-640 340 To exit without saving, click "Yes"
+640 340 Exit without saving?
 554 190 0 0 0 0 0

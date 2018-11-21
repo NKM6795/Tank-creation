@@ -37,7 +37,7 @@ void RenameTank::work()
 			}
 			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Enter))
 			{
-				button["Save"].setActivateAnAction(true);
+				button["Apply"].setActivateAnAction(true);
 			}
 
 			if (graphic->getEvent().type == Event::TextEntered)
@@ -58,7 +58,7 @@ void RenameTank::work()
 			windowIsOpen = false;
 			return;
 		}
-		else if (button["Save"].getActivateAnAction())
+		else if (button["Apply"].getActivateAnAction())
 		{
 			tankName = inputField;
 

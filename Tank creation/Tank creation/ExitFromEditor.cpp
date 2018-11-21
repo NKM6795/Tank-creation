@@ -51,7 +51,7 @@ void ExitFromEditor::work()
 			windowIsOpen = false;
 			return;
 		}
-		else if (button["Yes"].getActivateAnAction())
+		else if (button["Exit"].getActivateAnAction())
 		{
 			windowResult = "Exit/";
 

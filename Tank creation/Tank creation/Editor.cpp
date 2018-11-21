@@ -111,6 +111,8 @@ void Editor::work()
 			}
 			else if (windowResult.size() > 7 && windowResult.substr(0, 7) == "Rename/")
 			{
+				tankIsChanged = true;
+
 				tank.name = windowResult.substr(7);
 				text[1] = tank.name;
 			}
