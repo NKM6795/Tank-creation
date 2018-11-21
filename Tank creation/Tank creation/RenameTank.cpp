@@ -70,7 +70,7 @@ void RenameTank::work()
 
 				graphic->drawInRenderTexture(button);
 
-				newWindow = new NotAvailable(fileName, graphic);
+				newWindow = new NotAvailable(fileName, graphic, "Empty field");
 
 				button["Save"].setActivateAnAction(false);
 			}

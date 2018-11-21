@@ -162,35 +162,7 @@ void Editor::work()
 			{
 				needNewWindow = true;
 
-				if (tankEditor->completenessСheck() && tank.name == "")
-				{
-					needWindowResult = true;
-
-					string fileName = "Data/Data for save tank.dat";
-
-					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-					newWindow = new SaveTank(fileName, graphic);
-				}
-				else if (tankEditor->completenessСheck())
-				{
-					needNewWindow = true;
-					needWindowResult = true;
-
-					string fileName = "Data/Data for saved.dat";
-
-					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-					newWindow = new Saved(fileName, graphic);
-				}
-				else
-				{
-					string fileName = "Data/Data for not available.dat";
-
-					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-					newWindow = new NotAvailable(fileName, graphic);
-				}
+				button["Save"].setActivateAnAction(true);
 			}
 			else if (list->isOpen() && ((graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Up)) || (graphic->getEvent().type == Event::MouseWheelMoved && graphic->getEvent().mouseWheel.delta > 0)))
 			{
@@ -279,7 +251,7 @@ void Editor::work()
 
 				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
-				newWindow = new NotAvailable(fileName, graphic);
+				newWindow = new NotAvailable(fileName, graphic, "Tank is not correct");
 			}
 
 			button["Save"].setActivateAnAction(false);

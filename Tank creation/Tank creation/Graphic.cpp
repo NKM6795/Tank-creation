@@ -339,7 +339,7 @@ void Graphic::drawPrivate(string *text)
 
 	if (numberOfButtonDraw > 0)
 	{
-		float maxWidth = buttonDraw[0].getSprite()->getLocalBounds().width;
+		float maxWidth = 300;
 
 		for (int i = 1; i < numberOfButtonDraw; ++i)
 		{

@@ -367,7 +367,6 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 {
 	if (!isPressed && mouseButtonIsPressed && inFocuse(mousePosition))
 	{
-		cout << 0 << '\n';
 		mouseButtonIsPressed = false;
 		if (!firstClick)
 		{

@@ -1,9 +1,11 @@
 #include "NotAvailable.h"
 
 
-NotAvailable::NotAvailable(string &fileName, Graphic *forCopyWindow) : NotificationWindow(fileName, forCopyWindow)
+NotAvailable::NotAvailable(string &fileName, Graphic *forCopyWindow, string massage) : NotificationWindow(fileName, forCopyWindow)
 {
 	fileIn.close();
+
+	text[1] = massage;
 }
 
 
@@ -34,6 +36,6 @@ void NotAvailable::work()
 			return;
 		}
 
-		graphic->draw(button);
+		graphic->draw(text, button);
 	}
 }

@@ -8,7 +8,7 @@ class NotAvailable : public NotificationWindow
 {
 
 public:
-	NotAvailable(string &fileName, Graphic *forCopyWindow);
+	NotAvailable(string &fileName, Graphic *forCopyWindow, string massage = "Not available");
 
 
 	void work();

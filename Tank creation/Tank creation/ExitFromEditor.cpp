@@ -88,7 +88,7 @@ void ExitFromEditor::work()
 
 				graphic->drawInRenderTexture(button);
 
-				newWindow = new NotAvailable(fileName, graphic);
+				newWindow = new NotAvailable(fileName, graphic, "Tank is not correct");
 			}
 
 			button["Save and exit"].setActivateAnAction(false);
