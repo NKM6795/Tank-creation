@@ -577,7 +577,7 @@ void List::workWithText(int unicode)
 
 	if (int(inputField.size()) < maxSizeOfText || unicode == 8)
 	{
-		if (unicode == 8 || unicode == 32 || (unicode >= 48 && unicode <= 57) || (unicode >= 65 && unicode <= 90) || (unicode >= 97 && unicode <= 122))
+		if (unicode == 8 || unicode == 32 || unicode == 35 || (unicode >= 48 && unicode <= 57) || (unicode >= 65 && unicode <= 90) || (unicode >= 97 && unicode <= 122))
 		{
 			if (unicode == 8 && inputField.size() > 0)
 			{
@@ -586,8 +586,11 @@ void List::workWithText(int unicode)
 			}
 			else if (unicode != 8)
 			{
-				inputField.push_back(char(unicode));
-				changed = true;
+				if (!(unicode == 32 && inputField.size() > 0 && inputField.back() == ' '))
+				{
+					inputField.push_back(char(unicode));
+					changed = true;
+				}
 			}
 		}
 	}
@@ -596,12 +599,49 @@ void List::workWithText(int unicode)
 	{
 		objects.clear();
 
+		string secondName = inputField;
+		for (int j = 0; j < int(secondName.size()); ++j)
+		{
+			if (secondName[j] > 'A' && secondName[j] < 'Z')
+			{
+				secondName[j] = char(int(secondName[j]) + 40);
+			}
+		}
+		
+		while (secondName.size() > 0 && secondName.back() == ' ')
+		{
+			secondName.pop_back();
+		}
+
+		string hashtag;
+		size_t positionOfHashtag = secondName.find("#");
+		if (positionOfHashtag != string::npos)
+		{
+			size_t positionOfSpace = secondName.find(" ", positionOfHashtag);
+			if (positionOfSpace != string::npos)
+			{
+				hashtag = secondName.substr(positionOfHashtag, positionOfSpace - positionOfHashtag);
+				secondName.erase(positionOfHashtag, positionOfSpace - positionOfHashtag + 1);
+			}
+			else
+			{
+				hashtag = secondName.substr(positionOfHashtag);
+				if (positionOfHashtag != 0 && secondName[positionOfHashtag - 1] == ' ')
+				{
+					secondName.erase(positionOfHashtag - 1, secondName.size() - positionOfHashtag + 1);
+				}
+				else
+				{
+					secondName.erase(positionOfHashtag, secondName.size() - positionOfHashtag);
+				}
+			}
+		}
+
 		for (int i = 0; i < int(mainObjects.size()); ++i)
 		{
-			if (mainObjects[i]->getComponentParameter()->name.size() >= inputField.size())
+			if (mainObjects[i]->getComponentParameter()->name.size() >= secondName.size())
 			{
-				string firstName = mainObjects[i]->getComponentParameter()->name,
-					secondName = inputField;
+				string firstName = mainObjects[i]->getComponentParameter()->name;
 
 				for (int j = 0; j < int(firstName.size()); ++j)
 				{
@@ -611,17 +651,45 @@ void List::workWithText(int unicode)
 					}
 				}
 
-				for (int j = 0; j < int(secondName.size()); ++j)
+				if (hashtag.size() <= 1)
 				{
-					if (secondName[j] > 'A' && secondName[j] < 'Z')
+					if (firstName.find(secondName) != string::npos)
 					{
-						secondName[j] = char(int(secondName[j]) + 40);
+						objects.push_back(mainObjects[i]);
 					}
 				}
-
-				if (firstName.find(secondName) != string::npos)
+				else
 				{
-					objects.push_back(mainObjects[i]);
+					if (firstName.find(secondName) != string::npos)
+					{
+						bool checkHashtag = true;
+
+						if (checkHashtag && string("#main").find(hashtag) != string::npos && typeid(*mainObjects[i]) == typeid(EngineRoom))
+						{
+							objects.push_back(mainObjects[i]);
+							checkHashtag = false;
+						}
+						else if (checkHashtag && string("#track").find(hashtag) != string::npos && typeid(*mainObjects[i]) == typeid(Track))
+						{
+							objects.push_back(mainObjects[i]);
+							checkHashtag = false;
+						}
+						else if (checkHashtag && string("#small").find(hashtag) != string::npos && typeid(*mainObjects[i]) == typeid(SmallBlock))
+						{
+							objects.push_back(mainObjects[i]);
+							checkHashtag = false;
+						}
+						else if (checkHashtag && string("#big").find(hashtag) != string::npos && typeid(*mainObjects[i]) == typeid(BigBlock))
+						{
+							objects.push_back(mainObjects[i]);
+							checkHashtag = false;
+						}
+						else if (checkHashtag && string("#gun").find(hashtag) != string::npos && typeid(*mainObjects[i]) == typeid(Gun))
+						{
+							objects.push_back(mainObjects[i]);
+							checkHashtag = false;
+						}
+					}
 				}
 			}
 		}
