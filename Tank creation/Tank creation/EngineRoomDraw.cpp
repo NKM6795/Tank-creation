@@ -75,7 +75,7 @@ void EngineRoomDraw::draw(RenderTexture &renderTexture, long timer, ViewableObje
 		int index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
 		
 		backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		backgroundSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		backgroundSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 
 		renderTexture.draw(backgroundSprite[index]);
 
@@ -83,7 +83,7 @@ void EngineRoomDraw::draw(RenderTexture &renderTexture, long timer, ViewableObje
 		index = int((timer / 100) % numberOfVariantRoom);
 
 		roomSprite[index].setPosition(float(object->getPosition().x + xOffsetForRoom), float(object->getPosition().y + yOffsetForRoom));
-		roomSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		roomSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 
 		renderTexture.draw(roomSprite[index]);
 
@@ -91,7 +91,7 @@ void EngineRoomDraw::draw(RenderTexture &renderTexture, long timer, ViewableObje
 		index = int((timer / 100) % numberOfVariantPerson);
 
 		personWorksSprite[index].setPosition(float(object->getPosition().x + xOffsetForPerson), float(object->getPosition().y + yOffsetForPerson));
-		personWorksSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		personWorksSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 
 		renderTexture.draw(personWorksSprite[index]);
 	}

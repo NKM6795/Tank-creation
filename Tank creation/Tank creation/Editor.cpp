@@ -141,22 +141,7 @@ void Editor::work()
 		{
 			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
 			{
-				if (!tankIsChanged || tankEditor->isEmpty())
-				{
-					windowIsOpen = false;
-					return;
-				}
-				else
-				{
-					needNewWindow = true;
-					needWindowResult = true;
-
-					string fileName = "Data/Data for exit from editor.dat";
-
-					graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
-
-					newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
-				}
+				button["Back"].setActivateAnAction(true);
 			}
 			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::S) && Keyboard::isKeyPressed(Keyboard::LControl))
 			{
@@ -208,7 +193,7 @@ void Editor::work()
 
 				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
-				newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor->completenessСheck());
+				newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor);
 
 				button["Back"].setActivateAnAction(false);
 			}
@@ -224,7 +209,7 @@ void Editor::work()
 		{
 			needNewWindow = true;
 
-			if (tankEditor->completenessСheck() && tank.name == "")
+			if (tankEditor->completenessСheck() == 1 && tank.name == "")
 			{
 				needWindowResult = true;
 
@@ -234,7 +219,7 @@ void Editor::work()
 
 				newWindow = new SaveTank(fileName, graphic);
 			}
-			else if (tankEditor->completenessСheck())
+			else if (tankEditor->completenessСheck() == 1)
 			{
 				needNewWindow = true;
 				needWindowResult = true;
@@ -244,6 +229,22 @@ void Editor::work()
 				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
 
 				newWindow = new Saved(fileName, graphic);
+			}
+			else if (tankEditor->completenessСheck() == -1)
+			{
+				string fileName = "Data/Data for not available.dat";
+
+				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+				newWindow = new NotAvailable(fileName, graphic, "Missing main unit");
+			}
+			else if (tankEditor->completenessСheck() == -2)
+			{
+				string fileName = "Data/Data for not available.dat";
+
+				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+
+				newWindow = new NotAvailable(fileName, graphic, "No tracks");
 			}
 			else
 			{
@@ -299,24 +300,18 @@ void Editor::work()
 		}
 		
 		//Work with selecting object
+		while (objects.size() > 0)
+		{
+			delete objects.back();
+			objects.pop_back();
+		}
+		if (!tankEditor->completenessСheck())
+		{
+			objects = tankEditor->getWrongObjects();
+		}
 		if (graphic->hasFocus())
 		{
-			if (objects.size() == 0)
-			{
-				ViewableObject *temp = tankEditor->getFreePlace(components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()], list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex(), mousePosition);
-
-				objects.push_back(temp);
-			}
-			else
-			{
-				if (objects.back() != nullptr)
-				{
-					delete objects.back();
-				}
-
-				objects.back() = tankEditor->getFreePlace(components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()], list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex(), mousePosition);
-			}
-
+			objects.push_back(tankEditor->getFreePlace(components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()], list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex(), mousePosition));
 		}
 
 		//Work with list

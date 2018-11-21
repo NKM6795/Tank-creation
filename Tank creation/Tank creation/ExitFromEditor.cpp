@@ -1,7 +1,7 @@
-#include "ExitFromEditor.h"
+﻿#include "ExitFromEditor.h"
 
 
-ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow, string tankName, bool canSave) : NotificationWindow(fileName, forCopyWindow), canSave(canSave), tankName(tankName)
+ExitFromEditor::ExitFromEditor(string &fileName, Graphic *forCopyWindow, string tankName, TankEditor *tankEditor) : NotificationWindow(fileName, forCopyWindow), tankName(tankName), tankEditor(tankEditor)
 {
 	fileIn.close();
 }
@@ -62,7 +62,7 @@ void ExitFromEditor::work()
 		{
 			needNewWindow = true;
 
-			if (canSave && tankName == "")
+			if (tankEditor->completenessСheck() == 1 && tankName == "")
 			{
 				needWindowResult = true;
 
@@ -72,7 +72,7 @@ void ExitFromEditor::work()
 
 				newWindow = new SaveTank(fileName, graphic);
 			}
-			else if (canSave)
+			else if (tankEditor->completenessСheck() == 1)
 			{
 				needWindowResult = true;
 
@@ -81,6 +81,22 @@ void ExitFromEditor::work()
 				graphic->drawInRenderTexture(button);
 
 				newWindow = new Saved(fileName, graphic);
+			}
+			else if (tankEditor->completenessСheck() == -1)
+			{
+				string fileName = "Data/Data for not available.dat";
+
+				graphic->drawInRenderTexture(button);
+
+				newWindow = new NotAvailable(fileName, graphic, "Missing main unit");
+			}
+			else if (tankEditor->completenessСheck() == -2)
+			{
+				string fileName = "Data/Data for not available.dat";
+
+				graphic->drawInRenderTexture(button);
+
+				newWindow = new NotAvailable(fileName, graphic, "No tracks");
 			}
 			else
 			{

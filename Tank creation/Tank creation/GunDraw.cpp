@@ -69,7 +69,7 @@ void GunDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *obj
 
 			barrelSprite[index].setPosition(float(object->getPosition().x + xOffsetForBarrel * object->getScale()), float(object->getPosition().y + yOffsetForBarrel * object->getScale()));
 			barrelSprite[index].setRotation(object->getComponentParameter()->tiltAngle);
-			barrelSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+			barrelSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 			barrelSprite[index].setScale(object->getScale(), object->getScale());
 
 			renderTexture.draw(barrelSprite[index]);
@@ -79,7 +79,7 @@ void GunDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *obj
 		index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
 
 		handholdSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		handholdSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		handholdSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 		handholdSprite[index].setScale(object->getScale(), object->getScale());
 
 		renderTexture.draw(handholdSprite[index]);

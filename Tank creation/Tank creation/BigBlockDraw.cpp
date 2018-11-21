@@ -38,7 +38,7 @@ void BigBlockDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject
 		}
 
 		bigBlockSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		bigBlockSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		bigBlockSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 
 		renderTexture.draw(bigBlockSprite[index]);
 	}

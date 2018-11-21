@@ -80,7 +80,7 @@ protected:
 
 public:
 	bool needDraw;
-	bool needChangeColor;
+	int needChangeColor;
 
 	ViewableObject();
 	ViewableObject(Component *component);

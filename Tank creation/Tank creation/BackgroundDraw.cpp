@@ -74,7 +74,7 @@ void BackgroundForBattleDraw::draw(RenderTexture &renderTexture, long timer, Vie
 		int index = object->getHealth();
 
 		backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		backgroundSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		backgroundSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 		backgroundSprite[index].setScale(object->getScale(), object->getScale());
 
 		renderTexture.draw(backgroundSprite[index]);

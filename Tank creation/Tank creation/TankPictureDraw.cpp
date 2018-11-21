@@ -19,7 +19,7 @@ void TankPictureDraw::draw(RenderTexture &renderTexture, long timer, ViewableObj
 	if (object->needDraw)
 	{
 		sprite.setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		sprite.setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		sprite.setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 		sprite.setScale(object->getScale(), object->getScale());
 
 		renderTexture.draw(sprite);

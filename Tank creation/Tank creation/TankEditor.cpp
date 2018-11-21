@@ -328,7 +328,7 @@ ViewableObject *TankEditor::getFreePlace(Component *component, int index, Vector
 		ViewableObject *newViewableObject = getViewableObject(component, index);
 		newViewableObject->setPosition(position * 20 + getOffset());
 		newViewableObject->setHeath(component->getStruct()->healthPoints);
-		newViewableObject->needChangeColor = true;
+		newViewableObject->needChangeColor = 1;
 
 		return newViewableObject;
 	}
@@ -407,7 +407,7 @@ bool TankEditor::isEmpty()
 }
 
 
-bool TankEditor::completenessСheck()
+int TankEditor::completenessСheck()
 {
 	bool checkMain = false,
 		checkTrack = false,
@@ -428,9 +428,14 @@ bool TankEditor::completenessСheck()
 		}
 	}
 
-	if (!checkMain || !checkTrack)
+	if (!checkMain)
 	{
-		return false;
+		return -1;
+	}
+
+	if (!checkTrack)
+	{
+		return -2;
 	}
 
 	vector<vector<pair<Direct, Direct> > > smallTank = getSmallTankForDfs();
@@ -446,12 +451,49 @@ bool TankEditor::completenessСheck()
 			}
 			else if (smallTank[i][j].first != Direct::Nowhere && checkCompleteness)
 			{
-				return false;
+				return 0;
 			}
 		}
 	}
 
-	return true;
+	return 1;
+}
+
+vector<ViewableObject *> TankEditor::getWrongObjects()
+{
+	Vector2int mainPosition(-1, -1);
+
+	for (int i = 0; i < int((*objects).size()) && mainPosition.x == -1; ++i)
+	{
+		for (int j = 0; j < int((*objects).size()) && mainPosition.x == -1; ++j)
+		{
+			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(EngineRoom))
+			{
+				mainPosition = Vector2int(i, j);
+			}
+		}
+	}
+
+	vector<vector<pair<Direct, Direct> > > smallTank = getSmallTankForDfs();
+	dfs(smallTank, mainPosition.x, mainPosition.y);
+
+	vector<ViewableObject *> result;
+	for (int i = 0; i < int(smallTank.size()); ++i)
+	{
+		for (int j = 0; j < int(smallTank.size()); ++j)
+		{
+			if (smallTank[i][j].first != Direct::Nowhere && !(typeid(*(*objects)[i][j]) == typeid(AdditionToBigBlock) || typeid(*(*objects)[i][j]) == typeid(AdditionToEngineRoom) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun) || typeid(*(*objects)[i][j]) == typeid(AdditionToTrack)))
+			{
+				ViewableObject *newViewableObject = getViewableObject((*objects)[i][j]->getComponent(), (*objects)[i][j]->getIndex());
+				newViewableObject->setPosition(Vector2int(i, j) * 20 + getOffset());
+				newViewableObject->setHeath((*objects)[i][j]->getComponentParameter()->healthPoints);
+				newViewableObject->needChangeColor = -1;
+
+				result.push_back(newViewableObject);
+			}
+		}
+	}
+	return result;
 }
 
 

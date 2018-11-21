@@ -4,16 +4,16 @@
 #include "NotificationWindow.h"
 #include "NotAvailable.h"
 #include "SaveTank.h"
-
+#include "TankEditor.h"
 
 class ExitFromEditor : public NotificationWindow
 {
-	bool canSave;
+	TankEditor *tankEditor;
 
 	string tankName;
 
 public:
-	ExitFromEditor(string &fileName, Graphic *forCopyWindow, string tankName, bool canSave);
+	ExitFromEditor(string &fileName, Graphic *forCopyWindow, string tankName, TankEditor *tankEditor);
 
 
 	void work();

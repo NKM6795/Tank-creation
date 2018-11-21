@@ -43,7 +43,7 @@ ViewableObject::ViewableObject()
 	healthPoints = -1;
 
 	needDraw = true;
-	needChangeColor = false;
+	needChangeColor = 0;
 
 	scale = 1.f;
 }

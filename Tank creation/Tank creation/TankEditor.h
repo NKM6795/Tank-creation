@@ -56,7 +56,8 @@ public:
 
 	bool isEmpty();
 
-	bool completenessСheck();
+	int completenessСheck();
+	vector<ViewableObject *> getWrongObjects();
 
 	void save(string fileName);
 	void download(string fileName, vector<Component *> &components);

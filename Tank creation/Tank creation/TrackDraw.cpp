@@ -33,7 +33,7 @@ void TrackDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *o
 		int index = object->getPosition().x % numberOfVariant;
 
 		trackSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		trackSprite[index].setColor(object->needChangeColor ? Color(0, 255, 0) : Color::White);
+		trackSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 		trackSprite[index].setScale(object->getScale(), object->getScale());
 
 		renderTexture.draw(trackSprite[index]);
