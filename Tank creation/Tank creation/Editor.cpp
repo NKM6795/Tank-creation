@@ -141,7 +141,12 @@ void Editor::work()
 
 		while (graphic->pollEvent())
 		{
-			if (graphic->getEvent().type == Event::Closed || (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape)))
+			if (graphic->getEvent().type == Event::Closed)
+			{
+				windowIsOpen = false;
+				return;
+			}
+			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::Escape))
 			{
 				button["Back"].setActivateAnAction(true);
 			}
