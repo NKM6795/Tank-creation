@@ -135,7 +135,7 @@ void List::setNeedClose()
 
 bool List::inFocuse(Vector2int mousePosition)
 {
-	return open && ((mousePosition >= Vector2int(xCoordinate, yCoordinate) && mousePosition <= Vector2int(xCoordinate + width, yCoordinate + min(getHeight(), int(objects.size()) * fragmentHeight))) || (needButton && button->getStruct()->checkButtonIsPressed));
+	return open && ((mousePosition >= Vector2int(xCoordinate, yCoordinate) && mousePosition <= Vector2int(xCoordinate + width, yCoordinate + searchEngineHeight + min(height, int(objects.size()) * fragmentHeight))) || (needButton && button->getStruct()->checkButtonIsPressed));
 }
 
 
@@ -367,19 +367,19 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 {
 	if (!isPressed && mouseButtonIsPressed && inFocuse(mousePosition))
 	{
+		cout << 0 << '\n';
 		mouseButtonIsPressed = false;
 		if (!firstClick)
 		{
 			firstClick = true;
 			timerForDoubleClick = timer;
 		}
-		else if (timer - timerForDoubleClick < 300)
+		else if (timer - timerForDoubleClick < 1000)
 		{
 			if (needClose)
 			{
 				closeList();
 			}
-
 			indexOfSelectedObject = index;
 			mainIndexOfSelectedObject = mainIndex;
 
