@@ -6,6 +6,9 @@ PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int dataA
 	position = 0;
 
 	needDrive = false;
+
+	speed = 0;
+	maxSpeed = 36;
 }
 
 PersonalTank::~PersonalTank()
@@ -21,13 +24,13 @@ Vector2int PersonalTank::getOffset()
 
 void PersonalTank::setOffset(Vector2int offset)
 {
-	xOffset = offset.x;
-	yOffset = offset.y;
+	setOffset(offset.x, offset.y);
 }
 
 void PersonalTank::setOffset(int x, int y)
 {
 	xOffset = x;
+	position = 0;
 	yOffset = y;
 }
 
@@ -39,7 +42,7 @@ Vector2int PersonalTank::getGlobalOffset()
 
 Vector2int PersonalTank::getOffsetForTank()
 {
-	return Vector2int(xOffset - globalOffset.x, yOffset - globalOffset.y + position);
+	return Vector2int(xOffset - globalOffset.x, yOffset - globalOffset.y);
 }
 
 
@@ -50,6 +53,17 @@ void PersonalTank::setDrive(bool right)
 }
 
 
+int PersonalTank::getSpeed()
+{
+	return speed;
+}
+
+int PersonalTank::getMaxSpeed()
+{
+	return maxSpeed;
+}
+
+
 void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
 {
 	if (needDrive)
@@ -57,13 +71,17 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		needDrive = false;
 		if (driveRight)
 		{
-			globalOffset.x -= 1;
+			speed += maxSpeed / 6;
+			speed = min(speed, maxSpeed);
 		}
 		else
 		{
-			globalOffset.x += 1;
+			speed -= maxSpeed / 6;
+			speed = max(speed, -maxSpeed);
 		}
 	}
+
+
 }
 
 

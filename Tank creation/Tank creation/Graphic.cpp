@@ -252,6 +252,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new TankPictureDraw(componentsForData[i]->getStruct());
 		}
+		else if (typeid(*componentsForData[i]) == typeid(SpeedometerComponent))
+		{
+			newComponent = new SpeedometerDraw(componentsForData[i]->getStruct());
+		}
 
 		components.push_back(newComponent);
 	}

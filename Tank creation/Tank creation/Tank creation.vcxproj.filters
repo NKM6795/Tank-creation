@@ -274,6 +274,12 @@
     <ClCompile Include="Battle.cpp">
       <Filter>Windows\Sourse Files</Filter>
     </ClCompile>
+    <ClCompile Include="Speedometer.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedometerDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -401,6 +407,12 @@
     </ClInclude>
     <ClInclude Include="Battle.h">
       <Filter>Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Speedometer.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedometerDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -147,6 +147,8 @@
     <ClCompile Include="PersonalTank.cpp" />
     <ClCompile Include="RenameTank.cpp" />
     <ClCompile Include="Saved.cpp" />
+    <ClCompile Include="Speedometer.cpp" />
+    <ClCompile Include="SpeedometerDraw.cpp" />
     <ClCompile Include="ViewableObject.cpp" />
     <ClCompile Include="ViewableObjectDraw.cpp" />
     <ClCompile Include="SaveTank.cpp" />
@@ -191,6 +193,8 @@
     <ClInclude Include="PersonalTank.h" />
     <ClInclude Include="RenameTank.h" />
     <ClInclude Include="Saved.h" />
+    <ClInclude Include="Speedometer.h" />
+    <ClInclude Include="SpeedometerDraw.h" />
     <ClInclude Include="ViewableObject.h" />
     <ClInclude Include="ViewableObjectDraw.h" />
     <ClInclude Include="SaveTank.h" />

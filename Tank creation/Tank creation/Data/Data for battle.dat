@@ -217,4 +217,16 @@ Background
 47 47 0 0
 Background
 6000
+Data
+/Objects/Speedometer
+/position
+/Images/Panel.png
+/Images/Lever.png
+7
+4
+98 50
+6 75
+0 11
+46 47
+Speedometer
 20 50

@@ -12,12 +12,15 @@ class Battle : public WorkWithWindow
 	int fieldWidthForBattle;
 
 	vector<Vector2int> positionsOfBackground;
-	vector<ViewableObject *> objectsForBackground;
+	vector<ViewableObject *> objects;
+
+	int positionForBackground;
+	int positionForSpeedometer;
 
 	Tank tank;
 	PersonalTank *personalTank;
 
-	void updatePositionOfBackground();
+	void updateObjects();
 
 public:
 	Battle(string &fileName, Graphic *forCopyWindow, string tankName);

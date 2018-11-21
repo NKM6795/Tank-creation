@@ -19,6 +19,9 @@ class PersonalTank
 	bool needDrive;
 	bool driveRight;
 
+	int speed;
+	int maxSpeed;
+
 public:
 	PersonalTank(vector<vector<ViewableObject *> > &objects, int dataArraySize = 30);
 
@@ -32,6 +35,9 @@ public:
 	Vector2int getOffsetForTank();
 
 	void setDrive(bool right);
+	
+	int getSpeed();
+	int getMaxSpeed();
 
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed = false);
 

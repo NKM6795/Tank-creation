@@ -359,6 +359,54 @@ vector<Component *> WorkWithWindow::dataForBackgroundBattle()
 	return components;
 }
 
+vector<Component *> WorkWithWindow::dataForSpeedometer()
+{
+	vector<Component *> components;
+
+	string name, objectName, typeName, identifierName, typeName2, typeName3;
+
+	int numberOfVariant, numberOfOffset;
+
+	vector<Vector2int> offsets;
+
+	//Speedometer
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+		getline(fileIn, typeName2);
+		getline(fileIn, typeName3);
+
+		
+		fileIn >> numberOfVariant;
+
+		fileIn >> numberOfOffset;
+
+
+		offsets.clear();
+		offsets.resize(numberOfOffset);
+
+		for (int j = 0; j < numberOfOffset; ++j)
+		{
+			fileIn >> offsets[j].x >> offsets[j].y;
+		}
+
+		getline(fileIn, name);
+		getline(fileIn, name);
+
+		Component *newComponent = new SpeedometerComponent(name, objectName, typeName, identifierName, numberOfVariant, typeName2, typeName3, offsets);
+
+		components.push_back(newComponent);
+	}
+
+	return components;
+}
+
 
 Graphic *WorkWithWindow::getGraphic()
 {
