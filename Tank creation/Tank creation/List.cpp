@@ -52,7 +52,6 @@ List::List(vector<ViewableObject *> objects, int width, int height, int xCoordin
 	
 	//Information
 	needInformation = false;
-	timerForInformation = 0;
 
 	//Mouse
 	mouseButtonIsPressed = false;
@@ -350,6 +349,14 @@ string List::getInputField()
 }
 
 
+void List::showInformation()
+{
+	if (index != -1)
+	{
+		needInformation = true;
+	}
+}
+
 bool List::getNeedInformation()
 {
 	return needInformation;
@@ -394,7 +401,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 	if (!open)
 	{
-		timerForInformation = timer;
+		needInformation = false;
 	}
 	else
 	{
@@ -432,7 +439,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 		if (needButton && button->getStruct()->checkButtonIsPressed)
 		{
-			timerForInformation = timer;
+			needInformation = false;
 			oldMousePosition = mousePosition;
 
 			if (deltaPosition == -1)
@@ -462,7 +469,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 		if (needDirect)
 		{
-			timerForInformation = timer;
+			needInformation = false;
 			oldMousePosition = mousePosition;
 
 			if (mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), min(height, int(objects.size()) * fragmentHeight)))
@@ -554,18 +561,13 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 
 		if (mousePosition != oldMousePosition && mousePosition >= Vector2int() && mousePosition < Vector2int(width - 11, height))
 		{
-			timerForInformation = timer;
+			needInformation = false;
 			oldMousePosition = mousePosition;
 		}
 
-		if (index != -1 && (timer - timerForInformation >= 500 || rightIsPressed))
+		if (index != -1 && rightIsPressed && inFocuse(mousePosition))
 		{
-			timerForInformation = timer - 500;
 			needInformation = true;
-		}
-		else
-		{
-			needInformation = false;
 		}
 	}
 }
