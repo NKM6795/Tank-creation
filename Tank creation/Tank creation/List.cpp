@@ -524,7 +524,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			}
 			needDirect = false;
 		}
-		if (index != -1 && mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), min(height, int(objects.size()) * fragmentHeight)))
+		if (mainIndex != -1 && mousePosition > Vector2int() && mousePosition < Vector2int(width - (needButton ? 11 : 0), min(height, int(objects.size()) * fragmentHeight)))
 		{
 			index = (mousePosition.y + position) / fragmentHeight;
 			index = index < 0 ? 0 : index >= int(objects.size()) ? int(objects.size()) - 1 : index;
