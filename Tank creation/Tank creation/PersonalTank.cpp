@@ -31,8 +31,63 @@ void PersonalTank::updateTracks()
 		{
 			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(Track))
 			{
-				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + maxSpeed * (*objects)[i][j]->getComponentParameter()->numberOfVariant + speed / abs(speed)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
+				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + (speed < 0 ? (*objects)[i][j]->getComponentParameter()->numberOfVariant - 1 : 1)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
 			}
+		}
+	}
+}
+
+
+float PersonalTank::getAngelForGun(ViewableObject *gun, Vector2int mousePosition)
+{
+	float angel = getAngel(gun->getPosition() + Vector2int(gun->getComponentParameter()->xOffsetForBarrel, gun->getComponentParameter()->yOffsetForBarrel), mousePosition);
+	if (gun->getComponentParameter()->horizontally)
+	{
+		if ((angel >= 0 && angel <= 60.f) || (angel >= 300.f && angel <= 360.f))
+		{
+			return 60.f;
+		}
+		else if ((angel >= 120.f && angel <= 180.f) || (angel >= 180.f && angel <= 240.f))
+		{
+			return 120.f;
+		}
+		else if (angel >= 60.f && angel <= 120.f)
+		{
+			return angel;
+		}
+		else
+		{
+			return angel - 180.f;
+		}
+	}
+	else
+	{
+		if ((angel >= 30 && angel <= 90.f) || (angel >= 90.f && angel <= 150.f))
+		{
+			return 30.f;
+		}
+		else if ((angel >= 270.f && angel <= 330.f) || (angel >= 210.f && angel <= 270.f))
+		{
+			return 330.f;
+		}
+		else if ((angel >= 0.f && angel <= 30.f) || (angel >= 330.f && angel <= 360.f))
+		{
+			return angel;
+		}
+		else
+		{
+			return angel - 180.f;
+		}
+	}
+}
+
+void PersonalTank::updateGun(Vector2int mousePosition)
+{
+	for (int i = 0; i < int(highlightedItems.size()); ++i)
+	{
+		if ((*objects)[highlightedItems[i].x][highlightedItems[i].y]->getHealth() > 0 && typeid(*(*objects)[highlightedItems[i].x][highlightedItems[i].y]) == typeid(Gun))
+		{
+			(*objects)[highlightedItems[i].x][highlightedItems[i].y]->tiltAngle = getAngelForGun((*objects)[highlightedItems[i].x][highlightedItems[i].y], mousePosition);
 		}
 	}
 }
@@ -330,6 +385,11 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		{
 			highlightedItems.clear();
 		}
+	}
+
+	if (needHighlighte())
+	{
+		updateGun(mousePosition - getOffsetForTank());
 	}
 }
 

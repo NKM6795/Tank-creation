@@ -101,3 +101,9 @@ bool inArea(int width, int height, int xCoordinate, int yCoordinate, int x, int 
 bool inArea(int width, int height, int xCoordinate, int yCoordinate, Vector2int position);
 
 float getLength(float x1, float y1, float x2, float y2);
+
+float getAngel(float x1, float y1, float x2, float y2);
+
+float getAngel(int x1, int y1, int x2, int y2);
+
+float getAngel(Vector2int first, Vector2int second);

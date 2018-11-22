@@ -33,6 +33,9 @@ class PersonalTank
 
 	void updateTracks();
 
+	float getAngelForGun(ViewableObject *gun, Vector2int mousePosition);
+	void updateGun(Vector2int mousePosition);
+
 public:
 	PersonalTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize = 30);
 
