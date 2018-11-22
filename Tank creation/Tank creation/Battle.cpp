@@ -114,6 +114,12 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 		objects.push_back(speedometerObjects);
 	}
 
+	//Allotment
+	{
+		allotmentComponents = dataForAllotment();
+		components.insert(components.end(), allotmentComponents.begin(), allotmentComponents.end());
+	}
+
 	graphic->setInformation(components);
 
 	Vector2int position;

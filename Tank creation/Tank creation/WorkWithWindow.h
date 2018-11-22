@@ -48,6 +48,7 @@ protected:
 	vector<Component *> dataForResources();
 	vector<Component *> dataForBackgroundBattle();
 	vector<Component *> dataForSpeedometer();
+	vector<Component *> dataForAllotment();
 
 public:
 	WorkWithWindow(string &fileName)

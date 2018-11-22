@@ -407,6 +407,46 @@ vector<Component *> WorkWithWindow::dataForSpeedometer()
 	return components;
 }
 
+vector<Component *> WorkWithWindow::dataForAllotment()
+{
+	vector<Component *> components;
+
+	string name, objectName, typeName, identifierName;
+
+	int numberOfType;
+
+	vector<Vector2int> offsets(1, Vector2int());
+
+	//Allotment
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, name);
+
+
+		fileIn >> numberOfType;
+
+		offsets.clear();
+		offsets.resize(1);
+
+		fileIn >> offsets[0].x >> offsets[0].y;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			Component *newComponent = new AllotmentComponent(name, objectName, typeName + to_string(i + 1), identifierName, 1, offsets);
+
+			components.push_back(newComponent);
+		}
+	}
+
+	return components;
+}
+
 
 Graphic *WorkWithWindow::getGraphic()
 {

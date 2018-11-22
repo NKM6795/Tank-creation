@@ -256,6 +256,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new SpeedometerDraw(componentsForData[i]->getStruct());
 		}
+		else if (typeid(*componentsForData[i]) == typeid(AllotmentComponent))
+		{
+			newComponent = new AllotmentDraw(componentsForData[i]->getStruct());
+		}
 
 		components.push_back(newComponent);
 	}

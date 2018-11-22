@@ -119,6 +119,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Allotment.cpp" />
+    <ClCompile Include="AllotmentDraw.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BackgroundDraw.cpp" />
     <ClCompile Include="BaseElement.cpp" />
@@ -166,6 +168,8 @@
     <ClCompile Include="WorkWithWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Allotment.h" />
+    <ClInclude Include="AllotmentDraw.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="BackgroundDraw.h" />
     <ClInclude Include="BaseElement.h" />
