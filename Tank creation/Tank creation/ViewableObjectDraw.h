@@ -10,6 +10,7 @@
 #include "TankPictureDraw.h"
 #include "SpeedometerDraw.h"
 #include "AllotmentDraw.h"
+#include "BulletDraw.h"
 
 
 void objectDraw(RenderTexture &renderTexture, long timer, vector<ViewableObject *> &objects, vector<ComponentDraw *> &components);

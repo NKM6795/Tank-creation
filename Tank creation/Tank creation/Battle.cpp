@@ -121,6 +121,13 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 		components.insert(components.end(), tempComponents.begin(), tempComponents.end());
 	}
 
+	//Bullet
+	{
+		vector<Component *> tempComponents = dataForBullet();
+		bulletPositionInComponents = int(components.size());
+		components.insert(components.end(), tempComponents.begin(), tempComponents.end());
+	}
+
 	graphic->setInformation(components);
 
 	Vector2int position;

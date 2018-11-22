@@ -128,6 +128,8 @@
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="BigBlock.cpp" />
     <ClCompile Include="BigBlockDraw.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletDraw.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonDraw.cpp" />
     <ClCompile Include="CheckerOnTankExistence.cpp" />
@@ -177,6 +179,8 @@
     <ClInclude Include="Battle.h" />
     <ClInclude Include="BigBlock.h" />
     <ClInclude Include="BigBlockDraw.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletDraw.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonDraw.h" />
     <ClInclude Include="CheckerOnTankExistence.h" />

@@ -234,4 +234,20 @@ Data/Objects
 Allotment
 4
 2 2
+Data/Objects/Bullets
+/bullet
+/position
+Bullet
+11
+2 6 6
+1 12 12
+4 6 6
+4 11 11
+2 6 6
+4 9 9
+4 15 15
+4 21 21
+4 17 17
+1 8 8
+8 9 9
 20 50

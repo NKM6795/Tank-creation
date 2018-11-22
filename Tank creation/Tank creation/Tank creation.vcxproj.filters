@@ -286,6 +286,12 @@
     <ClCompile Include="Allotment.cpp">
       <Filter>Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletDraw.cpp">
+      <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -425,6 +431,12 @@
     </ClInclude>
     <ClInclude Include="Allotment.h">
       <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletDraw.h">
+      <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

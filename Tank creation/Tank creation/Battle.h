@@ -17,6 +17,7 @@ class Battle : public WorkWithWindow
 	ViewableObject *speedometerObjects;
 	int allotmentPositionInComponents;
 	vector<ViewableObject *> allotmentObjects;
+	int bulletPositionInComponents;
 
 	Tank tank;
 	PersonalTank *personalTank;

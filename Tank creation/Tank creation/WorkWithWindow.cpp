@@ -447,6 +447,44 @@ vector<Component *> WorkWithWindow::dataForAllotment()
 	return components;
 }
 
+vector<Component *> WorkWithWindow::dataForBullet()
+{
+	vector<Component *> components;
+
+	string name, objectName, typeName, identifierName;
+
+	int numberOfType, numberOfVariant;
+
+	//Bullet
+	{
+		getline(fileIn, objectName);
+		if (objectName == "")
+		{
+			getline(fileIn, objectName);
+		}
+
+		getline(fileIn, typeName);
+		getline(fileIn, identifierName);
+		getline(fileIn, name);
+
+		fileIn >> numberOfType;
+
+		for (int i = 0; i < numberOfType; ++i)
+		{
+			fileIn >> numberOfVariant;
+
+			int width,
+				height;
+			fileIn >> width >> height;
+
+			Component *newComponent = new BulletComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, width, height);
+			components.push_back(newComponent);
+		}
+	}
+
+	return components;
+}
+
 
 Graphic *WorkWithWindow::getGraphic()
 {

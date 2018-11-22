@@ -260,6 +260,10 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 		{
 			newComponent = new AllotmentDraw(componentsForData[i]->getStruct());
 		}
+		else if (typeid(*componentsForData[i]) == typeid(BulletComponent))
+		{
+			newComponent = new BulletDraw(componentsForData[i]->getStruct());
+		}
 
 		components.push_back(newComponent);
 	}
