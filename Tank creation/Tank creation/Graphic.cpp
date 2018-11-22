@@ -453,6 +453,13 @@ void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &object
 	drawWindow();
 }
 
+void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer)
+{
+	drawInRenderTexture(button, objects, tank, secondsObjects, timer);
+
+	drawWindow();
+}
+
 void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
 {
 	drawInRenderTexture(button, objects, tank, list, timer);
@@ -563,6 +570,17 @@ void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableOb
 	drawPrivate(objects, timer);
 
 	drawPrivate(tank, timer);
+
+	drawPrivate(button);
+}
+
+void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer)
+{
+	drawPrivate(objects, timer);
+
+	drawPrivate(tank, timer);
+
+	drawPrivate(secondsObjects, timer);
 
 	drawPrivate(button);
 }

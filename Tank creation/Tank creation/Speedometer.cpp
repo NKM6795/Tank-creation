@@ -7,22 +7,20 @@ SpeedometerComponent::SpeedometerComponent(string name, string objectName, strin
 	component->typeName3 = typeName3;
 
 	component->offsets = offsets;
-
-	component->tiltAngle = 0;
 }
 
 
 Speedometer::Speedometer() : ViewableObject()
 {
-
+	tiltAngle = 0;
 }
 
 Speedometer::Speedometer(Component *component) : ViewableObject(component)
 {
-
+	tiltAngle = 0;
 }
 
 Speedometer::Speedometer(Component *component, int index) : ViewableObject(component, index)
 {
-
+	tiltAngle = 0;
 }

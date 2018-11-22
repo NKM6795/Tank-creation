@@ -68,7 +68,7 @@ void SpeedometerDraw::draw(RenderTexture &renderTexture, long timer, ViewableObj
 		renderTexture.draw(speedometerSprite[index]);
 
 		leverSprite->setPosition(float(object->getPosition().x + offset.x), float(object->getPosition().y + offset.y));
-		leverSprite->setRotation(object->getComponentParameter()->tiltAngle);
+		leverSprite->setRotation(object->tiltAngle);
 
 		renderTexture.draw(*leverSprite);
 	}

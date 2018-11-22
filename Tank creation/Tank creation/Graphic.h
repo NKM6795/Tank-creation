@@ -91,6 +91,7 @@ public:
 	void draw(map<string, Button> &button, Tank &tank, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void draw(map<string, Button> &button, string &inputField);
 	void draw(map<string, Button> &button, string &inputField, Tank &tank, long timer);
@@ -108,6 +109,7 @@ public:
 	void drawInRenderTexture(map<string, Button> &button, Tank &tank, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
+	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void drawInRenderTexture(map<string, Button> &button, string &inputField);
 	void drawInRenderTexture(map<string, Button> &button, string &inputField, Tank &tank, long timer);

@@ -116,8 +116,9 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 	//Allotment
 	{
-		allotmentComponents = dataForAllotment();
-		components.insert(components.end(), allotmentComponents.begin(), allotmentComponents.end());
+		vector<Component *> tempComponents = dataForAllotment();
+		allotmentPositionInComponents = int(components.size());
+		components.insert(components.end(), tempComponents.begin(), tempComponents.end());
 	}
 
 	graphic->setInformation(components);
@@ -184,7 +185,7 @@ void Battle::updateObjects()
 	}
 
 	speedometerObjects->setHeath(((personalTank->getSpeed() < 0 ? -7 : 7) * personalTank->getSpeed() - 1) / personalTank->getMaxSpeed());
-	speedometerObjects->getComponentParameter()->tiltAngle = (50.f * personalTank->getSpeed()) / float(personalTank->getMaxSpeed());
+	speedometerObjects->tiltAngle = (50.f * personalTank->getSpeed()) / float(personalTank->getMaxSpeed());
 }
 
 
@@ -210,6 +211,19 @@ void Battle::work()
 			{
 				personalTank->setDrive(false);
 			}
+
+			if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::LControl))
+			{
+				personalTank->setControlIsPressed(true);
+			}
+
+			if (graphic->getEvent().type == Event::KeyPressed && (Keyboard::isKeyPressed(Keyboard::Num0) || Keyboard::isKeyPressed(Keyboard::Num1) ||
+				Keyboard::isKeyPressed(Keyboard::Num2) || Keyboard::isKeyPressed(Keyboard::Num3) || Keyboard::isKeyPressed(Keyboard::Num4) ||
+				Keyboard::isKeyPressed(Keyboard::Num5) || Keyboard::isKeyPressed(Keyboard::Num6) || Keyboard::isKeyPressed(Keyboard::Num7) ||
+				Keyboard::isKeyPressed(Keyboard::Num8) || Keyboard::isKeyPressed(Keyboard::Num9)))
+			{
+				personalTank->setNumberIsPressed(graphic->getEvent().text.unicode);
+			}
 		}
 
 
@@ -229,6 +243,13 @@ void Battle::work()
 		updateObjects();
 		tank.setOffset(personalTank->getOffsetForTank());
 
-		graphic->draw(button, objects, tank, timer);
+		while (allotmentObjects.size() > 0)
+		{
+			delete allotmentObjects.back();
+			allotmentObjects.pop_back();
+		}
+		allotmentObjects = personalTank->getHighlightedGuns(components, allotmentPositionInComponents);
+
+		graphic->draw(button, objects, tank, allotmentObjects, timer);
 	}
 }

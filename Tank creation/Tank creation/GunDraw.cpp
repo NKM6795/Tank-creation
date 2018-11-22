@@ -68,7 +68,7 @@ void GunDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *obj
 			index = int((timer / 100) % numberOfVariantbarrel);
 
 			barrelSprite[index].setPosition(float(object->getPosition().x + xOffsetForBarrel * object->getScale()), float(object->getPosition().y + yOffsetForBarrel * object->getScale()));
-			barrelSprite[index].setRotation(object->getComponentParameter()->tiltAngle);
+			barrelSprite[index].setRotation(object->tiltAngle);
 			barrelSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
 			barrelSprite[index].setScale(object->getScale(), object->getScale());
 

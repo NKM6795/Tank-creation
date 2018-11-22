@@ -46,6 +46,7 @@ ViewableObject::ViewableObject()
 
 	needDraw = true;
 	needChangeColor = 0;
+	tiltAngle = 0.f;
 
 	scale = 1.f;
 }

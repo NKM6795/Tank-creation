@@ -11,6 +11,10 @@ PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int field
 	maxSpeed = 6;
 
 	timerForSpeed = 0;
+
+	grupyAllocation.resize(10);
+	controlIsPressed = false;
+	numberIsPressed = 0;
 }
 
 PersonalTank::~PersonalTank()
@@ -106,8 +110,93 @@ int PersonalTank::getMaxSpeed()
 }
 
 
+ViewableObject *PersonalTank::getViewableObject(Vector2int mousePosition)
+{
+	mousePosition = mousePosition - getOffsetForTank();
+
+	int i = mousePosition.x / 20,
+		j = mousePosition.y / 20;
+
+	if (i < 0 || j < 0 || i >= dataArraySize || j >= dataArraySize)
+	{
+		return nullptr;
+	}
+	
+	if ((*objects)[i][j] == nullptr)
+	{
+		return nullptr;
+	}
+
+	Vector2int objectPosition = (*objects)[i][j]->getPosition() / 20;
+	return (*objects)[objectPosition.x][objectPosition.y];
+}
+
+
+void PersonalTank::setControlIsPressed(bool isPressed)
+{
+	controlIsPressed = isPressed;
+}
+
+void PersonalTank::setNumberIsPressed(int unicode)
+{
+	numberIsPressed = unicode - 26;
+}
+
+
+bool PersonalTank::needHighlighte()
+{
+	return highlightedItems.size() != 0;
+}
+
+vector<ViewableObject *> PersonalTank::getHighlightedGuns(vector<Component *> &components, int allotmentPositionInComponents)
+{
+	vector<ViewableObject *> result;
+
+	for (int i = 0; i < int(highlightedItems.size()); ++i)
+	{
+		if ((*objects)[highlightedItems[i].x][highlightedItems[i].y]->getHealth() > 0)
+		{
+			vector<Vector2int> offsetForHighlightedItems(4);
+			offsetForHighlightedItems[1].x = (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->width * 20;
+			offsetForHighlightedItems[3].y = (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->height * 20;
+			offsetForHighlightedItems[2] = offsetForHighlightedItems[1] + offsetForHighlightedItems[3];
+
+			int index;
+			if ((*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->width == 1)
+			{
+				index = allotmentPositionInComponents + 1;
+			}
+			else
+			{
+				index = allotmentPositionInComponents + 3;
+			}
+
+			for (float phi = 0.f; phi < 360.f; phi += 90.f)
+			{
+				ViewableObject *newObject = new Allotment(components[index], index);
+				newObject->tiltAngle = phi;
+				newObject->setPosition(getOffsetForTank() + highlightedItems[i] * 20 + offsetForHighlightedItems[int(phi / 90.f)]);
+				result.push_back(newObject);
+			}
+		}
+	}
+
+	int number = int(result.size());
+
+	for (int i = 0; i < number; ++i)
+	{
+		ViewableObject *newObject = new Allotment(components[result[i]->getIndex() - 1], result[i]->getIndex() - 1);
+		newObject->tiltAngle = result[i]->tiltAngle;
+		newObject->setPosition(result[i]->getPosition());
+		result.push_back(newObject);
+	}
+	return result;
+}
+
+
 void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
 {
+	//Work with motion
 	if (needDrive)
 	{
 		needDrive = false;
@@ -168,6 +257,79 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			}
 		}
 
+	}
+
+	//Work with highlighting
+	if (numberIsPressed != -1 && controlIsPressed)
+	{
+		controlIsPressed = false;
+
+		grupyAllocation[numberIsPressed] = highlightedItems;
+
+		numberIsPressed = -1;
+	}
+	else if (numberIsPressed != -1)
+	{
+		highlightedItems = grupyAllocation[numberIsPressed];
+
+		numberIsPressed = -1;
+	}
+	else if (controlIsPressed)
+	{
+		controlIsPressed = false;
+		ViewableObject *object = getViewableObject(mousePosition);
+
+		if (object != nullptr && typeid(*object) == typeid(Gun) && object->getHealth() > 0)
+		{
+			bool repeatCheck = true;
+			for (int i = 0; i < int(highlightedItems.size()) && repeatCheck; ++i)
+			{
+				if (object->getPosition() / 20 == highlightedItems[i])
+				{
+					repeatCheck = false;
+				}
+			}
+
+			if (repeatCheck)
+			{
+				highlightedItems.push_back(object->getPosition() / 20);
+			}
+		}
+	}
+	else if (isPressed)
+	{
+		ViewableObject *object = getViewableObject(mousePosition);
+
+		if (object != nullptr && typeid(*object) == typeid(Gun) && object->getHealth() > 0)
+		{
+			highlightedItems.clear();
+			highlightedItems.push_back(object->getPosition() / 20);
+		}
+	}
+	else if (rightIsPressed)
+	{
+		ViewableObject *object = getViewableObject(mousePosition);
+
+		if (object != nullptr && typeid(*object) == typeid(Gun) && object->getHealth() > 0)
+		{
+			int objectPosition = -1;
+			for (int i = 0; i < int(highlightedItems.size()); ++i)
+			{
+				if (object->getPosition() / 20 == highlightedItems[i])
+				{
+					objectPosition = i;
+				}
+			}
+
+			if (objectPosition != -1)
+			{
+				highlightedItems.erase(highlightedItems.begin() + objectPosition);
+			}
+		}
+		else if (object == nullptr || object->getHealth() <= 0)
+		{
+			highlightedItems.clear();
+		}
 	}
 }
 

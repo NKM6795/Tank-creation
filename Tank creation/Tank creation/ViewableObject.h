@@ -38,7 +38,6 @@ struct ComponentParameter
 		yOffsetForBarrel;
 	int xOriginForBarrel,
 		yOriginForBarrel;
-	float tiltAngle;
 
 	int backgroundIndex;
 
@@ -81,6 +80,7 @@ protected:
 public:
 	bool needDraw;
 	int needChangeColor;
+	float tiltAngle;
 
 	ViewableObject();
 	ViewableObject(Component *component);

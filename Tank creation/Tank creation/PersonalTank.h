@@ -2,6 +2,7 @@
 
 
 #include "TankEditor.h"
+#include "Allotment.h"
 
 
 class PersonalTank
@@ -25,6 +26,11 @@ class PersonalTank
 	int maxSpeed;
 	long timerForSpeed;
 
+	vector<vector<Vector2int> > grupyAllocation;
+	vector<Vector2int> highlightedItems;
+	bool controlIsPressed;
+	int numberIsPressed;
+
 	void updateTracks();
 
 public:
@@ -45,6 +51,14 @@ public:
 	
 	int getSpeed();
 	int getMaxSpeed();
+
+	ViewableObject *getViewableObject(Vector2int mousePosition);
+
+	void setControlIsPressed(bool isPressed);
+	void setNumberIsPressed(int unicode);
+
+	bool needHighlighte();
+	vector<ViewableObject *> getHighlightedGuns(vector<Component *> &components, int allotmentPositionInComponents);
 
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed = false);
 

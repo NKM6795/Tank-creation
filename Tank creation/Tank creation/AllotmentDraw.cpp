@@ -22,7 +22,7 @@ void AllotmentDraw::draw(RenderTexture &renderTexture, long timer, ViewableObjec
 	if (object->needDraw)
 	{
 		sprite.setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		sprite.setRotation(object->getComponentParameter()->tiltAngle);
+		sprite.setRotation(object->tiltAngle);
 
 		renderTexture.draw(sprite);
 	}

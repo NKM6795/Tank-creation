@@ -18,8 +18,6 @@ GunComponent::GunComponent(string name, string objectName, string typeName, stri
 	component->xOriginForBarrel = xOriginForBarrel;
 	component->yOriginForBarrel = yOriginForBarrel;
 
-	component->tiltAngle = horizontally ? 90.f : 0;
-
 	component->healthPoints = healthPoints;
 
 	component->backgroundIndex = backgroundIndex;
@@ -34,11 +32,15 @@ Gun::Gun() : ViewableObject()
 Gun::Gun(Component *component) : ViewableObject(component)
 {
 	addition = new AdditionToGun(this);
+
+	tiltAngle = component->getStruct()->horizontally ? 90.f : 0;
 }
 
 Gun::Gun(Component *component, int index) : ViewableObject(component, index)
 {
 	addition = new AdditionToGun(this);
+
+	tiltAngle = component->getStruct()->horizontally ? 90.f : 0;
 }
 
 Gun::~Gun()
