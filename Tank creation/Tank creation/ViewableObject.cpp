@@ -16,6 +16,8 @@ Component::Component(string name, string objectName, string typeName, string ide
 	component->height = height;
 
 	component->canRebound = false;
+
+	component->backgroundIndex = 0;
 }
 
 Component::~Component()

@@ -1,19 +1,36 @@
 #include "PersonalTank.h"
 
 
-PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
+PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize) : objects(&objects), fieldWidthForBattle(fieldWidthForBattle), screenWidth(screenWidth), dataArraySize(dataArraySize)
 {
 	position = 0;
 
 	needDrive = false;
 
 	speed = 0;
-	maxSpeed = 36;
+	maxSpeed = 6;
+
+	timerForSpeed = 0;
 }
 
 PersonalTank::~PersonalTank()
 {
 
+}
+
+
+void PersonalTank::updateTracks()
+{
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(Track))
+			{
+				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + maxSpeed * (*objects)[i][j]->getComponentParameter()->numberOfVariant + speed / abs(speed)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
+			}
+		}
+	}
 }
 
 
@@ -42,7 +59,32 @@ Vector2int PersonalTank::getGlobalOffset()
 
 Vector2int PersonalTank::getOffsetForTank()
 {
-	return Vector2int(xOffset - globalOffset.x, yOffset - globalOffset.y);
+	if (position == 0)
+	{
+		return Vector2int(xOffset, yOffset);
+	}
+	return Vector2int(xOffset + position, yOffset - globalOffset.y);
+}
+
+
+Vector2int PersonalTank::getBorder()
+{
+	vector<vector<bool> > smallTank = Tank::getSmallTank(*objects);
+
+	Vector2int result(dataArraySize, -1);
+
+	for (int i = 0; i < int(smallTank.size()); ++i)
+	{
+		for (int j = 0; j < int(smallTank.size()); ++j)
+		{
+			if (smallTank[i][j])
+			{
+				result.x = min(result.x, i);
+				result.y = max(result.y, i);
+			}
+		}
+	}
+	return result;
 }
 
 
@@ -81,7 +123,52 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		}
 	}
 
+	if (speed != 0 && timer - timerForSpeed >= 100 - (100 * abs(speed)) / maxSpeed)
+	{
+		timerForSpeed = timer;
+		updateTracks();
 
+		globalOffset.x -= speed / abs(speed);
+		Vector2int border = getBorder() * 20;
+		border.y += 20;
+
+		if (globalOffset.x <= 0 && globalOffset.x >= -(fieldWidthForBattle - screenWidth))
+		{
+			if (position < 0)
+			{
+				globalOffset.x = 0;
+				position += 1;
+			}
+			else if (position > 0)
+			{
+				globalOffset.x = -(fieldWidthForBattle - screenWidth);
+				position -= 1;
+			}
+			else
+			{
+				position = 0;
+			}
+		}
+		else if (globalOffset.x > 0)
+		{
+			position -= 1;
+			globalOffset.x = 0;
+			if (position < -xOffset - border.x)
+			{
+				position = -xOffset - border.x;
+			}
+		}
+		else if (globalOffset.x < -(fieldWidthForBattle - screenWidth))
+		{
+			position += 1;
+			globalOffset.x = -(fieldWidthForBattle - screenWidth);
+			if (position > screenWidth - xOffset - border.y)
+			{
+				position = screenWidth - xOffset - border.y;
+			}
+		}
+
+	}
 }
 
 

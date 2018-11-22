@@ -30,7 +30,7 @@ void TrackDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *o
 {
 	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
-		int index = object->getPosition().x % numberOfVariant;
+		int index = object->getComponentParameter()->backgroundIndex;
 
 		trackSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
 		trackSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);

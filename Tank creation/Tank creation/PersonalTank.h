@@ -13,6 +13,8 @@ class PersonalTank
 
 	Vector2int globalOffset;
 	int position;
+	int fieldWidthForBattle;
+	int screenWidth;
 
 	int dataArraySize;
 
@@ -21,9 +23,12 @@ class PersonalTank
 
 	int speed;
 	int maxSpeed;
+	long timerForSpeed;
+
+	void updateTracks();
 
 public:
-	PersonalTank(vector<vector<ViewableObject *> > &objects, int dataArraySize = 30);
+	PersonalTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize = 30);
 
 	~PersonalTank();
 
@@ -33,6 +38,8 @@ public:
 
 	Vector2int getGlobalOffset();
 	Vector2int getOffsetForTank();
+
+	Vector2int getBorder();
 
 	void setDrive(bool right);
 	

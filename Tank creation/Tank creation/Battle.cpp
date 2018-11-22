@@ -12,8 +12,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 		fileIn >> fieldWidthForBattle;
 
-		positionForBackground = int(components.size());
-		int i = positionForBackground - 5;
+		int i = int(components.size()) - 5;
 
 		//First layer
 		{
@@ -21,6 +20,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 			newObject->setHeath(0);
 			newObject->setPosition(0, screanHeight);
 			objects.push_back(newObject);
+			backgroundObjects.push_back(newObject);
 			positionsOfBackground.push_back(Vector2int());
 		}
 		++i;
@@ -36,6 +36,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 				int index = rand() % components[i]->getStruct()->numberOfVariant;
 				newObject->setHeath(index);
 				objects.push_back(newObject);
+				backgroundObjects.push_back(newObject);
 				positionsOfBackground.push_back(Vector2int(width, screanHeight));
 
 				width += components[i]->getStruct()->dimensions[index].x;
@@ -54,6 +55,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 				int index = rand() % components[i]->getStruct()->numberOfVariant;
 				newObject->setHeath(index);
 				objects.push_back(newObject);
+				backgroundObjects.push_back(newObject);
 				positionsOfBackground.push_back(Vector2int(width, screanHeight));
 
 				width += components[i]->getStruct()->dimensions[index].x + 50 *  (5 + rand() % 3);
@@ -73,6 +75,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 					newObject->setHeath(0);
 					objects.push_back(newObject);
+					backgroundObjects.push_back(newObject);
 					positionsOfBackground.push_back(Vector2int(width, screanHeight));
 
 					width += components[i]->getStruct()->dimensions[0].x;
@@ -91,6 +94,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 					int index = rand() % components[i]->getStruct()->numberOfVariant;
 					newObject->setHeath(index);
 					objects.push_back(newObject);
+					backgroundObjects.push_back(newObject);
 					positionsOfBackground.push_back(Vector2int(width, screanHeight - 20 - (rand() % 50)));
 
 					width += components[i]->getStruct()->dimensions[index].x + 30 * (2 + rand() % 6);
@@ -104,11 +108,10 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 		vector<Component *> tempComponents = dataForSpeedometer();
 		components.insert(components.end(), tempComponents.begin(), tempComponents.end());
 
-		ViewableObject *newObject = new Speedometer(components.back(), int(components.size()) - 1);
-		newObject->setHeath(0);
-		newObject->setPosition(screanWidth / 2, screanHeight);
-		objects.push_back(newObject);
-		positionForSpeedometer = int(objects.size()) - 1;
+		speedometerObjects = new Speedometer(components.back(), int(components.size()) - 1);
+		speedometerObjects->setHeath(0);
+		speedometerObjects->setPosition(screanWidth / 2, screanHeight);
+		objects.push_back(speedometerObjects);
 	}
 
 	graphic->setInformation(components);
@@ -121,7 +124,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	tank.name = tankName;
 	graphic->setInformation(tank);
 
-	personalTank = new PersonalTank(tank.getViewableObjects());
+	personalTank = new PersonalTank(tank.getViewableObjects(), fieldWidthForBattle, screanWidth);
 	personalTank->download(tank.name, components);
 	personalTank->setOffset(position);
 
@@ -146,30 +149,36 @@ void Battle::updateObjects()
 {
 	Vector2int globalPosition = personalTank->getGlobalOffset();
 
-	for (int i = 1; i < positionForSpeedometer; ++i)
+	int offsetIndex = 0, objectIndex = backgroundObjects[1]->getIndex();
+
+	for (int i = 1; i < int(backgroundObjects.size()); ++i)
 	{
-		int indexOffset = 4 - positionForBackground + objects[i]->getIndex();
+		if (objectIndex != backgroundObjects[i]->getIndex())
+		{
+			++offsetIndex;
+		}
+
 		float offset = float(globalPosition.x);
-		if (indexOffset == 0)
+		if (offsetIndex == 0)
 		{
 			offset = float(globalPosition.x) / 2.f;
 		}
-		else if (indexOffset == 1)
+		else if (offsetIndex == 1)
 		{
 			offset = (7.f * float(globalPosition.x)) / 8.f;
 		}
 
-		objects[i]->setPosition(positionsOfBackground[i] + Vector2int(int(offset + 0.5f), globalPosition.y));
-		objects[i]->needDraw = true;
-		if (objects[i]->getPosition().x + objects[i]->getComponentParameter()->dimensions[objects[i]->getHealth()].x <= 0 ||
-			objects[i]->getPosition().x >= screanWidth)
+		backgroundObjects[i]->setPosition(positionsOfBackground[i] + Vector2int(int(offset + 0.5f), globalPosition.y));
+		backgroundObjects[i]->needDraw = true;
+		if (backgroundObjects[i]->getPosition().x + backgroundObjects[i]->getComponentParameter()->dimensions[backgroundObjects[i]->getHealth()].x <= 0 ||
+			backgroundObjects[i]->getPosition().x >= screanWidth)
 		{
-			objects[i]->needDraw = false;
+			backgroundObjects[i]->needDraw = false;
 		}
 	}
 
-	objects[positionForSpeedometer]->setHeath(((personalTank->getSpeed() < 0 ? -7 : 7) * personalTank->getSpeed() - 1) / personalTank->getMaxSpeed());
-	objects[positionForSpeedometer]->getComponentParameter()->tiltAngle = (50.f * personalTank->getSpeed()) / float(personalTank->getMaxSpeed());
+	speedometerObjects->setHeath(((personalTank->getSpeed() < 0 ? -7 : 7) * personalTank->getSpeed() - 1) / personalTank->getMaxSpeed());
+	speedometerObjects->getComponentParameter()->tiltAngle = (50.f * personalTank->getSpeed()) / float(personalTank->getMaxSpeed());
 }
 
 

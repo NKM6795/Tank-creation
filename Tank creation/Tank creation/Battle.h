@@ -13,9 +13,8 @@ class Battle : public WorkWithWindow
 
 	vector<Vector2int> positionsOfBackground;
 	vector<ViewableObject *> objects;
-
-	int positionForBackground;
-	int positionForSpeedometer;
+	vector<ViewableObject *> backgroundObjects;
+	ViewableObject *speedometerObjects;
 
 	Tank tank;
 	PersonalTank *personalTank;
