@@ -43,6 +43,8 @@ Gun::Gun(Component *component, int index) : ViewableObject(component, index)
 	addition = new AdditionToGun(this);
 
 	tiltAngle = component->getStruct()->horizontally ? 90.f : 0;
+
+	timerForObject = -component->getStruct()->reload * 200;
 }
 
 Gun::~Gun()

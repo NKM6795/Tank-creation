@@ -119,7 +119,7 @@ void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &comp
 			ViewableObject *newBullet = new Bullet(components[index], index, gun, getAngelForGun(gun, mousePosition), float(gun->getComponentParameter()->bulletSpeed) / 2.f, gun->getPosition() + Vector2int(gun->getComponentParameter()->xOffsetForBarrel, gun->getComponentParameter()->yOffsetForBarrel) - globalOffset + getOffsetForTank(), timer);
 			if (gun->getComponentParameter()->bulletSpeed == -1)
 			{
-				if ((newBullet->tiltAngle >= 0.f && newBullet->tiltAngle <= 32.f) || (newBullet->tiltAngle >= 328.f && newBullet->tiltAngle <= 360.f))
+				if ((newBullet->tiltAngle >= 0.f && newBullet->tiltAngle < 30.f) || (newBullet->tiltAngle > 330.f && newBullet->tiltAngle <= 360.f))
 				{
 					newBullet->speed = 100.f;
 				}

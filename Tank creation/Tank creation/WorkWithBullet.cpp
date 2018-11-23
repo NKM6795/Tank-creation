@@ -1,8 +1,10 @@
 #include "WorkWithBullet.h"
 
 
-void workWithBullet(vector<ViewableObject *> &objects, int bulletPositionInObjects, Vector2int globalOffset, int screanWidth, long timer, long fps)
+void workWithBullet(vector<ViewableObject *> &objects, int bulletPositionInObjects, Vector2int globalOffset, int screanWidth, long timer, int positionOfLand)
 {
+	vector<ViewableObject *> newObjects;
+
 	for (int i = bulletPositionInObjects; i < int(objects.size()); ++i)
 	{
 		if (getLength(objects[i]->getBulletPosition(), objects[i]->getBulletPosition(true)) > float(screanWidth))
@@ -23,6 +25,12 @@ void workWithBullet(vector<ViewableObject *> &objects, int bulletPositionInObjec
 			objects[i]->setBulletPosition(newPosition);
 
 			objects[i]->setPosition(objects[i]->getBulletPosition() + globalOffset);
+
+			if (objects[i]->getPosition().y + objects[i]->getComponentParameter()->width / 2 >= positionOfLand)
+			{
+				delete objects[i];
+				objects[i] = nullptr;
+			}
 		}
 	}
 

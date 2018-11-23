@@ -5,4 +5,4 @@
 #include "PersonalTank.h"
 
 
-void workWithBullet(vector<ViewableObject *> &objects, int bulletPositionInObjects, Vector2int globalOffset, int screanWidth, long timer, long fps);
+void workWithBullet(vector<ViewableObject *> &objects, int bulletPositionInObjects, Vector2int globalOffset, int screanWidth, long timer, int positionOfLand);

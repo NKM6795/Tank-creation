@@ -265,7 +265,7 @@ void Battle::work()
 			objects.insert(objects.end(), tempObjects.begin(), tempObjects.end());
 		}
 
-		workWithBullet(objects, bulletPositionInObjects, personalTank->getGlobalOffset(), screanWidth, timer, timeForWork);
+		workWithBullet(objects, bulletPositionInObjects, personalTank->getGlobalOffset(), screanWidth, timer, screanHeight - 70);
 
 		graphic->draw(button, objects, tank, allotmentObjects, timer);
 	}
