@@ -100,6 +100,12 @@ void PersonalTank::updateGun(Vector2int mousePosition)
 }
 
 
+float PersonalTank::getSpeedForVerticalGun(Vector2float first, Vector2float second, float angel)
+{
+	//v0 = ((x2-x1)/sin(a))*sqrt(g/(2*((y2-y1)+(x2-x1) / tg(a))))
+	return ((second.x - first.x) / sin(angel * PI / 180.f)) * sqrt(GRAVITY / (2 * ((second.y - first.y) + (second.x - first.x) / tan(angel * PI / 180.f))));
+}
+
 void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer)
 {
 	for (int i = 0; i < int(highlightedItems.size()); ++i)
@@ -109,7 +115,19 @@ void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &comp
 		{
 			gun->timerForObject = timer;
 			int index = bulletPositionInComponents + gun->getComponentParameter()->indexOfComponents[0];
-			ViewableObject *newBullet = new Bullet(components[index], index, gun, getAngelForGun(gun, mousePosition), 1.f, gun->getPosition() + Vector2int(gun->getComponentParameter()->xOffsetForBarrel, gun->getComponentParameter()->yOffsetForBarrel) - globalOffset + getOffsetForTank(), timer);
+
+			ViewableObject *newBullet = new Bullet(components[index], index, gun, getAngelForGun(gun, mousePosition), float(gun->getComponentParameter()->bulletSpeed) / 2.f, gun->getPosition() + Vector2int(gun->getComponentParameter()->xOffsetForBarrel, gun->getComponentParameter()->yOffsetForBarrel) - globalOffset + getOffsetForTank(), timer);
+			if (gun->getComponentParameter()->bulletSpeed == -1)
+			{
+				if ((newBullet->tiltAngle >= 0.f && newBullet->tiltAngle <= 32.f) || (newBullet->tiltAngle >= 328.f && newBullet->tiltAngle <= 360.f))
+				{
+					newBullet->speed = 100.f;
+				}
+				else
+				{
+					newBullet->speed = getSpeedForVerticalGun(newBullet->getBulletPosition(), mousePosition - globalOffset + getOffsetForTank(), newBullet->tiltAngle);
+				}
+			}
 
 			needAddBullet = true;
 			bullets.push_back(newBullet);

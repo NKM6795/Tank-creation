@@ -40,6 +40,7 @@ class PersonalTank
 	float getAngelForGun(ViewableObject *gun, Vector2int mousePosition);
 	void updateGun(Vector2int mousePosition);
 
+	float getSpeedForVerticalGun(Vector2float first, Vector2float second, float angel);
 	void makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer);
 
 public:

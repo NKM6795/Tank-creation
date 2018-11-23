@@ -10,16 +10,17 @@ void workWithBullet(vector<ViewableObject *> &objects, int bulletPositionInObjec
 			delete objects[i];
 			objects[i] = nullptr;
 		}
-		else if (timer - objects[i]->timerForObject >= fps)
+		else
 		{
-			objects[i]->timerForObject += fps;
+			float time = float(timer - objects[i]->timerForObject) / 200.f;
+			Vector2float newPosition(objects[i]->getBulletPosition(true).x + float(time) * objects[i]->speed * sin(objects[i]->tiltAngle * PI / 180.f), objects[i]->getBulletPosition(true).y - float(time) * objects[i]->speed * cos(objects[i]->tiltAngle * PI / 180.f));
 
-			if (objects[i]->getFather()->getComponentParameter()->horizontally)
+			if (!objects[i]->getFather()->getComponentParameter()->horizontally)
 			{
-				Vector2float deltaPositon(-1.f * objects[i]->speed * sin(objects[i]->tiltAngle * PI / 180.f), objects[i]->speed * cos(objects[i]->tiltAngle * PI / 180.f));
-				objects[i]->setBulletPosition(objects[i]->getBulletPosition() - deltaPositon);
+				newPosition.y = objects[i]->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - objects[i]->speed * time * cos(objects[i]->tiltAngle * PI / 180.f);
 			}
 
+			objects[i]->setBulletPosition(newPosition);
 
 			objects[i]->setPosition(objects[i]->getBulletPosition() + globalOffset);
 		}
