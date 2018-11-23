@@ -81,6 +81,8 @@ public:
 	bool needDraw;
 	int needChangeColor;
 	float tiltAngle;
+	long lastShoot;
+
 
 	ViewableObject();
 	ViewableObject(Component *component);

@@ -31,10 +31,15 @@ class PersonalTank
 	bool controlIsPressed;
 	int numberIsPressed;
 
+	bool needAddBullet;
+	vector<ViewableObject *> bullets;
+
 	void updateTracks();
 
 	float getAngelForGun(ViewableObject *gun, Vector2int mousePosition);
 	void updateGun(Vector2int mousePosition);
+
+	void makeShots(vector<Component *> &components, int bulletPositionInComponents, long timer);
 
 public:
 	PersonalTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize = 30);
@@ -63,7 +68,10 @@ public:
 	bool needHighlighte();
 	vector<ViewableObject *> getHighlightedGuns(vector<Component *> &components, int allotmentPositionInComponents);
 
-	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed = false);
+	bool getNeedAddBullet();
+	vector<ViewableObject *> getBullets();
+
+	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, bool rightIsPressed = false);
 
 	void download(string fileName, vector<Component *> &components);
 };

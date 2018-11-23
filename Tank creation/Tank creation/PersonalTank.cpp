@@ -15,6 +15,8 @@ PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int field
 	grupyAllocation.resize(10);
 	controlIsPressed = false;
 	numberIsPressed = 0;
+
+	needAddBullet = false;
 }
 
 PersonalTank::~PersonalTank()
@@ -40,6 +42,11 @@ void PersonalTank::updateTracks()
 
 float PersonalTank::getAngelForGun(ViewableObject *gun, Vector2int mousePosition)
 {
+	if (gun->getComponentParameter()->name == "Determinators")
+	{
+		return 90.f;
+	}
+
 	float angel = getAngel(gun->getPosition() + Vector2int(gun->getComponentParameter()->xOffsetForBarrel, gun->getComponentParameter()->yOffsetForBarrel), mousePosition);
 	if (gun->getComponentParameter()->horizontally)
 	{
@@ -88,6 +95,23 @@ void PersonalTank::updateGun(Vector2int mousePosition)
 		if ((*objects)[highlightedItems[i].x][highlightedItems[i].y]->getHealth() > 0 && typeid(*(*objects)[highlightedItems[i].x][highlightedItems[i].y]) == typeid(Gun))
 		{
 			(*objects)[highlightedItems[i].x][highlightedItems[i].y]->tiltAngle = getAngelForGun((*objects)[highlightedItems[i].x][highlightedItems[i].y], mousePosition);
+		}
+	}
+}
+
+
+void PersonalTank::makeShots(vector<Component *> &components, int bulletPositionInComponents, long timer)
+{
+	for (int i = 0; i < int(highlightedItems.size()); ++i)
+	{
+		if ((*objects)[highlightedItems[i].x][highlightedItems[i].y]->getHealth() > 0 && timer - (*objects)[highlightedItems[i].x][highlightedItems[i].y]->lastShoot >= (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->reload * 100)
+		{
+			(*objects)[highlightedItems[i].x][highlightedItems[i].y]->lastShoot = timer;
+
+			//needAddBullet = true;
+			//bullets.push_back();
+
+			cout << (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->name << '\n';
 		}
 	}
 }
@@ -249,7 +273,23 @@ vector<ViewableObject *> PersonalTank::getHighlightedGuns(vector<Component *> &c
 }
 
 
-void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
+bool PersonalTank::getNeedAddBullet()
+{
+	return needAddBullet;
+}
+
+vector<ViewableObject *> PersonalTank::getBullets()
+{
+	needAddBullet = false;
+
+	vector<ViewableObject *> result = bullets;
+	bullets.clear();
+
+	return result;
+}
+
+
+void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, bool rightIsPressed)
 {
 	//Work with motion
 	if (needDrive)
@@ -359,6 +399,13 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		{
 			highlightedItems.clear();
 			highlightedItems.push_back(object->getPosition() / 20);
+		}
+		else if (object == nullptr)
+		{
+			if (needHighlighte())
+			{
+				makeShots(components, bulletPositionInComponents, timer);
+			}
 		}
 	}
 	else if (rightIsPressed)

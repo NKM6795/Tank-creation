@@ -246,7 +246,7 @@ void Battle::work()
 		}
 
 		//Work with personal tank
-		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
+		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 		updateObjects();
 		tank.setOffset(personalTank->getOffsetForTank());

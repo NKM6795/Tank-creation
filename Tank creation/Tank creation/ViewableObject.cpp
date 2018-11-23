@@ -77,6 +77,8 @@ ViewableObject::ViewableObject(Component *component, int index) : component(comp
 	needChangeColor = false;
 
 	scale = 1.f;
+
+	lastShoot = 0;
 }
 
 
