@@ -38,6 +38,7 @@ struct ComponentParameter
 		yOffsetForBarrel;
 	int xOriginForBarrel,
 		yOriginForBarrel;
+	vector<int> indexOfComponents;
 
 	int backgroundIndex;
 
@@ -80,8 +81,9 @@ protected:
 public:
 	bool needDraw;
 	int needChangeColor;
+	float speed;
 	float tiltAngle;
-	long lastShoot;
+	long timerForObject;
 
 
 	ViewableObject();
@@ -95,6 +97,8 @@ public:
 	virtual Vector2int getPosition();
 	virtual void setPosition(Vector2int position);
 	virtual void setPosition(int x, int y);
+	virtual Vector2float getBulletPosition(bool old = false);
+	virtual void setBulletPosition(Vector2float position);
 
 	virtual int getHealth();
 	virtual void setHeath(int health);
@@ -108,4 +112,5 @@ public:
 	virtual ComponentParameter *getComponentParameter();
 
 	virtual ViewableObject *getAddition();
+	virtual ViewableObject *getFather();
 };

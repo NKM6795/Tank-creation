@@ -100,18 +100,19 @@ void PersonalTank::updateGun(Vector2int mousePosition)
 }
 
 
-void PersonalTank::makeShots(vector<Component *> &components, int bulletPositionInComponents, long timer)
+void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer)
 {
 	for (int i = 0; i < int(highlightedItems.size()); ++i)
 	{
-		if ((*objects)[highlightedItems[i].x][highlightedItems[i].y]->getHealth() > 0 && timer - (*objects)[highlightedItems[i].x][highlightedItems[i].y]->lastShoot >= (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->reload * 100)
+		ViewableObject *gun = (*objects)[highlightedItems[i].x][highlightedItems[i].y];
+		if (gun->getHealth() > 0 && timer - gun->timerForObject >= gun->getComponentParameter()->reload * 200)
 		{
-			(*objects)[highlightedItems[i].x][highlightedItems[i].y]->lastShoot = timer;
+			gun->timerForObject = timer;
+			int index = bulletPositionInComponents + gun->getComponentParameter()->indexOfComponents[0];
+			ViewableObject *newBullet = new Bullet(components[index], index, gun, getAngelForGun(gun, mousePosition), 1.f, gun->getPosition() + Vector2int(gun->getComponentParameter()->xOffsetForBarrel, gun->getComponentParameter()->yOffsetForBarrel) - globalOffset + getOffsetForTank(), timer);
 
-			//needAddBullet = true;
-			//bullets.push_back();
-
-			cout << (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->name << '\n';
+			needAddBullet = true;
+			bullets.push_back(newBullet);
 		}
 	}
 }
@@ -404,7 +405,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		{
 			if (needHighlighte())
 			{
-				makeShots(components, bulletPositionInComponents, timer);
+				makeShots(mousePosition - getOffsetForTank(), components, bulletPositionInComponents, timer);
 			}
 		}
 	}

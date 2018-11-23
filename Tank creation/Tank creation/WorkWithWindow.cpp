@@ -99,7 +99,7 @@ void WorkWithWindow::forConstructor(string &fileName)
 }
 
 
-vector<Component *> WorkWithWindow::dataForResources()
+vector<Component *> WorkWithWindow::dataForResources(bool needIndexForGun)
 {
 	vector<Component *> components;
 
@@ -263,6 +263,8 @@ vector<Component *> WorkWithWindow::dataForResources()
 	   
 	//Gun
 	{
+		vector<int> indexOfComponents;
+
 		getline(fileIn, objectName);
 		if (objectName == "")
 		{
@@ -297,10 +299,31 @@ vector<Component *> WorkWithWindow::dataForResources()
 				height;
 			fileIn >> width >> height;
 
+			if (needIndexForGun)
+			{
+				int numberOfComponents;
+				fileIn >> numberOfComponents;
+
+				indexOfComponents.clear();
+				indexOfComponents.resize(numberOfComponents);
+				for (int i = 0; i < numberOfComponents; ++i)
+				{
+					fileIn >> indexOfComponents[i];
+				}
+			}
+
 			getline(fileIn, name);
 			getline(fileIn, name);
 
-			Component *newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height);
+			Component *newComponent;
+			if (needIndexForGun)
+			{
+				newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height, indexOfComponents);
+			}
+			else
+			{
+				newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height);
+			}
 			components.push_back(newComponent);
 		}
 	}

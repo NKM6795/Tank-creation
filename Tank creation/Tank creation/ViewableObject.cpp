@@ -47,6 +47,7 @@ ViewableObject::ViewableObject()
 	needDraw = true;
 	needChangeColor = 0;
 	tiltAngle = 0.f;
+	speed = 0.f;
 
 	scale = 1.f;
 }
@@ -74,11 +75,13 @@ ViewableObject::ViewableObject(Component *component, int index) : component(comp
 	healthPoints = -1;
 
 	needDraw = true;
-	needChangeColor = false;
+	needChangeColor = 0;
+	tiltAngle = 0.f;
+	speed = 0.f;
 
 	scale = 1.f;
 
-	lastShoot = 0;
+	timerForObject = 0;
 }
 
 
@@ -109,6 +112,16 @@ void ViewableObject::setPosition(int x, int y)
 {
 	xCoordinate = x;
 	yCoordinate = y;
+}
+
+Vector2float ViewableObject::getBulletPosition(bool old)
+{
+	return Vector2float(getPosition());
+}
+
+void ViewableObject::setBulletPosition(Vector2float position)
+{
+	setPosition(position);
 }
 
 
@@ -152,6 +165,11 @@ ComponentParameter *ViewableObject::getComponentParameter()
 
 
 ViewableObject *ViewableObject::getAddition()
+{
+	return nullptr;
+}
+
+ViewableObject *ViewableObject::getFather()
 {
 	return nullptr;
 }

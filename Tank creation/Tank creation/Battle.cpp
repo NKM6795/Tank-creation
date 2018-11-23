@@ -3,7 +3,7 @@
 
 Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : WorkWithWindow(fileName, forCopyWindow)
 {
-	components = dataForResources();
+	components = dataForResources(true);
 	
 	//Layers
 	{
@@ -259,7 +259,13 @@ void Battle::work()
 		allotmentObjects = personalTank->getHighlightedGuns(components, allotmentPositionInComponents);
 
 		//Work with bullet
-		workWithBullet(objects, bulletPositionInObjects);
+		if (personalTank->getNeedAddBullet())
+		{
+			vector<ViewableObject *> tempObjects = personalTank->getBullets();
+			objects.insert(objects.end(), tempObjects.begin(), tempObjects.end());
+		}
+
+		workWithBullet(objects, bulletPositionInObjects, personalTank->getGlobalOffset(), screanWidth, timer, timeForWork);
 
 		graphic->draw(button, objects, tank, allotmentObjects, timer);
 	}

@@ -3,6 +3,7 @@
 
 #include "TankEditor.h"
 #include "Allotment.h"
+#include "Bullet.h"
 
 
 class PersonalTank
@@ -39,7 +40,7 @@ class PersonalTank
 	float getAngelForGun(ViewableObject *gun, Vector2int mousePosition);
 	void updateGun(Vector2int mousePosition);
 
-	void makeShots(vector<Component *> &components, int bulletPositionInComponents, long timer);
+	void makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer);
 
 public:
 	PersonalTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize = 30);

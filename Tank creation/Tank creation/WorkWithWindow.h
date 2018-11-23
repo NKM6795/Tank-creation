@@ -45,7 +45,7 @@ protected:
 
 	ifstream fileIn;		//for constructor
 
-	vector<Component *> dataForResources();
+	vector<Component *> dataForResources(bool needIndexForGun = false);
 	vector<Component *> dataForBackgroundBattle();
 	vector<Component *> dataForSpeedometer();
 	vector<Component *> dataForAllotment();

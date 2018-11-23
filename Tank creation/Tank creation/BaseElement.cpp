@@ -16,10 +16,20 @@ float getLength(float x1, float y1, float x2, float y2)
 	return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
+float getLength(Vector2float first, Vector2float second)
+{
+	return getLength(first.x, first.y, second.x, second.y);
+}
+
 float getAngel(float x1, float y1, float x2, float y2)
 {
 	float result = (y2 <= y1 ? 0 : 180) + (y2 <= y1 ? 1 : -1) * asin((x2 - x1) / sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))) * (180 / PI);
 	return result < 0 ? result + 360.f : result;
+}
+
+float getAngel(Vector2float first, Vector2float second)
+{
+	return getAngel(first.x, first.y, second.x, second.y);
 }
 
 float getAngel(int x1, int y1, int x2, int y2)

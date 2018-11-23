@@ -491,6 +491,19 @@ vector<ViewableObject *> TankEditor::getWrongObjects()
 
 				result.push_back(newViewableObject);
 			}
+			//Vertical guns
+			else if (smallTank[i][j].first != Direct::Nowhere && typeid(*(*objects)[i][j]) == typeid(AdditionToGun) && smallTank[i][j].first == Direct::Down && smallTank[i][j].second == Direct::Right)
+			{
+				Vector2int position = (*objects)[i][j]->getPosition() / 20;
+				ViewableObject *gun = (*objects)[position.x][position.y];
+
+				ViewableObject *newViewableObject = getViewableObject(gun->getComponent(), gun->getIndex());
+				newViewableObject->setPosition(position * 20 + getOffset());
+				newViewableObject->setHeath(gun->getComponentParameter()->healthPoints);
+				newViewableObject->needChangeColor = -1;
+
+				result.push_back(newViewableObject);
+			}
 		}
 	}
 	return result;
