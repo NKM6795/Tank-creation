@@ -4,6 +4,7 @@
 #include "TankEditor.h"
 #include "Allotment.h"
 #include "Bullet.h"
+#include "WorkWithBullet.h"
 
 
 class PersonalTank
@@ -73,7 +74,7 @@ public:
 	bool getNeedAddBullet();
 	vector<ViewableObject *> getBullets();
 
-	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, bool rightIsPressed = false);
+	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objectsWithBullets, int bulletPositionInObjects, bool rightIsPressed = false);
 
 	void download(string fileName, vector<Component *> &components);
 };

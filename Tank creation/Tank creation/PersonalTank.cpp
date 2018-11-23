@@ -128,6 +128,7 @@ void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &comp
 					newBullet->speed = getSpeedForVerticalGun(newBullet->getBulletPosition(), mousePosition - globalOffset + getOffsetForTank(), newBullet->tiltAngle);
 				}
 			}
+			newBullet->damage = gun->getComponentParameter()->damage;
 
 			needAddBullet = true;
 			bullets.push_back(newBullet);
@@ -308,7 +309,7 @@ vector<ViewableObject *> PersonalTank::getBullets()
 }
 
 
-void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, bool rightIsPressed)
+void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objectsWithBullets, int bulletPositionInObjects, bool rightIsPressed)
 {
 	//Work with motion
 	if (needDrive)
@@ -456,6 +457,54 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	if (needHighlighte())
 	{
 		updateGun(mousePosition - getOffsetForTank());
+	}
+	
+	//Work with bullet
+	for (int k = bulletPositionInObjects; k < int(objectsWithBullets.size()); ++k)
+	{
+		bool breakCheck = true;
+		if (objectsWithBullets[k]->getFather() != nullptr)
+		{
+			if (objectsWithBullets[k]->getFather()->getHealth() > 0 && !collisionCheck(objectsWithBullets[k]->getFather(), objectsWithBullets[k], globalOffset - getOffsetForTank()) && !objectsWithBullets[k]->canDoDamageToItself)
+			{
+				objectsWithBullets[k]->canDoDamageToItself = true;
+			}
+			else if (objectsWithBullets[k]->getFather()->getHealth() > 0 && collisionCheck(objectsWithBullets[k]->getFather(), objectsWithBullets[k], globalOffset - getOffsetForTank()) && objectsWithBullets[k]->canDoDamageToItself)
+			{
+				objectsWithBullets[k]->getFather()->setHeath(objectsWithBullets[k]->getFather()->getHealth() - objectsWithBullets[k]->damage);
+
+				breakBullet(components, bulletPositionInComponents, objectsWithBullets, bulletPositionInObjects, k, timer);
+				breakCheck = false;
+			}
+		}
+		if (!breakCheck)
+		{
+			--k;
+		}
+	}
+	for (int k = bulletPositionInObjects; k < int(objectsWithBullets.size()); ++k)
+	{
+		bool breakCheck = true;
+		for (int i = 0; i < int((*objects).size()) && breakCheck; ++i)
+		{
+			for (int j = 0; j < int((*objects).size()) && breakCheck; ++j)
+			{
+				if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0 && (*objects)[i][j] != objectsWithBullets[k]->getFather() && !(typeid(*(*objects)[i][j]) == typeid(AdditionToBigBlock) || typeid(*(*objects)[i][j]) == typeid(AdditionToEngineRoom) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun) || typeid(*(*objects)[i][j]) == typeid(AdditionToTrack)))
+				{
+					if (collisionCheck((*objects)[i][j], objectsWithBullets[k], globalOffset - getOffsetForTank()))
+					{
+						(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - objectsWithBullets[k]->damage);
+
+						breakBullet(components, bulletPositionInComponents, objectsWithBullets, bulletPositionInObjects, k, timer);
+						breakCheck = false;
+					}
+				}
+			}
+		}
+		if (!breakCheck)
+		{
+			--k;
+		}
 	}
 }
 

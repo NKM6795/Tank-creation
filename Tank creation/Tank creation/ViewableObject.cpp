@@ -82,6 +82,8 @@ ViewableObject::ViewableObject(Component *component, int index) : component(comp
 	scale = 1.f;
 
 	timerForObject = 0;
+
+	canDoDamageToItself = false;
 }
 
 

@@ -151,7 +151,7 @@ Data/Objects/Guns/gun
 /handhold
 /damage
 12
-0 4 1 15 161 6 0 0 0 0 150 -1 1 1 1 0
+0 4 1 15 161 6 6 11 0 0 150 -1 1 1 1 0
 Determinators
 1 4 1 15 161 6 6 10 3 14 150 -1 1 1 1 0
 Flex

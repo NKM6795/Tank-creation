@@ -84,6 +84,8 @@ public:
 	float speed;
 	float tiltAngle;
 	long timerForObject;
+	bool canDoDamageToItself;
+	int damage;
 
 
 	ViewableObject();

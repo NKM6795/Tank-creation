@@ -246,7 +246,7 @@ void Battle::work()
 		}
 
 		//Work with personal tank
-		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
+		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, objects, bulletPositionInObjects, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 		updateObjects();
 		tank.setOffset(personalTank->getOffsetForTank());
@@ -265,7 +265,7 @@ void Battle::work()
 			objects.insert(objects.end(), tempObjects.begin(), tempObjects.end());
 		}
 
-		workWithBullet(objects, bulletPositionInObjects, personalTank->getGlobalOffset(), screanWidth, timer, screanHeight - 70);
+		workWithBullet(components, bulletPositionInComponents, objects, bulletPositionInObjects, personalTank->getGlobalOffset(), screanWidth, timer, screanHeight - 70);
 
 		graphic->draw(button, objects, tank, allotmentObjects, timer);
 	}
