@@ -3,6 +3,7 @@
 
 #include "WorkWithWindow.h"
 #include "PersonalTank.h"
+#include "WorkWithBullet.h"
 
 
 class Battle : public WorkWithWindow
@@ -18,6 +19,7 @@ class Battle : public WorkWithWindow
 	int allotmentPositionInComponents;
 	vector<ViewableObject *> allotmentObjects;
 	int bulletPositionInComponents;
+	int bulletPositionInObjects;
 
 	Tank tank;
 	PersonalTank *personalTank;

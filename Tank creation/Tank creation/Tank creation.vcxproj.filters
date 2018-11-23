@@ -292,6 +292,9 @@
     <ClCompile Include="BulletDraw.cpp">
       <Filter>Graphic\Tank And Components\Components\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WorkWithBullet.cpp">
+      <Filter>Tank And Components\Tank\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -437,6 +440,9 @@
     </ClInclude>
     <ClInclude Include="BulletDraw.h">
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkWithBullet.h">
+      <Filter>Tank And Components\Tank\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

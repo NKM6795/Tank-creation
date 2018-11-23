@@ -167,6 +167,7 @@
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="TrackDraw.cpp" />
     <ClCompile Include="WindowController.cpp" />
+    <ClCompile Include="WorkWithBullet.cpp" />
     <ClCompile Include="WorkWithWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +218,7 @@
     <ClInclude Include="Track.h" />
     <ClInclude Include="TrackDraw.h" />
     <ClInclude Include="WindowController.h" />
+    <ClInclude Include="WorkWithBullet.h" />
     <ClInclude Include="WorkWithWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

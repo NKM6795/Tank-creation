@@ -125,6 +125,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	{
 		vector<Component *> tempComponents = dataForBullet();
 		bulletPositionInComponents = int(components.size());
+		bulletPositionInObjects = int(objects.size());
 		components.insert(components.end(), tempComponents.begin(), tempComponents.end());
 	}
 
@@ -256,6 +257,9 @@ void Battle::work()
 			allotmentObjects.pop_back();
 		}
 		allotmentObjects = personalTank->getHighlightedGuns(components, allotmentPositionInComponents);
+
+		//Work with bullet
+		workWithBullet(objects, bulletPositionInObjects);
 
 		graphic->draw(button, objects, tank, allotmentObjects, timer);
 	}
