@@ -46,6 +46,8 @@ class PersonalTank
 	float getSpeedForVerticalGun(Vector2float first, Vector2float second, float angel);
 	void makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer);
 
+	void removeHangingObjects();
+
 public:
 	PersonalTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize = 30);
 

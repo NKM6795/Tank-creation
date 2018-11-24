@@ -15,6 +15,12 @@ class TankEditor
 
 	bool needUpdateTank;
 
+
+	bool checkFreePlace(vector<vector<bool> > &smallTank, int widht, int height, int i, int j);
+
+	void addViewableObjectOnPosition(Component *component, int index, Vector2int position);
+
+public:
 	enum Direct
 	{
 		Nowhere,
@@ -26,14 +32,6 @@ class TankEditor
 	};
 
 
-	bool checkFreePlace(vector<vector<bool> > &smallTank, int widht, int height, int i, int j);
-
-	void addViewableObjectOnPosition(Component *component, int index, Vector2int position);
-
-	void dfs(vector<vector<pair<Direct, Direct> > > &smallTank, int i, int j);
-	vector<vector<pair<Direct, Direct> > > getSmallTankForDfs();
-
-public:
 	TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize = 30);
 
 	~TankEditor();
@@ -57,6 +55,10 @@ public:
 	void clear();
 
 	bool isEmpty();
+
+	static void dfs(vector<vector<pair<Direct, Direct> > > &smallTank, int i, int j);
+	static vector<vector<pair<Direct, Direct> > > getSmallTankForDfs(vector<vector<ViewableObject *> > &objectsForSmallTank);
+	vector<vector<pair<Direct, Direct> > > getSmallTankForDfs();
 
 	int completenessСheck();
 	vector<ViewableObject *> getWrongObjects();

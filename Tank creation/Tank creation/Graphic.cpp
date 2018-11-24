@@ -766,9 +766,11 @@ void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vec
 
 void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, long timer)
 {
-	drawInRenderTexture(text, button, objects, timer);
+	drawInRenderTexture(text, button);
 
 	drawPrivate(tank, timer, false, needUpdateRender);
+
+	drawPrivate(objects, timer);
 }
 
 void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, List &list, long timer)

@@ -140,6 +140,38 @@ void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &comp
 }
 
 
+void PersonalTank::removeHangingObjects()
+{
+	Vector2int mainPosition(-1, -1);
+
+	for (int i = 0; i < int((*objects).size()) && mainPosition.x == -1; ++i)
+	{
+		for (int j = 0; j < int((*objects).size()) && mainPosition.x == -1; ++j)
+		{
+			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(EngineRoom))
+			{
+				mainPosition = Vector2int(i, j);
+			}
+		}
+	}
+
+	vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > smallTank = TankEditor::getSmallTankForDfs(*objects);
+	TankEditor::dfs(smallTank, mainPosition.x, mainPosition.y);
+
+	for (int i = 0; i < int(smallTank.size()); ++i)
+	{
+		for (int j = 0; j < int(smallTank.size()); ++j)
+		{
+			if (smallTank[i][j].first != TankEditor::Direct::Nowhere)
+			{
+				(*objects)[i][j]->setHeath(0);
+				needUpdateTank = true;
+			}
+		}
+	}
+}
+
+
 Vector2int PersonalTank::getOffset()
 {
 	return Vector2int(xOffset, yOffset);
@@ -509,6 +541,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	}
 	
 	//Work with bullet
+	bool needRemoveHangingObjects = false;
 	for (int k = 0; k < int(bullets.size()); ++k)
 	{
 		bool breakCheck = true;
@@ -524,6 +557,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 				if (bullets[k]->getFather()->getHealth() <= 0)
 				{
 					highlightingUpdated = true;
+					needRemoveHangingObjects = true;
 				}
 				bullets[k]->getFather()->needDraw = true;
 				breakBullet(components, bulletPositionInComponents, bullets, k, timer);
@@ -550,6 +584,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 						if ((*objects)[i][j]->getHealth() <= 0)
 						{
 							needUpdateTank = true;
+							needRemoveHangingObjects = true;
 							if (typeid(*(*objects)[i][j]) == typeid(Gun))
 							{
 								highlightingUpdated = true;
@@ -563,6 +598,11 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 				}
 			}
 		}
+	}
+
+	if (needRemoveHangingObjects)
+	{
+		removeHangingObjects();
 	}
 }
 

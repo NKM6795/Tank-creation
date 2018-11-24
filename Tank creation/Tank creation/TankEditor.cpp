@@ -46,104 +46,6 @@ void TankEditor::addViewableObjectOnPosition(Component *component, int index, Ve
 }
 
 
-void TankEditor::dfs(vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > &smallTank, int i, int j)
-{
-	pair<Direct, Direct> direct = smallTank[i][j];
-	smallTank[i][j] = { Nowhere, Nowhere };
-
-	if ((direct.first == Direct::All || direct.first == Direct::Left || direct.second == Direct::Left) && i - 1 >= 0 && (smallTank[i - 1][j].first == Direct::All || smallTank[i - 1][j].first == Direct::Right || smallTank[i - 1][j].second == Direct::Right))
-	{
-		dfs(smallTank, i - 1, j);
-	}
-
-	if ((direct.first == Direct::All || direct.first == Direct::Up || direct.second == Direct::Up) && j - 1 >= 0 && (smallTank[i][j - 1].first == Direct::All || smallTank[i][j - 1].first == Direct::Down || smallTank[i][j - 1].second == Direct::Down))
-	{
-		dfs(smallTank, i, j - 1);
-	}
-	
-	if ((direct.first == Direct::All || direct.first == Direct::Right || direct.second == Direct::Right) && i + 1 < int(smallTank.size()) && (smallTank[i + 1][j].first == Direct::All || smallTank[i + 1][j].first == Direct::Left || smallTank[i + 1][j].second == Direct::Left))
-	{
-		dfs(smallTank, i + 1, j);
-	}
-	
-	if ((direct.first == Direct::All || direct.first == Direct::Down || direct.second == Direct::Down) && j + 1 < int(smallTank.size()) && (smallTank[i][j + 1].first == Direct::All || smallTank[i][j + 1].first == Direct::Up || smallTank[i][j + 1].second == Direct::Up))
-	{
-		dfs(smallTank, i, j + 1);
-	}
-}
-
-vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > TankEditor::getSmallTankForDfs()
-{
-	vector<vector<pair<Direct, Direct> > > smallTank((*objects).size(), vector<pair<Direct, Direct>>((*objects).size(), { Direct::Nowhere, Direct::Nowhere }));
-
-	for (int i = 0; i < int((*objects).size()); ++i)
-	{
-		for (int j = 0; j < int((*objects).size()); ++j)
-		{
-			if ((*objects)[i][j] != nullptr)
-			{
-				if (typeid(*(*objects)[i][j]) == typeid(SmallBlock) || typeid(*(*objects)[i][j]) == typeid(BigBlock) || typeid(*(*objects)[i][j]) == typeid(EngineRoom) ||
-					typeid(*(*objects)[i][j]) == typeid(AdditionToBigBlock) || typeid(*(*objects)[i][j]) == typeid(AdditionToEngineRoom))
-				{
-					smallTank[i][j] = { Direct::All, Direct::All };
-				}
-				else if ((typeid(*(*objects)[i][j]) == typeid(Track) || typeid(*(*objects)[i][j]) == typeid(AdditionToTrack)) && j == (*objects)[i][j]->getPosition().y / 20)
-				{
-					if (i == (*objects)[i][j]->getPosition().x / 20)
-					{
-						smallTank[i][j] = { Direct::Up, Direct::Right };
-					}
-					else if (i == (*objects)[i][j]->getPosition().x / 20 + (*objects)[i][j]->getComponentParameter()->width - 1)
-					{
-						smallTank[i][j] = { Direct::Up, Direct::Left };
-					}
-					else
-					{
-						smallTank[i][j] = { Direct::All, Direct::All };
-					}
-				}
-				else if ((typeid(*(*objects)[i][j]) == typeid(Gun) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun)) && (*objects)[i][j]->getComponentParameter()->horizontally && i == (*objects)[i][j]->getPosition().x / 20)
-				{
-					if ((*objects)[i][j]->getComponentParameter()->height == 1)
-					{
-						smallTank[i][j] = { Direct::Left, Direct::Left };
-					}
-					else if (j == (*objects)[i][j]->getPosition().y / 20)
-					{
-						smallTank[i][j] = { Direct::Down, Direct::Left };
-					}
-					else if (j == (*objects)[i][j]->getPosition().y / 20 + (*objects)[i][j]->getComponentParameter()->height - 1)
-					{
-						smallTank[i][j] = { Direct::Up, Direct::Left };
-					}
-					else
-					{
-						smallTank[i][j] = { Direct::All, Direct::All };
-					}
-				}
-				else if ((typeid(*(*objects)[i][j]) == typeid(Gun) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun)) && !(*objects)[i][j]->getComponentParameter()->horizontally && j == (*objects)[i][j]->getPosition().y / 20 + (*objects)[i][j]->getComponentParameter()->height - 1)
-				{
-					if (i == (*objects)[i][j]->getPosition().x / 20)
-					{
-						smallTank[i][j] = { Direct::Down, Direct::Right };
-					}
-					else if (i == (*objects)[i][j]->getPosition().x / 20 + (*objects)[i][j]->getComponentParameter()->width - 1)
-					{
-						smallTank[i][j] = { Direct::Down, Direct::Left };
-					}
-					else
-					{
-						smallTank[i][j] = { Direct::All, Direct::All };
-					}
-				}
-			}
-		}
-	}
-
-	return smallTank;
-}
-
-
 TankEditor::TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
 {
 	needUpdateTank = true;
@@ -408,6 +310,109 @@ bool TankEditor::isEmpty()
 }
 
 
+void TankEditor::dfs(vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > &smallTank, int i, int j)
+{
+	pair<Direct, Direct> direct = smallTank[i][j];
+	smallTank[i][j] = { Nowhere, Nowhere };
+
+	if ((direct.first == Direct::All || direct.first == Direct::Left || direct.second == Direct::Left) && i - 1 >= 0 && (smallTank[i - 1][j].first == Direct::All || smallTank[i - 1][j].first == Direct::Right || smallTank[i - 1][j].second == Direct::Right))
+	{
+		dfs(smallTank, i - 1, j);
+	}
+
+	if ((direct.first == Direct::All || direct.first == Direct::Up || direct.second == Direct::Up) && j - 1 >= 0 && (smallTank[i][j - 1].first == Direct::All || smallTank[i][j - 1].first == Direct::Down || smallTank[i][j - 1].second == Direct::Down))
+	{
+		dfs(smallTank, i, j - 1);
+	}
+
+	if ((direct.first == Direct::All || direct.first == Direct::Right || direct.second == Direct::Right) && i + 1 < int(smallTank.size()) && (smallTank[i + 1][j].first == Direct::All || smallTank[i + 1][j].first == Direct::Left || smallTank[i + 1][j].second == Direct::Left))
+	{
+		dfs(smallTank, i + 1, j);
+	}
+
+	if ((direct.first == Direct::All || direct.first == Direct::Down || direct.second == Direct::Down) && j + 1 < int(smallTank.size()) && (smallTank[i][j + 1].first == Direct::All || smallTank[i][j + 1].first == Direct::Up || smallTank[i][j + 1].second == Direct::Up))
+	{
+		dfs(smallTank, i, j + 1);
+	}
+}
+
+vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > TankEditor::getSmallTankForDfs(vector<vector<ViewableObject *> > &objectsForSmallTank)
+{
+	vector<vector<pair<Direct, Direct> > > smallTank(objectsForSmallTank.size(), vector<pair<Direct, Direct>>(objectsForSmallTank.size(), { Direct::Nowhere, Direct::Nowhere }));
+
+	for (int i = 0; i < int(objectsForSmallTank.size()); ++i)
+	{
+		for (int j = 0; j < int(objectsForSmallTank.size()); ++j)
+		{
+			if (objectsForSmallTank[i][j] != nullptr && objectsForSmallTank[i][j]->getHealth() > 0)
+			{
+				if (typeid(*objectsForSmallTank[i][j]) == typeid(SmallBlock) || typeid(*objectsForSmallTank[i][j]) == typeid(BigBlock) || typeid(*objectsForSmallTank[i][j]) == typeid(EngineRoom) ||
+					typeid(*objectsForSmallTank[i][j]) == typeid(AdditionToBigBlock) || typeid(*objectsForSmallTank[i][j]) == typeid(AdditionToEngineRoom))
+				{
+					smallTank[i][j] = { Direct::All, Direct::All };
+				}
+				else if ((typeid(*objectsForSmallTank[i][j]) == typeid(Track) || typeid(*objectsForSmallTank[i][j]) == typeid(AdditionToTrack)) && j == objectsForSmallTank[i][j]->getPosition().y / 20)
+				{
+					if (i == objectsForSmallTank[i][j]->getPosition().x / 20)
+					{
+						smallTank[i][j] = { Direct::Up, Direct::Right };
+					}
+					else if (i == objectsForSmallTank[i][j]->getPosition().x / 20 + objectsForSmallTank[i][j]->getComponentParameter()->width - 1)
+					{
+						smallTank[i][j] = { Direct::Up, Direct::Left };
+					}
+					else
+					{
+						smallTank[i][j] = { Direct::All, Direct::All };
+					}
+				}
+				else if ((typeid(*objectsForSmallTank[i][j]) == typeid(Gun) || typeid(*objectsForSmallTank[i][j]) == typeid(AdditionToGun)) && objectsForSmallTank[i][j]->getComponentParameter()->horizontally && i == objectsForSmallTank[i][j]->getPosition().x / 20)
+				{
+					if (objectsForSmallTank[i][j]->getComponentParameter()->height == 1)
+					{
+						smallTank[i][j] = { Direct::Left, Direct::Left };
+					}
+					else if (j == objectsForSmallTank[i][j]->getPosition().y / 20)
+					{
+						smallTank[i][j] = { Direct::Down, Direct::Left };
+					}
+					else if (j == objectsForSmallTank[i][j]->getPosition().y / 20 + objectsForSmallTank[i][j]->getComponentParameter()->height - 1)
+					{
+						smallTank[i][j] = { Direct::Up, Direct::Left };
+					}
+					else
+					{
+						smallTank[i][j] = { Direct::All, Direct::All };
+					}
+				}
+				else if ((typeid(*objectsForSmallTank[i][j]) == typeid(Gun) || typeid(*objectsForSmallTank[i][j]) == typeid(AdditionToGun)) && !objectsForSmallTank[i][j]->getComponentParameter()->horizontally && j == objectsForSmallTank[i][j]->getPosition().y / 20 + objectsForSmallTank[i][j]->getComponentParameter()->height - 1)
+				{
+					if (i == objectsForSmallTank[i][j]->getPosition().x / 20)
+					{
+						smallTank[i][j] = { Direct::Down, Direct::Right };
+					}
+					else if (i == objectsForSmallTank[i][j]->getPosition().x / 20 + objectsForSmallTank[i][j]->getComponentParameter()->width - 1)
+					{
+						smallTank[i][j] = { Direct::Down, Direct::Left };
+					}
+					else
+					{
+						smallTank[i][j] = { Direct::All, Direct::All };
+					}
+				}
+			}
+		}
+	}
+
+	return smallTank;
+}
+
+vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > TankEditor::getSmallTankForDfs()
+{
+	return getSmallTankForDfs(*objects);
+}
+
+
 int TankEditor::completenessСheck()
 {
 	bool checkMain = false,
@@ -475,7 +480,7 @@ vector<ViewableObject *> TankEditor::getWrongObjects()
 		}
 	}
 
-	vector<vector<pair<Direct, Direct> > > smallTank = getSmallTankForDfs();
+	vector<vector<pair<Direct, Direct> > > smallTank = getSmallTankForDfs(*objects);
 	dfs(smallTank, mainPosition.x, mainPosition.y);
 
 	vector<ViewableObject *> result;

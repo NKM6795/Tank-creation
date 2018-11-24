@@ -227,6 +227,7 @@ void Battle::work()
 {
 	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
+		Clock t;
 		timer += timeForWork;
 
 		mousePosition = graphic->getPositionOfMouse();
@@ -307,5 +308,6 @@ void Battle::work()
 
 
 		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, tank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
+		cout << t.getElapsedTime().asMilliseconds() << '\n';
 	}
 }
