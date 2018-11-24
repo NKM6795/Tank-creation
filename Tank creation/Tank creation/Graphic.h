@@ -46,6 +46,7 @@ class Graphic
 	vector<ComponentDraw *> components;
 
 	bool firstDraw;
+	bool needSpritesForRender;
 	RenderTexture *renderTextureForBackground;
 	RenderTexture *renderTextureForHighlighte;
 	Sprite *spriteForRenderBackground;

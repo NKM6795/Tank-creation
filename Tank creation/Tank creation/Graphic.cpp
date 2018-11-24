@@ -15,6 +15,7 @@ void Graphic::forConstructor()
 	needList = false;
 
 	firstDraw = true;
+	needSpritesForRender = false;
 }
 
 
@@ -85,6 +86,10 @@ Graphic::~Graphic()
 		delete tankDraw;
 
 		delete tankSprite;
+
+		delete renderTextureForTank;
+
+		delete renderTextureForGunsForTank;
 	}
 
 	if (needList)
@@ -92,6 +97,16 @@ Graphic::~Graphic()
 		delete listDraw;
 
 		delete listSprite;
+
+		delete renderTextureForList;
+	}
+
+	if (needSpritesForRender)
+	{
+		delete renderTextureForBackground;
+		delete renderTextureForHighlighte;
+		delete spriteForRenderBackground;
+		delete spriteForRenderHighlighte;
 	}
 }
 
@@ -312,6 +327,8 @@ void Graphic::setInformation(List &list)
 
 void Graphic::setInformation(int screanWidth, int screanHeight)
 {
+	needSpritesForRender = true;
+
 	renderTextureForBackground = new RenderTexture;
 	renderTextureForBackground->create(screanWidth, screanHeight);
 	renderTextureForBackground->clear(Color(0, 0, 0, 0));

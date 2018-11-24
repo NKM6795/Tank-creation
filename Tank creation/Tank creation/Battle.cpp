@@ -163,6 +163,24 @@ Battle::~Battle()
 		components.pop_back();
 	}
 
+	while (backgroundAndSpeedometerObjects.size() > 0)
+	{
+		delete backgroundAndSpeedometerObjects.back();
+		backgroundAndSpeedometerObjects.pop_back();
+	}
+
+	while (bullets.size() > 0)
+	{
+		delete bullets.back();
+		bullets.pop_back();
+	}
+
+	while (allotmentObjects.size() > 0)
+	{
+		delete allotmentObjects.back();
+		allotmentObjects.pop_back();
+	}
+
 	delete personalTank;
 }
 
