@@ -12,6 +12,7 @@ class Battle : public WorkWithWindow
 
 	int fieldWidthForBattle;
 
+	bool firstUpdateOfBackgrounds;
 	vector<Vector2int> positionsOfBackground;
 	vector<ViewableObject *> bullets;
 	vector<ViewableObject *> backgroundAndSpeedometerObjects;

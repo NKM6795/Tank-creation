@@ -70,7 +70,7 @@ public:
 	void setControlIsPressed(bool isPressed);
 	void setNumberIsPressed(int unicode);
 
-	bool getHighlightingUpdated();
+	bool getHighlightingUpdated(bool updated = false);
 	bool getNeedUpdateTank();
 
 	bool needHighlighte();

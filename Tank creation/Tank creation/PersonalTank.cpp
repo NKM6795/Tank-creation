@@ -35,7 +35,7 @@ void PersonalTank::updateTracks()
 		{
 			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(Track))
 			{
-				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + (speed < 0 ? (*objects)[i][j]->getComponentParameter()->numberOfVariant - 1 : 1)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
+				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + (speed > 0 ? (*objects)[i][j]->getComponentParameter()->numberOfVariant - 1 : 1)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
 				(*objects)[i][j]->needDraw = true;
 			}
 		}
@@ -245,11 +245,14 @@ void PersonalTank::setNumberIsPressed(int unicode)
 }
 
 
-bool PersonalTank::getHighlightingUpdated()
+bool PersonalTank::getHighlightingUpdated(bool updated)
 {
 	if (highlightingUpdated)
 	{
-		highlightingUpdated = false;
+		if (!updated)
+		{
+			highlightingUpdated = false;
+		}
 		return true;
 	}
 	return false;
@@ -409,6 +412,10 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			}
 		}
 
+		if (position != 0)
+		{
+			highlightingUpdated = true;
+		}
 	}
 
 	//Work with highlighting
@@ -423,7 +430,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	else if (numberIsPressed != -1)
 	{
 		highlightedItems = grupyAllocation[numberIsPressed];
-		highlightingUpdated;
+		highlightingUpdated = true;
 
 		numberIsPressed = -1;
 	}
@@ -514,6 +521,10 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()) && bullets[k]->canDoDamageToItself)
 			{
 				bullets[k]->getFather()->setHeath(bullets[k]->getFather()->getHealth() - bullets[k]->damage);
+				if (bullets[k]->getFather()->getHealth() <= 0)
+				{
+					highlightingUpdated = true;
+				}
 				bullets[k]->getFather()->needDraw = true;
 				breakBullet(components, bulletPositionInComponents, bullets, k, timer);
 				breakCheck = false;
@@ -539,6 +550,10 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 						if ((*objects)[i][j]->getHealth() <= 0)
 						{
 							needUpdateTank = true;
+							if (typeid(*(*objects)[i][j]) == typeid(Gun))
+							{
+								highlightingUpdated = true;
+							}
 						}
 						(*objects)[i][j]->needDraw = true;
 						

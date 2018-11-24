@@ -5,6 +5,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 {
 	components = dataForResources(true);
 	
+	firstUpdateOfBackgrounds = true;
 	//Layers
 	{
 		vector<Component *> tempComponents = dataForBackgroundBattle();
@@ -273,15 +274,27 @@ void Battle::work()
 		//Work with personal tank
 		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, bullets, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
-		updateObjects();
-		tank.setOffset(personalTank->getOffsetForTank());
-
-		while (allotmentObjects.size() > 0)
+		if (firstUpdateOfBackgrounds || personalTank->getSpeed() != 0)
 		{
-			delete allotmentObjects.back();
-			allotmentObjects.pop_back();
+			firstUpdateOfBackgrounds = false;
+
+			updateObjects();
+			tank.setOffset(personalTank->getOffsetForTank());
 		}
-		allotmentObjects = personalTank->getHighlightedGuns(components, allotmentPositionInComponents);
+		else if (personalTank->getSpeed() == 0)
+		{
+			firstUpdateOfBackgrounds = true;
+		}
+
+		if (personalTank->getHighlightingUpdated(true))
+		{
+			while (allotmentObjects.size() > 0)
+			{
+				delete allotmentObjects.back();
+				allotmentObjects.pop_back();
+			}
+			allotmentObjects = personalTank->getHighlightedGuns(components, allotmentPositionInComponents);
+		}
 
 		//Work with bullet
 		if (personalTank->getNeedAddBullet())
@@ -293,6 +306,6 @@ void Battle::work()
 		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, screanHeight - 70);
 
 
-		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, tank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated()), allotmentObjects, personalTank->needHighlighte(), timer);
+		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, tank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
 	}
 }
