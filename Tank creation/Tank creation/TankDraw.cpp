@@ -27,7 +27,7 @@ void TankDraw::save(string fileName, long timer, Tank &tank, vector<ComponentDra
 	renderForSave.create(tank.getDimension(), tank.getDimension());
 	renderForSave.clear(Color(89, 85, 83));
 
-	draw(renderForSave, timer, tank, components);
+	draw(renderForSave, timer, tank, components, 1);
 	renderForSave.display();
 
 	Image image;

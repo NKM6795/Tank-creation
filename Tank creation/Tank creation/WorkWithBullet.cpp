@@ -6,12 +6,12 @@ Vector2float getBuletPositionFromTime(ViewableObject *bullet, Vector2int offset,
 	float time = float(timer - bullet->timerForObject) / 200.f;
 	Vector2float newPosition(bullet->getBulletPosition(true).x + float(time) * bullet->speed * sin(bullet->tiltAngle * PI / 180.f), bullet->getBulletPosition(true).y - float(time) * bullet->speed * cos(bullet->tiltAngle * PI / 180.f));
 
-	if (!bullet->getFather()->getComponentParameter()->horizontally)
-	{
-		newPosition.y = bullet->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - bullet->speed * time * cos(bullet->tiltAngle * PI / 180.f);
-	}
+if (!bullet->getFather()->getComponentParameter()->horizontally)
+{
+	newPosition.y = bullet->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - bullet->speed * time * cos(bullet->tiltAngle * PI / 180.f);
+}
 
-	return newPosition;
+return newPosition;
 }
 
 void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, int index, long timer, bool completely)
@@ -57,7 +57,7 @@ void breakBullet(vector<Component *> &components, int bulletPositionInComponents
 				}
 			}
 		}
-		
+
 		if (indexOfComponents != -1)
 		{
 			{
@@ -75,7 +75,7 @@ void breakBullet(vector<Component *> &components, int bulletPositionInComponents
 
 				newObjects.push_back(newBullet);
 			}
-			
+
 			{
 				ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, 30.f, bullet->speed / 2.f, bullet->getBulletPosition(), timer);
 				newBullet->damage = bullet->damage / 2;
@@ -102,71 +102,127 @@ bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2float
 {
 	Vector2int objectPosition = object->getPosition(),
 		bulletPosition = position + offset,
+		mainObjectSize = Vector2int(object->getComponentParameter()->width, object->getComponentParameter()->height) * 20,
 		objectSize = Vector2int(object->getComponentParameter()->width, object->getComponentParameter()->height) * 20,
 		bulletSize = Vector2int(bullet->getComponentParameter()->width, bullet->getComponentParameter()->height);
 
-	if (getLength(objectPosition + objectSize / 2, bulletPosition) > 80)
+	//for gun
+	if ((typeid(*object) == typeid(Gun)))
 	{
-		return false;
+		if (objectSize.x == 20)
+		{
+			objectSize.x = 13;
+		}
+		else if (object->getComponentParameter()->horizontally && objectSize.x != 60)
+		{
+			objectSize.x = 17;
+		}
+		else if (object->getComponentParameter()->horizontally && objectSize.x == 60)
+		{
+			objectPosition.y += 4;
+			objectSize = Vector2int(17, 52);
+		}
+		else if (objectSize.x == 40)
+		{
+			objectSize.y = 19;
+			objectPosition.y += 21;
+		}
+		else if (objectSize.x == 60)
+		{
+			objectSize = Vector2int(34, 45);
+			objectPosition.x += 13;
+			objectPosition.y += 15;
+		}
+		else
+		{
+			objectSize = Vector2int(58, 78);
+			objectPosition.x += 11;
+			objectPosition.y += 2;
+		}
 	}
 
-	if (objectPosition.x > bulletPosition.x + bulletSize.x / 2)
+	//common
 	{
-		return false;
-	}
-	if (objectPosition.x + objectSize.x < bulletPosition.x - bulletSize.x / 2)
-	{
-		return false;
-	}
-	if (objectPosition.y > bulletPosition.y + bulletSize.y / 2)
-	{
-		return false;
-	}
-	if (objectPosition.y + objectSize.y * 20 < bulletPosition.y - bulletSize.y / 2)
-	{
-		return false;
+		if (getLength(objectPosition + objectSize / 2, bulletPosition) > 80)
+		{
+			return false;
+		}
 	}
 
-	//Left
-	Vector2int tempBulletPosition = bulletPosition + Vector2int(bulletSize.x / 2, 0);
-	if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
+	//outside
 	{
-		return true;
-	}
-	//Right
-	tempBulletPosition = bulletPosition - Vector2int(bulletSize.x / 2, 0);
-	if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
-	{
-		return true;
-	}
-	//Up
-	tempBulletPosition = bulletPosition - Vector2int(0, bulletSize.y / 2);
-	if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
-	{
-		return true;
-	}
-	//Down
-	tempBulletPosition = bulletPosition + Vector2int(0, bulletSize.y / 2);
-	if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
-	{
-		return true;
+		//left
+		if (objectPosition.x > bulletPosition.x + bulletSize.x / 2)
+		{
+			return false;
+		}
+		//right
+		if (objectPosition.x + objectSize.x < bulletPosition.x - bulletSize.x / 2)
+		{
+			return false;
+		}
+		//top
+		if (objectPosition.y > bulletPosition.y + bulletSize.y / 2)
+		{
+			return false;
+		}
+		//bottom
+		if (objectPosition.y + objectSize.y * 20 < bulletPosition.y - bulletSize.y / 2)
+		{
+			return false;
+		}
 	}
 
-	if (getLength(objectPosition, bulletPosition) > bulletSize.x / 2)
+	//inside
 	{
-		return false;
+		//Right
+		Vector2int tempBulletPosition = bulletPosition + Vector2int(bulletSize.x / 2, 0);
+		if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
+		{
+			return true;
+		}
+		//Left
+		tempBulletPosition = bulletPosition - Vector2int(bulletSize.x / 2, 0);
+		if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
+		{
+			return true;
+		}
+		//Up
+		tempBulletPosition = bulletPosition - Vector2int(0, bulletSize.y / 2);
+		if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
+		{
+			return true;
+		}
+		//Down
+		tempBulletPosition = bulletPosition + Vector2int(0, bulletSize.y / 2);
+		if (objectPosition <= tempBulletPosition && objectPosition + objectSize >= tempBulletPosition)
+		{
+			return true;
+		}
 	}
-	if (getLength(objectPosition + Vector2int(objectSize.x, 0), bulletPosition) > bulletSize.x / 2)
+
+	//at the corners
 	{
-		return false;
-	}
-	if (getLength(objectPosition + Vector2int(0, objectSize.y), bulletPosition) > bulletSize.x / 2)
-	{
-		return false;
-	}
-	if (getLength(objectPosition + objectSize, bulletPosition) > bulletSize.x / 2)
-	{
-		return false;
+		//top left
+		if (getLength(objectPosition, bulletPosition) > bulletSize.x / 2)
+		{
+			return false;
+		}
+		//top right
+		if (getLength(objectPosition + Vector2int(objectSize.x, 0), bulletPosition) > bulletSize.x / 2)
+		{
+			return false;
+		}
+		//bottom left
+		if (getLength(objectPosition + Vector2int(0, objectSize.y), bulletPosition) > bulletSize.x / 2)
+		{
+			return false;
+		}
+		//bottom right
+		if (getLength(objectPosition + objectSize, bulletPosition) > bulletSize.x / 2)
+		{
+			return false;
+		}
 	}
 
 	return true;
@@ -186,15 +242,7 @@ void workWithBullet(vector<Component *> &components, int bulletPositionInCompone
 		}
 		else
 		{
-			float time = float(timer - bullets[i]->timerForObject) / 200.f;
-			Vector2float newPosition(bullets[i]->getBulletPosition(true).x + float(time) * bullets[i]->speed * sin(bullets[i]->tiltAngle * PI / 180.f), bullets[i]->getBulletPosition(true).y - float(time) * bullets[i]->speed * cos(bullets[i]->tiltAngle * PI / 180.f));
-
-			if (!bullets[i]->getFather()->getComponentParameter()->horizontally)
-			{
-				newPosition.y = bullets[i]->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - bullets[i]->speed * time * cos(bullets[i]->tiltAngle * PI / 180.f);
-			}
-
-			bullets[i]->setBulletPosition(newPosition);
+			bullets[i]->setBulletPosition(getBuletPositionFromTime(bullets[i], offset, timer));
 
 			bullets[i]->setPosition(bullets[i]->getBulletPosition() + offset);
 

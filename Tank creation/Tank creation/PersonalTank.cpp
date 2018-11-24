@@ -109,6 +109,20 @@ float PersonalTank::getSpeedForVerticalGun(Vector2float first, Vector2float seco
 	return ((second.x - first.x) / sin(angel * PI / 180.f)) * sqrt(GRAVITY / (2 * ((second.y - first.y) + (second.x - first.x) / tan(angel * PI / 180.f))));
 }
 
+bool PersonalTank::checkYCoordinate(Vector2float start, Vector2float second, float angel, float speedOfBullet)
+{
+	float t = (second.x - start.x) / (speedOfBullet * sin(angel * PI / 180.f));
+
+	float y = start.y + GRAVITY * 0.5f * t * t - speed * t * cos(angel * PI / 180.f);
+
+	return true;
+}
+
+int PersonalTank::checkToGetIntoHimself(float angel, float speedOfBullet, Vector2float position)
+{
+	return 0;
+}
+
 void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer)
 {
 	for (int i = 0; i < int(highlightedItems.size()); ++i)

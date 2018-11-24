@@ -44,6 +44,12 @@ class PersonalTank
 	void updateGun(Vector2int mousePosition);
 
 	float getSpeedForVerticalGun(Vector2float first, Vector2float second, float angel);
+	bool checkYCoordinate(Vector2float first, Vector2float second, float angel, float speedOfBullet);
+	//return:
+	//0 - ok
+	//1 - need to turn left
+	//-1 - need to turn right
+	int checkToGetIntoHimself(float angel, float speedOfBullet, Vector2float position);
 	void makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer);
 
 	void removeHangingObjects();
