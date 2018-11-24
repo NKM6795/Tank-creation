@@ -227,7 +227,6 @@ void Battle::work()
 {
 	if (graphic->getTimeAsMilliseconds() / coefficientForTime - timer >= timeForWork)
 	{
-		Clock t;
 		timer += timeForWork;
 
 		mousePosition = graphic->getPositionOfMouse();
@@ -304,10 +303,9 @@ void Battle::work()
 			bullets.insert(bullets.end(), tempObjects.begin(), tempObjects.end());
 		}
 
-		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, screanHeight - 70);
+		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, timeForWork, screanHeight - 70);
 
 
 		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, tank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
-		cout << t.getElapsedTime().asMilliseconds() << '\n';
 	}
 }

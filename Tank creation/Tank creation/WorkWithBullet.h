@@ -11,4 +11,4 @@ void breakBullet(vector<Component *> &components, int bulletPositionInComponents
 
 bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2float position, Vector2int offset);
 
-void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Vector2int offset, int screanWidth, long timer, int positionOfLand);
+void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Vector2int offset, int screanWidth, long timer, int fps, int positionOfLand);

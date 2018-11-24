@@ -172,7 +172,7 @@ bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2float
 	return true;
 }
 
-void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Vector2int offset, int screanWidth, long timer, int positionOfLand)
+void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Vector2int offset, int screanWidth, long timer, int fps, int positionOfLand)
 {
 	vector<ViewableObject *> newObjects;
 
@@ -200,7 +200,7 @@ void workWithBullet(vector<Component *> &components, int bulletPositionInCompone
 
 			if (bullets[i]->getPosition().y + bullets[i]->getComponentParameter()->width / 2 >= positionOfLand)
 			{
-				breakBullet(components, bulletPositionInComponents, bullets, i, timer);
+				breakBullet(components, bulletPositionInComponents, bullets, i, timer - fps);
 				breakCheck = false;
 			}
 		}

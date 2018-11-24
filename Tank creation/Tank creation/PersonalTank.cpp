@@ -578,7 +578,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			{
 				for (int k = 0; k < int(bullets.size()); ++k)
 				{
-					if (bullets[k]->getFather() != (*objects)[i][j] && collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()))
+					if (bullets[k]->getFather() != (*objects)[i][j] && (collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer - fps / 2), globalOffset - getOffsetForTank()) || collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank())))
 					{
 						(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - bullets[k]->damage);
 						if ((*objects)[i][j]->getHealth() <= 0)
@@ -592,7 +592,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 						}
 						(*objects)[i][j]->needDraw = true;
 						
-						breakBullet(components, bulletPositionInComponents, bullets, k, timer);
+						breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps / 2);
 						--k;
 					}
 				}
