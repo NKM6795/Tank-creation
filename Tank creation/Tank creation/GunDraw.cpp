@@ -60,7 +60,7 @@ void GunDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *obj
 			background->draw(renderTexture, timer, object);
 		}
 		
-		if (numberOfVariantbarrel <= 1)
+		if (numberOfVariantbarrel <= 1 && compulsoryDrawing == 1)
 		{
 			object->needDraw = false;
 		}

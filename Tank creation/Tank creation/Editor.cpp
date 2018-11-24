@@ -198,7 +198,7 @@ void Editor::work()
 
 				string fileName = "Data/Data for exit from editor.dat";
 
-				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+				graphic->drawInRenderTexture(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 
 				newWindow = new ExitFromEditor(fileName, graphic, tank.name, tankEditor);
 
@@ -222,7 +222,7 @@ void Editor::work()
 
 				string fileName = "Data/Data for save tank.dat";
 
-				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+				graphic->drawInRenderTexture(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 
 				newWindow = new SaveTank(fileName, graphic);
 			}
@@ -233,7 +233,7 @@ void Editor::work()
 
 				string fileName = "Data/Data for saved.dat";
 
-				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+				graphic->drawInRenderTexture(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 
 				newWindow = new Saved(fileName, graphic);
 			}
@@ -241,7 +241,7 @@ void Editor::work()
 			{
 				string fileName = "Data/Data for not available.dat";
 
-				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+				graphic->drawInRenderTexture(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 
 				newWindow = new NotAvailable(fileName, graphic, "Missing main unit");
 			}
@@ -249,7 +249,7 @@ void Editor::work()
 			{
 				string fileName = "Data/Data for not available.dat";
 
-				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+				graphic->drawInRenderTexture(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 
 				newWindow = new NotAvailable(fileName, graphic, "No tracks");
 			}
@@ -257,7 +257,7 @@ void Editor::work()
 			{
 				string fileName = "Data/Data for not available.dat";
 
-				graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+				graphic->drawInRenderTexture(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 
 				newWindow = new NotAvailable(fileName, graphic, "Tank is not correct");
 			}
@@ -271,7 +271,7 @@ void Editor::work()
 
 			string fileName = "Data/Data for rename tank.dat";
 
-			graphic->drawInRenderTexture(text, button, objects, tank, *list, timer);
+			graphic->drawInRenderTexture(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 
 			newWindow = new RenameTank(fileName, graphic, tank.name);
 
@@ -325,6 +325,6 @@ void Editor::work()
 		list->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 
-		graphic->draw(text, button, objects, tank, *list, timer);
+		graphic->draw(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 	}
 }

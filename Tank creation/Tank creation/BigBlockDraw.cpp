@@ -36,7 +36,7 @@ void BigBlockDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject
 		{
 			background->draw(renderTexture, timer, object);
 		}
-		else
+		else if (compulsoryDrawing == 1)
 		{
 			object->needDraw = false;
 		}

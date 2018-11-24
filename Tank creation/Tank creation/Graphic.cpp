@@ -615,14 +615,14 @@ void Graphic::draw(string *text, map<string, Button> &button, vector<ViewableObj
 
 void Graphic::draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer)
 {
-	drawInRenderTexture(text, button, objects, tank, timer);
+	drawInRenderTexture(text, button, objects, tank, false, timer);
 
 	drawWindow();
 }
 
-void Graphic::draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
+void Graphic::draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, List &list, long timer)
 {
-	drawInRenderTexture(text, button, objects, tank, list, timer);
+	drawInRenderTexture(text, button, objects, tank, needUpdateRender, list, timer);
 
 	drawWindow();
 }
@@ -747,16 +747,16 @@ void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vec
 	drawPrivate(objects, timer);
 }
 
-void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, long timer)
 {
-	drawInRenderTexture(text, button, tank, timer);
+	drawInRenderTexture(text, button, objects, timer);
 
-	drawPrivate(objects, timer);
+	drawPrivate(tank, timer, false, needUpdateRender);
 }
 
-void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer)
+void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, List &list, long timer)
 {
-	drawInRenderTexture(text, button, objects, tank, timer);
+	drawInRenderTexture(text, button, objects, tank, needUpdateRender, timer);
 
 	drawPrivate(list, timer);
 }

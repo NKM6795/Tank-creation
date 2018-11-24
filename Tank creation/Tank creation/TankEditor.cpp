@@ -146,7 +146,7 @@ vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > TankEditor::getSm
 
 TankEditor::TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
 {
-
+	needUpdateTank = true;
 }
 
 TankEditor::~TankEditor()
@@ -375,6 +375,7 @@ bool TankEditor::removeViewableObject(Vector2int mousePosition)
 		}
 	}
 
+	needUpdateTank = true;
 	return true;
 }
 
@@ -507,6 +508,17 @@ vector<ViewableObject *> TankEditor::getWrongObjects()
 		}
 	}
 	return result;
+}
+
+
+bool TankEditor::getNeedUpdateTank()
+{
+	if (needUpdateTank)
+	{
+		needUpdateTank = false;
+		return true;
+	}
+	return false;
 }
 
 

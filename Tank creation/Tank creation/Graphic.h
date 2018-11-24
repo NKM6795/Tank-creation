@@ -112,7 +112,7 @@ public:
 	void draw(string *text, map<string, Button> &button, Tank &tank, long timer);
 	void draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
 	void draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
+	void draw(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, List &list, long timer);
 
 	void drawInRenderTexture(map<string, Button> &button);
 	void drawInRenderTexture(map<string, Button> &button, List &list, long timer);
@@ -129,8 +129,8 @@ public:
 	void drawInRenderTexture(string *text, map<string, Button> &button, List &list, long timer);
 	void drawInRenderTexture(string *text, map<string, Button> &button, Tank &tank, long timer);
 	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
-	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
+	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, long timer);
+	void drawInRenderTexture(string *text, map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, bool needUpdateRender, List &list, long timer);
 
 	void saveTank(string fileName, Tank &tank, long timer);
 

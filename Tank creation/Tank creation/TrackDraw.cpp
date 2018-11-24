@@ -15,6 +15,11 @@ TrackDraw::TrackDraw(ComponentParameter *component)
 		trackTexture[i].loadFromFile(fileName);
 
 		trackSprite[i].setTexture(trackTexture[i]);
+
+		if (component->width == 6)
+		{
+			trackSprite[i].setOrigin(1.f, 1.f);
+		}
 	}
 }
 
@@ -30,7 +35,10 @@ void TrackDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *o
 {
 	if (((!compulsoryDrawing && object->needDraw) || compulsoryDrawing == 1) && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
-		object->needDraw = false;
+		if (compulsoryDrawing == 1)
+		{
+			object->needDraw = false;
+		}
 
 		int index = object->getComponentParameter()->backgroundIndex;
 

@@ -13,6 +13,8 @@ class TankEditor
 
 	int dataArraySize;
 
+	bool needUpdateTank;
+
 	enum Direct
 	{
 		Nowhere,
@@ -58,6 +60,8 @@ public:
 
 	int completenessСheck();
 	vector<ViewableObject *> getWrongObjects();
+
+	bool getNeedUpdateTank();
 
 	void save(string fileName);
 	void download(string fileName, vector<Component *> &components);

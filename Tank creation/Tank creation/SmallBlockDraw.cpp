@@ -30,7 +30,10 @@ void SmallBlockDraw::draw(RenderTexture &renderTexture, long timer, ViewableObje
 {
 	if (((!compulsoryDrawing && object->needDraw) || compulsoryDrawing == 1) && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
-		object->needDraw = false;
+		if (compulsoryDrawing == 1)
+		{
+			object->needDraw = false;
+		}
 
 		int index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
 
