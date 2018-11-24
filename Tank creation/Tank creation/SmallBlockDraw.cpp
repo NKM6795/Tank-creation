@@ -26,10 +26,12 @@ SmallBlockDraw::~SmallBlockDraw()
 }
 
 
-void SmallBlockDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void SmallBlockDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
+	if (((!compulsoryDrawing && object->needDraw) || compulsoryDrawing == 1) && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
+		object->needDraw = false;
+
 		int index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
 
 		smallBlockSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));

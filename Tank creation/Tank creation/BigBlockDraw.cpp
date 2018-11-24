@@ -26,15 +26,19 @@ BigBlockDraw::~BigBlockDraw()
 }
 
 
-void BigBlockDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void BigBlockDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
+	if (((!compulsoryDrawing && object->needDraw) || compulsoryDrawing == 1) && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
 		int index = 3 - (4 * object->getHealth() - 1) / object->getComponentParameter()->healthPoints;
 
 		if (index != 0)
 		{
 			background->draw(renderTexture, timer, object);
+		}
+		else
+		{
+			object->needDraw = false;
 		}
 
 		bigBlockSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));

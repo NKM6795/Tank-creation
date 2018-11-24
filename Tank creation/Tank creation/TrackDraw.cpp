@@ -26,10 +26,12 @@ TrackDraw::~TrackDraw()
 }
 
 
-void TrackDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void TrackDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
+	if (((!compulsoryDrawing && object->needDraw) || compulsoryDrawing == 1) && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
+		object->needDraw = false;
+
 		int index = object->getComponentParameter()->backgroundIndex;
 
 		trackSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));

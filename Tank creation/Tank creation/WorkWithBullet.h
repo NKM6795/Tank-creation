@@ -5,8 +5,10 @@
 #include "PersonalTank.h"
 
 
-void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objects, int bulletPositionInObjects, int index, long timer, bool completely = true);
+Vector2float getBuletPositionFromTime(ViewableObject *bullet, Vector2int offset, long timer);
 
-bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2int offset);
+void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, int index, long timer, bool completely = true);
 
-void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objects, int bulletPositionInObjects, Vector2int offset, int screanWidth, long timer, int positionOfLand);
+bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2float position, Vector2int offset);
+
+void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Vector2int offset, int screanWidth, long timer, int positionOfLand);

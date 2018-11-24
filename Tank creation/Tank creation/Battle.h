@@ -13,13 +13,13 @@ class Battle : public WorkWithWindow
 	int fieldWidthForBattle;
 
 	vector<Vector2int> positionsOfBackground;
-	vector<ViewableObject *> objects;
+	vector<ViewableObject *> bullets;
+	vector<ViewableObject *> backgroundAndSpeedometerObjects;
 	vector<ViewableObject *> backgroundObjects;
 	ViewableObject *speedometerObjects;
 	int allotmentPositionInComponents;
 	vector<ViewableObject *> allotmentObjects;
 	int bulletPositionInComponents;
-	int bulletPositionInObjects;
 
 	Tank tank;
 	PersonalTank *personalTank;

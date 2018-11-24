@@ -27,9 +27,9 @@ BulletDraw::~BulletDraw()
 }
 
 
-void BulletDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void BulletDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw)
+	if (object->needDraw || compulsoryDrawing)
 	{
 		int index = int((timer / 100) % numberOfVariant);
 

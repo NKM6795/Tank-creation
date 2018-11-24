@@ -75,6 +75,7 @@ ViewableObject::ViewableObject(Component *component, int index) : component(comp
 	healthPoints = -1;
 
 	needDraw = true;
+	needDrawSeparately = false;
 	needChangeColor = 0;
 	tiltAngle = 0.f;
 	speed = 0.f;

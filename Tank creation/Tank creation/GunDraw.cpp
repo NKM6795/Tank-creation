@@ -51,15 +51,19 @@ GunDraw::~GunDraw()
 }
 
 
-void GunDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void GunDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
+	if (((compulsoryDrawing == 1 && !object->needDrawSeparately) || (compulsoryDrawing == -1 && object->needDrawSeparately) || (!compulsoryDrawing && object->needDraw && !object->needDrawSeparately)) && object->getHealth() > 0 && object->getHealth() <= object->getComponentParameter()->healthPoints)
 	{
 		if (background != nullptr)
 		{
 			background->draw(renderTexture, timer, object);
 		}
-
+		
+		if (numberOfVariantbarrel <= 1)
+		{
+			object->needDraw = false;
+		}
 		
 		int index;
 		

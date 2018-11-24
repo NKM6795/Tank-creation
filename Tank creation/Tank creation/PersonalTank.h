@@ -28,6 +28,8 @@ class PersonalTank
 	int maxSpeed;
 	long timerForSpeed;
 
+	bool highlightingUpdated;
+	bool needUpdateTank;
 	vector<vector<Vector2int> > grupyAllocation;
 	vector<Vector2int> highlightedItems;
 	bool controlIsPressed;
@@ -68,13 +70,16 @@ public:
 	void setControlIsPressed(bool isPressed);
 	void setNumberIsPressed(int unicode);
 
+	bool getHighlightingUpdated();
+	bool getNeedUpdateTank();
+
 	bool needHighlighte();
 	vector<ViewableObject *> getHighlightedGuns(vector<Component *> &components, int allotmentPositionInComponents);
 
 	bool getNeedAddBullet();
 	vector<ViewableObject *> getBullets();
 
-	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objectsWithBullets, int bulletPositionInObjects, bool rightIsPressed = false);
+	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, bool rightIsPressed = false);
 
 	void download(string fileName, vector<Component *> &components);
 };

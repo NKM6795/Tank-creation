@@ -11,11 +11,11 @@ TankDraw::~TankDraw()
 
 }
 
-void TankDraw::draw(RenderTexture &renderTexture, long timer, Tank &tank, vector<ComponentDraw *> &components)
+void TankDraw::draw(RenderTexture &renderTexture, long timer, Tank &tank, vector<ComponentDraw *> &components, int compulsoryDrawing)
 {
 	for (int i = 0; i < int(tank.getViewableObjects().size()); ++i)
 	{
-		objectDraw(renderTexture, timer, tank.getViewableObjects()[i], components);
+		objectDraw(renderTexture, timer, tank.getViewableObjects()[i], components, compulsoryDrawing);
 	}
 }
 

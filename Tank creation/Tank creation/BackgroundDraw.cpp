@@ -26,18 +26,15 @@ BackgroundDraw::~BackgroundDraw()
 }
 
 
-void BackgroundDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void BackgroundDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw)
-	{
-		int index = int((timer / 100) % numberOfVariant);
+	int index = int((timer / 100) % numberOfVariant);
 
-		backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
-		backgroundSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
-		backgroundSprite[index].setScale(object->getScale(), object->getScale());
+	backgroundSprite[index].setPosition(float(object->getPosition().x), float(object->getPosition().y));
+	backgroundSprite[index].setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
+	backgroundSprite[index].setScale(object->getScale(), object->getScale());
 
-		renderTexture.draw(backgroundSprite[index]);
-	}
+	renderTexture.draw(backgroundSprite[index]);
 }
 
 
@@ -67,9 +64,9 @@ BackgroundForBattleDraw::~BackgroundForBattleDraw()
 }
 
 
-void BackgroundForBattleDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void BackgroundForBattleDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw)
+	if (object->needDraw || compulsoryDrawing)
 	{
 		int index = object->getHealth();
 

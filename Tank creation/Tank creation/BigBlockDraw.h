@@ -19,5 +19,5 @@ public:
 
 	~BigBlockDraw();
 
-	void draw(RenderTexture &renderTexture, long timer, ViewableObject *object);
+	void draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing = false);
 };

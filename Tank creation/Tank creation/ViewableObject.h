@@ -80,6 +80,7 @@ protected:
 
 public:
 	bool needDraw;
+	bool needDrawSeparately;
 	int needChangeColor;
 	float speed;
 	float tiltAngle;

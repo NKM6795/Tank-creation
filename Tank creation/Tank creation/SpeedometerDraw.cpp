@@ -51,9 +51,9 @@ SpeedometerDraw::~SpeedometerDraw()
 }
 
 
-void SpeedometerDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void SpeedometerDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw)
+	if (object->needDraw || compulsoryDrawing)
 	{
 		panelSprite->setPosition(float(object->getPosition().x), float(object->getPosition().y));
 

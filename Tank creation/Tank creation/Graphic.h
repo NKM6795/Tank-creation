@@ -45,9 +45,17 @@ class Graphic
 	bool needViewableObject;
 	vector<ComponentDraw *> components;
 
+	bool firstDraw;
+	RenderTexture *renderTextureForBackground;
+	RenderTexture *renderTextureForHighlighte;
+	Sprite *spriteForRenderBackground;
+	Sprite *spriteForRenderHighlighte;
+
 	bool needTank;
 	TankDraw *tankDraw;
 	RenderTexture *renderTextureForTank;
+	bool needHighlight;
+	RenderTexture *renderTextureForGunsForTank;
 	Sprite *tankSprite;
 
 	bool needList;
@@ -64,7 +72,8 @@ class Graphic
 	void drawPrivate(map<string, Button> &button);
 	void drawPrivate(string &inputField);
 	void drawPrivate(vector<ViewableObject *> &objects, long timer);
-	void drawPrivate(Tank &tank, long timer);
+	void drawPrivate(vector<ViewableObject *> &objects, long timer, int needUpdate);
+	void drawPrivate(Tank &tank, long timer, bool highlight = false, bool needUpdateRender = false);
 	void drawPrivate(List &list, long timer);
 
 public:
@@ -85,13 +94,14 @@ public:
 	void setInformation(vector<Component *> &componentsForData);
 	void setInformation(Tank &tank);
 	void setInformation(List &list);
+	void setInformation(int screanWidth, int screanHeight);
 
 	void draw(map<string, Button> &button);
 	void draw(map<string, Button> &button, List &list, long timer);
 	void draw(map<string, Button> &button, Tank &tank, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer);
+	void draw(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void draw(map<string, Button> &button, string &inputField);
 	void draw(map<string, Button> &button, string &inputField, Tank &tank, long timer);
@@ -109,7 +119,7 @@ public:
 	void drawInRenderTexture(map<string, Button> &button, Tank &tank, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer);
+	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void drawInRenderTexture(map<string, Button> &button, string &inputField);
 	void drawInRenderTexture(map<string, Button> &button, string &inputField, Tank &tank, long timer);

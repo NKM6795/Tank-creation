@@ -17,9 +17,9 @@ AllotmentDraw::~AllotmentDraw()
 }
 
 
-void AllotmentDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void AllotmentDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw)
+	if (object->needDraw || compulsoryDrawing)
 	{
 		sprite.setPosition(float(object->getPosition().x), float(object->getPosition().y));
 		sprite.setRotation(object->tiltAngle);

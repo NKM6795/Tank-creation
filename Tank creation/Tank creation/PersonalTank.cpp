@@ -12,6 +12,8 @@ PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int field
 
 	timerForSpeed = 0;
 
+	highlightingUpdated = false;
+	needUpdateTank = true;
 	grupyAllocation.resize(10);
 	controlIsPressed = false;
 	numberIsPressed = 0;
@@ -33,7 +35,8 @@ void PersonalTank::updateTracks()
 		{
 			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(Track))
 			{
-				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + (speed > 0 ? (*objects)[i][j]->getComponentParameter()->numberOfVariant - 1 : 1)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
+				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + (speed < 0 ? (*objects)[i][j]->getComponentParameter()->numberOfVariant - 1 : 1)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
+				(*objects)[i][j]->needDraw = true;
 			}
 		}
 	}
@@ -242,6 +245,27 @@ void PersonalTank::setNumberIsPressed(int unicode)
 }
 
 
+bool PersonalTank::getHighlightingUpdated()
+{
+	if (highlightingUpdated)
+	{
+		highlightingUpdated = false;
+		return true;
+	}
+	return false;
+}
+
+bool PersonalTank::getNeedUpdateTank()
+{
+	if (needUpdateTank)
+	{
+		needUpdateTank = false;
+		return true;
+	}
+	return false;
+}
+
+
 bool PersonalTank::needHighlighte()
 {
 	return highlightedItems.size() != 0;
@@ -251,10 +275,23 @@ vector<ViewableObject *> PersonalTank::getHighlightedGuns(vector<Component *> &c
 {
 	vector<ViewableObject *> result;
 
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			if ((*objects)[i][j] != nullptr)
+			{
+				(*objects)[i][j]->needDrawSeparately = false;
+			}
+		}
+	}
+
 	for (int i = 0; i < int(highlightedItems.size()); ++i)
 	{
 		if ((*objects)[highlightedItems[i].x][highlightedItems[i].y]->getHealth() > 0)
 		{
+			(*objects)[highlightedItems[i].x][highlightedItems[i].y]->needDrawSeparately = true;
+
 			vector<Vector2int> offsetForHighlightedItems(4);
 			offsetForHighlightedItems[1].x = (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->width * 20;
 			offsetForHighlightedItems[3].y = (*objects)[highlightedItems[i].x][highlightedItems[i].y]->getComponentParameter()->height * 20;
@@ -309,7 +346,7 @@ vector<ViewableObject *> PersonalTank::getBullets()
 }
 
 
-void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objectsWithBullets, int bulletPositionInObjects, bool rightIsPressed)
+void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, bool rightIsPressed)
 {
 	//Work with motion
 	if (needDrive)
@@ -386,6 +423,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	else if (numberIsPressed != -1)
 	{
 		highlightedItems = grupyAllocation[numberIsPressed];
+		highlightingUpdated;
 
 		numberIsPressed = -1;
 	}
@@ -408,6 +446,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			if (repeatCheck)
 			{
 				highlightedItems.push_back(object->getPosition() / 20);
+				highlightingUpdated = true;
 			}
 		}
 	}
@@ -419,8 +458,9 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		{
 			highlightedItems.clear();
 			highlightedItems.push_back(object->getPosition() / 20);
+			highlightingUpdated = true;
 		}
-		else if (object == nullptr)
+		else if (object == nullptr || object->getHealth() <= 0)
 		{
 			if (needHighlighte())
 			{
@@ -446,11 +486,13 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			if (objectPosition != -1)
 			{
 				highlightedItems.erase(highlightedItems.begin() + objectPosition);
+				highlightingUpdated = true;
 			}
 		}
-		else if (object == nullptr || object->getHealth() <= 0)
+		else if ((object == nullptr || object->getHealth() <= 0) && highlightedItems.size() > 0)
 		{
 			highlightedItems.clear();
+			highlightingUpdated = true;
 		}
 	}
 
@@ -460,20 +502,20 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	}
 	
 	//Work with bullet
-	for (int k = bulletPositionInObjects; k < int(objectsWithBullets.size()); ++k)
+	for (int k = 0; k < int(bullets.size()); ++k)
 	{
 		bool breakCheck = true;
-		if (objectsWithBullets[k]->getFather() != nullptr)
+		if (bullets[k]->getFather() != nullptr)
 		{
-			if (objectsWithBullets[k]->getFather()->getHealth() > 0 && !collisionCheck(objectsWithBullets[k]->getFather(), objectsWithBullets[k], globalOffset - getOffsetForTank()) && !objectsWithBullets[k]->canDoDamageToItself)
+			if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()) && !bullets[k]->canDoDamageToItself)
 			{
-				objectsWithBullets[k]->canDoDamageToItself = true;
+				bullets[k]->canDoDamageToItself = true;
 			}
-			else if (objectsWithBullets[k]->getFather()->getHealth() > 0 && collisionCheck(objectsWithBullets[k]->getFather(), objectsWithBullets[k], globalOffset - getOffsetForTank()) && objectsWithBullets[k]->canDoDamageToItself)
+			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()) && bullets[k]->canDoDamageToItself)
 			{
-				objectsWithBullets[k]->getFather()->setHeath(objectsWithBullets[k]->getFather()->getHealth() - objectsWithBullets[k]->damage);
-
-				breakBullet(components, bulletPositionInComponents, objectsWithBullets, bulletPositionInObjects, k, timer);
+				bullets[k]->getFather()->setHeath(bullets[k]->getFather()->getHealth() - bullets[k]->damage);
+				bullets[k]->getFather()->needDraw = true;
+				breakBullet(components, bulletPositionInComponents, bullets, k, timer);
 				breakCheck = false;
 			}
 		}
@@ -482,28 +524,29 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			--k;
 		}
 	}
-	for (int k = bulletPositionInObjects; k < int(objectsWithBullets.size()); ++k)
+	
+	for (int i = 0; i < int((*objects).size()); ++i)
 	{
-		bool breakCheck = true;
-		for (int i = 0; i < int((*objects).size()) && breakCheck; ++i)
+		for (int j = 0; j < int((*objects).size()); ++j)
 		{
-			for (int j = 0; j < int((*objects).size()) && breakCheck; ++j)
+			if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0 && !(typeid(*(*objects)[i][j]) == typeid(AdditionToBigBlock) || typeid(*(*objects)[i][j]) == typeid(AdditionToEngineRoom) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun) || typeid(*(*objects)[i][j]) == typeid(AdditionToTrack)))
 			{
-				if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0 && (*objects)[i][j] != objectsWithBullets[k]->getFather() && !(typeid(*(*objects)[i][j]) == typeid(AdditionToBigBlock) || typeid(*(*objects)[i][j]) == typeid(AdditionToEngineRoom) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun) || typeid(*(*objects)[i][j]) == typeid(AdditionToTrack)))
+				for (int k = 0; k < int(bullets.size()); ++k)
 				{
-					if (collisionCheck((*objects)[i][j], objectsWithBullets[k], globalOffset - getOffsetForTank()))
+					if (bullets[k]->getFather() != (*objects)[i][j] && collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()))
 					{
-						(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - objectsWithBullets[k]->damage);
-
-						breakBullet(components, bulletPositionInComponents, objectsWithBullets, bulletPositionInObjects, k, timer);
-						breakCheck = false;
+						(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - bullets[k]->damage);
+						if ((*objects)[i][j]->getHealth() <= 0)
+						{
+							needUpdateTank = true;
+						}
+						(*objects)[i][j]->needDraw = true;
+						
+						breakBullet(components, bulletPositionInComponents, bullets, k, timer);
+						--k;
 					}
 				}
 			}
-		}
-		if (!breakCheck)
-		{
-			--k;
 		}
 	}
 }

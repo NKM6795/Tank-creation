@@ -19,9 +19,10 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 			ViewableObject *newObject = new BackgroundForBattle(components[i], i);
 			newObject->setHeath(0);
 			newObject->setPosition(0, screanHeight);
-			objects.push_back(newObject);
 			backgroundObjects.push_back(newObject);
 			positionsOfBackground.push_back(Vector2int());
+
+			backgroundAndSpeedometerObjects.push_back(newObject);
 		}
 		++i;
 
@@ -35,9 +36,10 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 				int index = rand() % components[i]->getStruct()->numberOfVariant;
 				newObject->setHeath(index);
-				objects.push_back(newObject);
 				backgroundObjects.push_back(newObject);
 				positionsOfBackground.push_back(Vector2int(width, screanHeight));
+
+				backgroundAndSpeedometerObjects.push_back(newObject);
 
 				width += components[i]->getStruct()->dimensions[index].x;
 			}
@@ -54,9 +56,10 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 				int index = rand() % components[i]->getStruct()->numberOfVariant;
 				newObject->setHeath(index);
-				objects.push_back(newObject);
 				backgroundObjects.push_back(newObject);
 				positionsOfBackground.push_back(Vector2int(width, screanHeight));
+
+				backgroundAndSpeedometerObjects.push_back(newObject);
 
 				width += components[i]->getStruct()->dimensions[index].x + 50 *  (5 + rand() % 3);
 			}
@@ -74,9 +77,10 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 					ViewableObject *newObject = new BackgroundForBattle(components[i], i);
 
 					newObject->setHeath(0);
-					objects.push_back(newObject);
 					backgroundObjects.push_back(newObject);
 					positionsOfBackground.push_back(Vector2int(width, screanHeight));
+
+					backgroundAndSpeedometerObjects.push_back(newObject);
 
 					width += components[i]->getStruct()->dimensions[0].x;
 				}
@@ -93,9 +97,10 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 					int index = rand() % components[i]->getStruct()->numberOfVariant;
 					newObject->setHeath(index);
-					objects.push_back(newObject);
 					backgroundObjects.push_back(newObject);
 					positionsOfBackground.push_back(Vector2int(width, screanHeight - 20 - (rand() % 50)));
+
+					backgroundAndSpeedometerObjects.push_back(newObject);
 
 					width += components[i]->getStruct()->dimensions[index].x + 30 * (2 + rand() % 6);
 				}
@@ -111,7 +116,8 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 		speedometerObjects = new Speedometer(components.back(), int(components.size()) - 1);
 		speedometerObjects->setHeath(0);
 		speedometerObjects->setPosition(screanWidth / 2, screanHeight);
-		objects.push_back(speedometerObjects);
+
+		backgroundAndSpeedometerObjects.push_back(speedometerObjects);
 	}
 
 	//Allotment
@@ -125,9 +131,10 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	{
 		vector<Component *> tempComponents = dataForBullet();
 		bulletPositionInComponents = int(components.size());
-		bulletPositionInObjects = int(objects.size());
 		components.insert(components.end(), tempComponents.begin(), tempComponents.end());
 	}
+
+	graphic->setInformation(screanWidth, screanHeight);
 
 	graphic->setInformation(components);
 
@@ -246,7 +253,7 @@ void Battle::work()
 		}
 
 		//Work with personal tank
-		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, objects, bulletPositionInObjects, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
+		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, bullets, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 		updateObjects();
 		tank.setOffset(personalTank->getOffsetForTank());
@@ -262,11 +269,12 @@ void Battle::work()
 		if (personalTank->getNeedAddBullet())
 		{
 			vector<ViewableObject *> tempObjects = personalTank->getBullets();
-			objects.insert(objects.end(), tempObjects.begin(), tempObjects.end());
+			bullets.insert(bullets.end(), tempObjects.begin(), tempObjects.end());
 		}
 
-		workWithBullet(components, bulletPositionInComponents, objects, bulletPositionInObjects, personalTank->getGlobalOffset(), screanWidth, timer, screanHeight - 70);
+		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, screanHeight - 70);
 
-		graphic->draw(button, objects, tank, allotmentObjects, timer);
+
+		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, tank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated()), allotmentObjects, personalTank->needHighlighte(), timer);
 	}
 }

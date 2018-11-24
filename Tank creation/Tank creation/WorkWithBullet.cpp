@@ -1,12 +1,25 @@
 #include "WorkWithBullet.h"
 
 
-void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objects, int bulletPositionInObjects, int index, long timer, bool completely)
+Vector2float getBuletPositionFromTime(ViewableObject *bullet, Vector2int offset, long timer)
+{
+	float time = float(timer - bullet->timerForObject) / 200.f;
+	Vector2float newPosition(bullet->getBulletPosition(true).x + float(time) * bullet->speed * sin(bullet->tiltAngle * PI / 180.f), bullet->getBulletPosition(true).y - float(time) * bullet->speed * cos(bullet->tiltAngle * PI / 180.f));
+
+	if (!bullet->getFather()->getComponentParameter()->horizontally)
+	{
+		newPosition.y = bullet->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - bullet->speed * time * cos(bullet->tiltAngle * PI / 180.f);
+	}
+
+	return newPosition;
+}
+
+void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, int index, long timer, bool completely)
 {
 	if (!completely)
 	{
-		objects[index]->setHeath(objects[index]->getHealth() - 1);
-		if (objects[index]->getHealth() == 0)
+		bullets[index]->setHeath(bullets[index]->getHealth() - 1);
+		if (bullets[index]->getHealth() == 0)
 		{
 			completely = true;
 		}
@@ -16,7 +29,7 @@ void breakBullet(vector<Component *> &components, int bulletPositionInComponents
 		}
 	}
 
-	ViewableObject *bullet = objects[index],
+	ViewableObject *bullet = bullets[index],
 		*father = bullet->getFather();
 
 	vector<ViewableObject *> newObjects;
@@ -25,7 +38,7 @@ void breakBullet(vector<Component *> &components, int bulletPositionInComponents
 	{
 		delete bullet;
 		bullet = nullptr;
-		objects[index] = nullptr;
+		bullets[index] = nullptr;
 	}
 	else
 	{
@@ -74,21 +87,21 @@ void breakBullet(vector<Component *> &components, int bulletPositionInComponents
 
 		delete bullet;
 		bullet = nullptr;
-		objects[index] = nullptr;
+		bullets[index] = nullptr;
 	}
 
-	objects.erase(remove_if(objects.begin(), objects.end(), [](ViewableObject *object) { return object == nullptr; }), objects.end());
+	bullets.erase(remove_if(bullets.begin(), bullets.end(), [](ViewableObject *object) { return object == nullptr; }), bullets.end());
 
 	if (newObjects.size() != 0)
 	{
-		objects.insert(objects.end(), newObjects.begin(), newObjects.end());
+		bullets.insert(bullets.end(), newObjects.begin(), newObjects.end());
 	}
 }
 
-bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2int offset)
+bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2float position, Vector2int offset)
 {
 	Vector2int objectPosition = object->getPosition(),
-		bulletPosition = bullet->getPosition() + offset,
+		bulletPosition = position + offset,
 		objectSize = Vector2int(object->getComponentParameter()->width, object->getComponentParameter()->height) * 20,
 		bulletSize = Vector2int(bullet->getComponentParameter()->width, bullet->getComponentParameter()->height);
 
@@ -159,35 +172,35 @@ bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2int o
 	return true;
 }
 
-void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &objects, int bulletPositionInObjects, Vector2int offset, int screanWidth, long timer, int positionOfLand)
+void workWithBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Vector2int offset, int screanWidth, long timer, int positionOfLand)
 {
 	vector<ViewableObject *> newObjects;
 
-	for (int i = bulletPositionInObjects; i < int(objects.size()); ++i)
+	for (int i = 0; i < int(bullets.size()); ++i)
 	{
 		bool breakCheck = true;
-		if (getLength(objects[i]->getBulletPosition(), objects[i]->getBulletPosition(true)) > float(screanWidth))
+		if (getLength(bullets[i]->getBulletPosition(), bullets[i]->getBulletPosition(true)) > float(screanWidth))
 		{
-			delete objects[i];
-			objects[i] = nullptr;
+			delete bullets[i];
+			bullets[i] = nullptr;
 		}
 		else
 		{
-			float time = float(timer - objects[i]->timerForObject) / 200.f;
-			Vector2float newPosition(objects[i]->getBulletPosition(true).x + float(time) * objects[i]->speed * sin(objects[i]->tiltAngle * PI / 180.f), objects[i]->getBulletPosition(true).y - float(time) * objects[i]->speed * cos(objects[i]->tiltAngle * PI / 180.f));
+			float time = float(timer - bullets[i]->timerForObject) / 200.f;
+			Vector2float newPosition(bullets[i]->getBulletPosition(true).x + float(time) * bullets[i]->speed * sin(bullets[i]->tiltAngle * PI / 180.f), bullets[i]->getBulletPosition(true).y - float(time) * bullets[i]->speed * cos(bullets[i]->tiltAngle * PI / 180.f));
 
-			if (!objects[i]->getFather()->getComponentParameter()->horizontally)
+			if (!bullets[i]->getFather()->getComponentParameter()->horizontally)
 			{
-				newPosition.y = objects[i]->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - objects[i]->speed * time * cos(objects[i]->tiltAngle * PI / 180.f);
+				newPosition.y = bullets[i]->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - bullets[i]->speed * time * cos(bullets[i]->tiltAngle * PI / 180.f);
 			}
 
-			objects[i]->setBulletPosition(newPosition);
+			bullets[i]->setBulletPosition(newPosition);
 
-			objects[i]->setPosition(objects[i]->getBulletPosition() + offset);
+			bullets[i]->setPosition(bullets[i]->getBulletPosition() + offset);
 
-			if (objects[i]->getPosition().y + objects[i]->getComponentParameter()->width / 2 >= positionOfLand)
+			if (bullets[i]->getPosition().y + bullets[i]->getComponentParameter()->width / 2 >= positionOfLand)
 			{
-				breakBullet(components, bulletPositionInComponents, objects, bulletPositionInObjects, i, timer);
+				breakBullet(components, bulletPositionInComponents, bullets, i, timer);
 				breakCheck = false;
 			}
 		}
@@ -197,5 +210,5 @@ void workWithBullet(vector<Component *> &components, int bulletPositionInCompone
 		}
 	}
 
-	objects.erase(remove_if(objects.begin(), objects.end(), [](ViewableObject *object) { return object == nullptr; }), objects.end());
+	bullets.erase(remove_if(bullets.begin(), bullets.end(), [](ViewableObject *object) { return object == nullptr; }), bullets.end());
 }

@@ -13,6 +13,8 @@ void Graphic::forConstructor()
 	needNotificationWindow = false;
 	notificationNeedInputField = false;
 	needList = false;
+
+	firstDraw = true;
 }
 
 
@@ -279,6 +281,12 @@ void Graphic::setInformation(Tank &tank)
 
 	renderTextureForTank = new RenderTexture;
 	renderTextureForTank->create(tank.getDimension(), tank.getDimension());
+	renderTextureForTank->clear(Color(0, 0, 0, 0));
+
+	needHighlight = false;
+	renderTextureForGunsForTank = new RenderTexture;
+	renderTextureForGunsForTank->create(tank.getDimension(), tank.getDimension());
+	renderTextureForGunsForTank->clear(Color(0, 0, 0, 0));
 }
 
 void Graphic::setInformation(List &list)
@@ -300,6 +308,24 @@ void Graphic::setInformation(List &list)
 		renderTextureForList = new RenderTexture;
 		renderTextureForList->create(list.getWidth(), list.getHeight());
 	}
+}
+
+void Graphic::setInformation(int screanWidth, int screanHeight)
+{
+	renderTextureForBackground = new RenderTexture;
+	renderTextureForBackground->create(screanWidth, screanHeight);
+	renderTextureForBackground->clear(Color(0, 0, 0, 0));
+
+	spriteForRenderBackground = new Sprite;
+
+	renderTextureForHighlighte = new RenderTexture;
+	renderTextureForHighlighte->create(screanWidth, screanHeight);
+	renderTextureForHighlighte->clear(Color(0, 0, 0, 0));
+	renderTextureForHighlighte->display();
+
+	spriteForRenderHighlighte = new Sprite;
+
+	spriteForRenderHighlighte->setTexture(renderTextureForHighlighte->getTexture());
 }
 
 
@@ -396,17 +422,77 @@ void Graphic::drawPrivate(vector<ViewableObject *> &objects, long timer)
 	objectDraw(*textureForWindow, timer, objects, components);
 }
 
-void Graphic::drawPrivate(Tank &tank, long timer)
+void Graphic::drawPrivate(vector<ViewableObject *> &objects, long timer, int needUpdate)
 {
-	renderTextureForTank->clear(Color(0, 0, 0, 0));
+	if (needUpdate == 1)
+	{
+		renderTextureForBackground->clear(Color(0, 0, 0, 0));
 
-	tankDraw->draw(*renderTextureForTank, timer, tank, components);
+		objectDraw(*renderTextureForBackground, timer, objects, components);
+
+		renderTextureForBackground->display();
+
+
+		spriteForRenderBackground->setTexture(renderTextureForBackground->getTexture());
+
+		textureForWindow->draw(*spriteForRenderBackground);
+	}
+	else if (needUpdate == -1)
+	{
+		textureForWindow->draw(*spriteForRenderBackground);
+	}
+	if (needUpdate == 2)
+	{
+		renderTextureForHighlighte->clear(Color(0, 0, 0, 0));
+
+		objectDraw(*renderTextureForHighlighte, timer, objects, components);
+
+		renderTextureForHighlighte->display();
+
+
+		spriteForRenderHighlighte->setTexture(renderTextureForHighlighte->getTexture());
+
+		textureForWindow->draw(*spriteForRenderHighlighte);
+	}
+	else if (needUpdate == -2)
+	{
+		textureForWindow->draw(*spriteForRenderHighlighte);
+	}
+}
+
+void Graphic::drawPrivate(Tank &tank, long timer, bool highlight, bool needUpdateRender)
+{
+	if (needUpdateRender)
+	{
+		renderTextureForTank->clear(Color(0, 0, 0, 0));
+
+		tankDraw->draw(*renderTextureForTank, timer, tank, components, 1);
+	}
+	else
+	{
+		tankDraw->draw(*renderTextureForTank, timer, tank, components);
+	}
+
 	renderTextureForTank->display();
 
 	tankSprite->setTexture(renderTextureForTank->getTexture());
 	tankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
 
 	textureForWindow->draw(*tankSprite);
+
+	if (highlight)
+	{
+		renderTextureForGunsForTank->clear(Color(0, 0, 0, 0));
+
+		tankDraw->draw(*renderTextureForGunsForTank, timer, tank, components, -1);
+
+		renderTextureForGunsForTank->display();
+
+		tankSprite->setTexture(renderTextureForGunsForTank->getTexture());
+		tankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
+
+		textureForWindow->draw(*tankSprite);
+	}
 }
 
 void Graphic::drawPrivate(List &list, long timer)
@@ -457,9 +543,9 @@ void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &object
 	drawWindow();
 }
 
-void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer)
+void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer)
 {
-	drawInRenderTexture(button, objects, tank, secondsObjects, timer);
+	drawInRenderTexture(button, backgrounds, needUpdateBackground, bullets, tank, highlight, needUpdateRender, highlights, needUpdateHighlights, timer);
 
 	drawWindow();
 }
@@ -578,13 +664,23 @@ void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableOb
 	drawPrivate(button);
 }
 
-void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, vector<ViewableObject *> &secondsObjects, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer)
 {
-	drawPrivate(objects, timer);
+	drawPrivate(backgrounds, timer, needUpdateBackground || firstDraw ? 1 : -1);
+	if (!needUpdateBackground)
+	{
+		firstDraw = true;
+	}
+	else
+	{
+		firstDraw = false;
+	}
 
-	drawPrivate(tank, timer);
+	drawPrivate(bullets, timer);
+	
+	drawPrivate(tank, timer, highlight, needUpdateRender);
 
-	drawPrivate(secondsObjects, timer);
+	drawPrivate(highlights, timer, needUpdateHighlights ? 2 : -2);
 
 	drawPrivate(button);
 }

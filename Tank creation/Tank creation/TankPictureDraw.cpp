@@ -14,9 +14,9 @@ TankPictureDraw::~TankPictureDraw()
 }
 
 
-void TankPictureDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object)
+void TankPictureDraw::draw(RenderTexture &renderTexture, long timer, ViewableObject *object, int compulsoryDrawing)
 {
-	if (object->needDraw)
+	if (object->needDraw || compulsoryDrawing)
 	{
 		sprite.setPosition(float(object->getPosition().x), float(object->getPosition().y));
 		sprite.setColor(object->needChangeColor ? (object->needChangeColor == 1 ? Color::Green : Color::Red) : Color::White);
