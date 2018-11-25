@@ -103,7 +103,7 @@ vector<vector<bool> > Tank::getSmallTank(vector<vector<ViewableObject *> > &obje
 	{
 		for (int j = 0; j < int(objectsCopy.size()); ++j)
 		{
-			if (objectsCopy[i][j] != nullptr)
+			if (objectsCopy[i][j] != nullptr && objectsCopy[i][j]->getHealth() > 0)
 			{
 				smallTank[i][j] = true;
 			}
@@ -116,4 +116,41 @@ vector<vector<bool> > Tank::getSmallTank(vector<vector<ViewableObject *> > &obje
 vector<vector<bool> > Tank::getSmallTank()
 {
 	return getSmallTank(objects);
+}
+
+
+
+int getLengthBetweenTanks(Tank &left, Tank &right)
+{
+	vector<vector<bool> > smallLeftTank = Tank::getSmallTank(left.getViewableObjects()),
+		smallRightTank = Tank::getSmallTank(right.getViewableObjects());
+	
+	int number = int(smallLeftTank.size());
+
+	int result = 2 * number;
+	for (int j = 0; j < number; ++j)
+	{
+		int last = -1;
+		for (int i = 0; i < number; ++i)
+		{
+			if (smallLeftTank[i][j])
+			{
+				last = i;
+			}
+		}
+
+		if (last != -1)
+		{
+			last = number - last - 1;
+			for (int i = number - 1; i >= 0; --i)
+			{
+				if (smallRightTank[i][j])
+				{
+					result = min(number - i - 1 + last, result);
+				}
+			}
+		}
+	}
+
+	return result;
 }

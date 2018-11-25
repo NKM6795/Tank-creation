@@ -161,6 +161,8 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	botTank->setOffset(position);
 	botTank->setGlobalOffset(Vector2int(-fieldWidthForBattle + screanWidth, 0));
 
+	lengthBetweenTanks = getLengthBetweenTanks(leftTank, rightTank) * 20;
+
 	updateObjects();
 }
 
@@ -292,10 +294,15 @@ void Battle::work()
 		}
 
 		//Work with personal tank
-		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, bullets, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
+		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, lengthBetweenTanks - botTank->getBorder().x, botTank->getOffsetForTank().x, components, bulletPositionInComponents, bullets, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 		//Work with bot tank
-		botTank->work(timer, timeForWork, components, bulletPositionInComponents, bullets);
+		botTank->work(timer, timeForWork, lengthBetweenTanks + 2 * personalTank->getBorder().y - 2 * leftTank.getDimension(), personalTank->getGlobalOffset() - personalTank->getOffsetForTank(), components, bulletPositionInComponents, bullets);
+
+		if (personalTank->getNeedUpdateLengthBetweenTanks() || botTank->getNeedUpdateLengthBetweenTanks())
+		{
+			lengthBetweenTanks = getLengthBetweenTanks(leftTank, rightTank) * 20;
+		}
 
 		if (firstUpdateOfBackgrounds || personalTank->getSpeed() != 0 || botTank->getSpeed() != 0)
 		{
@@ -332,7 +339,6 @@ void Battle::work()
 
 		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, timeForWork, screanHeight - 70);
 
-
-		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, rightTank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
+		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, rightTank, personalTank->needHighlighte(), max(max(personalTank->getNeedUpdateTank(), botTank->getNeedUpdateTank()), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
 	}
 }

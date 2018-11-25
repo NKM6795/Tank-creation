@@ -43,7 +43,7 @@ pair<Vector2int, Vector2int> getObjectParametersForBullet(ViewableObject *object
 	return { objectPosition, objectSize };
 }
 
-Vector2float getBuletPositionFromTime(ViewableObject *bullet, Vector2int offset, long timer)
+Vector2float getBuletPositionFromTime(ViewableObject *bullet, long timer)
 {
 	float time = float(timer - bullet->timerForObject) / 200.f;
 	Vector2float newPosition(bullet->getBulletPosition(true).x + float(time) * bullet->speed * sin(bullet->tiltAngle * PI / 180.f), bullet->getBulletPosition(true).y - float(time) * bullet->speed * cos(bullet->tiltAngle * PI / 180.f));
@@ -248,7 +248,7 @@ void workWithBullet(vector<Component *> &components, int bulletPositionInCompone
 		}
 		else
 		{
-			bullets[i]->setBulletPosition(getBuletPositionFromTime(bullets[i], offset, timer));
+			bullets[i]->setBulletPosition(getBuletPositionFromTime(bullets[i], timer));
 
 			bullets[i]->setPosition(bullets[i]->getBulletPosition() + offset);
 

@@ -7,7 +7,7 @@
 
 pair<Vector2int, Vector2int> getObjectParametersForBullet(ViewableObject *object);
 
-Vector2float getBuletPositionFromTime(ViewableObject *bullet, Vector2int offset, long timer);
+Vector2float getBuletPositionFromTime(ViewableObject *bullet, long timer);
 
 void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, int index, long timer, bool completely = true);
 

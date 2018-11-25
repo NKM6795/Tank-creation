@@ -45,7 +45,32 @@ Vector2int BotTank::getOffsetForTank()
 }
 
 
-void BotTank::work(long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets)
+Vector2int BotTank::getBorder()
+{
+	vector<vector<bool> > smallTank = Tank::getSmallTank(*objects);
+
+	Vector2int result(dataArraySize, -1);
+
+	for (int i = 0; i < int(smallTank.size()); ++i)
+	{
+		for (int j = 0; j < int(smallTank.size()); ++j)
+		{
+			if (smallTank[i][j])
+			{
+				result.x = min(result.x, i);
+				result.y = max(result.y, i);
+			}
+		}
+	}
+
+	++result.y;
+	result = Vector2int(dataArraySize - result.y, dataArraySize - result.x) * 20;
+
+	return result;
+}
+
+
+void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets)
 {
 	//Work with motion
 	if (needDrive)
@@ -70,9 +95,6 @@ void BotTank::work(long timer, int fps, vector<Component *> &components, int bul
 
 		globalOffset.x -= speed / abs(speed);
 		Vector2int border = getBorder();
-		++border.y;
-		border = Vector2int(dataArraySize - border.y, dataArraySize -  border.x) * 20;
-		
 
 		if (globalOffset.x <= 0 && globalOffset.x >= -(fieldWidthForBattle - screenWidth))
 		{
@@ -85,6 +107,10 @@ void BotTank::work(long timer, int fps, vector<Component *> &components, int bul
 			{
 				globalOffset.x = -(fieldWidthForBattle - screenWidth);
 				position -= 1;
+			}
+			else if (getOffsetForTank().x + border.x < personalPosition.x + lengthBetweenTanks)
+			{
+				globalOffset.x -= 1;
 			}
 			else
 			{
@@ -118,17 +144,19 @@ void BotTank::work(long timer, int fps, vector<Component *> &components, int bul
 
 
 	//Work with bullet
-	/*bool needRemoveHangingObjects = false;
+	bool needRemoveHangingObjects = false;
 	for (int k = 0; k < int(bullets.size()); ++k)
 	{
 		bool breakCheck = true;
 		if (bullets[k]->getFather() != nullptr)
 		{
-			if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()) && !bullets[k]->canDoDamageToItself)
+			Vector2int bulletPosition = getBuletPositionFromTime(bullets[k], timer),
+				offsetForBullet = Vector2int((Vector2int(dataArraySize * 20, 0) - (bulletPosition - getOffsetForTank()) - bulletPosition).x, -getOffsetForTank().y);
+			if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], bulletPosition, offsetForBullet) && !bullets[k]->canDoDamageToItself)
 			{
 				bullets[k]->canDoDamageToItself = true;
 			}
-			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()) && bullets[k]->canDoDamageToItself)
+			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], bulletPosition, offsetForBullet) && bullets[k]->canDoDamageToItself)
 			{
 				bullets[k]->getFather()->setHeath(bullets[k]->getFather()->getHealth() - bullets[k]->damage);
 				if (bullets[k]->getFather()->getHealth() <= 0)
@@ -155,7 +183,9 @@ void BotTank::work(long timer, int fps, vector<Component *> &components, int bul
 			{
 				for (int k = 0; k < int(bullets.size()); ++k)
 				{
-					if (bullets[k]->getFather() != (*objects)[i][j] && (collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer - fps / 2), globalOffset - getOffsetForTank()) || collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank())))
+					Vector2int bulletPosition = getBuletPositionFromTime(bullets[k], timer),
+						offsetForBullet = Vector2int((Vector2int(dataArraySize * 20, 0) - (bulletPosition - getOffsetForTank()) - bulletPosition).x, -getOffsetForTank().y);
+					if (bullets[k]->getFather() != (*objects)[i][j] && collisionCheck((*objects)[i][j], bullets[k], bulletPosition, offsetForBullet))
 					{
 						(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - bullets[k]->damage);
 						if ((*objects)[i][j]->getHealth() <= 0)
@@ -169,7 +199,7 @@ void BotTank::work(long timer, int fps, vector<Component *> &components, int bul
 						}
 						(*objects)[i][j]->needDraw = true;
 
-						breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps / 2);
+						breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps);
 						--k;
 					}
 				}
@@ -180,5 +210,6 @@ void BotTank::work(long timer, int fps, vector<Component *> &components, int bul
 	if (needRemoveHangingObjects)
 	{
 		removeHangingObjects();
-	}*/
+		needUpdateLengthBetweenTanks = true;
+	}
 }

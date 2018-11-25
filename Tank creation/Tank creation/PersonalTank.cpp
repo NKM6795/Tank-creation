@@ -14,6 +14,7 @@ PersonalTank::PersonalTank(vector<vector<ViewableObject *> > &objects, int field
 
 	highlightingUpdated = false;
 	needUpdateTank = true;
+	needUpdateLengthBetweenTanks = false;
 	grupyAllocation.resize(10);
 	controlIsPressed = false;
 	numberIsPressed = 0;
@@ -261,7 +262,9 @@ Vector2int PersonalTank::getBorder()
 			}
 		}
 	}
-	return result;
+	
+	++result.y;
+	return result * 20;
 }
 
 
@@ -334,6 +337,17 @@ bool PersonalTank::getNeedUpdateTank()
 	if (needUpdateTank)
 	{
 		needUpdateTank = false;
+		return true;
+	}
+	return false;
+}
+
+
+bool PersonalTank::getNeedUpdateLengthBetweenTanks()
+{
+	if (needUpdateLengthBetweenTanks)
+	{
+		needUpdateLengthBetweenTanks = false;
 		return true;
 	}
 	return false;
@@ -420,7 +434,7 @@ vector<ViewableObject *> PersonalTank::getBullets()
 }
 
 
-void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, bool rightIsPressed)
+void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, int fps, int lengthBetweenTanks, int botPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, bool rightIsPressed)
 {
 	//Work with motion
 	if (needDrive)
@@ -444,8 +458,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		updateTracks();
 
 		globalOffset.x -= speed / abs(speed);
-		Vector2int border = getBorder() * 20;
-		border.y += 20;
+		Vector2int border = getBorder();
 
 		if (globalOffset.x <= 0 && globalOffset.x >= -(fieldWidthForBattle - screenWidth))
 		{
@@ -453,11 +466,19 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			{
 				globalOffset.x = 0;
 				position += 1;
+				if (position + xOffset > (botPosition + lengthBetweenTanks - border.y))
+				{
+					position -= 1;
+				}
 			}
 			else if (position > 0)
 			{
 				globalOffset.x = -(fieldWidthForBattle - screenWidth);
 				position -= 1;
+			}
+			else if (globalOffset.x < -(botPosition + lengthBetweenTanks - border.y - xOffset))
+			{
+				globalOffset.x += 1;
 			}
 			else
 			{
@@ -477,6 +498,10 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		{
 			position += 1;
 			globalOffset.x = -(fieldWidthForBattle - screenWidth);
+			if (position + xOffset - globalOffset.x > (botPosition + lengthBetweenTanks - border.y))
+			{
+				position -= 1;
+			}
 			if (position > screenWidth - xOffset - border.y)
 			{
 				position = screenWidth - xOffset - border.y;
@@ -586,11 +611,11 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 		bool breakCheck = true;
 		if (bullets[k]->getFather() != nullptr)
 		{
-			if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()) && !bullets[k]->canDoDamageToItself)
+			if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()) && !bullets[k]->canDoDamageToItself)
 			{
 				bullets[k]->canDoDamageToItself = true;
 			}
-			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank()) && bullets[k]->canDoDamageToItself)
+			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()) && bullets[k]->canDoDamageToItself)
 			{
 				bullets[k]->getFather()->setHeath(bullets[k]->getFather()->getHealth() - bullets[k]->damage);
 				if (bullets[k]->getFather()->getHealth() <= 0)
@@ -617,7 +642,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			{
 				for (int k = 0; k < int(bullets.size()); ++k)
 				{
-					if (bullets[k]->getFather() != (*objects)[i][j] && (collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer - fps / 2), globalOffset - getOffsetForTank()) || collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], globalOffset - getOffsetForTank(), timer), globalOffset - getOffsetForTank())))
+					if (bullets[k]->getFather() != (*objects)[i][j] && collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()))
 					{
 						(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - bullets[k]->damage);
 						if ((*objects)[i][j]->getHealth() <= 0)
@@ -631,7 +656,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 						}
 						(*objects)[i][j]->needDraw = true;
 						
-						breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps / 2);
+						breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps);
 						--k;
 					}
 				}
@@ -642,6 +667,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	if (needRemoveHangingObjects)
 	{
 		removeHangingObjects();
+		needUpdateLengthBetweenTanks = true;
 	}
 }
 

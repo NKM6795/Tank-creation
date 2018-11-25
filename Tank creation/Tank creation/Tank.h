@@ -43,3 +43,6 @@ public:
 	static vector<vector<bool> > getSmallTank(vector<vector<ViewableObject *> > &objectsCopy);
 	virtual vector<vector<bool> > getSmallTank();
 };
+
+
+int getLengthBetweenTanks(Tank &left, Tank &right);

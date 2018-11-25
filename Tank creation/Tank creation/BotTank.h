@@ -16,6 +16,8 @@ public:
 
 	void setGlobalOffset(Vector2int offset);
 	Vector2int getOffsetForTank();
+
+	Vector2int getBorder();
 	
-	void work(long timer, int fps, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets);
+	void work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets);
 };

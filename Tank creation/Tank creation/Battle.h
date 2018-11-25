@@ -29,6 +29,8 @@ class Battle : public WorkWithWindow
 	Tank rightTank;
 	BotTank *botTank;
 
+	int lengthBetweenTanks;
+
 	void updateObjects();
 
 public:
