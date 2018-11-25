@@ -159,7 +159,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	botTank = new BotTank(rightTank.getViewableObjects(), fieldWidthForBattle, screanWidth);
 	botTank->download(rightTank.name, components);
 	botTank->setOffset(position);
-
+	botTank->setGlobalOffset(Vector2int(-fieldWidthForBattle + screanWidth, 0));
 
 	updateObjects();
 }
@@ -257,6 +257,14 @@ void Battle::work()
 			{
 				personalTank->setDrive(false);
 			}
+			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::D))
+			{
+				botTank->setDrive(true);
+			}
+			else if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::A))
+			{
+				botTank->setDrive(false);
+			}
 
 			if (graphic->getEvent().type == Event::KeyPressed && Keyboard::isKeyPressed(Keyboard::LControl))
 			{
@@ -286,7 +294,10 @@ void Battle::work()
 		//Work with personal tank
 		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, components, bulletPositionInComponents, bullets, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
-		if (firstUpdateOfBackgrounds || personalTank->getSpeed() != 0)
+		//Work with bot tank
+		botTank->work(timer, timeForWork, components, bulletPositionInComponents, bullets);
+
+		if (firstUpdateOfBackgrounds || personalTank->getSpeed() != 0 || botTank->getSpeed() != 0)
 		{
 			firstUpdateOfBackgrounds = false;
 
@@ -297,7 +308,7 @@ void Battle::work()
 
 			rightTank.setOffset(botTank->getOffsetForTank() + personalTank->getGlobalOffset());
 		}
-		else if (personalTank->getSpeed() == 0)
+		if (!firstUpdateOfBackgrounds && personalTank->getSpeed() != 0)
 		{
 			firstUpdateOfBackgrounds = true;
 		}
