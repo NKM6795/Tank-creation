@@ -142,7 +142,6 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	Vector2int position;
 	fileIn >> position.x >> position.y;
 
-	fileIn.close();
 
 	leftTank.name = tankName;
 	graphic->setInformation(leftTank);
@@ -151,12 +150,24 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	personalTank->download(leftTank.name, components);
 	personalTank->setOffset(position);
 
+	fileIn >> position.x >> position.y;
+	fileIn.close();
+
+	rightTank.name = tankName;
+	graphic->setInformation(rightTank, false);
+
+	botTank = new BotTank(rightTank.getViewableObjects(), fieldWidthForBattle, screanWidth);
+	botTank->download(rightTank.name, components);
+	botTank->setOffset(position);
+
+
 	updateObjects();
 }
 
 Battle::~Battle()
 {
 	leftTank.~Tank();
+	rightTank.~Tank();
 
 	while (components.size() > 0)
 	{
@@ -183,6 +194,7 @@ Battle::~Battle()
 	}
 
 	delete personalTank;
+	delete botTank;
 }
 
 
@@ -280,6 +292,10 @@ void Battle::work()
 
 			updateObjects();
 			leftTank.setOffset(personalTank->getOffsetForTank());
+
+			//botTank->setGlobalOffset(personalTank->getGlobalOffset());
+
+			rightTank.setOffset(botTank->getOffsetForTank() + personalTank->getGlobalOffset());
 		}
 		else if (personalTank->getSpeed() == 0)
 		{
@@ -306,6 +322,6 @@ void Battle::work()
 		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, timeForWork, screanHeight - 70);
 
 
-		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
+		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, rightTank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
 	}
 }

@@ -41,7 +41,7 @@ void PersonalTank::updateTracks()
 		{
 			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(Track))
 			{
-				(*objects)[i][j]->getComponentParameter()->backgroundIndex = ((*objects)[i][j]->getComponentParameter()->backgroundIndex + (speed > 0 ? (*objects)[i][j]->getComponentParameter()->numberOfVariant - 1 : 1)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
+				(*objects)[i][j]->timerForObject = ((*objects)[i][j]->timerForObject + (speed < 0 ? (*objects)[i][j]->getComponentParameter()->numberOfVariant - 1 : 1)) % (*objects)[i][j]->getComponentParameter()->numberOfVariant;
 				(*objects)[i][j]->needDraw = true;
 			}
 		}

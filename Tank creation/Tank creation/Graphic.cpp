@@ -81,15 +81,26 @@ Graphic::~Graphic()
 		}
 	}
 
-	if (needTank)
+	if (needLeftTank)
 	{
-		delete tankDraw;
+		delete leftTankDraw;
 
-		delete tankSprite;
+		delete leftTankSprite;
 
-		delete renderTextureForTank;
+		delete renderTextureForLeftTank;
 
-		delete renderTextureForGunsForTank;
+		delete renderTextureForGunsForLeftTank;
+	}
+
+	if (needRightTank)
+	{
+		delete rightTankDraw;
+
+		delete rightTankSprite;
+
+		delete renderTextureForRightTank;
+
+		delete renderTextureForGunsForRightTank;
 	}
 
 	if (needList)
@@ -286,22 +297,44 @@ void Graphic::setInformation(vector<Component *> &componentsForData)
 	}
 }
 
-void Graphic::setInformation(Tank &tank)
+void Graphic::setInformation(Tank &tank, bool left)
 {
-	needTank = true;
+	if (left)
+	{
+		needLeftTank = true;
 
-	tankDraw = new TankDraw();
+		leftTankDraw = new TankDraw();
 
-	tankSprite = new Sprite;
+		leftTankSprite = new Sprite;
 
-	renderTextureForTank = new RenderTexture;
-	renderTextureForTank->create(tank.getDimension(), tank.getDimension());
-	renderTextureForTank->clear(Color(0, 0, 0, 0));
+		renderTextureForLeftTank = new RenderTexture;
+		renderTextureForLeftTank->create(tank.getDimension(), tank.getDimension());
+		renderTextureForLeftTank->clear(Color(0, 0, 0, 0));
 
-	needHighlight = false;
-	renderTextureForGunsForTank = new RenderTexture;
-	renderTextureForGunsForTank->create(tank.getDimension(), tank.getDimension());
-	renderTextureForGunsForTank->clear(Color(0, 0, 0, 0));
+		needHighlightLeftTank = false;
+		renderTextureForGunsForLeftTank = new RenderTexture;
+		renderTextureForGunsForLeftTank->create(tank.getDimension(), tank.getDimension());
+		renderTextureForGunsForLeftTank->clear(Color(0, 0, 0, 0));
+	}
+	else
+	{
+		needRightTank = true;
+
+		rightTankDraw = new TankDraw();
+
+		rightTankSprite = new Sprite;
+		rightTankSprite->setOrigin(float(tank.getDimension()), 0.f);
+		rightTankSprite->setScale(-1.f, 1.f);
+
+		renderTextureForRightTank = new RenderTexture;
+		renderTextureForRightTank->create(tank.getDimension(), tank.getDimension());
+		renderTextureForRightTank->clear(Color(0, 0, 0, 0));
+
+		needHighlightRightTank = false;
+		renderTextureForGunsForRightTank = new RenderTexture;
+		renderTextureForGunsForRightTank->create(tank.getDimension(), tank.getDimension());
+		renderTextureForGunsForRightTank->clear(Color(0, 0, 0, 0));
+	}
 }
 
 void Graphic::setInformation(List &list)
@@ -477,38 +510,75 @@ void Graphic::drawPrivate(vector<ViewableObject *> &objects, long timer, int nee
 	}
 }
 
-void Graphic::drawPrivate(Tank &tank, long timer, bool highlight, bool needUpdateRender)
+void Graphic::drawPrivate(Tank &tank, long timer, bool highlight, bool needUpdateRender, bool left)
 {
-	if (needUpdateRender)
+	if (left)
 	{
-		renderTextureForTank->clear(Color(0, 0, 0, 0));
+		if (needUpdateRender)
+		{
+			renderTextureForLeftTank->clear(Color(0, 0, 0, 0));
 
-		tankDraw->draw(*renderTextureForTank, timer, tank, components, 1);
+			leftTankDraw->draw(*renderTextureForLeftTank, timer, tank, components, 1);
+		}
+		else
+		{
+			leftTankDraw->draw(*renderTextureForLeftTank, timer, tank, components);
+		}
+
+		renderTextureForLeftTank->display();
+
+		leftTankSprite->setTexture(renderTextureForLeftTank->getTexture());
+		leftTankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
+
+		textureForWindow->draw(*leftTankSprite);
+
+		if (highlight)
+		{
+			renderTextureForGunsForLeftTank->clear(Color(0, 0, 0, 0));
+
+			leftTankDraw->draw(*renderTextureForGunsForLeftTank, timer, tank, components, -1);
+
+			renderTextureForGunsForLeftTank->display();
+
+			leftTankSprite->setTexture(renderTextureForGunsForLeftTank->getTexture());
+			leftTankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
+
+			textureForWindow->draw(*leftTankSprite);
+		}
 	}
 	else
 	{
-		tankDraw->draw(*renderTextureForTank, timer, tank, components);
-	}
+		if (needUpdateRender)
+		{
+			renderTextureForRightTank->clear(Color(0, 0, 0, 0));
 
-	renderTextureForTank->display();
+			rightTankDraw->draw(*renderTextureForRightTank, timer, tank, components, 1);
+		}
+		else
+		{
+			rightTankDraw->draw(*renderTextureForRightTank, timer, tank, components);
+		}
 
-	tankSprite->setTexture(renderTextureForTank->getTexture());
-	tankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
+		renderTextureForRightTank->display();
 
-	textureForWindow->draw(*tankSprite);
+		rightTankSprite->setTexture(renderTextureForRightTank->getTexture());
+		rightTankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
 
-	if (highlight)
-	{
-		renderTextureForGunsForTank->clear(Color(0, 0, 0, 0));
+		textureForWindow->draw(*rightTankSprite);
 
-		tankDraw->draw(*renderTextureForGunsForTank, timer, tank, components, -1);
+		if (highlight)
+		{
+			renderTextureForGunsForRightTank->clear(Color(0, 0, 0, 0));
 
-		renderTextureForGunsForTank->display();
+			rightTankDraw->draw(*renderTextureForGunsForRightTank, timer, tank, components, -1);
 
-		tankSprite->setTexture(renderTextureForGunsForTank->getTexture());
-		tankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
+			renderTextureForGunsForRightTank->display();
 
-		textureForWindow->draw(*tankSprite);
+			rightTankSprite->setTexture(renderTextureForGunsForRightTank->getTexture());
+			rightTankSprite->setPosition(float(tank.getOffset().x), float(tank.getOffset().y));
+
+			textureForWindow->draw(*rightTankSprite);
+		}
 	}
 }
 
@@ -560,9 +630,9 @@ void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &object
 	drawWindow();
 }
 
-void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer)
+void Graphic::draw(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &leftTank, Tank &rightTank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer)
 {
-	drawInRenderTexture(button, backgrounds, needUpdateBackground, bullets, tank, highlight, needUpdateRender, highlights, needUpdateHighlights, timer);
+	drawInRenderTexture(button, backgrounds, needUpdateBackground, bullets, leftTank, rightTank, highlight, needUpdateRender, highlights, needUpdateHighlights, timer);
 
 	drawWindow();
 }
@@ -681,7 +751,7 @@ void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableOb
 	drawPrivate(button);
 }
 
-void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer)
+void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &leftTank, Tank &rightTank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer)
 {
 	drawPrivate(backgrounds, timer, needUpdateBackground || firstDraw ? 1 : -1);
 	if (!needUpdateBackground)
@@ -695,7 +765,8 @@ void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableOb
 
 	drawPrivate(bullets, timer);
 	
-	drawPrivate(tank, timer, highlight, needUpdateRender);
+	drawPrivate(leftTank, timer, highlight, needUpdateRender);
+	drawPrivate(rightTank, timer, highlight, needUpdateRender, false);
 
 	drawPrivate(highlights, timer, needUpdateHighlights ? 2 : -2);
 
@@ -783,7 +854,7 @@ void Graphic::drawInRenderTexture(string *text, map<string, Button> &button, vec
 
 void Graphic::saveTank(string fileName, Tank &tank, long timer)
 {
-	tankDraw->save(fileName, timer, tank, components);
+	leftTankDraw->save(fileName, timer, tank, components);
 }
 
 

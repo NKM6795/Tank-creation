@@ -52,12 +52,19 @@ class Graphic
 	Sprite *spriteForRenderBackground;
 	Sprite *spriteForRenderHighlighte;
 
-	bool needTank;
-	TankDraw *tankDraw;
-	RenderTexture *renderTextureForTank;
-	bool needHighlight;
-	RenderTexture *renderTextureForGunsForTank;
-	Sprite *tankSprite;
+	bool needLeftTank;
+	TankDraw *leftTankDraw;
+	RenderTexture *renderTextureForLeftTank;
+	bool needHighlightLeftTank;
+	RenderTexture *renderTextureForGunsForLeftTank;
+	Sprite *leftTankSprite;
+
+	bool needRightTank;
+	TankDraw *rightTankDraw;
+	RenderTexture *renderTextureForRightTank;
+	bool needHighlightRightTank;
+	RenderTexture *renderTextureForGunsForRightTank;
+	Sprite *rightTankSprite;
 
 	bool needList;
 	ListDraw *listDraw;
@@ -74,7 +81,7 @@ class Graphic
 	void drawPrivate(string &inputField);
 	void drawPrivate(vector<ViewableObject *> &objects, long timer);
 	void drawPrivate(vector<ViewableObject *> &objects, long timer, int needUpdate);
-	void drawPrivate(Tank &tank, long timer, bool highlight = false, bool needUpdateRender = false);
+	void drawPrivate(Tank &tank, long timer, bool highlight = false, bool needUpdateRender = false, bool left = true);
 	void drawPrivate(List &list, long timer);
 
 public:
@@ -93,7 +100,7 @@ public:
 	void setInformation(int xCoordinate, int yCoordinate, int width, int height, string fileName);
 	void setInformation(int width, int height, bool needInputField, int xCoordinate, int yCoordinate, int characterSize, string fontName, RenderTexture *renderTextureForBackground);
 	void setInformation(vector<Component *> &componentsForData);
-	void setInformation(Tank &tank);
+	void setInformation(Tank &tank, bool left = true);
 	void setInformation(List &list);
 	void setInformation(int screanWidth, int screanHeight);
 
@@ -102,7 +109,7 @@ public:
 	void draw(map<string, Button> &button, Tank &tank, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void draw(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer);
+	void draw(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &leftTank, Tank &rightTank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer);
 	void draw(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void draw(map<string, Button> &button, string &inputField);
 	void draw(map<string, Button> &button, string &inputField, Tank &tank, long timer);
@@ -120,7 +127,7 @@ public:
 	void drawInRenderTexture(map<string, Button> &button, Tank &tank, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, long timer);
-	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &tank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer);
+	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &backgrounds, bool needUpdateBackground, vector<ViewableObject *> &bullets, Tank &leftTank, Tank &rightTank, bool highlight, bool needUpdateRender, vector<ViewableObject *> &highlights, bool needUpdateHighlights, long timer);
 	void drawInRenderTexture(map<string, Button> &button, vector<ViewableObject *> &objects, Tank &tank, List &list, long timer);
 	void drawInRenderTexture(map<string, Button> &button, string &inputField);
 	void drawInRenderTexture(map<string, Button> &button, string &inputField, Tank &tank, long timer);

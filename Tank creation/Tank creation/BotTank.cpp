@@ -7,7 +7,9 @@ BotTank::BotTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBa
 
 }
 
+
 BotTank::~BotTank()
 {
 
 }
+
