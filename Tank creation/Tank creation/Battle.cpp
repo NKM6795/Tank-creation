@@ -144,11 +144,11 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 	fileIn.close();
 
-	tank.name = tankName;
-	graphic->setInformation(tank);
+	leftTank.name = tankName;
+	graphic->setInformation(leftTank);
 
-	personalTank = new PersonalTank(tank.getViewableObjects(), fieldWidthForBattle, screanWidth);
-	personalTank->download(tank.name, components);
+	personalTank = new PersonalTank(leftTank.getViewableObjects(), fieldWidthForBattle, screanWidth);
+	personalTank->download(leftTank.name, components);
 	personalTank->setOffset(position);
 
 	updateObjects();
@@ -156,7 +156,7 @@ Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 
 Battle::~Battle()
 {
-	tank.~Tank();
+	leftTank.~Tank();
 
 	while (components.size() > 0)
 	{
@@ -279,7 +279,7 @@ void Battle::work()
 			firstUpdateOfBackgrounds = false;
 
 			updateObjects();
-			tank.setOffset(personalTank->getOffsetForTank());
+			leftTank.setOffset(personalTank->getOffsetForTank());
 		}
 		else if (personalTank->getSpeed() == 0)
 		{
@@ -306,6 +306,6 @@ void Battle::work()
 		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, timeForWork, screanHeight - 70);
 
 
-		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, tank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
+		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, personalTank->needHighlighte(), max(personalTank->getNeedUpdateTank(), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
 	}
 }

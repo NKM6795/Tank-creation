@@ -295,6 +295,9 @@
     <ClCompile Include="WorkWithBullet.cpp">
       <Filter>Tank And Components\Tank\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BotTank.cpp">
+      <Filter>Tank And Components\Tank\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -442,6 +445,9 @@
       <Filter>Graphic\Tank And Components\Components\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WorkWithBullet.h">
+      <Filter>Tank And Components\Tank\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BotTank.h">
       <Filter>Tank And Components\Tank\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

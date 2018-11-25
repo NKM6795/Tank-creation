@@ -3,6 +3,7 @@
 
 #include "WorkWithWindow.h"
 #include "PersonalTank.h"
+#include "BotTank.h"
 #include "WorkWithBullet.h"
 
 
@@ -22,8 +23,11 @@ class Battle : public WorkWithWindow
 	vector<ViewableObject *> allotmentObjects;
 	int bulletPositionInComponents;
 
-	Tank tank;
+	Tank leftTank;
 	PersonalTank *personalTank;
+
+	Tank rightTank;
+	BotTank *botTank;
 
 	void updateObjects();
 

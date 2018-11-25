@@ -9,6 +9,7 @@
 
 class PersonalTank
 {
+protected:
 	vector<vector<ViewableObject *> > *objects;
 
 	int xOffset,
@@ -59,7 +60,7 @@ class PersonalTank
 public:
 	PersonalTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize = 30);
 
-	~PersonalTank();
+	virtual ~PersonalTank();
 
 	Vector2int getOffset();
 	void setOffset(Vector2int offset);
