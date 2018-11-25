@@ -1,17 +1,59 @@
 #include "WorkWithBullet.h"
 
 
+pair<Vector2int, Vector2int> getObjectParametersForBullet(ViewableObject *object)
+{
+	Vector2int objectPosition = object->getPosition(),
+		objectSize = Vector2int(object->getComponentParameter()->width, object->getComponentParameter()->height) * 20;
+
+	//for gun
+	if ((typeid(*object) == typeid(Gun)))
+	{
+		if (objectSize.x == 20)
+		{
+			objectSize.x = 13;
+		}
+		else if (object->getComponentParameter()->horizontally && objectSize.x != 60)
+		{
+			objectSize.x = 17;
+		}
+		else if (object->getComponentParameter()->horizontally && objectSize.x == 60)
+		{
+			objectPosition.y += 4;
+			objectSize = Vector2int(17, 52);
+		}
+		else if (objectSize.x == 40)
+		{
+			objectSize.y = 19;
+			objectPosition.y += 21;
+		}
+		else if (objectSize.x == 60)
+		{
+			objectSize = Vector2int(34, 45);
+			objectPosition.x += 13;
+			objectPosition.y += 15;
+		}
+		else
+		{
+			objectSize = Vector2int(58, 78);
+			objectPosition.x += 11;
+			objectPosition.y += 2;
+		}
+	}
+	return { objectPosition, objectSize };
+}
+
 Vector2float getBuletPositionFromTime(ViewableObject *bullet, Vector2int offset, long timer)
 {
 	float time = float(timer - bullet->timerForObject) / 200.f;
 	Vector2float newPosition(bullet->getBulletPosition(true).x + float(time) * bullet->speed * sin(bullet->tiltAngle * PI / 180.f), bullet->getBulletPosition(true).y - float(time) * bullet->speed * cos(bullet->tiltAngle * PI / 180.f));
 
-if (!bullet->getFather()->getComponentParameter()->horizontally)
-{
-	newPosition.y = bullet->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - bullet->speed * time * cos(bullet->tiltAngle * PI / 180.f);
-}
+	if (!bullet->getFather()->getComponentParameter()->horizontally)
+	{
+		newPosition.y = bullet->getBulletPosition(true).y + GRAVITY * 0.5f * time * time - bullet->speed * time * cos(bullet->tiltAngle * PI / 180.f);
+	}
 
-return newPosition;
+	return newPosition;
 }
 
 void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, int index, long timer, bool completely)
@@ -100,46 +142,10 @@ void breakBullet(vector<Component *> &components, int bulletPositionInComponents
 
 bool collisionCheck(ViewableObject *object, ViewableObject *bullet, Vector2float position, Vector2int offset)
 {
-	Vector2int objectPosition = object->getPosition(),
+	Vector2int objectPosition = getObjectParametersForBullet(object).first,
 		bulletPosition = position + offset,
-		mainObjectSize = Vector2int(object->getComponentParameter()->width, object->getComponentParameter()->height) * 20,
-		objectSize = Vector2int(object->getComponentParameter()->width, object->getComponentParameter()->height) * 20,
+		objectSize = getObjectParametersForBullet(object).second,
 		bulletSize = Vector2int(bullet->getComponentParameter()->width, bullet->getComponentParameter()->height);
-
-	//for gun
-	if ((typeid(*object) == typeid(Gun)))
-	{
-		if (objectSize.x == 20)
-		{
-			objectSize.x = 13;
-		}
-		else if (object->getComponentParameter()->horizontally && objectSize.x != 60)
-		{
-			objectSize.x = 17;
-		}
-		else if (object->getComponentParameter()->horizontally && objectSize.x == 60)
-		{
-			objectPosition.y += 4;
-			objectSize = Vector2int(17, 52);
-		}
-		else if (objectSize.x == 40)
-		{
-			objectSize.y = 19;
-			objectPosition.y += 21;
-		}
-		else if (objectSize.x == 60)
-		{
-			objectSize = Vector2int(34, 45);
-			objectPosition.x += 13;
-			objectPosition.y += 15;
-		}
-		else
-		{
-			objectSize = Vector2int(58, 78);
-			objectPosition.x += 11;
-			objectPosition.y += 2;
-		}
-	}
 
 	//common
 	{

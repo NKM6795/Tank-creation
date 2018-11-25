@@ -38,6 +38,8 @@ class PersonalTank
 	bool needAddBullet;
 	vector<ViewableObject *> bullets;
 
+	bool checkForExistenceAndNotComplementarity(ViewableObject *object);
+
 	void updateTracks();
 
 	float getAngelForGun(ViewableObject *gun, Vector2int mousePosition);

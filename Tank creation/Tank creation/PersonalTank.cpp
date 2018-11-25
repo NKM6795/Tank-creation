@@ -27,6 +27,12 @@ PersonalTank::~PersonalTank()
 }
 
 
+bool PersonalTank::checkForExistenceAndNotComplementarity(ViewableObject *object)
+{
+	return (object != nullptr && object->getHealth() > 0 && !(typeid(*object) == typeid(AdditionToBigBlock) || typeid(*object) == typeid(AdditionToEngineRoom) || typeid(*object) == typeid(AdditionToGun) || typeid(*object) == typeid(AdditionToTrack)));
+}
+
+
 void PersonalTank::updateTracks()
 {
 	for (int i = 0; i < int((*objects).size()); ++i)
@@ -113,13 +119,32 @@ bool PersonalTank::checkYCoordinate(Vector2float start, Vector2float second, flo
 {
 	float t = (second.x - start.x) / (speedOfBullet * sin(angel * PI / 180.f));
 
-	float y = start.y + GRAVITY * 0.5f * t * t - speed * t * cos(angel * PI / 180.f);
-
-	return true;
+	float y = start.y - GRAVITY * 0.5f * t * t + speed * t * cos(angel * PI / 180.f);
+	
+	return second.y <= y;
 }
 
 int PersonalTank::checkToGetIntoHimself(float angel, float speedOfBullet, Vector2float position)
 {
+	for (int i = int(position.x / 20.f); i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()) && j < int(position.y / 20.f) + 1; ++j)
+		{
+			if (checkForExistenceAndNotComplementarity((*objects)[i][j]))
+			{
+				Vector2float objectPosition = getObjectParametersForBullet((*objects)[i][j]).first,
+					objectSize = getObjectParametersForBullet((*objects)[i][j]).second;
+
+				if (!checkYCoordinate(position, objectPosition, angel, speedOfBullet) &&
+					checkYCoordinate(position, objectPosition + objectSize, angel, speedOfBullet))
+				{
+					return 1;
+				}
+			}
+		}
+	}
+
+
 	return 0;
 }
 
@@ -146,7 +171,7 @@ void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &comp
 				}
 			}
 			newBullet->damage = gun->getComponentParameter()->damage;
-
+			
 			needAddBullet = true;
 			bullets.push_back(newBullet);
 		}
@@ -588,7 +613,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	{
 		for (int j = 0; j < int((*objects).size()); ++j)
 		{
-			if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0 && !(typeid(*(*objects)[i][j]) == typeid(AdditionToBigBlock) || typeid(*(*objects)[i][j]) == typeid(AdditionToEngineRoom) || typeid(*(*objects)[i][j]) == typeid(AdditionToGun) || typeid(*(*objects)[i][j]) == typeid(AdditionToTrack)))
+			if (checkForExistenceAndNotComplementarity((*objects)[i][j]))
 			{
 				for (int k = 0; k < int(bullets.size()); ++k)
 				{
