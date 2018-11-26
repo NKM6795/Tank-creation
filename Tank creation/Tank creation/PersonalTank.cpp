@@ -606,34 +606,6 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	
 	//Work with bullet
 	bool needRemoveHangingObjects = false;
-	for (int k = 0; k < int(bullets.size()); ++k)
-	{
-		bool breakCheck = true;
-		if (bullets[k]->getFather() != nullptr)
-		{
-			if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()) && !bullets[k]->canDoDamageToItself)
-			{
-				bullets[k]->canDoDamageToItself = true;
-			}
-			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()) && bullets[k]->canDoDamageToItself)
-			{
-				bullets[k]->getFather()->setHeath(bullets[k]->getFather()->getHealth() - bullets[k]->damage);
-				if (bullets[k]->getFather()->getHealth() <= 0)
-				{
-					highlightingUpdated = true;
-					needRemoveHangingObjects = true;
-				}
-				bullets[k]->getFather()->needDraw = true;
-				breakBullet(components, bulletPositionInComponents, bullets, k, timer);
-				breakCheck = false;
-			}
-		}
-		if (!breakCheck)
-		{
-			--k;
-		}
-	}
-	
 	for (int i = 0; i < int((*objects).size()); ++i)
 	{
 		for (int j = 0; j < int((*objects).size()); ++j)
@@ -642,22 +614,44 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 			{
 				for (int k = 0; k < int(bullets.size()); ++k)
 				{
-					if (bullets[k]->getFather() != (*objects)[i][j] && collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()))
+					if (bullets[k]->getFather() != (*objects)[i][j])
 					{
-						(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - bullets[k]->damage);
-						if ((*objects)[i][j]->getHealth() <= 0)
+						if (collisionCheck((*objects)[i][j], bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()))
 						{
-							needUpdateTank = true;
-							needRemoveHangingObjects = true;
-							if (typeid(*(*objects)[i][j]) == typeid(Gun))
+							(*objects)[i][j]->setHeath((*objects)[i][j]->getHealth() - bullets[k]->damage);
+							if ((*objects)[i][j]->getHealth() <= 0)
+							{
+								needUpdateTank = true;
+								needRemoveHangingObjects = true;
+								if (typeid(*(*objects)[i][j]) == typeid(Gun))
+								{
+									highlightingUpdated = true;
+								}
+							}
+							(*objects)[i][j]->needDraw = true;
+
+							breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps);
+							--k;
+						}
+					}
+					else
+					{
+						if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()) && !bullets[k]->canDoDamageToItself)
+						{
+							bullets[k]->canDoDamageToItself = true;
+						}
+						else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], getBuletPositionFromTime(bullets[k], timer), globalOffset - getOffsetForTank()) && bullets[k]->canDoDamageToItself)
+						{
+							bullets[k]->getFather()->setHeath(bullets[k]->getFather()->getHealth() - bullets[k]->damage);
+							if (bullets[k]->getFather()->getHealth() <= 0)
 							{
 								highlightingUpdated = true;
+								needRemoveHangingObjects = true;
 							}
+							bullets[k]->getFather()->needDraw = true;
+							breakBullet(components, bulletPositionInComponents, bullets, k, timer);
+							--k;
 						}
-						(*objects)[i][j]->needDraw = true;
-						
-						breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps);
-						--k;
 					}
 				}
 			}
