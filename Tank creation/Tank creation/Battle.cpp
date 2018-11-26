@@ -297,7 +297,7 @@ void Battle::work()
 		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, lengthBetweenTanks - botTank->getBorder().x, botTank->getOffsetForTank().x, components, bulletPositionInComponents, bullets, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 		//Work with bot tank
-		botTank->work(timer, timeForWork, lengthBetweenTanks + 2 * personalTank->getBorder().y - 2 * leftTank.getDimension(), personalTank->getGlobalOffset() - personalTank->getOffsetForTank(), components, bulletPositionInComponents, bullets);
+		botTank->work(timer, timeForWork, lengthBetweenTanks + 2 * personalTank->getBorder().y - 2 * leftTank.getDimension(), mousePosition - personalTank->getGlobalOffset(), components, bulletPositionInComponents, bullets);
 
 		if (personalTank->getNeedUpdateLengthBetweenTanks() || botTank->getNeedUpdateLengthBetweenTanks())
 		{
@@ -334,6 +334,11 @@ void Battle::work()
 		if (personalTank->getNeedAddBullet())
 		{
 			vector<ViewableObject *> tempObjects = personalTank->getBullets();
+			bullets.insert(bullets.end(), tempObjects.begin(), tempObjects.end());
+		}
+		if (botTank->getNeedAddBullet())
+		{
+			vector<ViewableObject *> tempObjects = botTank->getBullets();
 			bullets.insert(bullets.end(), tempObjects.begin(), tempObjects.end());
 		}
 

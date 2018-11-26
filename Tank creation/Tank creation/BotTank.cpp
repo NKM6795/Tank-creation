@@ -4,13 +4,75 @@
 
 BotTank::BotTank(vector<vector<ViewableObject *> > &objects, int fieldWidthForBattle, int screenWidth, int dataArraySize) : PersonalTank(objects, fieldWidthForBattle, screenWidth, dataArraySize)
 {
-
+	needAnalysis = true;
 }
 
 
 BotTank::~BotTank()
 {
 
+}
+
+
+void BotTank::analysis()
+{
+	grupyAllocation.clear();
+
+	grupyAllocation.resize(2);
+
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			if (checkForExistenceAndNotComplementarity((*objects)[i][j]) && typeid(*(*objects)[i][j]) == typeid(Gun))
+			{
+				if ((*objects)[i][j]->getComponentParameter()->horizontally)
+				{
+					grupyAllocation[0].push_back((*objects)[i][j]->getPosition() / 20);
+				}
+				else
+				{
+					grupyAllocation[1].push_back((*objects)[i][j]->getPosition() / 20);
+				}
+				(*objects)[i][j]->needDrawSeparately = true;
+			}
+		}
+	}
+}
+
+
+void BotTank::makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer)
+{
+	for (int i = 0; i < int(highlightedItems.size()); ++i)
+	{
+		ViewableObject *gun = (*objects)[highlightedItems[i].x][highlightedItems[i].y];
+		if (gun->getHealth() > 0 && timer - gun->timerForObject >= gun->getComponentParameter()->reload * 200)
+		{
+			gun->timerForObject = timer;
+			int index = bulletPositionInComponents + gun->getComponentParameter()->indexOfComponents[0];
+
+			Vector2int bulletPositionInTank = gun->getPosition() + Vector2int(gun->getComponentParameter()->xOffsetForBarrel, gun->getComponentParameter()->yOffsetForBarrel),
+				bulletPosition = Vector2int(dataArraySize * 20 - bulletPositionInTank.x, bulletPositionInTank.y) + getOffsetForTank();
+
+			ViewableObject *newBullet = new Bullet(components[index], index, gun, getAngelForGun(gun, mousePosition), float(gun->getComponentParameter()->bulletSpeed) / 2.f, bulletPosition, timer);
+			if (gun->getComponentParameter()->bulletSpeed == -1)
+			{
+				if ((newBullet->tiltAngle >= 0.f && newBullet->tiltAngle < 30.f) || (newBullet->tiltAngle > 330.f && newBullet->tiltAngle <= 360.f))
+				{
+					newBullet->speed = 100.f;
+				}
+				else
+				{
+					newBullet->speed = getSpeedForVerticalGun(newBullet->getBulletPosition(), mousePosition, newBullet->tiltAngle);
+				}
+			}
+			newBullet->tiltAngle = 360.f - newBullet->tiltAngle;
+			newBullet->damage = gun->getComponentParameter()->damage;
+
+			needAddBullet = true;
+			bullets.push_back(newBullet);
+		}
+	}
 }
 
 
@@ -72,6 +134,11 @@ Vector2int BotTank::getBorder()
 
 void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets)
 {
+	if (needAnalysis)
+	{
+		analysis();
+	}
+
 	//Work with motion
 	if (needDrive)
 	{
@@ -108,10 +175,10 @@ void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int perso
 				globalOffset.x = -(fieldWidthForBattle - screenWidth);
 				position -= 1;
 			}
-			else if (getOffsetForTank().x + border.x < personalPosition.x + lengthBetweenTanks)
-			{
-				globalOffset.x -= 1;
-			}
+			//else if (getOffsetForTank().x + border.x < personalPosition.x + lengthBetweenTanks)
+			//{
+			//	globalOffset.x -= 1;
+			//}
 			else
 			{
 				position = 0;
@@ -142,39 +209,17 @@ void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int perso
 		}
 	}
 
+	highlightedItems = grupyAllocation[0];
+
+	Vector2int offset = getOffsetForTank();
+	Vector2int positionOfPrice = Vector2int((offset * 2 - personalPosition).x + dataArraySize * 20, personalPosition.y) - offset;
+	updateGun(positionOfPrice);
+	makeShots(positionOfPrice, components, bulletPositionInComponents, timer);
+
 
 	//Work with bullet
 	bool needRemoveHangingObjects = false;
-	for (int k = 0; k < int(bullets.size()); ++k)
-	{
-		bool breakCheck = true;
-		if (bullets[k]->getFather() != nullptr)
-		{
-			Vector2int bulletPosition = getBuletPositionFromTime(bullets[k], timer),
-				offsetForBullet = Vector2int((Vector2int(dataArraySize * 20, 0) - (bulletPosition - getOffsetForTank()) - bulletPosition).x, -getOffsetForTank().y);
-			if (bullets[k]->getFather()->getHealth() > 0 && !collisionCheck(bullets[k]->getFather(), bullets[k], bulletPosition, offsetForBullet) && !bullets[k]->canDoDamageToItself)
-			{
-				bullets[k]->canDoDamageToItself = true;
-			}
-			else if (bullets[k]->getFather()->getHealth() > 0 && collisionCheck(bullets[k]->getFather(), bullets[k], bulletPosition, offsetForBullet) && bullets[k]->canDoDamageToItself)
-			{
-				bullets[k]->getFather()->setHeath(bullets[k]->getFather()->getHealth() - bullets[k]->damage);
-				if (bullets[k]->getFather()->getHealth() <= 0)
-				{
-					highlightingUpdated = true;
-					needRemoveHangingObjects = true;
-				}
-				bullets[k]->getFather()->needDraw = true;
-				breakBullet(components, bulletPositionInComponents, bullets, k, timer);
-				breakCheck = false;
-			}
-		}
-		if (!breakCheck)
-		{
-			--k;
-		}
-	}
-
+	
 	for (int i = 0; i < int((*objects).size()); ++i)
 	{
 		for (int j = 0; j < int((*objects).size()); ++j)

@@ -6,6 +6,12 @@
 
 class BotTank : public PersonalTank
 {
+	bool needAnalysis;
+
+
+	void analysis();
+
+	void makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer);
 
 	void updateTracks();
 

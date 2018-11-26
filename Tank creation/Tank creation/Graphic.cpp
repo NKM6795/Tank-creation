@@ -766,7 +766,7 @@ void Graphic::drawInRenderTexture(map<string, Button> &button, vector<ViewableOb
 	drawPrivate(bullets, timer);
 	
 	drawPrivate(leftTank, timer, highlight, needUpdateRender);
-	drawPrivate(rightTank, timer, highlight, needUpdateRender, false);
+	drawPrivate(rightTank, timer, true, needUpdateRender, false);
 
 	drawPrivate(highlights, timer, needUpdateHighlights ? 2 : -2);
 
