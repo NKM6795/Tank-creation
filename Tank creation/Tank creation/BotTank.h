@@ -9,6 +9,8 @@ class BotTank : public PersonalTank
 	bool needAnalysis;
 	long timerForAnalysis;
 
+	Vector2int oldPositionOfPersonalTank;
+
 	vector<Vector2int> prisesPosition;
 	vector<ViewableObject *> prises;
 

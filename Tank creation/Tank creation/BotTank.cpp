@@ -22,6 +22,17 @@ Vector2int BotTank::getPositionInBot(Vector2int positionForConvert)
 
 void BotTank::analysis(Tank &personalTank, Vector2int personalPosition)
 {
+	if ((getOffsetForTank() - personalPosition).x > dataArraySize * 20 + 80)
+	{
+		speed = -maxSpeed;
+	}
+	else
+	{
+		speed = 0;
+	}
+
+	oldPositionOfPersonalTank = personalPosition;
+
 	needAnalysis = false;
 
 	grupyAllocation.clear();
@@ -65,7 +76,7 @@ void BotTank::analysis(Tank &personalTank, Vector2int personalPosition)
 	prisesPosition.clear();
 	if (mainPosition.x != -1)
 	{
-		prisesPosition.push_back(mainPosition * 20 + personalPosition);
+		prisesPosition.push_back(mainPosition * 20 + Vector2int(30, 20) + personalPosition);
 		prises.push_back(personalTankObjects[mainPosition.x][mainPosition.y]);
 	}
 }
@@ -164,6 +175,8 @@ Vector2int BotTank::getBorder()
 
 void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Tank &personalTank)
 {
+
+	cout << oldPositionOfPersonalTank.x - personalPosition.x << '\n';
 	if (needAnalysis)
 	{
 		analysis(personalTank, personalPosition);
@@ -323,7 +336,7 @@ void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int perso
 		needUpdateLengthBetweenTanks = true;
 	}
 
-	if (timer - timerForAnalysis > 10000 || prises.back()->getHealth() <= 0)
+	if (timer - timerForAnalysis > 10000 || prises.back()->getHealth() <= 0 || abs(oldPositionOfPersonalTank.x - personalPosition.x) > 20 || speed != 0)
 	{
 		timer = timerForAnalysis;
 		needAnalysis = true;
