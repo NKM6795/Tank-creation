@@ -182,21 +182,29 @@ void PersonalTank::makeShots(Vector2int mousePosition, vector<Component *> &comp
 
 void PersonalTank::removeHangingObjects()
 {
+	bool checkTrack = false;
 	Vector2int mainPosition(-1, -1);
 
-	for (int i = 0; i < int((*objects).size()) && mainPosition.x == -1; ++i)
+	for (int i = 0; i < int((*objects).size()); ++i)
 	{
-		for (int j = 0; j < int((*objects).size()) && mainPosition.x == -1; ++j)
+		for (int j = 0; j < int((*objects).size()); ++j)
 		{
-			if ((*objects)[i][j] != nullptr && typeid(*(*objects)[i][j]) == typeid(EngineRoom))
+			if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0 && typeid(*(*objects)[i][j]) == typeid(EngineRoom))
 			{
 				mainPosition = Vector2int(i, j);
+			}
+			if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0 && typeid(*(*objects)[i][j]) == typeid(Track))
+			{
+				checkTrack = true;
 			}
 		}
 	}
 
 	vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > smallTank = TankEditor::getSmallTankForDfs(*objects);
-	TankEditor::dfs(smallTank, mainPosition.x, mainPosition.y);
+	if (checkTrack && mainPosition.x != -1)
+	{
+		TankEditor::dfs(smallTank, mainPosition.x, mainPosition.y);
+	}
 
 	for (int i = 0; i < int(smallTank.size()); ++i)
 	{

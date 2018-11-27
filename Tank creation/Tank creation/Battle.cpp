@@ -297,7 +297,7 @@ void Battle::work()
 		personalTank->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, lengthBetweenTanks - botTank->getBorder().x, botTank->getOffsetForTank().x, components, bulletPositionInComponents, bullets, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
 		//Work with bot tank
-		botTank->work(timer, timeForWork, lengthBetweenTanks + 2 * personalTank->getBorder().y - 2 * leftTank.getDimension(), mousePosition - personalTank->getGlobalOffset(), components, bulletPositionInComponents, bullets);
+		botTank->work(timer, timeForWork, lengthBetweenTanks + 2 * personalTank->getBorder().y - 2 * leftTank.getDimension(), personalTank->getOffsetForTank() - personalTank->getGlobalOffset(), components, bulletPositionInComponents, bullets, leftTank);
 
 		if (personalTank->getNeedUpdateLengthBetweenTanks() || botTank->getNeedUpdateLengthBetweenTanks())
 		{

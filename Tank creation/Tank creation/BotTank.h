@@ -7,9 +7,14 @@
 class BotTank : public PersonalTank
 {
 	bool needAnalysis;
+	long timerForAnalysis;
 
+	vector<Vector2int> prisesPosition;
+	vector<ViewableObject *> prises;
 
-	void analysis();
+	Vector2int getPositionInBot(Vector2int positionForConvert);
+
+	void analysis(Tank &personalTank, Vector2int personalPosition);
 
 	void makeShots(Vector2int mousePosition, vector<Component *> &components, int bulletPositionInComponents, long timer);
 
@@ -25,5 +30,5 @@ public:
 
 	Vector2int getBorder();
 	
-	void work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets);
+	void work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Tank &personalTank);
 };

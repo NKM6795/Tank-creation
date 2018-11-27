@@ -14,8 +14,16 @@ BotTank::~BotTank()
 }
 
 
-void BotTank::analysis()
+Vector2int BotTank::getPositionInBot(Vector2int positionForConvert)
 {
+	return Vector2int((getOffsetForTank() * 2 - positionForConvert).x + dataArraySize * 20, positionForConvert.y) - getOffsetForTank();
+}
+
+
+void BotTank::analysis(Tank &personalTank, Vector2int personalPosition)
+{
+	needAnalysis = false;
+
 	grupyAllocation.clear();
 
 	grupyAllocation.resize(2);
@@ -37,6 +45,28 @@ void BotTank::analysis()
 				(*objects)[i][j]->needDrawSeparately = true;
 			}
 		}
+	}
+
+	Vector2int mainPosition(-1, -1);
+
+	vector<vector<ViewableObject *> > personalTankObjects = personalTank.getViewableObjects();
+
+	for (int i = 0; i < int(personalTankObjects.size()); ++i)
+	{
+		for (int j = 0; j < int(personalTankObjects.size()); ++j)
+		{
+			if (personalTankObjects[i][j] != nullptr && personalTankObjects[i][j]->getHealth() > 0 && typeid(*personalTankObjects[i][j]) == typeid(EngineRoom))
+			{
+				mainPosition = Vector2int(i, j);
+			}
+		}
+	}
+
+	prisesPosition.clear();
+	if (mainPosition.x != -1)
+	{
+		prisesPosition.push_back(mainPosition * 20 + personalPosition);
+		prises.push_back(personalTankObjects[mainPosition.x][mainPosition.y]);
 	}
 }
 
@@ -63,7 +93,7 @@ void BotTank::makeShots(Vector2int mousePosition, vector<Component *> &component
 				}
 				else
 				{
-					newBullet->speed = getSpeedForVerticalGun(newBullet->getBulletPosition(), mousePosition, newBullet->tiltAngle);
+					newBullet->speed = getSpeedForVerticalGun(bulletPositionInTank, mousePosition, newBullet->tiltAngle);
 				}
 			}
 			newBullet->tiltAngle = 360.f - newBullet->tiltAngle;
@@ -132,11 +162,11 @@ Vector2int BotTank::getBorder()
 }
 
 
-void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets)
+void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Tank &personalTank)
 {
 	if (needAnalysis)
 	{
-		analysis();
+		analysis(personalTank, personalPosition);
 	}
 
 	//Work with motion
@@ -209,13 +239,27 @@ void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int perso
 		}
 	}
 
-	highlightedItems = grupyAllocation[0];
 
-	Vector2int offset = getOffsetForTank();
-	Vector2int positionOfPrice = Vector2int((offset * 2 - personalPosition).x + dataArraySize * 20, personalPosition.y) - offset;
-	updateGun(positionOfPrice);
-	makeShots(positionOfPrice, components, bulletPositionInComponents, timer);
+	if (prisesPosition.size() > 0)
+	{
+		Vector2int positionOfPrice = getPositionInBot(prisesPosition[0]);
 
+		//Horisontal guns
+		{
+			highlightedItems = grupyAllocation[0];
+
+			updateGun(positionOfPrice);
+			makeShots(positionOfPrice, components, bulletPositionInComponents, timer);
+		}
+
+		//Vertical guns
+		{
+			highlightedItems = grupyAllocation[1];
+
+			updateGun(positionOfPrice);
+			makeShots(positionOfPrice, components, bulletPositionInComponents, timer);
+		}
+	}
 
 	//Work with bullet
 	bool needRemoveHangingObjects = false;
@@ -277,5 +321,11 @@ void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int perso
 	{
 		removeHangingObjects();
 		needUpdateLengthBetweenTanks = true;
+	}
+
+	if (timer - timerForAnalysis > 10000 || prises.back()->getHealth() <= 0)
+	{
+		timer = timerForAnalysis;
+		needAnalysis = true;
 	}
 }
