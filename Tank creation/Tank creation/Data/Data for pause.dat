@@ -1,16 +1,17 @@
-Saved
+Pause
 683 384
 1280 720
 16 1
-1
-1
-116 66 33
+2
+2
+116 66 31
 small
 Data/Fonts/Strangiato.otf
-640 400 Ok
+540 400 Exit
+740 400 Cancel
 1
 1
 45
 Data/Fonts/Strangiato.otf
-640 310 Successfully saved
-424 180 0 0 0 0 0
+640 310 Pause
+400 180 0 0 0 0 0

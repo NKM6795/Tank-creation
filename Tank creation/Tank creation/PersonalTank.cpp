@@ -200,20 +200,44 @@ void PersonalTank::removeHangingObjects()
 		}
 	}
 
-	vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > smallTank = TankEditor::getSmallTankForDfs(*objects);
-	if (checkTrack && mainPosition.x != -1)
 	{
-		TankEditor::dfs(smallTank, mainPosition.x, mainPosition.y);
+		vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > smallTank = TankEditor::getSmallTankForDfs(*objects);
+		if (checkTrack && mainPosition.x != -1)
+		{
+			TankEditor::dfs(smallTank, mainPosition.x, mainPosition.y);
+		}
+
+		checkTrack = false;
+		for (int i = 0; i < int(smallTank.size()); ++i)
+		{
+			for (int j = 0; j < int(smallTank.size()); ++j)
+			{
+				if (smallTank[i][j].first != TankEditor::Direct::Nowhere)
+				{
+					(*objects)[i][j]->setHeath(0);
+					needUpdateTank = true;
+				}
+				if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0 && typeid(*(*objects)[i][j]) == typeid(Track))
+				{
+					checkTrack = true;
+				}
+			}
+		}
 	}
 
-	for (int i = 0; i < int(smallTank.size()); ++i)
+	if (!checkTrack)
 	{
-		for (int j = 0; j < int(smallTank.size()); ++j)
+		vector<vector<pair<TankEditor::Direct, TankEditor::Direct> > > smallTank = TankEditor::getSmallTankForDfs(*objects);
+
+		for (int i = 0; i < int(smallTank.size()); ++i)
 		{
-			if (smallTank[i][j].first != TankEditor::Direct::Nowhere)
+			for (int j = 0; j < int(smallTank.size()); ++j)
 			{
-				(*objects)[i][j]->setHeath(0);
-				needUpdateTank = true;
+				if (smallTank[i][j].first != TankEditor::Direct::Nowhere)
+				{
+					(*objects)[i][j]->setHeath(0);
+					needUpdateTank = true;
+				}
 			}
 		}
 	}

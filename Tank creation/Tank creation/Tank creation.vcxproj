@@ -149,6 +149,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="NotificationWindow.cpp" />
     <ClCompile Include="NotAvailable.cpp" />
+    <ClCompile Include="Pause.cpp" />
     <ClCompile Include="PersonalTank.cpp" />
     <ClCompile Include="RenameTank.cpp" />
     <ClCompile Include="Saved.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="NotificationWindow.h" />
     <ClInclude Include="NotAvailable.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="PersonalTank.h" />
     <ClInclude Include="RenameTank.h" />
     <ClInclude Include="Saved.h" />

@@ -298,6 +298,9 @@
     <ClCompile Include="BotTank.cpp">
       <Filter>Tank And Components\Tank\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pause.cpp">
+      <Filter>Windows\Notification Windows\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -449,6 +452,9 @@
     </ClInclude>
     <ClInclude Include="BotTank.h">
       <Filter>Tank And Components\Tank\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pause.h">
+      <Filter>Windows\Notification Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

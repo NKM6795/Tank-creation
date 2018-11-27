@@ -243,6 +243,16 @@ void Battle::work()
 	{
 		timer += timeForWork;
 
+		if (needWindowResult)
+		{
+			if (windowResult == "Exit/")
+			{
+				windowIsOpen = false;
+				return;
+			}
+			needWindowResult = false;
+		}
+
 		mousePosition = graphic->getPositionOfMouse();
 
 		while (graphic->pollEvent())
@@ -289,8 +299,16 @@ void Battle::work()
 		}
 		if (button["Exit"].getActivateAnAction())
 		{
-			windowIsOpen = false;
-			return;
+			needNewWindow = true;
+			needWindowResult = true;
+
+			string fileName = "Data/Data for pause.dat";
+
+			graphic->drawInRenderTexture(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, rightTank, personalTank->needHighlighte(), max(max(personalTank->getNeedUpdateTank(), botTank->getNeedUpdateTank()), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
+
+			newWindow = new Pause(fileName, graphic);
+			
+			button["Exit"].setActivateAnAction(false);
 		}
 
 		//Work with personal tank
