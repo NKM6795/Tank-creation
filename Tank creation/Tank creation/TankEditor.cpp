@@ -43,17 +43,27 @@ void TankEditor::addViewableObjectOnPosition(Component *component, int index, Ve
 			}
 		}
 	}
+
+	cost += (*objects)[position.x][position.y]->getComponentParameter()->cost;
 }
 
 
 TankEditor::TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize) : objects(&objects), dataArraySize(dataArraySize)
 {
 	needUpdateTank = true;
+	
+	cost = 0;
 }
 
 TankEditor::~TankEditor()
 {
 
+}
+
+
+int TankEditor::getCost()
+{
+	return cost;
 }
 
 
@@ -261,6 +271,8 @@ bool TankEditor::removeViewableObject(Vector2int mousePosition)
 	{
 		return false;
 	}
+
+	cost -= object->getComponentParameter()->cost;
 
 	Vector2int position = object->getPosition() / 20;
 
@@ -559,17 +571,19 @@ void TankEditor::save(string fileName)
 
 	bool needNewViewableObject = true;
 
-	vector<string> names(number, "");
+	vector<pair<string, int> > names(number, { "", 0 } );
 	
 	if (number > 0)
 	{
-		getline(fileIn, names[0]);
 		for (int i = 0; i < number; ++i)
 		{
-			getline(fileIn, names[i]);
-			if (names[i] == fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".tnk") - fileName.find("Tanks/") - 6))
+			getline(fileIn, names[i].first);
+			getline(fileIn, names[i].first);
+			fileIn >> names[i].second;
+			if (names[i].first == fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".tnk") - fileName.find("Tanks/") - 6))
 			{
 				needNewViewableObject = false;
+				names[i].second = getCost();
 			}
 		}
 	}
@@ -583,12 +597,12 @@ void TankEditor::save(string fileName)
 
 	for (int i = 0; i < number - needNewViewableObject; ++i)
 	{
-		fileOut << names[i] << '\n';
+		fileOut << names[i].first << '\n' << names[i].second << '\n';
 	}
 
 	if (needNewViewableObject)
 	{
-		fileOut << fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".tnk") - fileName.find("Tanks/") - 6) << '\n';
+		fileOut << fileName.substr(fileName.find("Tanks/") + 6, fileName.find(".tnk") - fileName.find("Tanks/") - 6) << '\n' << getCost() << '\n';
 	}
 
 	fileOut.close();

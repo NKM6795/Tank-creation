@@ -15,12 +15,16 @@ Data/Fonts/Strangiato.otf
 medium
 Data/Fonts/Strangiato.otf
 1115 250 Change name
-2
-2
+6
+6
 40
 Data/Fonts/Strangiato.otf
 1115 140 Name
 1115 190 Undefined
+1115 300 Max cost
+1115 350 Undefined
+1115 410 Your cost
+1115 460 Undefined
 640 360 602 602
 Data/Images/Place for building.png
 Data/Objects/Backgrounds

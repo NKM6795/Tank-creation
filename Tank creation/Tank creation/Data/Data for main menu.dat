@@ -13,8 +13,13 @@ Data/Fonts/Strangiato.otf
 640 428 Battle with the player
 640 494 Settings
 640 560 Exit
-1
+3
 1
 100
 Data/Fonts/Strangiato.otf
 640 70 Tank creation
+2
+40
+Data/Fonts/Strangiato.otf
+1115 220 Max cost
+1115 280 Undefined

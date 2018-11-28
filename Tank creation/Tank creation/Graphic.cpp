@@ -140,13 +140,10 @@ void Graphic::setInformation(int countOfText, string *text, string *fontName, in
 	textDraw = new Text[numberOfTextDraw];
 	font = new Font[numberOfTextDraw];
 
-	if (numberOfTextDraw > 0)
-	{
-		maxCharacterSize = characterSize[0];
-	}
-
 	for (int i = 0; i < numberOfTextDraw; ++i)
 	{
+		maxCharacterSize.push_back(characterSize[i]);
+
 		font[i].loadFromFile(fontName[i]);
 
 		textDraw[i].setFont(font[i]);
@@ -155,11 +152,6 @@ void Graphic::setInformation(int countOfText, string *text, string *fontName, in
 		textDraw[i].setFillColor(Color::White);
 		textDraw[i].setOrigin(textDraw[i].getLocalBounds().width * 0.5f, textDraw[i].getLocalBounds().height * 0.5f);
 		textDraw[i].setPosition(float(xCoordinate[i]), float(yCoordinate[i]));
-		
-		if (numberOfTextDraw > 0)
-		{
-			maxCharacterSize = max(maxCharacterSize, characterSize[i]);
-		}
 	}
 }
 
@@ -429,16 +421,12 @@ void Graphic::drawPrivate(string *text)
 	{
 		float maxWidth = 300;
 
-		for (int i = 1; i < numberOfButtonDraw; ++i)
-		{
-			maxWidth = max(maxWidth, buttonDraw[i].getSprite()->getLocalBounds().width);
-		}
 
 		for (int i = 0; i < numberOfTextDraw; ++i)
 		{
 			textDraw[i].setString(text[i]);
 			
-			textDraw[i].setCharacterSize(maxCharacterSize);
+			textDraw[i].setCharacterSize(maxCharacterSize[i]);
 			while (textDraw[i].getLocalBounds().width >= maxWidth)
 			{
 				textDraw[i].setCharacterSize(textDraw[i].getCharacterSize() - 1);

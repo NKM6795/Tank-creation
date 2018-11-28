@@ -15,6 +15,7 @@ class TankEditor
 
 	bool needUpdateTank;
 
+	int cost;
 
 	bool checkFreePlace(vector<vector<bool> > &smallTank, int widht, int height, int i, int j);
 
@@ -35,6 +36,8 @@ public:
 	TankEditor(vector<vector<ViewableObject *> > &objects, int dataArraySize = 30);
 
 	~TankEditor();
+
+	int getCost();
 
 	Vector2int getOffset();
 	void setOffset(Vector2int offset);

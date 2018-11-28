@@ -17,6 +17,8 @@ protected:
 	int screanHeight;
 	string windowName;
 
+	static int maxCost;
+
 	int numberOfButton;
 	map<string, Button> button;
 

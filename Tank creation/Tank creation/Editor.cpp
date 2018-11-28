@@ -288,7 +288,7 @@ void Editor::work()
 					mousePosition.y - tankEditor->getOffset().y > oldViewableObject.first.y + oldViewableObject.second.y))
 			{
 				tankIsChanged = tankEditor->addViewableObject(components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()], list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex(), mousePosition) || tankIsChanged;
-				oldViewableObject = objects.back() == nullptr ?
+				oldViewableObject = (objects.size() == 0 || objects.back() == nullptr) ?
 					pair<Vector2int, Vector2int>(Vector2int(-1, -1), Vector2int(-1, -1)) :
 					pair<Vector2int, Vector2int>(mousePosition - tankEditor->getOffset(), Vector2int(objects.back()->getComponentParameter()->width, objects.back()->getComponentParameter()->height) * 20);
 			}
@@ -305,7 +305,7 @@ void Editor::work()
 		{
 			oldViewableObject = pair<Vector2int, Vector2int>(Vector2int(-1, -1), Vector2int(-1, -1));
 		}
-		
+
 		//Work with selecting object
 		while (objects.size() > 0)
 		{
@@ -324,6 +324,9 @@ void Editor::work()
 		//Work with list
 		list->work(mousePosition * (graphic->hasFocus() ? 1 : -100), Mouse::isButtonPressed(Mouse::Left) && graphic->hasFocus(), timer, timeForWork, Mouse::isButtonPressed(Mouse::Right) && graphic->hasFocus());
 
+		text[3] = to_string(maxCost);
+
+		text[5] = to_string(tankEditor->getCost());
 
 		graphic->draw(text, button, objects, tank, tankEditor->getNeedUpdateTank(), *list, timer);
 	}

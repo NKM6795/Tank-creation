@@ -33,19 +33,21 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 	int number;
 	fileIn >> number;
 
-	vector<string> names(number, "");
+	vector<pair<string, int> > names(number, { "", 0 });
 
 	if (number > 0)
 	{
-		getline(fileIn, names[0]);
 		for (int i = 0; i < number; ++i)
 		{
-			getline(fileIn, names[i]);
+			getline(fileIn, names[i].first);
+			getline(fileIn, names[i].first);
+			fileIn >> names[i].second;
 
-			Component *newComponent = new TankPictureComponent(names[i], objectName, typeName, identifierName, numberOfVariant);
+			Component *newComponent = new TankPictureComponent(names[i].first, objectName, typeName, identifierName, numberOfVariant);
 			newComponent->getStruct()->healthPoints = 1;
 			newComponent->getStruct()->width = 30;
 			newComponent->getStruct()->height = 30;
+			newComponent->getStruct()->cost = names[i].second;
 
 			components.push_back(newComponent);
 

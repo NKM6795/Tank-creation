@@ -20,7 +20,7 @@ class Graphic
 	int numberOfButtonDraw;
 	ButtonDraw *buttonDraw;
 	
-	int maxCharacterSize;
+	vector<int> maxCharacterSize;
 	int numberOfTextDraw;
 	Text *textDraw;
 	Font *font;

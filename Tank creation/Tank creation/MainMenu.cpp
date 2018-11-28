@@ -1,8 +1,15 @@
 #include "MainMenu.h"
 
 
+int WorkWithWindow::maxCost = 0;
+
+
 MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 {
+	fileIn.close();
+
+	fileIn.open("Data/Max cost.dat");
+	fileIn >> maxCost;
 	fileIn.close();
 
 	needOpenBattle = false;
@@ -135,6 +142,8 @@ void MainMenu::work()
 			button["Settings"].setActivateAnAction(false);
 		}
 
-		graphic->draw(button);
+		text[2] = to_string(maxCost);
+
+		graphic->draw(text, button);
 	}
 }
