@@ -10,7 +10,7 @@ class EngineRoomComponent : public Component
 
 public:
 	EngineRoomComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, string typeName2, string identifierName2, int numberOfVariant2,
-		string typeName3, string identifierName3, int numberOfVariant3, int healthPoints, int xOffsetForRoom, int yOffsetForRoom, int xOffsetForPerson, int yOffsetForPerson, int width, int height);
+		string typeName3, string identifierName3, int numberOfVariant3, int healthPoints, int xOffsetForRoom, int yOffsetForRoom, int xOffsetForPerson, int yOffsetForPerson, int width, int height, int cost = 0);
 
 
 };

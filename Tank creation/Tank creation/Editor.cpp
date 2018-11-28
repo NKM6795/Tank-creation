@@ -14,7 +14,7 @@ Editor::Editor(string &fileName, Graphic *forCopyWindow, string tankName) : Work
 	getline(fileIn, backgroundNameOfPicture);
 	graphic->setInformation(backgroundXCoordinate, backgroundYCoordinate, backgroundWidth, backgroundHeight, backgroundNameOfPicture);
 
-	components = dataForResources();
+	components = dataForResources(true);
 	graphic->setInformation(components);
 
 	fileIn >> listWidth >> listHeight >> listPosition.x >> listPosition.y;

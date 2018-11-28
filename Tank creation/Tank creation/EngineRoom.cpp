@@ -2,7 +2,7 @@
 
 
 EngineRoomComponent::EngineRoomComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, string typeName2, string identifierName2, int numberOfVariant2,
-	string typeName3, string identifierName3, int numberOfVariant3, int healthPoints, int xOffsetForRoom, int yOffsetForRoom, int xOffsetForPerson, int yOffsetForPerson, int width, int height) :
+	string typeName3, string identifierName3, int numberOfVariant3, int healthPoints, int xOffsetForRoom, int yOffsetForRoom, int xOffsetForPerson, int yOffsetForPerson, int width, int height, int cost) :
 	Component(name, objectName, typeName, identifierName, numberOfVariant, width, height)
 {
 	component->typeName2 = typeName2;
@@ -20,6 +20,8 @@ EngineRoomComponent::EngineRoomComponent(string name, string objectName, string 
 
 	component->xOffsetForPerson = xOffsetForPerson;
 	component->yOffsetForPerson = yOffsetForPerson;
+
+	component->cost = cost;
 }
 
 

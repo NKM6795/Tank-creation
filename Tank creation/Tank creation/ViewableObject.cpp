@@ -18,6 +18,8 @@ Component::Component(string name, string objectName, string typeName, string ide
 	component->canRebound = false;
 
 	component->backgroundIndex = 0;
+
+	component->cost = 0;
 }
 
 Component::~Component()

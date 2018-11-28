@@ -3,7 +3,7 @@
 
 Battle::Battle(string &fileName, Graphic *forCopyWindow, string tankName) : WorkWithWindow(fileName, forCopyWindow)
 {
-	components = dataForResources(true);
+	components = dataForResources(false, true);
 	
 	firstUpdateOfBackgrounds = true;
 	//Layers

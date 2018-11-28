@@ -9,7 +9,7 @@ class SmallBlockComponent : public Component
 
 
 public:
-	SmallBlockComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound);
+	SmallBlockComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound, int cost = 0);
 
 
 };

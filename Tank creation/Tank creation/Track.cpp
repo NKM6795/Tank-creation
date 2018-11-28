@@ -1,9 +1,11 @@
 #include "Track.h"
 
 
-TrackComponent::TrackComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, int width, int height) : Component(name, objectName, typeName, identifierName, numberOfVariant, width, height)
+TrackComponent::TrackComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, int width, int height, int cost) : Component(name, objectName, typeName, identifierName, numberOfVariant, width, height)
 {
 	component->healthPoints = healthPoints;
+
+	component->cost = cost;
 }
 
 

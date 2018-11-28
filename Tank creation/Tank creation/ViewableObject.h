@@ -14,6 +14,7 @@ struct ComponentParameter
 	int numberOfVariant;
 
 	int healthPoints;
+	int cost;
 
 	bool canRebound;
 

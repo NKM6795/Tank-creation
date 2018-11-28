@@ -111,6 +111,15 @@ void ListDraw::drawInformation(RenderTexture &renderTexture, List &list, long ti
 		renderTexture.draw(information);
 	}
 
+	if (selectedViewableObject.back()->getComponentParameter()->cost > 0)
+	{
+		textForInformation = "Cost: " + to_string(selectedViewableObject.back()->getComponentParameter()->cost);
+		information.setPosition(x, y);
+		information.setString(textForInformation);
+		y += list.getViewableObjectHeight() / 3 + 7;
+		renderTexture.draw(information);
+	}
+
 	if (typeid(*selectedViewableObject.back()) == typeid(Gun))
 	{
 		textForInformation = "Damage: " + to_string(selectedViewableObject.back()->getComponentParameter()->damage);

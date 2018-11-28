@@ -9,7 +9,7 @@ class BigBlockComponent : public Component
 
 
 public:
-	BigBlockComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound);
+	BigBlockComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound, int cost = 0);
 
 
 };

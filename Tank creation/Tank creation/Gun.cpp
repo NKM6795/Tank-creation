@@ -2,7 +2,7 @@
 
 
 GunComponent::GunComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, string typeName2, string identifierName2, int numberOfVariant2,
-	bool horizontally, int damage, int bulletSpeed, int reload, int xOffsetForBarrel, int yOffsetForBarrel, int xOriginForBarrel, int yOriginForBarrel, int healthPoints, int backgroundIndex, int width, int height, vector<int> indexOfComponents) :
+	bool horizontally, int damage, int bulletSpeed, int reload, int xOffsetForBarrel, int yOffsetForBarrel, int xOriginForBarrel, int yOriginForBarrel, int healthPoints, int backgroundIndex, int width, int height, vector<int> indexOfComponents, int cost) :
 	Component(name, objectName, typeName, identifierName, numberOfVariant, width, height)
 {
 	component->typeName2 = typeName2;
@@ -23,6 +23,8 @@ GunComponent::GunComponent(string name, string objectName, string typeName, stri
 	component->backgroundIndex = backgroundIndex;
 
 	component->indexOfComponents = indexOfComponents;
+
+	component->cost = cost;
 }
 
 

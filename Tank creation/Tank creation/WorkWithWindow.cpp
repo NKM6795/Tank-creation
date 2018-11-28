@@ -99,13 +99,15 @@ void WorkWithWindow::forConstructor(string &fileName)
 }
 
 
-vector<Component *> WorkWithWindow::dataForResources(bool needIndexForGun)
+vector<Component *> WorkWithWindow::dataForResources(bool needCost, bool needIndexForGun)
 {
 	vector<Component *> components;
 
 	string name, objectName, typeName, identifierName, typeName2, identifierName2, typeName3, identifierName3;
 
 	int numberOfType, numberOfVariant, numberOfVariant2, numberOfVariant3;
+
+	int cost;
 
 	//Background
 	{
@@ -167,7 +169,16 @@ vector<Component *> WorkWithWindow::dataForResources(bool needIndexForGun)
 		getline(fileIn, name);
 		getline(fileIn, name);
 
-		Component *newComponent = new EngineRoomComponent(name, objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson, width, height);
+		Component *newComponent;
+		if (needCost)
+		{
+			fileIn >> cost;
+			newComponent = new EngineRoomComponent(name, objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson, width, height, cost);
+		}
+		else
+		{
+			newComponent = new EngineRoomComponent(name, objectName, typeName, identifierName, numberOfVariant, typeName2, identifierName2, numberOfVariant2, typeName3, identifierName3, numberOfVariant3, health, xOffsetForRoom, yOffsetForRoom, xOffsetForPerson, yOffsetForPerson, width, height);
+		}
 		components.push_back(newComponent);
 	}
 
@@ -198,7 +209,16 @@ vector<Component *> WorkWithWindow::dataForResources(bool needIndexForGun)
 			getline(fileIn, name);
 			getline(fileIn, name);
 
-			Component *newComponent = new TrackComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, width, height);
+			Component *newComponent;
+			if (needCost)
+			{
+				fileIn >> cost;
+				newComponent = new TrackComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, width, height, cost);
+			}
+			else
+			{
+				newComponent = new TrackComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, width, height);
+			}
 			components.push_back(newComponent);
 		}
 	}
@@ -227,7 +247,16 @@ vector<Component *> WorkWithWindow::dataForResources(bool needIndexForGun)
 			getline(fileIn, name);
 			getline(fileIn, name);
 
-			Component *newComponent = new SmallBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			Component *newComponent;
+			if (needCost)
+			{
+				fileIn >> cost;
+				newComponent = new SmallBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound, cost);
+			}
+			else
+			{
+				newComponent = new SmallBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			}
 			components.push_back(newComponent);
 		}
 	}
@@ -256,7 +285,16 @@ vector<Component *> WorkWithWindow::dataForResources(bool needIndexForGun)
 			getline(fileIn, name);
 			getline(fileIn, name);
 
-			Component *newComponent = new BigBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			Component *newComponent;
+			if (needCost)
+			{
+				fileIn >> cost;
+				newComponent = new BigBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound, cost);
+			}
+			else
+			{
+				newComponent = new BigBlockComponent(name, objectName, typeName + to_string(i + 1), identifierName, numberOfVariant, health, canRebound);
+			}
 			components.push_back(newComponent);
 		}
 	}
@@ -318,11 +356,27 @@ vector<Component *> WorkWithWindow::dataForResources(bool needIndexForGun)
 			Component *newComponent;
 			if (needIndexForGun)
 			{
-				newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height, indexOfComponents);
+				if (needCost)
+				{
+					fileIn >> cost;
+					newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height, indexOfComponents, cost);
+				}
+				else
+				{
+					newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height, indexOfComponents);
+				}
 			}
 			else
 			{
-				newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height);
+				if (needCost)
+				{
+					fileIn >> cost;
+					newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height, vector<int>(), cost);
+				}
+				else
+				{
+					newComponent = new GunComponent(name, objectName, to_string(i + 1) + typeName, identifierName, numberOfVariant, to_string(i + 1) + typeName2, identifierName2, numberOfVariant2, horizontally, damage, bulletSpeed, reload, xOffsetForBarrel, yOffsetForBarrel, xOriginForBarrel, yOriginForBarrel, healthPoints, backgroundIndex, width, height);
+				}
 			}
 			components.push_back(newComponent);
 		}

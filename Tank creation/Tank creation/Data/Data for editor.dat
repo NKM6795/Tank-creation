@@ -49,6 +49,7 @@ Data/Objects/Engine room
 4 4 12 15
 3 2
 Engine Room
+1000
 Data/Objects/Tracks
 /track
 /position
@@ -57,10 +58,12 @@ Data/Objects/Tracks
 2000
 4 2
 Small Tracks
+2000
 4
 4500
 6 3
 Large Tracks
+5000
 Data/Objects/Blocks 1x1
 /block
 /damage
@@ -68,42 +71,55 @@ Data/Objects/Blocks 1x1
 4
 0 50
 Bronze Armor
+50
 4
 0 50
 Bronze Armor
+50
 4
 0 50
 Bronze Armor
+50
 4
 0 100
 Iron Armor
+100
 4
 0 100
 Iron Armor
+100
 4
 0 100
 Iron Armor
+100
 4
 0 150
 Steel Armor
+150
 4
 0 150
 Steel Armor
+150
 4
 0 150
 Steel Armor
+150
 4
 1 150
 Reflactium Armor
+200
 4
 0 200
 Robot Armor
+250
 4
 0 200
 Robot Armor
+250
 4
 0 200
 Robot Armor
+250
 Data/Objects/Blocks 2x2
 /block
 /damage
@@ -111,54 +127,71 @@ Data/Objects/Blocks 2x2
 4
 0 250
 Bronze Armor
+250
 4
 0 250
 Bronze Armor
+250
 4
 0 250
 Bronze Armor
+250
 4
 0 250
 Bronze Armor
+250
 4
 0 250
 Bronze Armor
+250
 4
 0 500
 Iron Armor
+500
 4
 0 500
 Iron Armor
+500
 4
 0 500
 Iron Armor
+500
 4
 0 500
 Iron Armor
+500
 4
 0 500
 Iron Armor
+500
 4
 0 750
 Steel Armor
+750
 4
 0 750
 Steel Armor
+750
 4
 0 750
 Steel Armor
+750
 4
 0 750
 Steel Armor
+750
 4
 0 750
 Steel Armor
+750
 4
 1 750
 Reflactium Armor
+900
 4
 0 1000
 Robot Armor
+1100
 Data/Objects/Guns/gun
 /barrel
 /barrel
@@ -167,26 +200,38 @@ Data/Objects/Guns/gun
 12
 0 4 1 15 161 6 0 0 0 0 150 -1 1 1
 Determinators
+200
 1 4 1 15 161 6 6 10 3 14 150 -1 1 1
 Flex
+300
 1 4 0 30 -1 12 20 23 10 20 300 -1 2 2
 Hail Stone
+700
 1 4 1 20 104 6 6 10 4 14 150 -1 1 1
 Dum Dum
+1000
 1 4 1 30 132 11 17 20 8 23 300 -1 2 2
 Big Ben
+1000
 3 4 1 6 214 1 6 10 7 14 150 -1 1 1
 Woodpecker
+1200
 1 4 0 30 -1 15 20 29 12 29 300 1 2 2
 Matryoshka
+1500
 1 4 0 30 -1 21 30 43 14 37 450 2 3 3
 Mandelbrot
+2500
 1 4 0 60 -1 17 40 54 24 45 600 3 4 4
 Zeus
+4000
 1 4 1 100 4000 8 17 20 5 23 300 -1 2 2
 Thor's Hummer
+3000
 1 4 1 5 113 6 6 10 6 14 150 -1 1 1
 Dragoon
+500
 3 4 1 6 160 1 24 30 9 35 450 4 3 3
 Big Woodpecker
+1000
 300 550 22 94

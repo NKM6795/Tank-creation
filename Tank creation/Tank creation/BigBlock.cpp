@@ -1,11 +1,13 @@
 #include "BigBlock.h"
 
 
-BigBlockComponent::BigBlockComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound) : Component(name, objectName, typeName, identifierName, numberOfVariant, 2, 2)
+BigBlockComponent::BigBlockComponent(string name, string objectName, string typeName, string identifierName, int numberOfVariant, int healthPoints, bool canRebound, int cost) : Component(name, objectName, typeName, identifierName, numberOfVariant, 2, 2)
 {
 	component->healthPoints = healthPoints;
 
 	component->canRebound = canRebound;
+
+	component->cost = cost;
 }
 
 
