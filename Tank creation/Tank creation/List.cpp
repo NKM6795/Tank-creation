@@ -135,7 +135,7 @@ void List::setNeedClose()
 
 bool List::inFocuse(Vector2int mousePosition)
 {
-	return open && ((mousePosition >= Vector2int(xCoordinate, yCoordinate) && mousePosition <= Vector2int(xCoordinate + width, yCoordinate + searchEngineHeight + min(height, int(objects.size()) * fragmentHeight))) || (needButton && button->getStruct()->checkButtonIsPressed));
+	return open && ((mousePosition >= Vector2int(xCoordinate, yCoordinate + searchEngineHeight) && mousePosition <= Vector2int(xCoordinate + width, yCoordinate + searchEngineHeight + min(height, int(objects.size()) * fragmentHeight))) || (needButton && button->getStruct()->checkButtonIsPressed));
 }
 
 
@@ -365,6 +365,8 @@ bool List::getNeedInformation()
 
 void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, bool rightIsPressed)
 {
+	Vector2int globalMousePosition = mousePosition;
+
 	if (!isPressed && mouseButtonIsPressed && inFocuse(mousePosition))
 	{
 		mouseButtonIsPressed = false;
@@ -564,7 +566,7 @@ void List::work(Vector2int mousePosition, bool isPressed, long timer, int fps, b
 			oldMousePosition = mousePosition;
 		}
 
-		if (index != -1 && rightIsPressed && inFocuse(mousePosition))
+		if (index != -1 && rightIsPressed && inFocuse(globalMousePosition))
 		{
 			needInformation = true;
 		}

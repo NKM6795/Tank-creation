@@ -158,6 +158,7 @@
     <ClCompile Include="Saved.cpp" />
     <ClCompile Include="Speedometer.cpp" />
     <ClCompile Include="SpeedometerDraw.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="ViewableObject.cpp" />
     <ClCompile Include="ViewableObjectDraw.cpp" />
     <ClCompile Include="SaveTank.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="Saved.h" />
     <ClInclude Include="Speedometer.h" />
     <ClInclude Include="SpeedometerDraw.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="ViewableObject.h" />
     <ClInclude Include="ViewableObjectDraw.h" />
     <ClInclude Include="SaveTank.h" />

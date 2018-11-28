@@ -1,0 +1,32 @@
+Tutorial
+683 384
+1280 720
+16 1
+1
+1
+116 66 33
+small
+Data/Fonts/Strangiato.otf
+70 50 Exit
+18
+18
+18
+Data/Fonts/Strangiato.otf
+640 165 To edit a tank, you can go to create a new tank or edit an existing one. The editor has a list of available objects, entering spaces and hashtags,
+640 189 you can search for the necessary elements, the registry is not taken into account, hashtags are available: #main, #track, #small, #big, #gun.
+640 212 Scrolling the mouse wheel or pressing the Up and Down keys can scroll through the list. Clamping the right button of the mouse on the object 
+640 237 from the list shows information about it, you can also click the Left button or the first additional button on the mouse. To select a selected 
+640 261 object, click on it with the left mouse button, you can also click Right or the second additional key on the mouse.
+640 285  
+640 309 To add an object, click the left mouse button in the selected place, to delete the right one, to copy the middle (wheel). To build a tank, you need 
+640 333 to put a caterpillar and the main unit, you can also put other blocks, incorrectly set blocks are highlighted in red. On the right is written the 
+640 355 maximum reasonable price and the price of your tank. If the price of the tank exceeds the maximum, then you can not fight them, but you can edit it.
+640 381  
+640 405 After selecting a tank, you will find yourself on the battlefield. Your opponent is at the other end of the map and approaches you, during which time 
+640 429 you can make groups of weapons. To select only one gun, click on it with the left mouse button, to select several, hold down the control and drag over 
+640 453 the desired tools, to cancel the selection of one weapon, right-click on it, to cancel the selection of all tools, right-click on any place without high 
+640 477 weapons. To fix the group, hold down the control and any of the numbers, now clicking on this number activates this group. To shoot, select the desired 
+640 501 guns and click on the place for shooting, where there is no your tank. When the left mouse button is clamped, there is a constant fire.
+640 525  
+640 549 The tank that the first is destroyed loses (the main unit is destroyed, or it cannot hold). If you win, you get +200 to the maximum cost, if you lose, 
+640 573 you lose 200, but you will not lose the maximum value below 3200.

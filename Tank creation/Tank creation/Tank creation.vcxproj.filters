@@ -304,6 +304,9 @@
     <ClCompile Include="BattleResult.cpp">
       <Filter>Windows\Notification Windows\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>Windows\Sourse Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicForNotificationWindow.h">
@@ -461,6 +464,9 @@
     </ClInclude>
     <ClInclude Include="BattleResult.h">
       <Filter>Windows\Notification Windows\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>Windows\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

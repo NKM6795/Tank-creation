@@ -131,17 +131,17 @@ void MainMenu::work()
 
 			button["Battle with the player"].setActivateAnAction(false);
 		}
-		else if (button["Settings"].getActivateAnAction())
+		else if (button["Tutorial"].getActivateAnAction())
 		{
 			needNewWindow = true;
 
-			string fileName = "Data/Data for not available.dat";
+			string fileName = "Data/Data for tutorial.dat";
 
 			graphic->drawInRenderTexture(button);
 
-			newWindow = new NotAvailable(fileName, graphic);
+			newWindow = new Tutorial(fileName, graphic);
 
-			button["Settings"].setActivateAnAction(false);
+			button["Tutorial"].setActivateAnAction(false);
 		}
 
 		text[2] = to_string(maxCost);

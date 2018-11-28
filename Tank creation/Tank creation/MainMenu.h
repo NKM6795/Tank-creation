@@ -6,6 +6,7 @@
 #include "NotAvailable.h"
 #include "TankSelection.h"
 #include "Battle.h"
+#include "Tutorial.h"
 
 
 class MainMenu : public WorkWithWindow
