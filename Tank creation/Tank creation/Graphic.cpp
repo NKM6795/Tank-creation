@@ -5,7 +5,7 @@ void Graphic::forConstructor()
 {
 	textureForWindow = new RenderTexture;
 	textureForWindow->create(screanWidth, screanHeight);
-	textureForWindow->clear(Color(50, 100, 50));
+	textureForWindow->clear(Color(119, 107, 76));
 
 	numberOfButtonDraw = 0;
 	numberOfTextDraw = 0;
@@ -189,7 +189,7 @@ void Graphic::setInformation(int width, int height, bool needInputField, int xCo
 	windowBackgroundSprite->setTexture(*windowBackgroundTexture);
 	windowBackgroundSprite->setColor(Color(100, 100, 100));
 
-	renderTextureForBackground->clear(Color(50, 100, 50));
+	renderTextureForBackground->clear(Color(119, 107, 76));
 
 	Image *imageForForm;
 	imageForForm = getForm(width, height);
@@ -387,9 +387,9 @@ void Graphic::drawWindow()
 	spriteForWindow.setTexture(textureForWindow->getTexture());
 	window->draw(spriteForWindow);
 	window->display();
-	window->clear(Color(50, 100, 50));
+	window->clear(Color(119, 107, 76));
 
-	textureForWindow->clear(Color(50, 100, 50));
+	textureForWindow->clear(Color(119, 107, 76));
 }
 
 
