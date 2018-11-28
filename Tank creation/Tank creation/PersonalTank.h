@@ -96,4 +96,6 @@ public:
 	void work(Vector2int mousePosition, bool isPressed, long timer, int fps, int lengthBetweenTanks, int botPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, bool rightIsPressed = false);
 
 	void download(string fileName, vector<Component *> &components);
+
+	bool isEmpty();
 };

@@ -6,6 +6,7 @@
 #include "BotTank.h"
 #include "WorkWithBullet.h"
 #include "Pause.h"
+#include "BattleResult.h"
 
 
 class Battle : public WorkWithWindow

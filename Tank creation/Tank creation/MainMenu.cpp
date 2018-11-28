@@ -17,7 +17,10 @@ MainMenu::MainMenu(string &fileName) : WorkWithWindow(fileName)
 
 MainMenu::~MainMenu()
 {
+	ofstream fileOut("Data/Max cost.dat");
+	fileOut << maxCost;
 
+	fileOut.close();
 }
 
 void MainMenu::work()

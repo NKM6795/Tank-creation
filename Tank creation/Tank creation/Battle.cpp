@@ -245,7 +245,7 @@ void Battle::work()
 
 		if (needWindowResult)
 		{
-			if (windowResult == "Exit/")
+			if (windowResult == "Exit/" || windowResult == "Ok/")
 			{
 				windowIsOpen = false;
 				return;
@@ -361,6 +361,51 @@ void Battle::work()
 		}
 
 		workWithBullet(components, bulletPositionInComponents, bullets, personalTank->getGlobalOffset(), screanWidth, timer, timeForWork, screanHeight - 70);
+
+		//Check on empty
+		{
+			bool personalIsEmpty = personalTank->isEmpty(),
+				botIsEmpty = botTank->isEmpty();
+			
+			if (personalIsEmpty || botIsEmpty)
+			{
+				needNewWindow = true;
+				needWindowResult = true;
+
+				string fileName = "Data/Data for battle result.dat";
+
+				graphic->drawInRenderTexture(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, rightTank, personalTank->needHighlighte(), max(max(personalTank->getNeedUpdateTank(), botTank->getNeedUpdateTank()), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
+
+				if (botIsEmpty && personalIsEmpty)
+				{
+					newWindow = new BattleResult(fileName, graphic, "Draw", "Max cost doesn`t changed", "Max cost");
+				}
+				else if (botIsEmpty)
+				{
+					maxCost += 200;
+					newWindow = new BattleResult(fileName, graphic);
+				}
+				else
+				{
+					maxCost -= 200;
+					if (maxCost == 3150 - 200)
+					{
+						maxCost = 3150;
+						newWindow = new BattleResult(fileName, graphic, "You lose!", "Max cost doesn`t changed", "Max cost");
+					}
+					else
+					{
+						if (maxCost < 3150)
+						{
+							maxCost = 3150;
+						}
+
+						newWindow = new BattleResult(fileName, graphic, "You lose!", "Max cost was downgraded on 200", "New max cost");
+					}
+				}
+			}
+
+		}
 
 		graphic->draw(button, backgroundAndSpeedometerObjects, personalTank->getSpeed() != 0, bullets, leftTank, rightTank, personalTank->needHighlighte(), max(max(personalTank->getNeedUpdateTank(), botTank->getNeedUpdateTank()), personalTank->getHighlightingUpdated(true)), allotmentObjects, personalTank->getHighlightingUpdated(), timer);
 	}

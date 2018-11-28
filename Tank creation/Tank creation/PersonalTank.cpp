@@ -706,3 +706,19 @@ void PersonalTank::download(string fileName, vector<Component *> &components)
 
 	tankEditor.download(fileName, components);
 }
+
+
+bool PersonalTank::isEmpty()
+{
+	for (int i = 0; i < int((*objects).size()); ++i)
+	{
+		for (int j = 0; j < int((*objects).size()); ++j)
+		{
+			if ((*objects)[i][j] != nullptr && (*objects)[i][j]->getHealth() > 0)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}

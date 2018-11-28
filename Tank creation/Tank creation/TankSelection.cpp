@@ -126,7 +126,7 @@ void TankSelection::deleteSelectedElement()
 
 	for (int i = 0; i < number; ++i)
 	{
-		fileOut << components[i]->getStruct()->name << '\n';
+		fileOut << components[i]->getStruct()->name << '\n' << components[i]->getStruct()->cost << '\n';
 	}
 
 	fileOut.close();

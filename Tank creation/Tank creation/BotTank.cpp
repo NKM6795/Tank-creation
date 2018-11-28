@@ -175,7 +175,7 @@ Vector2int BotTank::getBorder()
 
 void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Tank &personalTank)
 {
-	if (needAnalysis && false)
+	if (needAnalysis)
 	{
 		analysis(personalTank, personalPosition);
 	}

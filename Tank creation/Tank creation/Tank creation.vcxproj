@@ -131,6 +131,7 @@
     <ClCompile Include="BotTank.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletDraw.cpp" />
+    <ClCompile Include="BattleResult.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonDraw.cpp" />
     <ClCompile Include="CheckerOnTankExistence.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="BotTank.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletDraw.h" />
+    <ClInclude Include="BattleResult.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonDraw.h" />
     <ClInclude Include="CheckerOnTankExistence.h" />
