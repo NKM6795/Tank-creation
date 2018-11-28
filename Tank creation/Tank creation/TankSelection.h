@@ -23,7 +23,7 @@ class TankSelection : public WorkWithWindow
 public:
 	TankSelection(string &fileName);
 
-	TankSelection(string &fileName, Graphic *forCopyWindow);
+	TankSelection(string &fileName, Graphic *forCopyWindow, bool needToLimit = false);
 
 	~TankSelection();
 

@@ -6,7 +6,7 @@ TankSelection::TankSelection(string &fileName) : WorkWithWindow(fileName)
 	fileIn.close();
 }
 
-TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWithWindow(fileName, forCopyWindow)
+TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow, bool needToLimit) : WorkWithWindow(fileName, forCopyWindow)
 {
 	string objectName, typeName, identifierName;
 
@@ -43,6 +43,11 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 			getline(fileIn, names[i].first);
 			fileIn >> names[i].second;
 
+			if (needToLimit && names[i].second > maxCost)
+			{
+				continue;
+			}
+
 			Component *newComponent = new TankPictureComponent(names[i].first, objectName, typeName, identifierName, numberOfVariant);
 			newComponent->getStruct()->healthPoints = 1;
 			newComponent->getStruct()->width = 30;
@@ -51,7 +56,7 @@ TankSelection::TankSelection(string &fileName, Graphic *forCopyWindow) : WorkWit
 
 			components.push_back(newComponent);
 
-			ViewableObject *newViewableObject = new TankPicture(newComponent, i);
+			ViewableObject *newViewableObject = new TankPicture(newComponent, int(components.size()) - 1);
 			objects.push_back(newViewableObject);
 		}
 	}
@@ -83,6 +88,11 @@ TankSelection::~TankSelection()
 
 void TankSelection::deleteSelectedElement()
 {
+	if (list->getViewableMainObjects().size() == 0)
+	{
+		return;
+	}
+
 	if (remove(("Data/Tanks/" + components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()]->getStruct()->name + ".tnk").c_str()))
 	{
 
@@ -207,7 +217,14 @@ void TankSelection::work()
 
 		if (!list->isOpen())
 		{
-			windowResult = components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
+			if (list->getViewableMainObjects().size() != 0)
+			{
+				windowResult = components[list->getViewableMainObjects()[list->getMainIndexOfSelectedObject()]->getIndex()]->getStruct()->name;
+			}
+			else
+			{
+				windowResult = "Cancel/";
+			}
 
 			windowIsOpen = false;
 			return;

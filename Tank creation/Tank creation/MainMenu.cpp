@@ -116,7 +116,7 @@ void MainMenu::work()
 
 			string fileName = "Data/Data for tank selection.dat";
 
-			newWindow = new TankSelection(fileName, graphic);
+			newWindow = new TankSelection(fileName, graphic, true);
 
 			button["Battle with the bot"].setActivateAnAction(false);
 		}
