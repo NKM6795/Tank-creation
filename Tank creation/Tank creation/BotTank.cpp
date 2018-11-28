@@ -175,9 +175,7 @@ Vector2int BotTank::getBorder()
 
 void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int personalPosition, vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, Tank &personalTank)
 {
-
-	cout << oldPositionOfPersonalTank.x - personalPosition.x << '\n';
-	if (needAnalysis)
+	if (needAnalysis && false)
 	{
 		analysis(personalTank, personalPosition);
 	}
@@ -302,7 +300,7 @@ void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int perso
 							}
 							(*objects)[i][j]->needDraw = true;
 
-							breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps);
+							breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps, !(*objects)[i][j]->getComponentParameter()->canRebound || bullets[k]->getFather()->getComponentParameter()->name == "Thor's Hummer", objects, Vector2int(i, j), offsetForBullet);
 							--k;
 						}
 					}
@@ -336,7 +334,7 @@ void BotTank::work(long timer, int fps, int lengthBetweenTanks, Vector2int perso
 		needUpdateLengthBetweenTanks = true;
 	}
 
-	if (timer - timerForAnalysis > 10000 || prises.back()->getHealth() <= 0 || abs(oldPositionOfPersonalTank.x - personalPosition.x) > 20 || speed != 0)
+	if (timer - timerForAnalysis > 10000 || (prises.size() && prises.back()->getHealth() <= 0) || abs(oldPositionOfPersonalTank.x - personalPosition.x) > 20 || speed != 0)
 	{
 		timer = timerForAnalysis;
 		needAnalysis = true;

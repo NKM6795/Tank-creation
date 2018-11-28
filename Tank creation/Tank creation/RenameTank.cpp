@@ -72,7 +72,7 @@ void RenameTank::work()
 
 				newWindow = new NotAvailable(fileName, graphic, "Empty field");
 
-				button["Save"].setActivateAnAction(false);
+				button["Apply"].setActivateAnAction(false);
 			}
 			else
 			{
@@ -90,7 +90,7 @@ void RenameTank::work()
 
 					newWindow = new CheckerOnTankExistence(fileName, graphic);
 
-					button["Save"].setActivateAnAction(false);
+					button["Apply"].setActivateAnAction(false);
 
 					return;
 				}

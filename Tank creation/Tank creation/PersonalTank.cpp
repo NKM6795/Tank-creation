@@ -662,7 +662,8 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 							}
 							(*objects)[i][j]->needDraw = true;
 
-							breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps);
+
+							breakBullet(components, bulletPositionInComponents, bullets, k, timer - fps, !(*objects)[i][j]->getComponentParameter()->canRebound || bullets[k]->getFather()->getComponentParameter()->name == "Thor's Hummer", objects, Vector2int(i, j), globalOffset - getOffsetForTank());
 							--k;
 						}
 					}
@@ -694,6 +695,7 @@ void PersonalTank::work(Vector2int mousePosition, bool isPressed, long timer, in
 	{
 		removeHangingObjects();
 		needUpdateLengthBetweenTanks = true;
+		highlightingUpdated = true;
 	}
 }
 

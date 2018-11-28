@@ -27,6 +27,7 @@ Bullet::Bullet(Component *component, int index, ViewableObject *gun, float angel
 {
 	father = gun;
 	component->getStruct()->healthPoints = 5;
+	healthPoints = 5;
 
 	tiltAngle = angel;
 	speed = speedOfBullet;

@@ -56,81 +56,149 @@ Vector2float getBuletPositionFromTime(ViewableObject *bullet, long timer)
 	return newPosition;
 }
 
-void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, int index, long timer, bool completely)
+void breakBullet(vector<Component *> &components, int bulletPositionInComponents, vector<ViewableObject *> &bullets, int index, long timer, bool completely, vector<vector<ViewableObject *> > *objects, Vector2int objectPositionInTank, Vector2int offset, int special)
 {
-	if (!completely)
-	{
-		bullets[index]->setHeath(bullets[index]->getHealth() - 1);
-		if (bullets[index]->getHealth() == 0)
-		{
-			completely = true;
-		}
-		else
-		{
-			return;
-		}
-	}
-
 	ViewableObject *bullet = bullets[index],
 		*father = bullet->getFather();
 
 	vector<ViewableObject *> newObjects;
 
-	if (bullet->getFather()->getComponentParameter()->indexOfComponents.size() == 1)
+	bool needProcess = true;
+
+	if (!completely)
 	{
-		delete bullet;
-		bullet = nullptr;
-		bullets[index] = nullptr;
+		bullet->setHeath(bullet->getHealth() - 1);
+		if (bullet->getHealth() == 0)
+		{
+			completely = true;
+		}
+		else
+		{
+			float angel = bullet->tiltAngle;
+			float speed = bullet->speed;
+			float newAngel;
+			if (!father->getComponentParameter()->horizontally)
+			{
+				float time = float(timer - bullet->timerForObject) / 200.f;
+
+
+				float xSpeed = speed * sin(angel * PI / 180.f),
+					ySpeed = -speed * cos(angel * PI / 180.f) + GRAVITY * time;
+				speed = sqrt(xSpeed * xSpeed + ySpeed * ySpeed) * 0.75f;
+
+				angel = 90.f + atan(ySpeed / xSpeed) * 180.f / PI;
+			}
+
+			Vector2int objectPosition = getObjectParametersForBullet((*objects)[objectPositionInTank.x][objectPositionInTank.y]).first,
+				bulletPosition = getBuletPositionFromTime(bullet, timer) + offset,
+				objectSize = getObjectParametersForBullet((*objects)[objectPositionInTank.x][objectPositionInTank.y]).second;
+
+			if ((objectPosition.x > bulletPosition.x || objectPosition.x + objectSize.x < bulletPosition.x) && (objectPosition.y < bulletPosition.y && objectPosition.y + objectSize.y > bulletPosition.y))
+			{
+				newAngel = 360.f - angel;
+			}
+			else if ((objectPosition.y > bulletPosition.y || objectPosition.y + objectSize.y < bulletPosition.y) && (objectPosition.x < bulletPosition.x && objectPosition.x + objectSize.x > bulletPosition.x))
+			{
+				newAngel = 180.f - angel;
+			}
+			else if (objectPosition.x > bulletPosition.x && objectPositionInTank.x > 0 && (*objects)[objectPositionInTank.x - 1][objectPositionInTank.y] != nullptr && (*objects)[objectPositionInTank.x - 1][objectPositionInTank.y]->getHealth() > 0)
+			{
+				newAngel = 180.f - angel;
+			}
+			else if (objectPosition.x > bulletPosition.x)
+			{
+				newAngel = 360.f - angel;
+			}
+			else if (objectPosition.x + objectSize.x < bulletPosition.x && objectPositionInTank.x < 29 && (*objects)[objectPositionInTank.x + 1][objectPositionInTank.y] != nullptr && (*objects)[objectPositionInTank.x + 1][objectPositionInTank.y]->getHealth() > 0)
+			{
+				newAngel = 180.f - angel;
+			}
+			else if (objectPosition.x + objectSize.x < bulletPosition.x)
+			{
+				newAngel = 360.f - angel;
+			}
+			else
+			{
+				newAngel = 360.f - angel;
+			}
+
+			int indexOfComponents = bullet->getIndex();
+
+			ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, newAngel, speed, bullet->getBulletPosition(), timer);
+			newBullet->damage = bullet->damage;
+			newBullet->setHeath(bullet->getHealth());
+			newBullet->canDoDamageToItself = true;
+
+			newObjects.push_back(newBullet);
+
+
+			needProcess = false;
+
+			delete bullet;
+			bullet = nullptr;
+			bullets[index] = nullptr;
+		}
 	}
-	else
+
+	if (needProcess)
 	{
-		int indexOfComponents = -1;
-		for (int i = 0; i < int(father->getComponentParameter()->indexOfComponents.size()); ++i)
+		if (bullet->getFather()->getComponentParameter()->indexOfComponents.size() == 1)
 		{
-			if (bullet->getIndex() == father->getComponentParameter()->indexOfComponents[i] + bulletPositionInComponents)
-			{
-				if (i == int(father->getComponentParameter()->indexOfComponents.size()) - 1)
-				{
-					indexOfComponents = -1;
-				}
-				else
-				{
-					indexOfComponents = father->getComponentParameter()->indexOfComponents[i + 1] + bulletPositionInComponents;
-				}
-			}
+			delete bullet;
+			bullet = nullptr;
+			bullets[index] = nullptr;
 		}
-
-		if (indexOfComponents != -1)
+		else
 		{
+			int indexOfComponents = -1;
+			for (int i = 0; i < int(father->getComponentParameter()->indexOfComponents.size()); ++i)
 			{
-				ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, 330.f, bullet->speed / 2.f, bullet->getBulletPosition(), timer);
-				newBullet->damage = bullet->damage / 2;
-				newBullet->canDoDamageToItself = true;
-
-				newObjects.push_back(newBullet);
+				if (bullet->getIndex() == father->getComponentParameter()->indexOfComponents[i] + bulletPositionInComponents)
+				{
+					if (i == int(father->getComponentParameter()->indexOfComponents.size()) - 1)
+					{
+						indexOfComponents = -1;
+					}
+					else
+					{
+						indexOfComponents = father->getComponentParameter()->indexOfComponents[i + 1] + bulletPositionInComponents;
+					}
+				}
 			}
 
+			if (indexOfComponents != -1)
 			{
-				ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, 0.f, bullet->speed / 2.f, bullet->getBulletPosition(), timer);
-				newBullet->damage = bullet->damage / 2;
-				newBullet->canDoDamageToItself = true;
+				{
+					ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, 330.f, bullet->speed / 2.f, bullet->getBulletPosition(), timer);
+					newBullet->damage = bullet->damage / 2;
+					newBullet->canDoDamageToItself = true;
 
-				newObjects.push_back(newBullet);
+					newObjects.push_back(newBullet);
+				}
+
+				{
+					ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, 0.f, bullet->speed / 2.f, bullet->getBulletPosition(), timer);
+					newBullet->damage = bullet->damage / 2;
+					newBullet->canDoDamageToItself = true;
+
+					newObjects.push_back(newBullet);
+				}
+
+				{
+					ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, 30.f, bullet->speed / 2.f, bullet->getBulletPosition(), timer);
+					newBullet->damage = bullet->damage / 2;
+					newBullet->canDoDamageToItself = true;
+
+					newObjects.push_back(newBullet);
+				}
 			}
 
-			{
-				ViewableObject *newBullet = new Bullet(components[indexOfComponents], indexOfComponents, father, 30.f, bullet->speed / 2.f, bullet->getBulletPosition(), timer);
-				newBullet->damage = bullet->damage / 2;
-				newBullet->canDoDamageToItself = true;
-
-				newObjects.push_back(newBullet);
-			}
+			delete bullet;
+			bullet = nullptr;
+			bullets[index] = nullptr;
 		}
-
-		delete bullet;
-		bullet = nullptr;
-		bullets[index] = nullptr;
 	}
+
 
 	bullets.erase(remove_if(bullets.begin(), bullets.end(), [](ViewableObject *object) { return object == nullptr; }), bullets.end());
 
