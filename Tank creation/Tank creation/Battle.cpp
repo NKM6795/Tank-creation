@@ -388,16 +388,16 @@ void Battle::work()
 				else
 				{
 					maxCost -= 200;
-					if (maxCost == 3150 - 200)
+					if (maxCost == 3200 - 200)
 					{
-						maxCost = 3150;
+						maxCost = 3200;
 						newWindow = new BattleResult(fileName, graphic, "You lose!", "Max cost doesn`t changed", "Max cost");
 					}
 					else
 					{
-						if (maxCost < 3150)
+						if (maxCost < 3200)
 						{
-							maxCost = 3150;
+							maxCost = 3200;
 						}
 
 						newWindow = new BattleResult(fileName, graphic, "You lose!", "Max cost was downgraded on 200", "New max cost");

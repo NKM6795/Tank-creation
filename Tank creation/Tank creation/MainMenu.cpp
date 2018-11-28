@@ -35,8 +35,6 @@ void MainMenu::work()
 			{
 				if (needOpenBattle)
 				{
-					needOpenBattle = false;
-
 					needNewWindow = true;
 
 					string fileName = "Data/Data for battle.dat";
@@ -62,6 +60,7 @@ void MainMenu::work()
 			}
 			needWindowResult = false;
 		}
+		needOpenBattle = false;
 
 		mousePosition = graphic->getPositionOfMouse();
 
